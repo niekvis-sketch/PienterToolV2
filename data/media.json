@@ -1,0 +1,226 @@
+[
+  {
+    "id": "seed0133",
+    "projectId": "demo0001",
+    "originalName": "hero-home.jpg",
+    "newName": "hero-homepage-csh.jpg",
+    "sizeKb": 450,
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "altTextSuggestion": "Koelinstallatie in een supermarkt",
+    "relatedPageId": "seed0101",
+    "source": "upload",
+    "sourceLabel": "Upload",
+    "type": "hero"
+  },
+  {
+    "id": "seed0134",
+    "projectId": "demo0001",
+    "originalName": "team-photo.jpg",
+    "newName": "team-cooling-service-holland.jpg",
+    "sizeKb": 780,
+    "dimensions": {
+      "width": 1600,
+      "height": 1067
+    },
+    "altTextSuggestion": "Het team van Cooling Service Holland",
+    "relatedPageId": "seed0103",
+    "source": "upload",
+    "sourceLabel": "Upload",
+    "type": "hero"
+  },
+  {
+    "id": "seed0135",
+    "projectId": "demo0001",
+    "originalName": "DSC_0442.jpg",
+    "newName": "project-albert-heijn-dc.jpg",
+    "sizeKb": 1200,
+    "dimensions": {
+      "width": 3000,
+      "height": 2000
+    },
+    "altTextSuggestion": "Koelinstallatie in Albert Heijn distributiecentrum",
+    "relatedPageId": "seed0108",
+    "source": "upload",
+    "sourceLabel": "Upload",
+    "type": "hero"
+  },
+  {
+    "id": "seed0136",
+    "projectId": "demo0001",
+    "originalName": "logo-csh.svg",
+    "newName": "logo-cooling-service-holland.svg",
+    "sizeKb": 28,
+    "dimensions": {
+      "width": 400,
+      "height": 120
+    },
+    "altTextSuggestion": "Logo Cooling Service Holland",
+    "relatedPageId": null,
+    "source": "upload",
+    "sourceLabel": "Upload",
+    "type": "logo"
+  },
+  {
+    "id": "seed0137",
+    "projectId": "demo0001",
+    "originalName": "food-koeling.jpg",
+    "newName": "dienst-food-beverage-koeling.jpg",
+    "sizeKb": 320,
+    "dimensions": {
+      "width": 800,
+      "height": 600
+    },
+    "altTextSuggestion": "Koelinstallatie voor food and beverage sector",
+    "relatedPageId": "seed0105",
+    "source": "upload",
+    "sourceLabel": "Upload",
+    "type": "card"
+  },
+  {
+    "id": "seed0138",
+    "projectId": "demo0001",
+    "originalName": "kantoor-buiten.jpg",
+    "newName": "kantoor-cooling-service-holland.jpg",
+    "sizeKb": 560,
+    "dimensions": {
+      "width": 1200,
+      "height": 800
+    },
+    "altTextSuggestion": "Kantoorpand Cooling Service Holland",
+    "relatedPageId": "seed0104",
+    "source": "upload",
+    "sourceLabel": "Upload",
+    "type": "general"
+  },
+  {
+    "id": "a4eff8fd",
+    "projectId": "demo0001",
+    "originalName": "IMG_3421.jpg",
+    "newName": "hero-homepage.jpg",
+    "sizeKb": 890,
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "altTextSuggestion": "Overzicht van het kantoorpand",
+    "relatedPageId": "ffa6f9a4",
+    "source": "scrape-mock",
+    "sourceLabel": "Huidige website",
+    "type": "hero"
+  },
+  {
+    "id": "c9709e16",
+    "projectId": "demo0001",
+    "originalName": "foto_team_2023.png",
+    "newName": "team-overzicht.png",
+    "sizeKb": 1240,
+    "dimensions": {
+      "width": 1200,
+      "height": 800
+    },
+    "altTextSuggestion": "Teamfoto van het bedrijf",
+    "relatedPageId": null,
+    "source": "scrape-mock",
+    "sourceLabel": "Google Drive",
+    "type": "general"
+  },
+  {
+    "id": "ada132fb",
+    "projectId": "demo0001",
+    "originalName": "post_instagram_dec.jpg",
+    "newName": "social-koelinstallatie.jpg",
+    "sizeKb": 340,
+    "dimensions": {
+      "width": 1080,
+      "height": 1080
+    },
+    "altTextSuggestion": "Koelinstallatie project Instagram post",
+    "relatedPageId": null,
+    "source": "scrape-mock",
+    "sourceLabel": "Instagram",
+    "type": "card"
+  },
+  {
+    "id": "15191369",
+    "projectId": "demo0001",
+    "originalName": "logo_v3_final_FINAL.ai",
+    "newName": "logo-csh.svg",
+    "sizeKb": 45,
+    "dimensions": {
+      "width": 400,
+      "height": 120
+    },
+    "altTextSuggestion": "Logo Cooling Service Holland",
+    "relatedPageId": null,
+    "source": "scrape-mock",
+    "sourceLabel": "Google Drive",
+    "type": "logo"
+  },
+  {
+    "id": "4f131b0f",
+    "projectId": "demo0001",
+    "originalName": "DSC00234.jpg",
+    "newName": "project-albert-heijn.jpg",
+    "sizeKb": 2100,
+    "dimensions": {
+      "width": 4032,
+      "height": 3024
+    },
+    "altTextSuggestion": "Koelinstallatie bij Albert Heijn filiaal",
+    "relatedPageId": null,
+    "source": "scrape-mock",
+    "sourceLabel": "NAS server",
+    "type": "hero"
+  },
+  {
+    "id": "0d0e788a",
+    "projectId": "demo0001",
+    "originalName": "whatsapp-image-2024.jpeg",
+    "newName": "monteur-aan-het-werk.jpg",
+    "sizeKb": 780,
+    "dimensions": {
+      "width": 1600,
+      "height": 1200
+    },
+    "altTextSuggestion": "Monteur bezig met installatie",
+    "relatedPageId": null,
+    "source": "scrape-mock",
+    "sourceLabel": "WhatsApp",
+    "type": "general"
+  },
+  {
+    "id": "f0e9ead0",
+    "projectId": "demo0001",
+    "originalName": "banner_website_oud.jpg",
+    "newName": "banner-diensten.jpg",
+    "sizeKb": 560,
+    "dimensions": {
+      "width": 1920,
+      "height": 600
+    },
+    "altTextSuggestion": "Banner voor dienstenpagina",
+    "relatedPageId": null,
+    "source": "scrape-mock",
+    "sourceLabel": "Huidige website",
+    "type": "hero"
+  },
+  {
+    "id": "04c33dc5",
+    "projectId": "demo0001",
+    "originalName": "certificaat_scan.pdf",
+    "newName": "certificaat-f-gassen.pdf",
+    "sizeKb": 320,
+    "dimensions": {
+      "width": 595,
+      "height": 842
+    },
+    "altTextSuggestion": "F-gassen certificaat",
+    "relatedPageId": null,
+    "source": "scrape-mock",
+    "sourceLabel": "E-mail bijlage",
+    "type": "general"
+  }
+]

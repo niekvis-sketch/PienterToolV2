@@ -1,0 +1,2672 @@
+[
+  {
+    "id": "3ad2d0d4",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "ffa6f9a4",
+    "description": "Pagina \"Home\" (https://csh-nieuw.nl) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "b38dc149",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "dc7ecc26",
+    "description": "Pagina \"Events\" (https://csh-nieuw.nl/events) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "56e00ceb",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "f5aec976",
+    "description": "Pagina \"Kennis events\" (https://csh-nieuw.nl/events/kennis-events) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "d7f9ebf9",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "facac39c",
+    "description": "Pagina \"Strategische events\" (https://csh-nieuw.nl/events/strategische-events) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "97962d76",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "9dfca54a",
+    "description": "Pagina \"Lancering en opening\" (https://csh-nieuw.nl/events/lancering-opening) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "6fd738ee",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "a02a6d9d",
+    "description": "Pagina \"Jubilea en vieringen\" (https://csh-nieuw.nl/events/jubilea-vieringen) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "c3cb1acf",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "153b5c59",
+    "description": "Pagina \"Voor wie\" (https://csh-nieuw.nl/voor-wie) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "5ef1ecf9",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "668d4bdf",
+    "description": "Pagina \"Zorg\" (https://csh-nieuw.nl/voor-wie/zorg) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "290013ab",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "76b6f786",
+    "description": "Pagina \"Onderwijs\" (https://csh-nieuw.nl/voor-wie/onderwijs) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "877f03c1",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "666fc674",
+    "description": "Pagina \"Bedrijfsleven & MKB\" (https://csh-nieuw.nl/voor-wie/bedrijfsleven-mkb) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "db98fbc4",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "2c02402d",
+    "description": "Pagina \"Overheid\" (https://csh-nieuw.nl/voor-wie/overheid) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "c0d2cc14",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "181a7578",
+    "description": "Pagina \"Inspiratie\" (https://csh-nieuw.nl/inspiratie) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "be462533",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "638bafb0",
+    "description": "Pagina \"Cases\" (https://csh-nieuw.nl/inspiratie/cases) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "5f011ad4",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "809efa19",
+    "description": "Pagina \"Case 1\" (https://csh-nieuw.nl/inspiratie/cases/case-1) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "bb657248",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "45189c8c",
+    "description": "Pagina \"Case 2\" (https://csh-nieuw.nl/inspiratie/cases/case-2) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "695e2b37",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "0443bd82",
+    "description": "Pagina \"Case 3\" (https://csh-nieuw.nl/inspiratie/cases/case-3) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "e874a53d",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "b80fcf12",
+    "description": "Pagina \"Case 4\" (https://csh-nieuw.nl/inspiratie/cases/case-4) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "6a15f5ba",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "6b22b200",
+    "description": "Pagina \"Magazine\" (https://csh-nieuw.nl/inspiratie/magazine) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "f618e346",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "5b9f4ed4",
+    "description": "Pagina \"Nieuws\" (https://csh-nieuw.nl/inspiratie/nieuws) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "1e3967fa",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "cdab1ece",
+    "description": "Pagina \"Bericht 1\" (https://csh-nieuw.nl/inspiratie/nieuws/bericht-1) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "7e063ac4",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "44f80f07",
+    "description": "Pagina \"Bericht 2\" (https://csh-nieuw.nl/inspiratie/nieuws/bericht-2) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "d08a3adc",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "30707db6",
+    "description": "Pagina \"Bericht 3\" (https://csh-nieuw.nl/inspiratie/nieuws/bericht-3) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "4f6f7792",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "3127a634",
+    "description": "Pagina \"Bericht 4\" (https://csh-nieuw.nl/inspiratie/nieuws/bericht-4) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "c67553f0",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "c741c05e",
+    "description": "Pagina \"Over ons\" (https://csh-nieuw.nl/over-ons) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "fcc3b24c",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "6013cbd8",
+    "description": "Pagina \"Regie en samenwerking\" (https://csh-nieuw.nl/over-ons/regie-samenwerking) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "6b3e2e0a",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "87f390fd",
+    "description": "Pagina \"Onze aanpak\" (https://csh-nieuw.nl/over-ons/onze-aanpak) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "b8ff1048",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "d7bb9c7f",
+    "description": "Pagina \"Planning en tijdlijn\" (https://csh-nieuw.nl/over-ons/planning-tijdlijn) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "b2b5709f",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "046bc248",
+    "description": "Pagina \"Het team\" (https://csh-nieuw.nl/over-ons/team) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "8e02c764",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "23516665",
+    "description": "Pagina \"Niquell Pro\" (https://csh-nieuw.nl/over-ons/niquell-pro) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "adf346f1",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "8cc4f5c0",
+    "description": "Pagina \"Vacatures overzicht\" (https://csh-nieuw.nl/over-ons/vacatures) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "ff9bcf52",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "82b5bd3b",
+    "description": "Pagina \"Contact\" (https://csh-nieuw.nl/contact) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "99d5cfe6",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "404",
+    "pageId": "d87a53c4",
+    "description": "Pagina \"Eventcompas\" (https://csh-nieuw.nl/eventcompas) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "dad1074c",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "ffa6f9a4",
+    "description": "Meta-titel ontbreekt voor \"Home\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "d8804b2d",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "ffa6f9a4",
+    "description": "Meta-beschrijving ontbreekt voor \"Home\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "c06c3731",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "dc7ecc26",
+    "description": "Meta-titel ontbreekt voor \"Events\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "7e10342a",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "dc7ecc26",
+    "description": "Meta-beschrijving ontbreekt voor \"Events\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "63e6d231",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "f5aec976",
+    "description": "Meta-titel ontbreekt voor \"Kennis events\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "a984aaac",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "f5aec976",
+    "description": "Meta-beschrijving ontbreekt voor \"Kennis events\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "eb5f33f2",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "facac39c",
+    "description": "Meta-titel ontbreekt voor \"Strategische events\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "72edae1c",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "facac39c",
+    "description": "Meta-beschrijving ontbreekt voor \"Strategische events\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "5244b5ac",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "9dfca54a",
+    "description": "Meta-titel ontbreekt voor \"Lancering en opening\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "3b56a610",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "9dfca54a",
+    "description": "Meta-beschrijving ontbreekt voor \"Lancering en opening\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "dce31d68",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "a02a6d9d",
+    "description": "Meta-titel ontbreekt voor \"Jubilea en vieringen\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "b9907432",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "a02a6d9d",
+    "description": "Meta-beschrijving ontbreekt voor \"Jubilea en vieringen\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "86e9f416",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "153b5c59",
+    "description": "Meta-titel ontbreekt voor \"Voor wie\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "69b1258a",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "153b5c59",
+    "description": "Meta-beschrijving ontbreekt voor \"Voor wie\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "884cb142",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "668d4bdf",
+    "description": "Meta-titel ontbreekt voor \"Zorg\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "18a8d91b",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "668d4bdf",
+    "description": "Meta-beschrijving ontbreekt voor \"Zorg\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "91d0f8cc",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "76b6f786",
+    "description": "Meta-titel ontbreekt voor \"Onderwijs\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "0e25002e",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "76b6f786",
+    "description": "Meta-beschrijving ontbreekt voor \"Onderwijs\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "86f89736",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "666fc674",
+    "description": "Meta-titel ontbreekt voor \"Bedrijfsleven & MKB\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "46e92fbf",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "666fc674",
+    "description": "Meta-beschrijving ontbreekt voor \"Bedrijfsleven & MKB\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "a3d10e55",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "2c02402d",
+    "description": "Meta-titel ontbreekt voor \"Overheid\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "c545e1b5",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "2c02402d",
+    "description": "Meta-beschrijving ontbreekt voor \"Overheid\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "3a8b9422",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "181a7578",
+    "description": "Meta-titel ontbreekt voor \"Inspiratie\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "ed97a848",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "181a7578",
+    "description": "Meta-beschrijving ontbreekt voor \"Inspiratie\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "750484ea",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "638bafb0",
+    "description": "Meta-titel ontbreekt voor \"Cases\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "c66270f8",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "638bafb0",
+    "description": "Meta-beschrijving ontbreekt voor \"Cases\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "4e61e500",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "809efa19",
+    "description": "Meta-titel ontbreekt voor \"Case 1\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "d48571bd",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "809efa19",
+    "description": "Meta-beschrijving ontbreekt voor \"Case 1\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "5cdea44d",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "45189c8c",
+    "description": "Meta-titel ontbreekt voor \"Case 2\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "e18c30dd",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "45189c8c",
+    "description": "Meta-beschrijving ontbreekt voor \"Case 2\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "fb947702",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "0443bd82",
+    "description": "Meta-titel ontbreekt voor \"Case 3\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "7f00e997",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "0443bd82",
+    "description": "Meta-beschrijving ontbreekt voor \"Case 3\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "100d64d0",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "b80fcf12",
+    "description": "Meta-titel ontbreekt voor \"Case 4\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "865b4617",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "b80fcf12",
+    "description": "Meta-beschrijving ontbreekt voor \"Case 4\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "8569401a",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "6b22b200",
+    "description": "Meta-titel ontbreekt voor \"Magazine\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "209986eb",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "6b22b200",
+    "description": "Meta-beschrijving ontbreekt voor \"Magazine\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "e83fc82c",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "5b9f4ed4",
+    "description": "Meta-titel ontbreekt voor \"Nieuws\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "464e2f52",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "5b9f4ed4",
+    "description": "Meta-beschrijving ontbreekt voor \"Nieuws\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "003470af",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "cdab1ece",
+    "description": "Meta-titel ontbreekt voor \"Bericht 1\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "ed4eb164",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "cdab1ece",
+    "description": "Meta-beschrijving ontbreekt voor \"Bericht 1\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "e6cba858",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "44f80f07",
+    "description": "Meta-titel ontbreekt voor \"Bericht 2\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "2792a314",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "44f80f07",
+    "description": "Meta-beschrijving ontbreekt voor \"Bericht 2\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "d914e2d0",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "30707db6",
+    "description": "Meta-titel ontbreekt voor \"Bericht 3\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "11458ea9",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "30707db6",
+    "description": "Meta-beschrijving ontbreekt voor \"Bericht 3\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "0daee2c1",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "3127a634",
+    "description": "Meta-titel ontbreekt voor \"Bericht 4\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "4b0f887f",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "3127a634",
+    "description": "Meta-beschrijving ontbreekt voor \"Bericht 4\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "b644aa3f",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "c741c05e",
+    "description": "Meta-titel ontbreekt voor \"Over ons\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "49c420f2",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "c741c05e",
+    "description": "Meta-beschrijving ontbreekt voor \"Over ons\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "aa73bfdc",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "6013cbd8",
+    "description": "Meta-titel ontbreekt voor \"Regie en samenwerking\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "4e3f000c",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "6013cbd8",
+    "description": "Meta-beschrijving ontbreekt voor \"Regie en samenwerking\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "f9f4fb33",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "87f390fd",
+    "description": "Meta-titel ontbreekt voor \"Onze aanpak\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "13c3a5d5",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "87f390fd",
+    "description": "Meta-beschrijving ontbreekt voor \"Onze aanpak\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "ba3adcf6",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "d7bb9c7f",
+    "description": "Meta-titel ontbreekt voor \"Planning en tijdlijn\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "0855a5f7",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "d7bb9c7f",
+    "description": "Meta-beschrijving ontbreekt voor \"Planning en tijdlijn\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "aebfd3f1",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "046bc248",
+    "description": "Meta-titel ontbreekt voor \"Het team\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "502f9ae3",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "046bc248",
+    "description": "Meta-beschrijving ontbreekt voor \"Het team\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "75d324d0",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "23516665",
+    "description": "Meta-titel ontbreekt voor \"Niquell Pro\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "cce7f629",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "23516665",
+    "description": "Meta-beschrijving ontbreekt voor \"Niquell Pro\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "4153615c",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "8cc4f5c0",
+    "description": "Meta-titel ontbreekt voor \"Vacatures overzicht\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "2266cd62",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "8cc4f5c0",
+    "description": "Meta-beschrijving ontbreekt voor \"Vacatures overzicht\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "15f3028d",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "82b5bd3b",
+    "description": "Meta-titel ontbreekt voor \"Contact\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "21501add",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "82b5bd3b",
+    "description": "Meta-beschrijving ontbreekt voor \"Contact\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "f19e98d5",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "d87a53c4",
+    "description": "Meta-titel ontbreekt voor \"Eventcompas\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "06798684",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "d87a53c4",
+    "description": "Meta-beschrijving ontbreekt voor \"Eventcompas\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "19bed7c1",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "images",
+    "pageId": "seed0103",
+    "description": "Afbeelding \"team-photo.jpg\" is 780KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "94dd924e",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "images",
+    "pageId": "seed0108",
+    "description": "Afbeelding \"DSC_0442.jpg\" is 1200KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "ba175568",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "images",
+    "pageId": "seed0104",
+    "description": "Afbeelding \"kantoor-buiten.jpg\" is 560KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "b47aa446",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "images",
+    "pageId": "ffa6f9a4",
+    "description": "Afbeelding \"IMG_3421.jpg\" is 890KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "e2720a19",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "images",
+    "pageId": null,
+    "description": "Afbeelding \"foto_team_2023.png\" is 1240KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "99d7f29b",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "images",
+    "pageId": null,
+    "description": "Afbeelding \"DSC00234.jpg\" is 2100KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "c1744e08",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "images",
+    "pageId": null,
+    "description": "Afbeelding \"whatsapp-image-2024.jpeg\" is 780KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "4e18f5de",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "images",
+    "pageId": null,
+    "description": "Afbeelding \"banner_website_oud.jpg\" is 560KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "808c8b9f",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "ffa6f9a4",
+    "description": "Pagina \"Home\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl.",
+    "status": "open"
+  },
+  {
+    "id": "73f91125",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "dc7ecc26",
+    "description": "Pagina \"Events\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events.",
+    "status": "open"
+  },
+  {
+    "id": "a198f83d",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "f5aec976",
+    "description": "Pagina \"Kennis events\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events/kennis-events.",
+    "status": "open"
+  },
+  {
+    "id": "dd536cb3",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "facac39c",
+    "description": "Pagina \"Strategische events\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events/strategische-events.",
+    "status": "open"
+  },
+  {
+    "id": "e7fba4e3",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "9dfca54a",
+    "description": "Pagina \"Lancering en opening\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events/lancering-opening.",
+    "status": "open"
+  },
+  {
+    "id": "6f571473",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "a02a6d9d",
+    "description": "Pagina \"Jubilea en vieringen\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events/jubilea-vieringen.",
+    "status": "open"
+  },
+  {
+    "id": "1bb895de",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "153b5c59",
+    "description": "Pagina \"Voor wie\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie.",
+    "status": "open"
+  },
+  {
+    "id": "d1410b7d",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "668d4bdf",
+    "description": "Pagina \"Zorg\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie/zorg.",
+    "status": "open"
+  },
+  {
+    "id": "0c9a4078",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "76b6f786",
+    "description": "Pagina \"Onderwijs\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie/onderwijs.",
+    "status": "open"
+  },
+  {
+    "id": "e1616a87",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "666fc674",
+    "description": "Pagina \"Bedrijfsleven & MKB\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie/bedrijfsleven-mkb.",
+    "status": "open"
+  },
+  {
+    "id": "1cc18b1a",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "2c02402d",
+    "description": "Pagina \"Overheid\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie/overheid.",
+    "status": "open"
+  },
+  {
+    "id": "e81bd3ee",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "181a7578",
+    "description": "Pagina \"Inspiratie\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/inspiratie.",
+    "status": "open"
+  },
+  {
+    "id": "83379601",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "638bafb0",
+    "description": "Pagina \"Cases\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/inspiratie/cases.",
+    "status": "open"
+  },
+  {
+    "id": "c1bf290a",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "6b22b200",
+    "description": "Pagina \"Magazine\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/inspiratie/magazine.",
+    "status": "open"
+  },
+  {
+    "id": "6cf22f9c",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "5b9f4ed4",
+    "description": "Pagina \"Nieuws\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/inspiratie/nieuws.",
+    "status": "open"
+  },
+  {
+    "id": "d8359ec8",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "c741c05e",
+    "description": "Pagina \"Over ons\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons.",
+    "status": "open"
+  },
+  {
+    "id": "53a35758",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "6013cbd8",
+    "description": "Pagina \"Regie en samenwerking\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/regie-samenwerking.",
+    "status": "open"
+  },
+  {
+    "id": "330f594e",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "87f390fd",
+    "description": "Pagina \"Onze aanpak\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/onze-aanpak.",
+    "status": "open"
+  },
+  {
+    "id": "dc4cdd98",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "d7bb9c7f",
+    "description": "Pagina \"Planning en tijdlijn\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/planning-tijdlijn.",
+    "status": "open"
+  },
+  {
+    "id": "cefb6592",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "046bc248",
+    "description": "Pagina \"Het team\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/team.",
+    "status": "open"
+  },
+  {
+    "id": "b160cf62",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "23516665",
+    "description": "Pagina \"Niquell Pro\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/niquell-pro.",
+    "status": "open"
+  },
+  {
+    "id": "b1d5a1f4",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "8cc4f5c0",
+    "description": "Pagina \"Vacatures overzicht\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/vacatures.",
+    "status": "open"
+  },
+  {
+    "id": "93571ffa",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "82b5bd3b",
+    "description": "Pagina \"Contact\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/contact.",
+    "status": "open"
+  },
+  {
+    "id": "35b16689",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "d87a53c4",
+    "description": "Pagina \"Eventcompas\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/eventcompas.",
+    "status": "open"
+  },
+  {
+    "id": "17ab5223",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "tracking",
+    "pageId": null,
+    "description": "Google Tag Manager is niet gekoppeld aan dit project.",
+    "recommendedFix": "Installeer GTM op de staging/live omgeving en verifieer de container.",
+    "status": "open"
+  },
+  {
+    "id": "630d0180",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "forms",
+    "pageId": null,
+    "description": "Er zijn nog geen formulier-events of conversie-tracking ingesteld.",
+    "recommendedFix": "Definieer events voor contactformulieren, CTA-klikken en andere conversies in GTM.",
+    "status": "open"
+  },
+  {
+    "id": "43f5771e",
+    "auditRunId": "4fc290d0",
+    "severity": "medium",
+    "category": "performance",
+    "pageId": null,
+    "description": "Core Web Vitals score: 51/100 (LCP: 2.9s, CLS: 0.14, FID: 64ms).",
+    "recommendedFix": "Optimaliseer afbeeldingen, minimaliseer JavaScript, gebruik lazy loading en caching.",
+    "status": "open"
+  },
+  {
+    "id": "0ad2d4db",
+    "auditRunId": "4fc290d0",
+    "severity": "high",
+    "category": "performance",
+    "pageId": null,
+    "description": "Largest Contentful Paint (LCP) is 2.9s, dit moet onder 2.5s zijn.",
+    "recommendedFix": "Optimaliseer de hero-afbeelding, gebruik preloading en verminder render-blocking resources.",
+    "status": "open"
+  },
+  {
+    "id": "855ad416",
+    "auditRunId": "4fc290d0",
+    "severity": "low",
+    "category": "robots",
+    "pageId": null,
+    "description": "Controleer of robots.txt correct is ingesteld voor de live omgeving.",
+    "recommendedFix": "Zorg dat robots.txt de sitemap vermeldt en geen belangrijke pagina's blokkeert.",
+    "status": "open"
+  },
+  {
+    "id": "c892a2dd",
+    "auditRunId": "4fc290d0",
+    "severity": "low",
+    "category": "sitemap",
+    "pageId": null,
+    "description": "Controleer of de XML-sitemap alle pagina's bevat en correct is ingediend bij Google Search Console.",
+    "recommendedFix": "Genereer een sitemap via Yoast/RankMath en dien deze in bij Google Search Console.",
+    "status": "open"
+  },
+  {
+    "id": "7d2059e8",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "ffa6f9a4",
+    "description": "Pagina \"Home\" (https://csh-nieuw.nl) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "894baad2",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "dc7ecc26",
+    "description": "Pagina \"Events\" (https://csh-nieuw.nl/events) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "407f3835",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "f5aec976",
+    "description": "Pagina \"Kennis events\" (https://csh-nieuw.nl/events/kennis-events) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "e42bcdd0",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "facac39c",
+    "description": "Pagina \"Strategische events\" (https://csh-nieuw.nl/events/strategische-events) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "1a997ca7",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "9dfca54a",
+    "description": "Pagina \"Lancering en opening\" (https://csh-nieuw.nl/events/lancering-opening) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "0e78eb45",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "a02a6d9d",
+    "description": "Pagina \"Jubilea en vieringen\" (https://csh-nieuw.nl/events/jubilea-vieringen) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "27041fb7",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "153b5c59",
+    "description": "Pagina \"Voor wie\" (https://csh-nieuw.nl/voor-wie) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "7e683574",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "668d4bdf",
+    "description": "Pagina \"Zorg\" (https://csh-nieuw.nl/voor-wie/zorg) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "dfa262b9",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "76b6f786",
+    "description": "Pagina \"Onderwijs\" (https://csh-nieuw.nl/voor-wie/onderwijs) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "db92f8cb",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "666fc674",
+    "description": "Pagina \"Bedrijfsleven & MKB\" (https://csh-nieuw.nl/voor-wie/bedrijfsleven-mkb) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "d6d5e393",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "2c02402d",
+    "description": "Pagina \"Overheid\" (https://csh-nieuw.nl/voor-wie/overheid) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "3a1212e0",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "181a7578",
+    "description": "Pagina \"Inspiratie\" (https://csh-nieuw.nl/inspiratie) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "2b830854",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "638bafb0",
+    "description": "Pagina \"Cases\" (https://csh-nieuw.nl/inspiratie/cases) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "5dd2f59c",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "809efa19",
+    "description": "Pagina \"Case 1\" (https://csh-nieuw.nl/inspiratie/cases/case-1) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "a49234ea",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "45189c8c",
+    "description": "Pagina \"Case 2\" (https://csh-nieuw.nl/inspiratie/cases/case-2) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "6ed773df",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "0443bd82",
+    "description": "Pagina \"Case 3\" (https://csh-nieuw.nl/inspiratie/cases/case-3) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "b36e3e46",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "b80fcf12",
+    "description": "Pagina \"Case 4\" (https://csh-nieuw.nl/inspiratie/cases/case-4) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "ec97e094",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "6b22b200",
+    "description": "Pagina \"Magazine\" (https://csh-nieuw.nl/inspiratie/magazine) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "095b3894",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "5b9f4ed4",
+    "description": "Pagina \"Nieuws\" (https://csh-nieuw.nl/inspiratie/nieuws) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "492897b8",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "cdab1ece",
+    "description": "Pagina \"Bericht 1\" (https://csh-nieuw.nl/inspiratie/nieuws/bericht-1) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "849e25a3",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "44f80f07",
+    "description": "Pagina \"Bericht 2\" (https://csh-nieuw.nl/inspiratie/nieuws/bericht-2) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "3b6a22bb",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "30707db6",
+    "description": "Pagina \"Bericht 3\" (https://csh-nieuw.nl/inspiratie/nieuws/bericht-3) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "dda7fa0f",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "3127a634",
+    "description": "Pagina \"Bericht 4\" (https://csh-nieuw.nl/inspiratie/nieuws/bericht-4) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "932f4de6",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "c741c05e",
+    "description": "Pagina \"Over ons\" (https://csh-nieuw.nl/over-ons) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "269d79a0",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "6013cbd8",
+    "description": "Pagina \"Regie en samenwerking\" (https://csh-nieuw.nl/over-ons/regie-samenwerking) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "1c72e08a",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "87f390fd",
+    "description": "Pagina \"Onze aanpak\" (https://csh-nieuw.nl/over-ons/onze-aanpak) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "0619d97e",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "d7bb9c7f",
+    "description": "Pagina \"Planning en tijdlijn\" (https://csh-nieuw.nl/over-ons/planning-tijdlijn) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "5f3efe32",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "046bc248",
+    "description": "Pagina \"Het team\" (https://csh-nieuw.nl/over-ons/team) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "39143ef6",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "23516665",
+    "description": "Pagina \"Niquell Pro\" (https://csh-nieuw.nl/over-ons/niquell-pro) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "a91c426e",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "8cc4f5c0",
+    "description": "Pagina \"Vacatures overzicht\" (https://csh-nieuw.nl/over-ons/vacatures) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "2fbabe5e",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "82b5bd3b",
+    "description": "Pagina \"Contact\" (https://csh-nieuw.nl/contact) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "8528d639",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "404",
+    "pageId": "d87a53c4",
+    "description": "Pagina \"Eventcompas\" (https://csh-nieuw.nl/eventcompas) is nog niet beschikbaar in staging (status: draft).",
+    "recommendedFix": "Zorg dat de pagina gepubliceerd wordt op de staging omgeving voordat je live gaat.",
+    "status": "open"
+  },
+  {
+    "id": "fd46a755",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "ffa6f9a4",
+    "description": "Meta-titel ontbreekt voor \"Home\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "cad26e23",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "dc7ecc26",
+    "description": "Meta-titel ontbreekt voor \"Events\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "15ded4b9",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "dc7ecc26",
+    "description": "Meta-beschrijving ontbreekt voor \"Events\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "710ddea5",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "f5aec976",
+    "description": "Meta-titel ontbreekt voor \"Kennis events\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "c2cec6cd",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "f5aec976",
+    "description": "Meta-beschrijving ontbreekt voor \"Kennis events\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "4c869dc8",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "facac39c",
+    "description": "Meta-titel ontbreekt voor \"Strategische events\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "859c3d17",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "facac39c",
+    "description": "Meta-beschrijving ontbreekt voor \"Strategische events\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "87309288",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "9dfca54a",
+    "description": "Meta-titel ontbreekt voor \"Lancering en opening\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "e3fa36a6",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "9dfca54a",
+    "description": "Meta-beschrijving ontbreekt voor \"Lancering en opening\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "076fc496",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "a02a6d9d",
+    "description": "Meta-titel ontbreekt voor \"Jubilea en vieringen\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "4956b6fa",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "a02a6d9d",
+    "description": "Meta-beschrijving ontbreekt voor \"Jubilea en vieringen\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "771c63ea",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "153b5c59",
+    "description": "Meta-titel ontbreekt voor \"Voor wie\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "101f59bb",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "153b5c59",
+    "description": "Meta-beschrijving ontbreekt voor \"Voor wie\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "2adcfd8c",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "668d4bdf",
+    "description": "Meta-titel ontbreekt voor \"Zorg\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "1379d8fa",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "668d4bdf",
+    "description": "Meta-beschrijving ontbreekt voor \"Zorg\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "17c9ff95",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "76b6f786",
+    "description": "Meta-titel ontbreekt voor \"Onderwijs\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "9b2a3558",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "76b6f786",
+    "description": "Meta-beschrijving ontbreekt voor \"Onderwijs\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "8deb5b1c",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "666fc674",
+    "description": "Meta-titel ontbreekt voor \"Bedrijfsleven & MKB\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "8d207ab9",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "666fc674",
+    "description": "Meta-beschrijving ontbreekt voor \"Bedrijfsleven & MKB\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "d6b6a9a2",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "2c02402d",
+    "description": "Meta-titel ontbreekt voor \"Overheid\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "27601a84",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "2c02402d",
+    "description": "Meta-beschrijving ontbreekt voor \"Overheid\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "99f8afa4",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "181a7578",
+    "description": "Meta-titel ontbreekt voor \"Inspiratie\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "506098ed",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "181a7578",
+    "description": "Meta-beschrijving ontbreekt voor \"Inspiratie\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "7da35481",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "638bafb0",
+    "description": "Meta-titel ontbreekt voor \"Cases\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "352aa434",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "638bafb0",
+    "description": "Meta-beschrijving ontbreekt voor \"Cases\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "50192ece",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "809efa19",
+    "description": "Meta-titel ontbreekt voor \"Case 1\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "58bc3908",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "809efa19",
+    "description": "Meta-beschrijving ontbreekt voor \"Case 1\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "57bfa808",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "45189c8c",
+    "description": "Meta-titel ontbreekt voor \"Case 2\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "27961394",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "45189c8c",
+    "description": "Meta-beschrijving ontbreekt voor \"Case 2\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "e563ee1b",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "0443bd82",
+    "description": "Meta-titel ontbreekt voor \"Case 3\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "4a3f57f2",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "0443bd82",
+    "description": "Meta-beschrijving ontbreekt voor \"Case 3\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "0f9a5acc",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "b80fcf12",
+    "description": "Meta-titel ontbreekt voor \"Case 4\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "2cfc1b20",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "b80fcf12",
+    "description": "Meta-beschrijving ontbreekt voor \"Case 4\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "100527a3",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "6b22b200",
+    "description": "Meta-titel ontbreekt voor \"Magazine\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "7e838dbc",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "6b22b200",
+    "description": "Meta-beschrijving ontbreekt voor \"Magazine\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "33d75b34",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "5b9f4ed4",
+    "description": "Meta-titel ontbreekt voor \"Nieuws\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "b91f7aca",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "5b9f4ed4",
+    "description": "Meta-beschrijving ontbreekt voor \"Nieuws\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "3c3ced34",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "cdab1ece",
+    "description": "Meta-titel ontbreekt voor \"Bericht 1\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "f0461cdc",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "cdab1ece",
+    "description": "Meta-beschrijving ontbreekt voor \"Bericht 1\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "29831759",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "44f80f07",
+    "description": "Meta-titel ontbreekt voor \"Bericht 2\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "86128de3",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "44f80f07",
+    "description": "Meta-beschrijving ontbreekt voor \"Bericht 2\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "405f74cf",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "30707db6",
+    "description": "Meta-titel ontbreekt voor \"Bericht 3\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "597017ff",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "30707db6",
+    "description": "Meta-beschrijving ontbreekt voor \"Bericht 3\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "34f6e01c",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "3127a634",
+    "description": "Meta-titel ontbreekt voor \"Bericht 4\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "ea715b4e",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "3127a634",
+    "description": "Meta-beschrijving ontbreekt voor \"Bericht 4\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "74871025",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "c741c05e",
+    "description": "Meta-titel ontbreekt voor \"Over ons\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "05ee55cf",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "c741c05e",
+    "description": "Meta-beschrijving ontbreekt voor \"Over ons\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "3775021a",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "6013cbd8",
+    "description": "Meta-titel ontbreekt voor \"Regie en samenwerking\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "7ba4a270",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "6013cbd8",
+    "description": "Meta-beschrijving ontbreekt voor \"Regie en samenwerking\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "27c82f4d",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "87f390fd",
+    "description": "Meta-titel ontbreekt voor \"Onze aanpak\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "f494e249",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "87f390fd",
+    "description": "Meta-beschrijving ontbreekt voor \"Onze aanpak\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "57cd5cd2",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "d7bb9c7f",
+    "description": "Meta-titel ontbreekt voor \"Planning en tijdlijn\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "726ce1c8",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "d7bb9c7f",
+    "description": "Meta-beschrijving ontbreekt voor \"Planning en tijdlijn\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "2f3db4df",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "046bc248",
+    "description": "Meta-titel ontbreekt voor \"Het team\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "e9d8bcbe",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "046bc248",
+    "description": "Meta-beschrijving ontbreekt voor \"Het team\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "717bb973",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "23516665",
+    "description": "Meta-titel ontbreekt voor \"Niquell Pro\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "18e650a3",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "23516665",
+    "description": "Meta-beschrijving ontbreekt voor \"Niquell Pro\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "512f2d2f",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "8cc4f5c0",
+    "description": "Meta-titel ontbreekt voor \"Vacatures overzicht\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "636a9039",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "8cc4f5c0",
+    "description": "Meta-beschrijving ontbreekt voor \"Vacatures overzicht\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "a1a12165",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "82b5bd3b",
+    "description": "Meta-titel ontbreekt voor \"Contact\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "bf37c4da",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "82b5bd3b",
+    "description": "Meta-beschrijving ontbreekt voor \"Contact\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "7b67ec30",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "d87a53c4",
+    "description": "Meta-titel ontbreekt voor \"Eventcompas\".",
+    "recommendedFix": "Voeg een unieke meta-titel toe van 50-60 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "8692f8db",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "meta",
+    "pageId": "d87a53c4",
+    "description": "Meta-beschrijving ontbreekt voor \"Eventcompas\".",
+    "recommendedFix": "Voeg een meta-beschrijving toe van 150-160 tekens.",
+    "status": "open"
+  },
+  {
+    "id": "eeee763e",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "images",
+    "pageId": "seed0103",
+    "description": "Afbeelding \"team-photo.jpg\" is 780KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "9cc1b14e",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "images",
+    "pageId": "seed0108",
+    "description": "Afbeelding \"DSC_0442.jpg\" is 1200KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "ec3a9ade",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "images",
+    "pageId": "seed0104",
+    "description": "Afbeelding \"kantoor-buiten.jpg\" is 560KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "2793fb38",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "images",
+    "pageId": "ffa6f9a4",
+    "description": "Afbeelding \"IMG_3421.jpg\" is 890KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "95b988d4",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "images",
+    "pageId": null,
+    "description": "Afbeelding \"foto_team_2023.png\" is 1240KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "86739a9c",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "images",
+    "pageId": null,
+    "description": "Afbeelding \"DSC00234.jpg\" is 2100KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "32ffbdf6",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "images",
+    "pageId": null,
+    "description": "Afbeelding \"whatsapp-image-2024.jpeg\" is 780KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "265eb54f",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "images",
+    "pageId": null,
+    "description": "Afbeelding \"banner_website_oud.jpg\" is 560KB. Dit kan de laadtijd negatief beïnvloeden.",
+    "recommendedFix": "Optimaliseer de afbeelding tot onder 500KB, gebruik WebP-formaat waar mogelijk.",
+    "status": "open"
+  },
+  {
+    "id": "9db4b177",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "ffa6f9a4",
+    "description": "Pagina \"Home\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl.",
+    "status": "open"
+  },
+  {
+    "id": "a56764b1",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "dc7ecc26",
+    "description": "Pagina \"Events\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events.",
+    "status": "open"
+  },
+  {
+    "id": "4090a39e",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "f5aec976",
+    "description": "Pagina \"Kennis events\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events/kennis-events.",
+    "status": "open"
+  },
+  {
+    "id": "f7eda9f7",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "facac39c",
+    "description": "Pagina \"Strategische events\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events/strategische-events.",
+    "status": "open"
+  },
+  {
+    "id": "c9141f57",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "9dfca54a",
+    "description": "Pagina \"Lancering en opening\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events/lancering-opening.",
+    "status": "open"
+  },
+  {
+    "id": "644a98df",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "a02a6d9d",
+    "description": "Pagina \"Jubilea en vieringen\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/events/jubilea-vieringen.",
+    "status": "open"
+  },
+  {
+    "id": "b93de091",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "153b5c59",
+    "description": "Pagina \"Voor wie\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie.",
+    "status": "open"
+  },
+  {
+    "id": "040df2d9",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "668d4bdf",
+    "description": "Pagina \"Zorg\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie/zorg.",
+    "status": "open"
+  },
+  {
+    "id": "44479cff",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "76b6f786",
+    "description": "Pagina \"Onderwijs\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie/onderwijs.",
+    "status": "open"
+  },
+  {
+    "id": "2b5855c8",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "666fc674",
+    "description": "Pagina \"Bedrijfsleven & MKB\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie/bedrijfsleven-mkb.",
+    "status": "open"
+  },
+  {
+    "id": "367b8b84",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "2c02402d",
+    "description": "Pagina \"Overheid\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/voor-wie/overheid.",
+    "status": "open"
+  },
+  {
+    "id": "2ff53c2a",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "181a7578",
+    "description": "Pagina \"Inspiratie\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/inspiratie.",
+    "status": "open"
+  },
+  {
+    "id": "c10ae61d",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "638bafb0",
+    "description": "Pagina \"Cases\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/inspiratie/cases.",
+    "status": "open"
+  },
+  {
+    "id": "57e684a3",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "6b22b200",
+    "description": "Pagina \"Magazine\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/inspiratie/magazine.",
+    "status": "open"
+  },
+  {
+    "id": "a8f39702",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "5b9f4ed4",
+    "description": "Pagina \"Nieuws\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/inspiratie/nieuws.",
+    "status": "open"
+  },
+  {
+    "id": "cec77e79",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "c741c05e",
+    "description": "Pagina \"Over ons\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons.",
+    "status": "open"
+  },
+  {
+    "id": "e1985b87",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "6013cbd8",
+    "description": "Pagina \"Regie en samenwerking\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/regie-samenwerking.",
+    "status": "open"
+  },
+  {
+    "id": "41bfca2a",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "87f390fd",
+    "description": "Pagina \"Onze aanpak\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/onze-aanpak.",
+    "status": "open"
+  },
+  {
+    "id": "fdb0ceb0",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "d7bb9c7f",
+    "description": "Pagina \"Planning en tijdlijn\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/planning-tijdlijn.",
+    "status": "open"
+  },
+  {
+    "id": "ba8a633e",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "046bc248",
+    "description": "Pagina \"Het team\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/team.",
+    "status": "open"
+  },
+  {
+    "id": "6d55742d",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "23516665",
+    "description": "Pagina \"Niquell Pro\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/niquell-pro.",
+    "status": "open"
+  },
+  {
+    "id": "eb74baa0",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "8cc4f5c0",
+    "description": "Pagina \"Vacatures overzicht\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/over-ons/vacatures.",
+    "status": "open"
+  },
+  {
+    "id": "8003c30c",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "82b5bd3b",
+    "description": "Pagina \"Contact\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/contact.",
+    "status": "open"
+  },
+  {
+    "id": "5a23eff8",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "redirects",
+    "pageId": "d87a53c4",
+    "description": "Pagina \"Eventcompas\" heeft geen redirects ingesteld vanaf het oude domein (coolingserviceholland.nl).",
+    "recommendedFix": "Voeg redirects toe van de oude URL's naar https://csh-nieuw.nl/eventcompas.",
+    "status": "open"
+  },
+  {
+    "id": "b39e97b8",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "tracking",
+    "pageId": null,
+    "description": "Google Tag Manager is niet gekoppeld aan dit project.",
+    "recommendedFix": "Installeer GTM op de staging/live omgeving en verifieer de container.",
+    "status": "open"
+  },
+  {
+    "id": "ceace4c2",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "forms",
+    "pageId": null,
+    "description": "Er zijn nog geen formulier-events of conversie-tracking ingesteld.",
+    "recommendedFix": "Definieer events voor contactformulieren, CTA-klikken en andere conversies in GTM.",
+    "status": "open"
+  },
+  {
+    "id": "33e9371f",
+    "auditRunId": "f3f62ed4",
+    "severity": "medium",
+    "category": "performance",
+    "pageId": null,
+    "description": "Core Web Vitals score: 51/100 (LCP: 2.9s, CLS: 0.14, FID: 64ms).",
+    "recommendedFix": "Optimaliseer afbeeldingen, minimaliseer JavaScript, gebruik lazy loading en caching.",
+    "status": "open"
+  },
+  {
+    "id": "6c446e66",
+    "auditRunId": "f3f62ed4",
+    "severity": "high",
+    "category": "performance",
+    "pageId": null,
+    "description": "Largest Contentful Paint (LCP) is 2.9s, dit moet onder 2.5s zijn.",
+    "recommendedFix": "Optimaliseer de hero-afbeelding, gebruik preloading en verminder render-blocking resources.",
+    "status": "open"
+  },
+  {
+    "id": "9a8d56f9",
+    "auditRunId": "f3f62ed4",
+    "severity": "low",
+    "category": "robots",
+    "pageId": null,
+    "description": "Controleer of robots.txt correct is ingesteld voor de live omgeving.",
+    "recommendedFix": "Zorg dat robots.txt de sitemap vermeldt en geen belangrijke pagina's blokkeert.",
+    "status": "open"
+  },
+  {
+    "id": "84178e92",
+    "auditRunId": "f3f62ed4",
+    "severity": "low",
+    "category": "sitemap",
+    "pageId": null,
+    "description": "Controleer of de XML-sitemap alle pagina's bevat en correct is ingediend bij Google Search Console.",
+    "recommendedFix": "Genereer een sitemap via Yoast/RankMath en dien deze in bij Google Search Console.",
+    "status": "open"
+  }
+]

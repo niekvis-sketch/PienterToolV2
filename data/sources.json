@@ -1,0 +1,61 @@
+[
+  {
+    "id": "seed0130",
+    "projectId": "demo0001",
+    "type": "transcript",
+    "title": "Kickoff meeting – 10 feb 2026",
+    "contentText": "Aanwezig: Jan (CSH), Marieke (PM Pienter), Thomas (Content), Lisa (SEO).\n\nJan vertelt over de geschiedenis van Cooling Service Holland. Het bedrijf is in 1998 opgericht en richt zich op koeltechniek voor supermarkten, horeca en industriële toepassingen. Ze hebben inmiddels 45 medewerkers en werken door heel Nederland.\n\nBelangrijkste punten uit het gesprek:\n- De huidige website is verouderd en niet mobiel-vriendelijk. Klanten vinden het moeilijk om de juiste dienst te vinden.\n- CSH wil meer nadruk leggen op hun specialisatie in F-gassen en duurzame koeling met natuurlijke koudemiddelen.\n- Ze willen graag projectreferenties tonen, met name de grote installaties bij Albert Heijn en Jumbo.\n- Het contactformulier werkt niet goed, leads komen soms niet aan.\n- De blog moet actiever worden ingezet voor SEO, met name rond regelgeving (F-gassen) en verduurzaming.\n\nActiepunten:\n- Thomas stuurt vragenlijst naar Jan voor content per dienst.\n- Lisa doet keyword-analyse op \"koeltechniek\", \"koelinstallatie\" en branche-termen.\n- Marieke plant feedbackmoment in over 4 weken.",
+    "url": "",
+    "filePath": "",
+    "relatedPageIds": [
+      "seed0101",
+      "seed0102",
+      "seed0103"
+    ],
+    "tags": [
+      "kickoff",
+      "websitesessie",
+      "interview"
+    ],
+    "createdAt": "2026-02-10T14:00:00.000Z"
+  },
+  {
+    "id": "seed0131",
+    "projectId": "demo0001",
+    "type": "transcript",
+    "title": "SEO intake sessie – 17 feb 2026",
+    "contentText": "Aanwezig: Lisa (SEO), Thomas (Content), Jan (CSH).\n\nLisa presenteert de eerste keyword-analyse:\n- \"koeltechniek\" heeft 1.900 maandelijkse zoekopdrachten, maar hoge concurrentie.\n- \"koelinstallatie bedrijf\" heeft 720 zoekopdrachten, minder concurrentie.\n- \"f-gassen certificering\" is een niche-term met 390 zoekopdrachten en weinig concurrentie, goed voor blog.\n- Branche-specifieke termen zoals \"koeling supermarkt\" en \"horeca koeling\" zijn kansrijk.\n\nBeslissingen:\n- Focus op \"koeltechniek specialist\" als primaire term voor de homepage.\n- Elke dienstenpagina krijgt een eigen focus-onderwerp per branche.\n- Blog-strategie: maandelijks een artikel over regelgeving of technische innovatie.\n- Redirects van oude pagina's zijn cruciaal, de huidige site heeft 35 geïndexeerde URL's.\n\nThomas vraagt of de structuur al definitief is. Lisa geeft aan dat URL-keuzes invloed hebben op SEO en dat dit vroeg bepaald moet worden.",
+    "url": "",
+    "filePath": "",
+    "relatedPageIds": [
+      "seed0101",
+      "seed0102",
+      "seed0110"
+    ],
+    "tags": [
+      "SEO",
+      "keyword-analyse",
+      "websitesessie"
+    ],
+    "createdAt": "2026-02-17T10:00:00.000Z"
+  },
+  {
+    "id": "seed0132",
+    "projectId": "demo0001",
+    "type": "note",
+    "title": "Notitie: beeldmateriaal status",
+    "contentText": "Beeldmateriaal is verspreid over meerdere bronnen:\n- Oude website: lage resolutie afbeeldingen, niet bruikbaar voor hero-secties.\n- Google Drive van Jan: bevat teamfoto's en enkele projectfoto's, maar zonder duidelijke naamgeving.\n- Instagram account: goede sfeerbeelden, maar klein formaat (1080x1080).\n- NAS server op kantoor: RAW bestanden van fotoshoot 2023, moeten nog bewerkt worden.\n\nAfspraak: Jan levert voor 1 maart een selectie van bruikbare foto's aan via Drive. Thomas maakt een overzicht van welke beelden per pagina nodig zijn.",
+    "url": "",
+    "filePath": "",
+    "relatedPageIds": [
+      "seed0101",
+      "seed0103",
+      "seed0108"
+    ],
+    "tags": [
+      "beeldmateriaal",
+      "notitie"
+    ],
+    "createdAt": "2026-02-20T11:00:00.000Z"
+  }
+]

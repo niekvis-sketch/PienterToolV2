@@ -1,0 +1,17 @@
+[
+  {
+    "id": "demo0001",
+    "name": "Cooling Service Holland",
+    "clientName": "Cooling Service Holland B.V.",
+    "domainCurrent": "coolingserviceholland.nl",
+    "domainNew": "Niquell.nl",
+    "languages": [
+      "nl"
+    ],
+    "goLiveDate": "2026-05-15",
+    "createdAt": "2026-02-10T09:00:00.000Z",
+    "stagingNoindex": true,
+    "gtmConnected": false,
+    "eventsDefined": false
+  }
+]

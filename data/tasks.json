@@ -1,0 +1,772 @@
+[
+  {
+    "id": "6591bd5b",
+    "projectId": "demo0001",
+    "title": "URL-structuur definitief maken",
+    "description": "Bepaal de definitieve URL-structuur op basis van de geïmporteerde sitemap.",
+    "team": "UX",
+    "status": "done",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "c4882de7",
+    "projectId": "demo0001",
+    "title": "Interview vragenlijst maken",
+    "description": "Stel vragen op om alle benodigde content te verzamelen bij de klant.",
+    "team": "Content",
+    "status": "done",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "inventarisatie"
+  },
+  {
+    "id": "b89bb3fb",
+    "projectId": "demo0001",
+    "title": "Supportanalyse en focus onderwerpen bepalen",
+    "description": "Analyseer zoekvolumes en bepaal focus-onderwerpen per pagina.",
+    "team": "SEO",
+    "status": "done",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "strategie"
+  },
+  {
+    "id": "4189e49c",
+    "projectId": "demo0001",
+    "title": "Domeincheck (vroeg)",
+    "description": "Controleer of het nieuwe domein beschikbaar is en check historie.",
+    "team": "SEO",
+    "status": "done",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "strategie"
+  },
+  {
+    "id": "670bae75",
+    "projectId": "demo0001",
+    "title": "Redirectplan opstellen",
+    "description": "Maak een compleet redirectplan van oude naar nieuwe URL's.",
+    "team": "SEO",
+    "status": "done",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "pre-live"
+  },
+  {
+    "id": "2fe47083",
+    "projectId": "demo0001",
+    "title": "Meetbaarheid instellen",
+    "description": "GTM, GA4, events en conversies instellen en testen.",
+    "team": "SEO",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "staging"
+  },
+  {
+    "id": "48021458",
+    "projectId": "demo0001",
+    "title": "Local environment opzetten",
+    "description": "Clone repo's, importeer database, configureer local development.",
+    "team": "Dev",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "development"
+  },
+  {
+    "id": "896a413f",
+    "projectId": "demo0001",
+    "title": "Blokken bouwen in thema",
+    "description": "Bouw alle benodigde WordPress blokken en templates.",
+    "team": "Dev",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "development"
+  },
+  {
+    "id": "5e32d63a",
+    "projectId": "demo0001",
+    "title": "Staging klaarzetten",
+    "description": "Deploy naar staging, search/replace URLs, controleer functionaliteit.",
+    "team": "Dev",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "staging"
+  },
+  {
+    "id": "77175377",
+    "projectId": "demo0001",
+    "title": "Responsive check",
+    "description": "Test alle pagina's op mobiel, tablet en desktop.",
+    "team": "Dev",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "staging"
+  },
+  {
+    "id": "eb5077d1",
+    "projectId": "demo0001",
+    "title": "Live datum prikken",
+    "description": "Bepaal samen met klant en team de lanceerdatum.",
+    "team": "PM",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "strategie"
+  },
+  {
+    "id": "66512a45",
+    "projectId": "demo0001",
+    "title": "Klant feedbackmoment plannen",
+    "description": "Plan presentatie en feedbackronde in.",
+    "team": "PM",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": null,
+    "dueDate": null,
+    "phase": "design"
+  },
+  {
+    "id": "48293997",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Home",
+    "description": "Maak een wireframe/indeling voor de pagina \"Home\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "ffa6f9a4",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "45b3a70e",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Home",
+    "description": "Schrijf de content voor \"Home\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "ffa6f9a4",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "9619d93a",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Events",
+    "description": "Maak een wireframe/indeling voor de pagina \"Events\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "dc7ecc26",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "6d96bb68",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Events",
+    "description": "Schrijf de content voor \"Events\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "dc7ecc26",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "a1503d66",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Kennis events",
+    "description": "Maak een wireframe/indeling voor de pagina \"Kennis events\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "f5aec976",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "aa19ec40",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Kennis events",
+    "description": "Schrijf de content voor \"Kennis events\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "f5aec976",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "5920833f",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Strategische events",
+    "description": "Maak een wireframe/indeling voor de pagina \"Strategische events\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "facac39c",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "780626d2",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Strategische events",
+    "description": "Schrijf de content voor \"Strategische events\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "facac39c",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "9ed254bd",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Lancering en opening",
+    "description": "Maak een wireframe/indeling voor de pagina \"Lancering en opening\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "9dfca54a",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "1c58da23",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Lancering en opening",
+    "description": "Schrijf de content voor \"Lancering en opening\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "9dfca54a",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "66241acb",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Jubilea en vieringen",
+    "description": "Maak een wireframe/indeling voor de pagina \"Jubilea en vieringen\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "a02a6d9d",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "3f0f0590",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Jubilea en vieringen",
+    "description": "Schrijf de content voor \"Jubilea en vieringen\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "a02a6d9d",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "c5d89ad7",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Voor wie",
+    "description": "Maak een wireframe/indeling voor de pagina \"Voor wie\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "153b5c59",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "229005c2",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Voor wie",
+    "description": "Schrijf de content voor \"Voor wie\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "153b5c59",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "d02cd9f1",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Zorg",
+    "description": "Maak een wireframe/indeling voor de pagina \"Zorg\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "668d4bdf",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "a1d4cf98",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Zorg",
+    "description": "Schrijf de content voor \"Zorg\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "668d4bdf",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "96eef0f1",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Onderwijs",
+    "description": "Maak een wireframe/indeling voor de pagina \"Onderwijs\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "76b6f786",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "881f921e",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Onderwijs",
+    "description": "Schrijf de content voor \"Onderwijs\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "76b6f786",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "2b912094",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Bedrijfsleven & MKB",
+    "description": "Maak een wireframe/indeling voor de pagina \"Bedrijfsleven & MKB\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "666fc674",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "9afb7a29",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Bedrijfsleven & MKB",
+    "description": "Schrijf de content voor \"Bedrijfsleven & MKB\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "666fc674",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "04cea4ef",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Overheid",
+    "description": "Maak een wireframe/indeling voor de pagina \"Overheid\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "2c02402d",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "d9841e99",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Overheid",
+    "description": "Schrijf de content voor \"Overheid\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "2c02402d",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "00a533e9",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Inspiratie",
+    "description": "Maak een wireframe/indeling voor de pagina \"Inspiratie\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "181a7578",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "beb0796b",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Inspiratie",
+    "description": "Schrijf de content voor \"Inspiratie\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "181a7578",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "99ee109b",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Cases",
+    "description": "Maak een wireframe/indeling voor de pagina \"Cases\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "638bafb0",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "d379a4ff",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Cases",
+    "description": "Schrijf de content voor \"Cases\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "638bafb0",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "ea3b0e2b",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Magazine",
+    "description": "Maak een wireframe/indeling voor de pagina \"Magazine\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "6b22b200",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "0076fc3e",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Magazine",
+    "description": "Schrijf de content voor \"Magazine\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "6b22b200",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "ad7a097d",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Nieuws",
+    "description": "Maak een wireframe/indeling voor de pagina \"Nieuws\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "5b9f4ed4",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "1b41be9f",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Nieuws",
+    "description": "Schrijf de content voor \"Nieuws\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "5b9f4ed4",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "2a31e395",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Over ons",
+    "description": "Maak een wireframe/indeling voor de pagina \"Over ons\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "c741c05e",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "ce8314aa",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Over ons",
+    "description": "Schrijf de content voor \"Over ons\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "c741c05e",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "d574f89f",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Regie en samenwerking",
+    "description": "Maak een wireframe/indeling voor de pagina \"Regie en samenwerking\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "6013cbd8",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "1dde046f",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Regie en samenwerking",
+    "description": "Schrijf de content voor \"Regie en samenwerking\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "6013cbd8",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "0917659c",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Onze aanpak",
+    "description": "Maak een wireframe/indeling voor de pagina \"Onze aanpak\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "87f390fd",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "ec0ed1d9",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Onze aanpak",
+    "description": "Schrijf de content voor \"Onze aanpak\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "87f390fd",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "b56d0820",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Planning en tijdlijn",
+    "description": "Maak een wireframe/indeling voor de pagina \"Planning en tijdlijn\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "d7bb9c7f",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "7f558a16",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Planning en tijdlijn",
+    "description": "Schrijf de content voor \"Planning en tijdlijn\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "d7bb9c7f",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "bc432c21",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Het team",
+    "description": "Maak een wireframe/indeling voor de pagina \"Het team\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "046bc248",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "5a7846ef",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Het team",
+    "description": "Schrijf de content voor \"Het team\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "046bc248",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "81ef8dc2",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Niquell Pro",
+    "description": "Maak een wireframe/indeling voor de pagina \"Niquell Pro\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "23516665",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "7b71ca8e",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Niquell Pro",
+    "description": "Schrijf de content voor \"Niquell Pro\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "23516665",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "6b5ba014",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Vacatures overzicht",
+    "description": "Maak een wireframe/indeling voor de pagina \"Vacatures overzicht\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "8cc4f5c0",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "5081f069",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Vacatures overzicht",
+    "description": "Schrijf de content voor \"Vacatures overzicht\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "8cc4f5c0",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "2ff25f22",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Contact",
+    "description": "Maak een wireframe/indeling voor de pagina \"Contact\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "82b5bd3b",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "65b97f2e",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Contact",
+    "description": "Schrijf de content voor \"Contact\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "82b5bd3b",
+    "dueDate": null,
+    "phase": "content"
+  },
+  {
+    "id": "c556fe58",
+    "projectId": "demo0001",
+    "title": "Pagina-indeling: Eventcompas",
+    "description": "Maak een wireframe/indeling voor de pagina \"Eventcompas\".",
+    "team": "UX",
+    "status": "todo",
+    "dependsOnTaskIds": [
+      "6591bd5b"
+    ],
+    "relatedPageId": "d87a53c4",
+    "dueDate": null,
+    "phase": "structuur"
+  },
+  {
+    "id": "acd753fb",
+    "projectId": "demo0001",
+    "title": "Teksten schrijven: Eventcompas",
+    "description": "Schrijf de content voor \"Eventcompas\" op basis van interviews en briefing.",
+    "team": "Content",
+    "status": "todo",
+    "dependsOnTaskIds": [],
+    "relatedPageId": "d87a53c4",
+    "dueDate": null,
+    "phase": "content"
+  }
+]
