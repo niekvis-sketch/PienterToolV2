@@ -150,6 +150,10 @@ Sponsoren	do	Hoe kan een bedrijf sponsor worden?		Partners > Word partner"
           ✅ {{ bulkImportPreview.length }} vragen herkend
           <span v-if="bulkImportErrors.length > 0" class="text-red-500 ml-2">⚠️ {{ bulkImportErrors.length }} regels overgeslagen (onbekende doelgroep/fase)</span>
         </div>
+        <div class="mt-3 flex items-center gap-2">
+          <input type="checkbox" id="replaceExisting" v-model="bulkImportReplace" class="rounded border-gray-300 text-pienter-600 focus:ring-pienter-500" />
+          <label for="replaceExisting" class="text-sm text-gray-700">Oude vragen verwijderen (vervangt alle huidige vragen van de doelgroepen in deze import)</label>
+        </div>
         <div class="flex gap-3 mt-4">
           <button class="btn-primary" @click="executeBulkImport" :disabled="bulkImportPreview.length === 0">
             {{ bulkImportPreview.length }} vragen importeren
@@ -173,6 +177,7 @@ const projectStore = useProjectStore()
 
 const showBulkImport = ref(false)
 const bulkImportText = ref('')
+const bulkImportReplace = ref(false)
 const copySuccess = ref('')
 
 // Editable cell component (inline)
@@ -364,8 +369,9 @@ async function executeBulkImport() {
   const rows = bulkImportPreview.value
   if (rows.length === 0) return
 
-  await projectStore.bulkImportDoelgroepVragen(props.projectId, rows)
+  await projectStore.bulkImportDoelgroepVragen(props.projectId, rows, bulkImportReplace.value)
   bulkImportText.value = ''
+  bulkImportReplace.value = false
   showBulkImport.value = false
   // Reload alle vragen
   await projectStore.fetchAllDoelgroepVragen(props.projectId)

@@ -121,12 +121,20 @@ doelgroepenRouter.delete('/:projectId/:doelgroepId/vragen/:vraagId', (req: Reque
 doelgroepenRouter.post('/:projectId/bulk-import', (req: Request, res: Response) => {
   const { projectId } = req.params
   const rows: Array<{ doelgroepId: string; fase: string; text: string; answer?: string; webpagina?: string; opmerkingen?: string }> = req.body.rows || []
+  const replace = req.body.replace === true
 
   if (!Array.isArray(rows) || rows.length === 0) {
     return res.status(400).json(err('Geen vragen om te importeren'))
   }
 
-  const all = getVragen()
+  let all = getVragen()
+  
+  if (replace) {
+    const importDoelgroepIds = [...new Set(rows.map(r => r.doelgroepId))]
+    // Verwijder bestaande vragen voor de doelgroepen die in de import zitten
+    all = all.filter(v => !(v.projectId === projectId && importDoelgroepIds.includes(v.doelgroepId)))
+  }
+
   const created: DoelgroepVraag[] = []
 
   for (const row of rows) {

@@ -222,8 +222,12 @@ export const useProjectStore = defineStore('project', () => {
     doelgroepVragen.value = doelgroepVragen.value.filter(x => x.id !== vraagId)
   }
 
-  async function bulkImportDoelgroepVragen(projectId: string, rows: Array<{ doelgroepId: string; fase: string; text: string; answer?: string; webpagina?: string; opmerkingen?: string }>) {
-    const created = await apiFetch<DoelgroepVraag[]>('POST', `/doelgroepen/${projectId}/bulk-import`, { rows })
+  async function bulkImportDoelgroepVragen(projectId: string, rows: Array<{ doelgroepId: string; fase: string; text: string; answer?: string; webpagina?: string; opmerkingen?: string }>, replace: boolean = false) {
+    const created = await apiFetch<DoelgroepVraag[]>('POST', `/doelgroepen/${projectId}/bulk-import`, { rows, replace })
+    if (replace) {
+      const importDoelgroepIds = [...new Set(rows.map(r => r.doelgroepId))]
+      doelgroepVragen.value = doelgroepVragen.value.filter(v => !importDoelgroepIds.includes(v.doelgroepId))
+    }
     doelgroepVragen.value.push(...created)
     return created
   }
