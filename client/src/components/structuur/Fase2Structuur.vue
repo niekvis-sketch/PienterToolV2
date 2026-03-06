@@ -4,34 +4,43 @@
     <div class="flex items-center justify-between">
       <div>
         <h3 class="text-lg font-bold text-gray-900">Fase 2 · Websitestructuur & Navigatie</h3>
-        <p class="text-sm text-gray-500 mt-1">Bouw de sitestructuur visueel op. URL's worden automatisch bijgewerkt.</p>
+        <p class="text-sm text-gray-500 mt-1">Bouw de sitestructuur visueel op. Kopieer de klantvragen naar ChatGPT en importeer de gegenereerde structuur.</p>
       </div>
       <div class="flex gap-2">
+        <button class="btn-secondary btn-sm" @click="copyVragenToClipboard">📋 Kopieer klantvragen</button>
         <button class="btn-secondary btn-sm" @click="showImport = !showImport">📥 Importeren</button>
         <button class="btn-secondary btn-sm" @click="fetchWarnings">⚠️ Controleer ({{ store.warnings.length }})</button>
         <button class="btn-primary btn-sm" @click="addRootNode">+ Pagina toevoegen</button>
       </div>
     </div>
 
+    <!-- Copy success notification -->
+    <div v-if="copySuccess" class="bg-green-50 border border-green-200 rounded-lg p-3 flex items-center gap-2 text-sm text-green-700">
+      <span>✅</span>
+      <span>{{ copySuccess }}</span>
+    </div>
+
     <!-- Import panel -->
     <div v-if="showImport" class="card p-5">
       <h4 class="font-semibold text-sm text-gray-700 mb-3">Structuur importeren</h4>
+      <p class="text-xs text-gray-500 mb-3">Plak hieronder de structuur die je van ChatGPT hebt teruggekregen. Kies het juiste formaat.</p>
       <div class="flex gap-4 mb-3">
-        <button class="btn-sm" :class="importMode === 'json' ? 'btn-primary' : 'btn-secondary'" @click="importMode = 'json'">JSON (Miro-format)</button>
+        <button class="btn-sm" :class="importMode === 'json' ? 'btn-primary' : 'btn-secondary'" @click="importMode = 'json'">JSON-formaat</button>
         <button class="btn-sm" :class="importMode === 'csv' ? 'btn-primary' : 'btn-secondary'" @click="importMode = 'csv'">CSV / Spreadsheet</button>
       </div>
       <div v-if="importMode === 'json'">
-        <textarea v-model="importJson" class="textarea font-mono text-xs" rows="6" placeholder='{"root":[{"title":"Home","slug":"","children":[...]}]}' />
-        <div class="flex gap-2 mt-2">
-          <button class="btn-primary btn-sm" @click="handleJsonImport" :disabled="!importJson.trim()">Importeren</button>
-          <button class="btn-tertiary btn-sm" @click="loadJsonExample">Laad voorbeeld</button>
-        </div>
+        <textarea v-model="importJson" class="textarea font-mono text-xs" rows="8" placeholder='{"root":[{"title":"Home","slug":"","children":[{"title":"Over ons","slug":"over-ons"},{"title":"Diensten","slug":"diensten","children":[...]}]}]}' />
       </div>
       <div v-if="importMode === 'csv'">
-        <textarea v-model="importCsv" class="textarea font-mono text-xs" rows="6" placeholder="Pagina;Slug;Parent;Niveau&#10;Home;;&#10;Diensten;diensten;;0&#10;Airconditioning;airconditioning;Diensten;1" />
-        <div class="flex gap-2 mt-2">
-          <button class="btn-primary btn-sm" @click="handleCsvImport" :disabled="!importCsv.trim()">Importeren</button>
-        </div>
+        <textarea v-model="importCsv" class="textarea font-mono text-xs" rows="8" placeholder="Pagina;Slug;Parent;Niveau&#10;Home;;&#10;Diensten;diensten;;0&#10;Airconditioning;airconditioning;Diensten;1" />
+      </div>
+      <div class="mt-3 flex items-center gap-2">
+        <input type="checkbox" id="replaceNodes" v-model="importReplace" class="rounded border-gray-300 text-pienter-600 focus:ring-pienter-500" />
+        <label for="replaceNodes" class="text-sm text-gray-700">Bestaande structuur verwijderen (vervangt alle huidige pagina's)</label>
+      </div>
+      <div class="flex gap-2 mt-3">
+        <button v-if="importMode === 'json'" class="btn-primary btn-sm" @click="handleJsonImport" :disabled="!importJson.trim()">Importeren</button>
+        <button v-if="importMode === 'csv'" class="btn-primary btn-sm" @click="handleCsvImport" :disabled="!importCsv.trim()">Importeren</button>
       </div>
       <p v-if="importMsg" class="text-sm mt-2" :class="importError ? 'text-red-600' : 'text-green-600'">{{ importMsg }}</p>
     </div>
@@ -321,13 +330,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, reactive } from 'vue'
+import { ref, computed, watch, reactive, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
-import type { SiteNode, SiteNodeType, SiteNodeLabel, ContentStatus, ClientQuestion } from '@shared/types'
+import { useProjectStore } from '../../stores/projectStore'
+import type { SiteNode, SiteNodeType, SiteNodeLabel, ContentStatus, ClientQuestion, JourneyFase } from '@shared/types'
 import TreeNode from './TreeNode.vue'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
+const projectStore = useProjectStore()
 
 const activeView = ref<'tree' | 'table' | 'nav' | 'list'>('tree')
 const showImport = ref(false)
@@ -337,6 +348,8 @@ const importJson = ref('')
 const importCsv = ref('')
 const importMsg = ref('')
 const importError = ref(false)
+const importReplace = ref(true)
+const copySuccess = ref('')
 
 const views = [
   { key: 'tree' as const, icon: '🌳', label: 'Structuur' },
@@ -432,15 +445,97 @@ function selectAndScroll(nodeId: string) {
   store.selectedNodeId = nodeId
 }
 
+// Load doelgroep data on mount
+onMounted(async () => {
+  if (projectStore.doelgroepen.length === 0) {
+    await projectStore.fetchDoelgroepen(props.projectId)
+  }
+  if (projectStore.doelgroepVragen.length === 0) {
+    await projectStore.fetchAllDoelgroepVragen(props.projectId)
+  }
+})
+
+const faseLabels: Record<JourneyFase, string> = { see: 'See / Oriëntatie', think: 'Think / Overweging', do: 'Do / Kiezen', care: 'Care / Behoud & Vergroten' }
+const faseOrder: JourneyFase[] = ['see', 'think', 'do', 'care']
+
+async function copyVragenToClipboard() {
+  const lines: string[] = []
+
+  lines.push('=== DOELGROEPEN & KLANTVRAGEN ===')
+  lines.push('')
+
+  for (const dg of projectStore.doelgroepen) {
+    const dgVragen = projectStore.doelgroepVragen.filter(v => v.doelgroepId === dg.id)
+    if (dgVragen.length === 0) continue
+
+    lines.push(`--- Doelgroep: ${dg.name} ${dg.description ? '(' + dg.description + ')' : ''} ---`)
+    lines.push('')
+
+    for (const fase of faseOrder) {
+      const faseVragen = dgVragen.filter(v => v.fase === fase).sort((a, b) => a.sortOrder - b.sortOrder)
+      if (faseVragen.length === 0) continue
+
+      lines.push(`${faseLabels[fase]}:`)
+      for (const v of faseVragen) {
+        let line = `  - ${v.text}`
+        if (v.answer) line += ` → ${v.answer}`
+        if (v.webpagina) line += ` [${v.webpagina}]`
+        lines.push(line)
+      }
+      lines.push('')
+    }
+  }
+
+  lines.push('')
+  lines.push('=== OPDRACHT ===')
+  lines.push('Maak op basis van bovenstaande doelgroepen en klantvragen een websitestructuur.')
+  lines.push('Geef het resultaat terug als JSON in dit formaat:')
+  lines.push('{"root":[{"title":"Home","slug":"","children":[{"title":"Pagina","slug":"pagina","children":[...]}]}]}')
+  lines.push('')
+  lines.push('Houd rekening met:')
+  lines.push('- Logische hiërarchie (max 3 niveaus diep)')
+  lines.push('- Elke pagina moet een duidelijk doel hebben')
+  lines.push('- Groepeer gerelateerde content')
+  lines.push('- Gebruik duidelijke, SEO-vriendelijke slugs')
+
+  const text = lines.join('\n')
+
+  try {
+    await navigator.clipboard.writeText(text)
+    copySuccess.value = `Klantvragen van ${projectStore.doelgroepen.length} doelgroep(en) gekopieerd! Plak dit in ChatGPT om een structuur te genereren.`
+    setTimeout(() => { copySuccess.value = '' }, 5000)
+  } catch {
+    const textarea = document.createElement('textarea')
+    textarea.value = text
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textarea)
+    copySuccess.value = 'Klantvragen gekopieerd naar klembord!'
+    setTimeout(() => { copySuccess.value = '' }, 5000)
+  }
+}
+
+async function clearProjectNodes() {
+  // Delete all nodes for this project
+  for (const node of [...store.siteNodes].filter(n => !n.parentId)) {
+    await store.deleteNode(props.projectId, node.id)
+  }
+}
+
 async function handleJsonImport() {
   importMsg.value = ''
   importError.value = false
   try {
     const data = JSON.parse(importJson.value)
     if (!data.root) throw new Error('JSON moet een "root" array bevatten.')
+    if (importReplace.value && store.siteNodes.length > 0) {
+      await clearProjectNodes()
+    }
     const nodes = await store.importNodes(props.projectId, data)
-    importMsg.value = `${nodes.length} pagina's geïmporteerd!`
+    importMsg.value = `✅ ${nodes.length} pagina's geïmporteerd!`
     importJson.value = ''
+    showImport.value = false
     await fetchWarnings()
   } catch (e: any) {
     importError.value = true
@@ -454,41 +549,23 @@ async function handleCsvImport() {
   try {
     const lines = importCsv.value.trim().split('\n').filter(l => l.trim())
     if (lines.length < 2) throw new Error('Minimaal een header-rij en één pagina nodig.')
+    if (importReplace.value && store.siteNodes.length > 0) {
+      await clearProjectNodes()
+    }
     // Skip header
     const rows = lines.slice(1).map(line => {
       const [title, slug, parentTitle, level] = line.split(';').map(s => s.trim())
       return { title, slug: slug || title.toLowerCase().replace(/\s+/g, '-'), parentTitle: parentTitle || undefined, level: level ? parseInt(level) : undefined }
     })
     const nodes = await store.importFlatNodes(props.projectId, rows)
-    importMsg.value = `${nodes.length} pagina's geïmporteerd!`
+    importMsg.value = `✅ ${nodes.length} pagina's geïmporteerd!`
     importCsv.value = ''
+    showImport.value = false
     await fetchWarnings()
   } catch (e: any) {
     importError.value = true
     importMsg.value = `Fout: ${e.message}`
   }
-}
-
-function loadJsonExample() {
-  importJson.value = JSON.stringify({
-    root: [{
-      title: 'Home', slug: '', children: [
-        { title: 'Diensten', slug: 'diensten', children: [
-          { title: 'Airconditioning', slug: 'airconditioning' },
-          { title: 'Koeltechniek', slug: 'koeltechniek' },
-          { title: 'Warmtepompen', slug: 'warmtepompen' },
-        ]},
-        { title: 'Projecten', slug: 'projecten', children: [
-          { title: 'Project detail', slug: ':slug', type: 'case' },
-        ]},
-        { title: 'Over ons', slug: 'over-ons' },
-        { title: 'Blog', slug: 'blog', children: [
-          { title: 'Blogartikel', slug: ':slug', type: 'post' },
-        ]},
-        { title: 'Contact', slug: 'contact' },
-      ]
-    }]
-  }, null, 2)
 }
 
 function contentStatusClass(s: ContentStatus) {
