@@ -3,7 +3,8 @@ import { ref } from 'vue'
 import { apiFetch } from '../api'
 import type {
   Project, Page, SEOFields, Task, Source, MediaItem,
-  AuditRun, AuditIssue, StructureImport
+  AuditRun, AuditIssue, StructureImport,
+  Doelgroep, DoelgroepVraag
 } from '@shared/types'
 
 export const useProjectStore = defineStore('project', () => {
@@ -17,6 +18,8 @@ export const useProjectStore = defineStore('project', () => {
   const media = ref<MediaItem[]>([])
   const auditRuns = ref<AuditRun[]>([])
   const auditIssues = ref<AuditIssue[]>([])
+  const doelgroepen = ref<Doelgroep[]>([])
+  const doelgroepVragen = ref<DoelgroepVraag[]>([])
   const loading = ref(false)
 
   // ---- Projects ----
@@ -159,6 +162,55 @@ export const useProjectStore = defineStore('project', () => {
     return issue
   }
 
+  // ---- Doelgroepen ----
+  async function fetchDoelgroepen(projectId: string) {
+    doelgroepen.value = await apiFetch<Doelgroep[]>('GET', `/doelgroepen/${projectId}`)
+  }
+
+  async function createDoelgroep(projectId: string, data: Partial<Doelgroep>) {
+    const d = await apiFetch<Doelgroep>('POST', `/doelgroepen/${projectId}`, data)
+    doelgroepen.value.push(d)
+    return d
+  }
+
+  async function updateDoelgroep(projectId: string, doelgroepId: string, data: Partial<Doelgroep>) {
+    const d = await apiFetch<Doelgroep>('PUT', `/doelgroepen/${projectId}/${doelgroepId}`, data)
+    const idx = doelgroepen.value.findIndex(x => x.id === doelgroepId)
+    if (idx >= 0) doelgroepen.value[idx] = d
+    return d
+  }
+
+  async function deleteDoelgroep(projectId: string, doelgroepId: string) {
+    await apiFetch<{ deleted: boolean }>('DELETE', `/doelgroepen/${projectId}/${doelgroepId}`)
+    doelgroepen.value = doelgroepen.value.filter(x => x.id !== doelgroepId)
+    doelgroepVragen.value = doelgroepVragen.value.filter(x => x.doelgroepId !== doelgroepId)
+  }
+
+  // ---- Doelgroep Vragen ----
+  async function fetchDoelgroepVragen(projectId: string, doelgroepId: string) {
+    const vragen = await apiFetch<DoelgroepVraag[]>('GET', `/doelgroepen/${projectId}/${doelgroepId}/vragen`)
+    // Merge into store (replace existing for this doelgroep)
+    doelgroepVragen.value = doelgroepVragen.value.filter(v => v.doelgroepId !== doelgroepId).concat(vragen)
+  }
+
+  async function createDoelgroepVraag(projectId: string, doelgroepId: string, data: Partial<DoelgroepVraag>) {
+    const v = await apiFetch<DoelgroepVraag>('POST', `/doelgroepen/${projectId}/${doelgroepId}/vragen`, data)
+    doelgroepVragen.value.push(v)
+    return v
+  }
+
+  async function updateDoelgroepVraag(projectId: string, doelgroepId: string, vraagId: string, data: Partial<DoelgroepVraag>) {
+    const v = await apiFetch<DoelgroepVraag>('PUT', `/doelgroepen/${projectId}/${doelgroepId}/vragen/${vraagId}`, data)
+    const idx = doelgroepVragen.value.findIndex(x => x.id === vraagId)
+    if (idx >= 0) doelgroepVragen.value[idx] = v
+    return v
+  }
+
+  async function deleteDoelgroepVraag(projectId: string, doelgroepId: string, vraagId: string) {
+    await apiFetch<{ deleted: boolean }>('DELETE', `/doelgroepen/${projectId}/${doelgroepId}/vragen/${vraagId}`)
+    doelgroepVragen.value = doelgroepVragen.value.filter(x => x.id !== vraagId)
+  }
+
   // ---- Seed ----
   async function seed() {
     await apiFetch<void>('GET', '/seed')
@@ -167,13 +219,15 @@ export const useProjectStore = defineStore('project', () => {
 
   return {
     projects, currentProject, pages, seoFields, tasks, sources, media,
-    auditRuns, auditIssues, loading,
+    auditRuns, auditIssues, doelgroepen, doelgroepVragen, loading,
     fetchProjects, fetchProject, createProject, updateProject,
     fetchPages, updatePage, updateSeoFields, importStructure,
     fetchTasks, createTask, updateTask,
     fetchSources, createSource, updateSource,
     fetchMedia, createMedia, scrapeMockMedia,
     fetchAuditRuns, runAudit, fetchAuditIssues, updateAuditIssue,
+    fetchDoelgroepen, createDoelgroep, updateDoelgroep, deleteDoelgroep,
+    fetchDoelgroepVragen, createDoelgroepVraag, updateDoelgroepVraag, deleteDoelgroepVraag,
     seed,
   }
 })

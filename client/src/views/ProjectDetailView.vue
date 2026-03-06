@@ -26,6 +26,7 @@
     <div class="flex-1 overflow-y-auto bg-gray-50">
       <div class="p-6">
         <OverzichtTab v-if="activeTab === 'overzicht'" />
+        <DoelgroepenTab v-else-if="activeTab === 'doelgroepen'" />
         <StructuurTab v-else-if="activeTab === 'structuur'" />
         <TakenTab v-else-if="activeTab === 'taken'" />
         <BronnenTab v-else-if="activeTab === 'bronnen'" />
@@ -47,6 +48,7 @@ import BronnenTab from '../components/tabs/BronnenTab.vue'
 import MediaTab from '../components/tabs/MediaTab.vue'
 import AuditTab from '../components/tabs/AuditTab.vue'
 import InstellingenTab from '../components/tabs/InstellingenTab.vue'
+import DoelgroepenTab from '../components/tabs/DoelgroepenTab.vue'
 
 const props = defineProps<{ id: string }>()
 const store = useProjectStore()
@@ -54,6 +56,7 @@ const activeTab = ref('overzicht')
 
 const tabs = [
   { key: 'overzicht', label: 'Overzicht', icon: '📊' },
+  { key: 'doelgroepen', label: 'Doelgroepen', icon: '🎯' },
   { key: 'structuur', label: 'Structuur', icon: '🗂️' },
   { key: 'taken', label: 'Taken', icon: '✅' },
   { key: 'bronnen', label: 'Bronnen', icon: '📄' },
@@ -71,6 +74,7 @@ async function loadAll() {
     store.fetchSources(props.id),
     store.fetchMedia(props.id),
     store.fetchAuditRuns(props.id),
+    store.fetchDoelgroepen(props.id),
   ])
 }
 

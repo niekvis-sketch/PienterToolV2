@@ -183,6 +183,27 @@ export interface StructuurProgress {
   updatedAt: string
 }
 
+// ---------- Doelgroepen & Customer Journey Vragen ----------
+export type JourneyFase = 'see' | 'think' | 'do' | 'care'
+
+export interface Doelgroep {
+  id: string
+  projectId: string
+  name: string
+  description: string
+  createdAt: string
+}
+
+export interface DoelgroepVraag {
+  id: string
+  projectId: string
+  doelgroepId: string
+  fase: JourneyFase
+  text: string
+  sortOrder: number
+  createdAt: string
+}
+
 // ---------- Fase 1: User Stories & Klantvragen ----------
 export interface UserStory {
   id: string
