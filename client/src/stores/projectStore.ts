@@ -193,6 +193,17 @@ export const useProjectStore = defineStore('project', () => {
     doelgroepVragen.value = doelgroepVragen.value.filter(v => v.doelgroepId !== doelgroepId).concat(vragen)
   }
 
+  async function fetchAllDoelgroepVragen(projectId: string) {
+    // Fetch vragen for all doelgroepen
+    const dgs = doelgroepen.value.length > 0 ? doelgroepen.value : await apiFetch<Doelgroep[]>('GET', `/doelgroepen/${projectId}`)
+    const all: DoelgroepVraag[] = []
+    for (const dg of dgs) {
+      const vragen = await apiFetch<DoelgroepVraag[]>('GET', `/doelgroepen/${projectId}/${dg.id}/vragen`)
+      all.push(...vragen)
+    }
+    doelgroepVragen.value = all
+  }
+
   async function createDoelgroepVraag(projectId: string, doelgroepId: string, data: Partial<DoelgroepVraag>) {
     const v = await apiFetch<DoelgroepVraag>('POST', `/doelgroepen/${projectId}/${doelgroepId}/vragen`, data)
     doelgroepVragen.value.push(v)
@@ -211,6 +222,12 @@ export const useProjectStore = defineStore('project', () => {
     doelgroepVragen.value = doelgroepVragen.value.filter(x => x.id !== vraagId)
   }
 
+  async function bulkImportDoelgroepVragen(projectId: string, rows: Array<{ doelgroepId: string; fase: string; text: string; answer?: string; webpagina?: string; opmerkingen?: string }>) {
+    const created = await apiFetch<DoelgroepVraag[]>('POST', `/doelgroepen/${projectId}/bulk-import`, { rows })
+    doelgroepVragen.value.push(...created)
+    return created
+  }
+
   // ---- Seed ----
   async function seed() {
     await apiFetch<void>('GET', '/seed')
@@ -227,7 +244,8 @@ export const useProjectStore = defineStore('project', () => {
     fetchMedia, createMedia, scrapeMockMedia,
     fetchAuditRuns, runAudit, fetchAuditIssues, updateAuditIssue,
     fetchDoelgroepen, createDoelgroep, updateDoelgroep, deleteDoelgroep,
-    fetchDoelgroepVragen, createDoelgroepVraag, updateDoelgroepVraag, deleteDoelgroepVraag,
+    fetchDoelgroepVragen, fetchAllDoelgroepVragen, createDoelgroepVraag, updateDoelgroepVraag, deleteDoelgroepVraag,
+    bulkImportDoelgroepVragen,
     seed,
   }
 })

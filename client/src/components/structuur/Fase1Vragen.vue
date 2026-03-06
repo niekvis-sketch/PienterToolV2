@@ -3,408 +3,373 @@
     <!-- Header -->
     <div class="flex items-center justify-between">
       <div>
-        <h3 class="text-lg font-bold text-gray-900">Fase 1 · User Stories → Klantvragen</h3>
-        <p class="text-sm text-gray-500 mt-1">Vertaal user stories naar concrete vragen voor de klant. Groepeer en beantwoord vragen om inzichten op te bouwen.</p>
+        <h3 class="text-lg font-bold text-gray-900">Fase 1 · Klantvragen uit Doelgroepen</h3>
+        <p class="text-sm text-gray-500 mt-1">Overzicht van alle vragen uit de doelgroep-analyse. Kopieer ze naar ChatGPT, verrijk ze daar en importeer het resultaat terug.</p>
       </div>
       <div class="flex gap-2">
-        <button class="btn-secondary btn-sm" @click="showImportSources = !showImportSources">📄 Bronnen bekijken</button>
-        <button class="btn-primary btn-sm" @click="showNewStory = true">+ User Story</button>
+        <button class="btn-secondary btn-sm" @click="copyAllToClipboard">📋 Kopieer alles</button>
+        <button class="btn-primary btn-sm" @click="showBulkImport = true">📥 Bulk importeren</button>
       </div>
     </div>
 
-    <!-- Beschikbare bronnen (collapse) -->
-    <div v-if="showImportSources" class="card p-4">
-      <h4 class="font-semibold text-sm text-gray-700 mb-2">📄 Beschikbare input uit het project</h4>
-      <p class="text-xs text-gray-500 mb-3">Dit zijn bronnen uit de Bronnen-tab (transcripties, notities, etc.) die je kunt gebruiken als input voor user stories.</p>
-      <div v-if="projectStore.sources.length === 0" class="text-sm text-gray-400 italic">Nog geen bronnen beschikbaar. Voeg ze toe via de Bronnen-tab.</div>
-      <div v-else class="space-y-2">
-        <div v-for="source in projectStore.sources" :key="source.id" class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-          <span class="text-lg">{{ sourceIcon(source.type) }}</span>
-          <div class="flex-1 min-w-0">
-            <div class="font-medium text-sm text-gray-800">{{ source.title }}</div>
-            <div class="text-xs text-gray-500 mt-0.5 line-clamp-2">{{ source.contentText.substring(0, 150) }}{{ source.contentText.length > 150 ? '...' : '' }}</div>
-            <div class="flex gap-1 mt-1">
-              <span v-for="tag in source.tags" :key="tag" class="text-[10px] bg-pienter-100 text-pienter-700 rounded px-1.5 py-0.5">{{ tag }}</span>
-            </div>
-          </div>
+    <!-- Copy success notification -->
+    <div v-if="copySuccess" class="bg-green-50 border border-green-200 rounded-lg p-3 flex items-center gap-2 text-sm text-green-700">
+      <span>✅</span>
+      <span>{{ copySuccess }}</span>
+    </div>
+
+    <!-- No doelgroepen warning -->
+    <div v-if="projectStore.doelgroepen.length === 0" class="empty-state card p-12">
+      <div class="text-4xl mb-4">🎯</div>
+      <h3 class="text-lg font-semibold text-gray-700">Nog geen doelgroepen</h3>
+      <p>Ga eerst naar de <strong>Doelgroepen</strong>-tab om doelgroepen aan te maken en vragen per journey-fase vast te leggen.</p>
+    </div>
+
+    <!-- Spreadsheet view per doelgroep -->
+    <template v-for="dg in projectStore.doelgroepen" :key="dg.id">
+      <div class="card overflow-hidden" v-if="vragenVoorDoelgroep(dg.id).length > 0">
+        <!-- Doelgroep header -->
+        <div class="px-5 py-3 bg-pienter-50 border-b border-pienter-100">
+          <h4 class="font-bold text-pienter-800">Doelgroep: {{ dg.name }}</h4>
+          <p v-if="dg.description" class="text-xs text-pienter-600 mt-0.5">{{ dg.description }}</p>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-50 border-b border-gray-200">
+                <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide w-32">Fase</th>
+                <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide">Vraag</th>
+                <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide w-64">Antwoord / meer info</th>
+                <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide w-44">Webpagina</th>
+                <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide w-56">Opmerkingen / actiepunten</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-for="fase in fasen" :key="fase.key">
+                <!-- Fase section header -->
+                <tr v-if="vragenVoorDoelgroepFase(dg.id, fase.key).length > 0" class="border-t-2" :class="fase.borderClass">
+                  <td :colspan="5" class="px-4 py-2 font-bold text-sm" :class="fase.headerClass">
+                    {{ fase.label }}
+                  </td>
+                </tr>
+                <!-- Vraag rows -->
+                <tr
+                  v-for="vraag in vragenVoorDoelgroepFase(dg.id, fase.key)"
+                  :key="vraag.id"
+                  class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors group"
+                >
+                  <td class="px-4 py-2 text-xs align-top">
+                    <span class="inline-block rounded-full px-2 py-0.5 text-[10px] font-medium" :class="fase.badgeClass">{{ fase.shortLabel }}</span>
+                  </td>
+                  <td class="px-4 py-2 align-top">
+                    <EditableCell
+                      :value="vraag.text"
+                      placeholder="Vraag..."
+                      @save="(val: string) => updateVraagField(dg.id, vraag.id, 'text', val)"
+                    />
+                  </td>
+                  <td class="px-4 py-2 align-top">
+                    <EditableCell
+                      :value="vraag.answer"
+                      placeholder="Antwoord invullen..."
+                      @save="(val: string) => updateVraagField(dg.id, vraag.id, 'answer', val)"
+                    />
+                  </td>
+                  <td class="px-4 py-2 align-top">
+                    <EditableCell
+                      :value="vraag.webpagina"
+                      placeholder="Webpagina..."
+                      @save="(val: string) => updateVraagField(dg.id, vraag.id, 'webpagina', val)"
+                    />
+                  </td>
+                  <td class="px-4 py-2 align-top">
+                    <EditableCell
+                      :value="vraag.opmerkingen"
+                      placeholder="Opmerkingen..."
+                      @save="(val: string) => updateVraagField(dg.id, vraag.id, 'opmerkingen', val)"
+                    />
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
+    </template>
 
-    <!-- User Stories lijst -->
-    <div v-if="store.userStories.length === 0 && !showNewStory" class="empty-state card p-12">
+    <!-- No questions at all -->
+    <div v-if="allVragen.length === 0 && projectStore.doelgroepen.length > 0" class="empty-state card p-12">
       <div class="text-4xl mb-4">📝</div>
-      <h3 class="text-lg font-semibold text-gray-700">Nog geen user stories</h3>
-      <p>Voeg user stories toe om te beginnen met het opstellen van klantvragen.</p>
-      <button class="btn-primary btn-sm mt-4" @click="showNewStory = true">+ Eerste user story toevoegen</button>
+      <h3 class="text-lg font-semibold text-gray-700">Nog geen vragen vastgelegd</h3>
+      <p>Ga naar de <strong>Doelgroepen</strong>-tab om per doelgroep vragen toe te voegen per journey-fase.</p>
     </div>
 
-    <!-- New Story form -->
-    <div v-if="showNewStory" class="card p-5">
-      <h4 class="font-semibold text-gray-900 mb-3">Nieuwe User Story</h4>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <div>
-          <label class="block text-xs font-medium text-gray-600 mb-1">Als een... (doelgroep)</label>
-          <input v-model="newStory.asA" class="input" placeholder="bijv. potentiële klant" />
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-600 mb-1">Wil ik... (actie/behoefte)</label>
-          <input v-model="newStory.iWant" class="input" placeholder="bijv. informatie over koeldiensten vinden" />
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-600 mb-1">Zodat ik... (doel)</label>
-          <input v-model="newStory.soThat" class="input" placeholder="bijv. kan beoordelen of dit bedrijf bij mij past" />
-        </div>
-      </div>
-      <div class="mb-4">
-        <label class="block text-xs font-medium text-gray-600 mb-1">Titel (korte samenvatting)</label>
-        <input v-model="newStory.title" class="input" :placeholder="storyTitleSuggestion" />
-      </div>
-      <div class="flex gap-2">
-        <button class="btn-primary btn-sm" @click="addStory" :disabled="!newStory.asA || !newStory.iWant">Opslaan</button>
-        <button class="btn-secondary btn-sm" @click="showNewStory = false">Annuleren</button>
-      </div>
-    </div>
-
-    <!-- Stories + Questions -->
-    <div v-for="story in store.userStories" :key="story.id" class="card overflow-hidden">
-      <div class="p-4 bg-gray-50 border-b border-gray-100">
-        <div class="flex items-start justify-between">
-          <div class="flex-1">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-sm font-semibold text-gray-900">{{ story.title || storyLabel(story) }}</span>
-              <span class="text-[10px] bg-pienter-100 text-pienter-700 rounded-full px-2 py-0.5">{{ questionsForStory(story.id).length }} vragen</span>
-            </div>
-            <p class="text-xs text-gray-600">
-              Als een <strong>{{ story.asA }}</strong>, wil ik <strong>{{ story.iWant }}</strong>, zodat ik <strong>{{ story.soThat }}</strong>.
-            </p>
-          </div>
-          <div class="flex gap-1 ml-3">
-            <button class="btn-tertiary btn-sm text-xs" @click="generateQuestions(story.id)" :disabled="generatingFor === story.id">
-              {{ generatingFor === story.id ? '⏳ Genereren...' : '🤖 Genereer vragen' }}
-            </button>
-            <button class="btn-secondary btn-sm text-xs" @click="addManualQuestion(story.id)">+ Vraag</button>
-            <button class="text-gray-400 hover:text-red-500 p-1" @click="removeStory(story.id)" title="Verwijder">🗑</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Questions for this story -->
-      <div v-if="questionsForStory(story.id).length === 0" class="p-4 text-center text-sm text-gray-400">
-        Nog geen vragen. Klik op "Genereer vragen" voor automatische suggesties of voeg handmatig een vraag toe.
-      </div>
-      <div v-else class="divide-y divide-gray-100">
-        <div v-for="q in questionsForStory(story.id)" :key="q.id" class="p-4 hover:bg-gray-50 transition-colors">
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 text-lg cursor-pointer" @click="cycleStatus(q)" :title="statusTooltip(q.status)">{{ statusIcon(q.status) }}</span>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-1">
-                <span :class="groupBadgeClass(q.group)" class="text-[10px] rounded-full px-2 py-0.5 font-medium">{{ q.group }}</span>
-                <span :class="statusBadgeClass(q.status)" class="text-[10px] rounded-full px-2 py-0.5">{{ statusLabel(q.status) }}</span>
-              </div>
-              <!-- Question text (editable) -->
-              <div v-if="editingQuestion === q.id" class="space-y-2">
-                <textarea v-model="editQuestionText" class="textarea text-sm" rows="2" />
-                <div>
-                  <label class="block text-xs text-gray-500 mb-1">Antwoord</label>
-                  <textarea v-model="editAnswerText" class="textarea text-sm" rows="2" placeholder="Voer hier het antwoord van de klant in..." />
-                </div>
-                <div>
-                  <label class="block text-xs text-gray-500 mb-1">Impact op structuur</label>
-                  <input v-model="editImpactText" class="input text-sm" placeholder="Kort: wat betekent dit voor de sitestructuur?" />
-                </div>
-                <div class="flex items-center gap-2">
-                  <select v-model="editGroup" class="select text-xs w-auto">
-                    <option v-for="g in groups" :key="g" :value="g">{{ g }}</option>
-                  </select>
-                  <select v-model="editStatus" class="select text-xs w-auto">
-                    <option value="open">Open</option>
-                    <option value="answered">Beantwoord</option>
-                    <option value="assumption">Aanname</option>
-                    <option value="insight">Inzicht</option>
-                  </select>
-                  <button class="btn-primary btn-sm text-xs" @click="saveQuestion(q)">Opslaan</button>
-                  <button class="btn-secondary btn-sm text-xs" @click="editingQuestion = null">Annuleer</button>
-                </div>
-              </div>
-              <div v-else>
-                <p class="text-sm text-gray-800 cursor-pointer" @click="startEditQuestion(q)">{{ q.question }}</p>
-                <p v-if="q.answer" class="text-xs text-green-700 bg-green-50 rounded p-2 mt-2">💬 {{ q.answer }}</p>
-                <p v-if="q.impactOnStructure" class="text-xs text-pienter-700 bg-pienter-50 rounded p-2 mt-1">🏗️ {{ q.impactOnStructure }}</p>
-              </div>
-            </div>
-            <button class="text-gray-300 hover:text-red-400 text-xs" @click="removeQuestion(q.id)" title="Verwijder">✕</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Standalone vragen (niet gekoppeld aan story) -->
-    <div v-if="standaloneQuestions.length > 0" class="card overflow-hidden">
-      <div class="p-4 bg-gray-50 border-b border-gray-100">
-        <span class="text-sm font-semibold text-gray-700">📋 Losse vragen (niet gekoppeld aan user story)</span>
-      </div>
-      <div class="divide-y divide-gray-100">
-        <div v-for="q in standaloneQuestions" :key="q.id" class="p-4 hover:bg-gray-50">
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 text-lg cursor-pointer" @click="cycleStatus(q)">{{ statusIcon(q.status) }}</span>
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <span :class="groupBadgeClass(q.group)" class="text-[10px] rounded-full px-2 py-0.5 font-medium">{{ q.group }}</span>
-                <span :class="statusBadgeClass(q.status)" class="text-[10px] rounded-full px-2 py-0.5">{{ statusLabel(q.status) }}</span>
-              </div>
-              <p class="text-sm text-gray-800 cursor-pointer" @click="startEditQuestion(q)">{{ q.question }}</p>
-              <p v-if="q.answer" class="text-xs text-green-700 bg-green-50 rounded p-2 mt-2">💬 {{ q.answer }}</p>
-            </div>
-            <button class="text-gray-300 hover:text-red-400 text-xs" @click="removeQuestion(q.id)">✕</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Statistieken balk -->
-    <div class="grid grid-cols-4 gap-4">
+    <!-- Stats -->
+    <div v-if="allVragen.length > 0" class="grid grid-cols-5 gap-4">
       <div class="card p-4 text-center">
-        <div class="text-2xl font-bold text-gray-400">{{ store.openQuestions.length }}</div>
-        <div class="text-xs text-gray-500 mt-1">Open</div>
+        <div class="text-2xl font-bold text-gray-900">{{ allVragen.length }}</div>
+        <div class="text-xs text-gray-500 mt-1">Totaal vragen</div>
       </div>
       <div class="card p-4 text-center">
-        <div class="text-2xl font-bold text-green-600">{{ store.answeredQuestions.length }}</div>
-        <div class="text-xs text-gray-500 mt-1">Beantwoord</div>
+        <div class="text-2xl font-bold text-orange-600">{{ vragenPerFase('see') }}</div>
+        <div class="text-xs text-gray-500 mt-1">See</div>
       </div>
       <div class="card p-4 text-center">
-        <div class="text-2xl font-bold text-amber-600">{{ store.assumptions.length }}</div>
-        <div class="text-xs text-gray-500 mt-1">Aannames</div>
+        <div class="text-2xl font-bold text-yellow-600">{{ vragenPerFase('think') }}</div>
+        <div class="text-xs text-gray-500 mt-1">Think</div>
       </div>
       <div class="card p-4 text-center">
-        <div class="text-2xl font-bold text-pienter-600">{{ store.insights.length }}</div>
-        <div class="text-xs text-gray-500 mt-1">Inzichten</div>
+        <div class="text-2xl font-bold text-green-600">{{ vragenPerFase('do') }}</div>
+        <div class="text-xs text-gray-500 mt-1">Do</div>
+      </div>
+      <div class="card p-4 text-center">
+        <div class="text-2xl font-bold text-cyan-600">{{ vragenPerFase('care') }}</div>
+        <div class="text-xs text-gray-500 mt-1">Care</div>
       </div>
     </div>
 
-    <!-- Filter op groep -->
-    <div class="card p-4">
-      <h4 class="font-semibold text-sm text-gray-700 mb-3">Vragen per categorie</h4>
-      <div class="flex flex-wrap gap-2">
-        <button v-for="g in groups" :key="g"
-          class="text-xs rounded-full px-3 py-1.5 font-medium transition-colors"
-          :class="activeGroup === g ? 'bg-pienter-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
-          @click="activeGroup = activeGroup === g ? null : g"
-        >
-          {{ g }} ({{ questionsByGroup(g).length }})
-        </button>
-      </div>
-      <div v-if="activeGroup" class="mt-4 space-y-2">
-        <div v-for="q in questionsByGroup(activeGroup)" :key="q.id" class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg text-sm">
-          <span>{{ statusIcon(q.status) }}</span>
-          <span class="flex-1 text-gray-700">{{ q.question }}</span>
-          <span :class="statusBadgeClass(q.status)" class="text-[10px] rounded-full px-2 py-0.5">{{ statusLabel(q.status) }}</span>
+    <!-- Bulk import modal -->
+    <div v-if="showBulkImport" class="fixed inset-0 bg-black/30 flex items-center justify-center z-50" @click.self="showBulkImport = false">
+      <div class="bg-white rounded-xl shadow-xl w-full max-w-3xl p-6 max-h-[85vh] flex flex-col">
+        <h3 class="text-lg font-bold mb-2">📥 Bulk importeren</h3>
+        <p class="text-sm text-gray-600 mb-4">
+          Plak hieronder je vragen in tab-gescheiden formaat (bijv. vanuit ChatGPT of Excel).<br>
+          <strong>Formaat per regel:</strong> <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded">Doelgroep[TAB]Fase[TAB]Vraag[TAB]Antwoord[TAB]Webpagina[TAB]Opmerkingen</code><br>
+          <span class="text-xs text-gray-500">Fase moet zijn: see, think, do, of care. Doelgroep moet exact overeenkomen met een bestaande doelgroep. Antwoord/Webpagina/Opmerkingen zijn optioneel.</span>
+        </p>
+        <textarea
+          v-model="bulkImportText"
+          class="textarea font-mono text-xs flex-1 min-h-[250px]"
+          placeholder="Ondernemers	see	Wat is de Drentse Onderneming van het Jaar?	Doel van de prijs	Home / Over de prijs
+Ondernemers	think	Wat levert deelname concreet op?	Waarom meedoen?	Home / Over de prijs
+Sponsoren	do	Hoe kan een bedrijf sponsor worden?		Partners > Word partner"
+        />
+        <div v-if="bulkImportPreview.length > 0" class="mt-3 text-xs text-gray-600">
+          ✅ {{ bulkImportPreview.length }} vragen herkend
+          <span v-if="bulkImportErrors.length > 0" class="text-red-500 ml-2">⚠️ {{ bulkImportErrors.length }} regels overgeslagen (onbekende doelgroep/fase)</span>
         </div>
-      </div>
-    </div>
-
-    <!-- Samenvatting genereren -->
-    <div class="card p-5">
-      <div class="flex items-center justify-between mb-3">
-        <h4 class="font-semibold text-gray-900">📊 Fase 1 Samenvatting</h4>
-        <button class="btn-primary btn-sm" @click="generateSummary" :disabled="generatingSummary">
-          {{ generatingSummary ? '⏳ Genereren...' : '🤖 Samenvatting genereren' }}
-        </button>
-      </div>
-      <p class="text-xs text-gray-500 mb-4">Op basis van alle beantwoorde vragen, aannames en inzichten wordt een compact overzicht gegenereerd.</p>
-
-      <div v-if="store.fase1Summary" class="space-y-4">
-        <div>
-          <h5 class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">✅ Hoofdonderwerpen die terugkomen</h5>
-          <ul class="space-y-1">
-            <li v-for="(topic, i) in store.fase1Summary.mainTopics" :key="i" class="text-sm text-gray-700 flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-green-400" /> {{ topic }}
-            </li>
-          </ul>
+        <div class="flex gap-3 mt-4">
+          <button class="btn-primary" @click="executeBulkImport" :disabled="bulkImportPreview.length === 0">
+            {{ bulkImportPreview.length }} vragen importeren
+          </button>
+          <button class="btn-secondary" @click="showBulkImport = false">Annuleren</button>
         </div>
-        <div v-if="store.fase1Summary.uncertainTopics.length">
-          <h5 class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">⚠️ Nog onzekere onderdelen</h5>
-          <ul class="space-y-1">
-            <li v-for="(topic, i) in store.fase1Summary.uncertainTopics" :key="i" class="text-sm text-amber-700 flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-400" /> {{ topic }}
-            </li>
-          </ul>
-        </div>
-        <div v-if="store.fase1Summary.seoImportantPages.length">
-          <h5 class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">🔍 Belangrijk voor vindbaarheid</h5>
-          <ul class="space-y-1">
-            <li v-for="(p, i) in store.fase1Summary.seoImportantPages" :key="i" class="text-sm text-pienter-700 flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-pienter-400" /> {{ p }}
-            </li>
-          </ul>
-        </div>
-        <div v-if="store.fase1Summary.bundleOpportunities.length">
-          <h5 class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">🔗 Mogelijk bundelen op één pagina</h5>
-          <ul class="space-y-1">
-            <li v-for="(b, i) in store.fase1Summary.bundleOpportunities" :key="i" class="text-sm text-gray-700 flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-purple-400" /> {{ b }}
-            </li>
-          </ul>
-        </div>
-        <div v-if="store.fase1Summary.pendingFromClient.length">
-          <h5 class="text-xs font-semibold text-gray-600 uppercase tracking-wide mb-2">📩 Nog aan te leveren door klant</h5>
-          <ul class="space-y-1">
-            <li v-for="(p, i) in store.fase1Summary.pendingFromClient" :key="i" class="text-sm text-red-600 flex items-center gap-2">
-              <span class="w-1.5 h-1.5 rounded-full bg-red-400" /> {{ p }}
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div v-else class="text-sm text-gray-400 text-center py-6">
-        Nog geen samenvatting gegenereerd. Beantwoord eerst enkele vragen en klik dan op "Samenvatting genereren".
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, defineComponent, h } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'
-import type { ClientQuestion, QuestionGroup, QuestionStatus } from '@shared/types'
+import type { DoelgroepVraag, JourneyFase } from '@shared/types'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
 const projectStore = useProjectStore()
 
-const showImportSources = ref(false)
-const showNewStory = ref(false)
-const generatingFor = ref<string | null>(null)
-const generatingSummary = ref(false)
-const editingQuestion = ref<string | null>(null)
-const editQuestionText = ref('')
-const editAnswerText = ref('')
-const editImpactText = ref('')
-const editGroup = ref<QuestionGroup>('content')
-const editStatus = ref<QuestionStatus>('open')
-const activeGroup = ref<QuestionGroup | null>(null)
+const showBulkImport = ref(false)
+const bulkImportText = ref('')
+const copySuccess = ref('')
 
-const groups: QuestionGroup[] = ['navigatie', 'doelgroep', 'content', 'seo', 'functionaliteit', 'beeldmateriaal', 'conversie']
+// Editable cell component (inline)
+const EditableCell = defineComponent({
+  props: {
+    value: { type: String, default: '' },
+    placeholder: { type: String, default: '' },
+  },
+  emits: ['save'],
+  setup(cellProps, { emit }) {
+    const editing = ref(false)
+    const editValue = ref('')
 
-const newStory = ref({ title: '', asA: '', iWant: '', soThat: '' })
+    function startEdit() {
+      editing.value = true
+      editValue.value = cellProps.value
+    }
 
-const storyTitleSuggestion = computed(() => {
-  if (newStory.value.asA && newStory.value.iWant) return `${newStory.value.asA} – ${newStory.value.iWant}`
-  return 'Automatisch op basis van de velden hierboven'
+    function save() {
+      editing.value = false
+      if (editValue.value !== cellProps.value) {
+        emit('save', editValue.value)
+      }
+    }
+
+    function cancel() {
+      editing.value = false
+    }
+
+    return () => {
+      if (editing.value) {
+        return h('input', {
+          value: editValue.value,
+          class: 'w-full text-sm border border-pienter-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-pienter-500',
+          onInput: (e: Event) => { editValue.value = (e.target as HTMLInputElement).value },
+          onBlur: save,
+          onKeydown: (e: KeyboardEvent) => {
+            if (e.key === 'Enter') save()
+            if (e.key === 'Escape') cancel()
+          },
+          onVnodeMounted: (vnode: any) => { vnode.el?.focus() },
+        })
+      }
+      return h('div', {
+        class: `text-sm cursor-pointer min-h-[24px] rounded px-1 -mx-1 hover:bg-gray-100 transition-colors ${cellProps.value ? 'text-gray-800' : 'text-gray-300 italic'}`,
+        onClick: startEdit,
+      }, cellProps.value || cellProps.placeholder)
+    }
+  },
 })
 
-function questionsForStory(storyId: string) {
-  return store.clientQuestions.filter(q => q.userStoryId === storyId)
+const fasen = [
+  { key: 'see' as JourneyFase, label: 'See / Oriëntatie', shortLabel: 'See', headerClass: 'bg-orange-50 text-orange-700', badgeClass: 'bg-orange-100 text-orange-700', borderClass: 'border-orange-200' },
+  { key: 'think' as JourneyFase, label: 'Think / Overweging', shortLabel: 'Think', headerClass: 'bg-yellow-50 text-yellow-700', badgeClass: 'bg-yellow-100 text-yellow-700', borderClass: 'border-yellow-200' },
+  { key: 'do' as JourneyFase, label: 'Do / Kiezen', shortLabel: 'Do', headerClass: 'bg-green-50 text-green-700', badgeClass: 'bg-green-100 text-green-700', borderClass: 'border-green-200' },
+  { key: 'care' as JourneyFase, label: 'Care / Behoud & Vergroten', shortLabel: 'Care', headerClass: 'bg-cyan-50 text-cyan-700', badgeClass: 'bg-cyan-100 text-cyan-700', borderClass: 'border-cyan-200' },
+]
+
+const allVragen = computed(() => projectStore.doelgroepVragen.filter(v => v.projectId === props.projectId))
+
+function vragenVoorDoelgroep(doelgroepId: string): DoelgroepVraag[] {
+  return allVragen.value.filter(v => v.doelgroepId === doelgroepId)
 }
 
-const standaloneQuestions = computed(() => store.clientQuestions.filter(q => !q.userStoryId))
-
-function questionsByGroup(group: QuestionGroup) {
-  return store.clientQuestions.filter(q => q.group === group)
+function vragenVoorDoelgroepFase(doelgroepId: string, fase: JourneyFase): DoelgroepVraag[] {
+  return allVragen.value
+    .filter(v => v.doelgroepId === doelgroepId && v.fase === fase)
+    .sort((a, b) => a.sortOrder - b.sortOrder)
 }
 
-function sourceIcon(type: string) {
-  const icons: Record<string, string> = { transcript: '🎙️', note: '📝', link: '🔗', file: '📎' }
-  return icons[type] || '📄'
+function vragenPerFase(fase: JourneyFase): number {
+  return allVragen.value.filter(v => v.fase === fase).length
 }
 
-function storyLabel(story: { asA: string; iWant: string }) {
-  return `${story.asA} – ${story.iWant}`
+// Load all vragen on mount
+onMounted(async () => {
+  if (projectStore.doelgroepen.length === 0) {
+    await projectStore.fetchDoelgroepen(props.projectId)
+  }
+  await projectStore.fetchAllDoelgroepVragen(props.projectId)
+})
+
+// Update a single field on a vraag
+async function updateVraagField(doelgroepId: string, vraagId: string, field: string, value: string) {
+  await projectStore.updateDoelgroepVraag(props.projectId, doelgroepId, vraagId, { [field]: value })
 }
 
-async function addStory() {
-  if (!newStory.value.asA || !newStory.value.iWant) return
-  const title = newStory.value.title || `${newStory.value.asA} – ${newStory.value.iWant}`
-  await store.createStory(props.projectId, { ...newStory.value, title })
-  newStory.value = { title: '', asA: '', iWant: '', soThat: '' }
-  showNewStory.value = false
-}
+// Copy all questions to clipboard in a ChatGPT-friendly format
+async function copyAllToClipboard() {
+  const lines: string[] = []
 
-async function removeStory(storyId: string) {
-  if (!confirm('User story verwijderen? Gekoppelde vragen blijven bestaan.')) return
-  await store.deleteStory(props.projectId, storyId)
-}
+  // Header
+  lines.push('Doelgroep\tFase\tVraag\tAntwoord / meer informatie\tWebpagina\tOpmerkingen / actiepunten')
 
-async function generateQuestions(storyId: string) {
-  generatingFor.value = storyId
+  for (const dg of projectStore.doelgroepen) {
+    const vragen = vragenVoorDoelgroep(dg.id)
+    for (const fase of fasen) {
+      const faseVragen = vragen.filter(v => v.fase === fase.key).sort((a, b) => a.sortOrder - b.sortOrder)
+      for (const v of faseVragen) {
+        lines.push([dg.name, fase.shortLabel.toLowerCase(), v.text, v.answer || '', v.webpagina || '', v.opmerkingen || ''].join('\t'))
+      }
+    }
+  }
+
   try {
-    await store.generateQuestionsForStory(props.projectId, storyId)
-  } finally {
-    generatingFor.value = null
+    await navigator.clipboard.writeText(lines.join('\n'))
+    copySuccess.value = `${allVragen.value.length} vragen gekopieerd naar klembord! Je kunt dit nu plakken in ChatGPT.`
+    setTimeout(() => { copySuccess.value = '' }, 4000)
+  } catch {
+    // Fallback
+    const textarea = document.createElement('textarea')
+    textarea.value = lines.join('\n')
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textarea)
+    copySuccess.value = `${allVragen.value.length} vragen gekopieerd!`
+    setTimeout(() => { copySuccess.value = '' }, 4000)
   }
 }
 
-async function addManualQuestion(storyId: string) {
-  await store.createQuestion(props.projectId, { userStoryId: storyId, question: 'Nieuwe vraag...', group: 'content' })
-}
+// Bulk import parsing
+const validFasen = ['see', 'think', 'do', 'care']
 
-async function removeQuestion(questionId: string) {
-  await store.deleteQuestion(props.projectId, questionId)
-}
+const bulkImportPreview = computed(() => {
+  if (!bulkImportText.value.trim()) return []
+  return parseBulkLines().valid
+})
 
-function startEditQuestion(q: ClientQuestion) {
-  editingQuestion.value = q.id
-  editQuestionText.value = q.question
-  editAnswerText.value = q.answer
-  editImpactText.value = q.impactOnStructure
-  editGroup.value = q.group
-  editStatus.value = q.status
-}
+const bulkImportErrors = computed(() => {
+  if (!bulkImportText.value.trim()) return []
+  return parseBulkLines().errors
+})
 
-async function saveQuestion(q: ClientQuestion) {
-  await store.updateQuestion(props.projectId, q.id, {
-    question: editQuestionText.value,
-    answer: editAnswerText.value,
-    impactOnStructure: editImpactText.value,
-    group: editGroup.value,
-    status: editStatus.value
-  })
-  editingQuestion.value = null
-}
+function parseBulkLines() {
+  const lines = bulkImportText.value.trim().split('\n')
+  const valid: Array<{ doelgroepId: string; fase: string; text: string; answer: string; webpagina: string; opmerkingen: string }> = []
+  const errors: string[] = []
 
-async function cycleStatus(q: ClientQuestion) {
-  const order: QuestionStatus[] = ['open', 'answered', 'assumption', 'insight']
-  const currentIdx = order.indexOf(q.status)
-  const nextStatus = order[(currentIdx + 1) % order.length]
-  await store.updateQuestion(props.projectId, q.id, { status: nextStatus })
-}
-
-function statusIcon(s: QuestionStatus) {
-  return { open: '⬜', answered: '✅', assumption: '⚠️', insight: '💡' }[s]
-}
-function statusLabel(s: QuestionStatus) {
-  return { open: 'Open', answered: 'Beantwoord', assumption: 'Aanname', insight: 'Inzicht' }[s]
-}
-function statusTooltip(s: QuestionStatus) {
-  return `Klik om status te wisselen (nu: ${statusLabel(s)})`
-}
-function statusBadgeClass(s: QuestionStatus) {
-  return {
-    open: 'bg-gray-100 text-gray-600',
-    answered: 'bg-green-100 text-green-700',
-    assumption: 'bg-amber-100 text-amber-700',
-    insight: 'bg-blue-100 text-blue-700'
-  }[s]
-}
-function groupBadgeClass(g: QuestionGroup) {
-  const colors: Record<QuestionGroup, string> = {
-    navigatie: 'bg-indigo-100 text-indigo-700',
-    doelgroep: 'bg-pink-100 text-pink-700',
-    content: 'bg-emerald-100 text-emerald-700',
-    seo: 'bg-orange-100 text-orange-700',
-    functionaliteit: 'bg-cyan-100 text-cyan-700',
-    beeldmateriaal: 'bg-purple-100 text-purple-700',
-    conversie: 'bg-red-100 text-red-700'
+  // Build doelgroep name->id map
+  const dgMap = new Map<string, string>()
+  for (const dg of projectStore.doelgroepen) {
+    dgMap.set(dg.name.toLowerCase().trim(), dg.id)
   }
-  return colors[g] || 'bg-gray-100 text-gray-600'
+
+  for (const line of lines) {
+    if (!line.trim()) continue
+    const parts = line.split('\t')
+    if (parts.length < 3) {
+      errors.push(line)
+      continue
+    }
+
+    const dgName = parts[0].trim().toLowerCase()
+    const fase = parts[1].trim().toLowerCase()
+    const text = parts[2].trim()
+
+    // Skip header row
+    if (dgName === 'doelgroep' && fase === 'fase') continue
+
+    const doelgroepId = dgMap.get(dgName)
+    if (!doelgroepId) {
+      errors.push(`Onbekende doelgroep: "${parts[0].trim()}"`)
+      continue
+    }
+    if (!validFasen.includes(fase)) {
+      errors.push(`Ongeldige fase: "${parts[1].trim()}"`)
+      continue
+    }
+    if (!text) {
+      errors.push(`Lege vraag op regel`)
+      continue
+    }
+
+    valid.push({
+      doelgroepId,
+      fase,
+      text,
+      answer: parts[3]?.trim() || '',
+      webpagina: parts[4]?.trim() || '',
+      opmerkingen: parts[5]?.trim() || '',
+    })
+  }
+
+  return { valid, errors }
 }
 
-async function generateSummary() {
-  generatingSummary.value = true
-  try {
-    await store.generateFase1Summary(props.projectId)
-  } finally {
-    generatingSummary.value = false
-  }
+async function executeBulkImport() {
+  const rows = bulkImportPreview.value
+  if (rows.length === 0) return
+
+  await projectStore.bulkImportDoelgroepVragen(props.projectId, rows)
+  bulkImportText.value = ''
+  showBulkImport.value = false
+  // Reload alle vragen
+  await projectStore.fetchAllDoelgroepVragen(props.projectId)
+  copySuccess.value = `${rows.length} vragen succesvol geïmporteerd!`
+  setTimeout(() => { copySuccess.value = '' }, 4000)
 }
 </script>

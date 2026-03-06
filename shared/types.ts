@@ -200,6 +200,9 @@ export interface DoelgroepVraag {
   doelgroepId: string
   fase: JourneyFase
   text: string
+  answer: string
+  webpagina: string
+  opmerkingen: string
   sortOrder: number
   createdAt: string
 }

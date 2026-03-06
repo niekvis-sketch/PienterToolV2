@@ -85,6 +85,9 @@ doelgroepenRouter.post('/:projectId/:doelgroepId/vragen', (req: Request, res: Re
     doelgroepId: req.params.doelgroepId,
     fase: req.body.fase || 'see',
     text: req.body.text || '',
+    answer: req.body.answer || '',
+    webpagina: req.body.webpagina || '',
+    opmerkingen: req.body.opmerkingen || '',
     sortOrder: existing.length,
     createdAt: now(),
   }
@@ -111,4 +114,40 @@ doelgroepenRouter.delete('/:projectId/:doelgroepId/vragen/:vraagId', (req: Reque
   all.splice(idx, 1)
   saveVragen(all)
   res.json(ok({ deleted: true }))
+})
+
+// POST /api/doelgroepen/:projectId/bulk-import
+// Accepts array of { doelgroepId, fase, text, answer?, webpagina?, opmerkingen? }
+doelgroepenRouter.post('/:projectId/bulk-import', (req: Request, res: Response) => {
+  const { projectId } = req.params
+  const rows: Array<{ doelgroepId: string; fase: string; text: string; answer?: string; webpagina?: string; opmerkingen?: string }> = req.body.rows || []
+
+  if (!Array.isArray(rows) || rows.length === 0) {
+    return res.status(400).json(err('Geen vragen om te importeren'))
+  }
+
+  const all = getVragen()
+  const created: DoelgroepVraag[] = []
+
+  for (const row of rows) {
+    if (!row.text || !row.doelgroepId || !row.fase) continue
+    const existing = all.filter(v => v.projectId === projectId && v.doelgroepId === row.doelgroepId && v.fase === row.fase)
+    const item: DoelgroepVraag = {
+      id: genId(),
+      projectId,
+      doelgroepId: row.doelgroepId,
+      fase: row.fase as DoelgroepVraag['fase'],
+      text: row.text,
+      answer: row.answer || '',
+      webpagina: row.webpagina || '',
+      opmerkingen: row.opmerkingen || '',
+      sortOrder: existing.length + created.filter(c => c.doelgroepId === row.doelgroepId && c.fase === row.fase).length,
+      createdAt: now(),
+    }
+    created.push(item)
+    all.push(item)
+  }
+
+  saveVragen(all)
+  res.json(ok(created))
 })
