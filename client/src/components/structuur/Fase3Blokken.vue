@@ -200,12 +200,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, reactive } from 'vue'
+import { ref, computed, watch, reactive, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import type { PageBlock, BlockType, PageChecklist } from '@shared/types'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
+
+// Load all blocks on mount for sidebar counts
+onMounted(async () => {
+  await store.fetchAllBlocks(props.projectId)
+})
 
 const selectedNodeId = ref<string | null>(null)
 const expandedBlockId = ref<string | null>(null)
@@ -265,8 +270,7 @@ const reusableBlocks = computed(() => {
 })
 
 function blockCountForNode(nodeId: string): number {
-  // This is a quick estimate - real count needs API call
-  return store.pageBlocks.filter(b => b.siteNodeId === nodeId).length
+  return store.allProjectBlocks.filter(b => b.siteNodeId === nodeId).length
 }
 
 function checklistScore(nodeId: string): number {
@@ -304,27 +308,31 @@ async function addBlock() {
     name: 'Nieuw blok', type: 'custom'
   })
   expandedBlockId.value = b.id
+  store.allProjectBlocks.push(b)
 }
 
 async function addBlockOfType(type: BlockType, name: string) {
   if (!selectedNodeId.value) return
   const b = await store.createBlock(props.projectId, selectedNodeId.value, { name, type })
   expandedBlockId.value = b.id
+  store.allProjectBlocks.push(b)
 }
 
 async function addReusableBlock(original: PageBlock) {
   if (!selectedNodeId.value) return
-  await store.createBlock(props.projectId, selectedNodeId.value, {
+  const b = await store.createBlock(props.projectId, selectedNodeId.value, {
     name: original.name, type: original.type, goal: original.goal,
     contentDescription: original.contentDescription, componentPattern: original.componentPattern,
     isReusable: true, reusableBlockId: original.id,
     notesContent: original.notesContent, notesSeo: original.notesSeo, notesDesign: original.notesDesign
   })
+  store.allProjectBlocks.push(b)
 }
 
 async function removeBlock(blockId: string) {
   if (!selectedNodeId.value || !confirm('Blok verwijderen?')) return
   await store.deleteBlock(props.projectId, selectedNodeId.value, blockId)
+  store.allProjectBlocks = store.allProjectBlocks.filter(b => b.id !== blockId)
 }
 
 async function updateBlock(block: PageBlock) {

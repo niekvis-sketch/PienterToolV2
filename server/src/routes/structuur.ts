@@ -10,9 +10,9 @@ import { genId, now, ok, err } from '../helpers'
 import type {
   UserStory, ClientQuestion, Fase1Summary,
   SiteNode, SiteNodeType, SiteNodeGoal,
-  PageBlock, PageChecklist,
+  PageBlock, PageChecklist, BlockType,
   StructuurProgress, ChangeLogEntry, StructureWarning,
-  StructureImport, StructureNode,
+  StructureImport, StructureNode, StructureBlockNode,
   Project
 } from '../../../shared/types'
 
@@ -437,6 +437,7 @@ structuurRouter.post('/:projectId/nodes/import', (req: Request, res: Response) =
   const importData: StructureImport = req.body
   const existingNodes = getSiteNodes().filter(n => n.projectId !== projectId)
   const newNodes: SiteNode[] = []
+  const newBlocks: PageBlock[] = []
 
   function processNode(node: StructureNode, parentId: string | null, basePath: string, level: number, sortIdx: number) {
     const slug = node.slug || ''
@@ -454,6 +455,34 @@ structuurRouter.post('/:projectId/nodes/import', (req: Request, res: Response) =
       notes: '', createdAt: now(), updatedAt: now()
     }
     newNodes.push(siteNode)
+
+    // Create blocks for this node if provided
+    if (node.blocks && Array.isArray(node.blocks)) {
+      node.blocks.forEach((b: StructureBlockNode, bIdx: number) => {
+        const block: PageBlock = {
+          id: genId(),
+          projectId,
+          siteNodeId: siteNode.id,
+          sortOrder: bIdx,
+          name: b.name || 'Blok',
+          type: (b.type as BlockType) || 'custom',
+          goal: b.goal || '',
+          targetUser: '',
+          contentDescription: b.contentDescription || '',
+          componentPattern: '',
+          isReusable: false,
+          reusableBlockId: null,
+          notesContent: '',
+          notesSeo: '',
+          notesDesign: '',
+          answersQuestionIds: [],
+          forUserStoryIds: [],
+          createdAt: now()
+        }
+        newBlocks.push(block)
+      })
+    }
+
     if (node.children) {
       const childBase = slug ? `${basePath}${slug}/` : basePath
       node.children.forEach((child, i) => processNode(child, siteNode.id, childBase, level + 1, i))
@@ -463,12 +492,23 @@ structuurRouter.post('/:projectId/nodes/import', (req: Request, res: Response) =
   importData.root.forEach((rootNode, i) => processNode(rootNode, null, '', 0, i))
   saveSiteNodes([...existingNodes, ...newNodes])
 
+  // Save blocks (keep existing blocks from other projects)
+  if (newBlocks.length > 0) {
+    const existingBlocks = getBlocks().filter(b => b.projectId !== projectId)
+    saveBlocks([...existingBlocks, ...getBlocks().filter(b => b.projectId === projectId), ...newBlocks])
+
+    addLogEntry(projectId, {
+      action: 'block-added', entityType: 'pageBlock', entityId: 'bulk-import',
+      entityTitle: 'Import', details: `${newBlocks.length} blokken geïmporteerd vanuit structuurbestand`
+    })
+  }
+
   addLogEntry(projectId, {
     action: 'added', entityType: 'siteNode', entityId: 'bulk-import',
     entityTitle: 'Import', details: `${newNodes.length} pagina's geïmporteerd vanuit structuurbestand`
   })
 
-  res.json(ok(newNodes))
+  res.json(ok({ nodes: newNodes, blocks: newBlocks }))
 })
 
 // ---- Import from CSV/spreadsheet (flat list) ----
@@ -570,6 +610,14 @@ structuurRouter.get('/:projectId/warnings', (req: Request, res: Response) => {
 })
 
 // ===================== FASE 3: PAGE BLOCKS =====================
+
+// Get ALL blocks for a project (used by Fase 3 overview)
+structuurRouter.get('/:projectId/blocks', (req: Request, res: Response) => {
+  const blocks = getBlocks().filter(b => b.projectId === req.params.projectId)
+  blocks.sort((a, b) => a.sortOrder - b.sortOrder)
+  res.json(ok(blocks))
+})
+
 structuurRouter.get('/:projectId/nodes/:nodeId/blocks', (req: Request, res: Response) => {
   const blocks = getBlocks().filter(b => b.siteNodeId === req.params.nodeId && b.projectId === req.params.projectId)
   blocks.sort((a, b) => a.sortOrder - b.sortOrder)

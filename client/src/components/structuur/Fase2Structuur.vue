@@ -4,7 +4,7 @@
     <div class="flex items-center justify-between">
       <div>
         <h3 class="text-lg font-bold text-gray-900">Fase 2 · Websitestructuur & Navigatie</h3>
-        <p class="text-sm text-gray-500 mt-1">Bouw de sitestructuur visueel op. Kopieer de klantvragen naar ChatGPT en importeer de gegenereerde structuur.</p>
+        <p class="text-sm text-gray-500 mt-1">Bouw de sitestructuur visueel op. Kopieer de klantvragen naar ChatGPT en importeer de gegenereerde structuur inclusief pagina-indeling.</p>
       </div>
       <div class="flex gap-2">
         <button class="btn-secondary btn-sm" @click="copyVragenToClipboard">📋 Kopieer klantvragen</button>
@@ -29,14 +29,14 @@
         <button class="btn-sm" :class="importMode === 'csv' ? 'btn-primary' : 'btn-secondary'" @click="importMode = 'csv'">CSV / Spreadsheet</button>
       </div>
       <div v-if="importMode === 'json'">
-        <textarea v-model="importJson" class="textarea font-mono text-xs" rows="8" placeholder='{"root":[{"title":"Home","slug":"","children":[{"title":"Over ons","slug":"over-ons"},{"title":"Diensten","slug":"diensten","children":[...]}]}]}' />
+        <textarea v-model="importJson" class="textarea font-mono text-xs" rows="10" placeholder='{"root":[{"title":"Home","slug":"","blocks":[{"name":"Hero","type":"hero","goal":"Directe aandacht"},{"name":"Introductie","type":"introductie"}],"children":[{"title":"Diensten","slug":"diensten","blocks":[...],"children":[...]}]}]}' />
       </div>
       <div v-if="importMode === 'csv'">
         <textarea v-model="importCsv" class="textarea font-mono text-xs" rows="8" placeholder="Pagina;Slug;Parent;Niveau&#10;Home;;&#10;Diensten;diensten;;0&#10;Airconditioning;airconditioning;Diensten;1" />
       </div>
       <div class="mt-3 flex items-center gap-2">
         <input type="checkbox" id="replaceNodes" v-model="importReplace" class="rounded border-gray-300 text-pienter-600 focus:ring-pienter-500" />
-        <label for="replaceNodes" class="text-sm text-gray-700">Bestaande structuur verwijderen (vervangt alle huidige pagina's)</label>
+        <label for="replaceNodes" class="text-sm text-gray-700">Bestaande structuur verwijderen (vervangt alle huidige pagina's en blokken)</label>
       </div>
       <div class="flex gap-2 mt-3">
         <button v-if="importMode === 'json'" class="btn-primary btn-sm" @click="handleJsonImport" :disabled="!importJson.trim()">Importeren</button>
@@ -488,15 +488,37 @@ async function copyVragenToClipboard() {
 
   lines.push('')
   lines.push('=== OPDRACHT ===')
-  lines.push('Maak op basis van bovenstaande doelgroepen en klantvragen een websitestructuur.')
+  lines.push('Maak op basis van bovenstaande doelgroepen en klantvragen een websitestructuur met per pagina een blok-indeling.')
   lines.push('Geef het resultaat terug als JSON in dit formaat:')
-  lines.push('{"root":[{"title":"Home","slug":"","children":[{"title":"Pagina","slug":"pagina","children":[...]}]}]}')
+  lines.push('{')
+  lines.push('  "root": [')
+  lines.push('    {')
+  lines.push('      "title": "Home",')
+  lines.push('      "slug": "",')
+  lines.push('      "blocks": [')
+  lines.push('        { "name": "Hero", "type": "hero", "goal": "Directe aandacht trekken", "contentDescription": "Korte tekst met CTA" },')
+  lines.push('        { "name": "Introductie", "type": "introductie", "goal": "Uitleg wat het bedrijf doet" },')
+  lines.push('        { "name": "Diensten overzicht", "type": "dienst-uitleg", "goal": "Overzicht van diensten" },')
+  lines.push('        { "name": "Reviews", "type": "reviews", "goal": "Vertrouwen opbouwen" },')
+  lines.push('        { "name": "Call to Action", "type": "cta", "goal": "Bezoeker laten converteren" }')
+  lines.push('      ],')
+  lines.push('      "children": [')
+  lines.push('        { "title": "Pagina", "slug": "pagina", "blocks": [...], "children": [...] }')
+  lines.push('      ]')
+  lines.push('    }')
+  lines.push('  ]')
+  lines.push('}')
+  lines.push('')
+  lines.push('Mogelijke bloktypes: hero, introductie, usp, dienst-uitleg, stappenplan, cases, reviews, faq, cta, contact, formulier, afbeelding-tekst, branche-overzicht, gerelateerde-paginas, video, prijzen, team, statistieken, custom')
   lines.push('')
   lines.push('Houd rekening met:')
   lines.push('- Logische hiërarchie (max 3 niveaus diep)')
   lines.push('- Elke pagina moet een duidelijk doel hebben')
   lines.push('- Groepeer gerelateerde content')
   lines.push('- Gebruik duidelijke, SEO-vriendelijke slugs')
+  lines.push('- Geef per pagina een logische blokindeling die past bij het doel van de pagina')
+  lines.push('- Elke pagina begint met een hero en eindigt met een cta')
+  lines.push('- Gebruik de beschikbare bloktypes, gebruik "custom" alleen als er geen passend type is')
 
   const text = lines.join('\n')
 
@@ -517,10 +539,11 @@ async function copyVragenToClipboard() {
 }
 
 async function clearProjectNodes() {
-  // Delete all nodes for this project
+  // Delete all nodes for this project (blocks are cleaned up server-side)
   for (const node of [...store.siteNodes].filter(n => !n.parentId)) {
     await store.deleteNode(props.projectId, node.id)
   }
+  store.allProjectBlocks = []
 }
 
 async function handleJsonImport() {
@@ -532,8 +555,9 @@ async function handleJsonImport() {
     if (importReplace.value && store.siteNodes.length > 0) {
       await clearProjectNodes()
     }
-    const nodes = await store.importNodes(props.projectId, data)
-    importMsg.value = `✅ ${nodes.length} pagina's geïmporteerd!`
+    const result = await store.importNodes(props.projectId, data)
+    const blockMsg = result.blocks && result.blocks.length > 0 ? ` en ${result.blocks.length} blokken` : ''
+    importMsg.value = `✅ ${result.nodes.length} pagina's${blockMsg} geïmporteerd!`
     importJson.value = ''
     showImport.value = false
     await fetchWarnings()

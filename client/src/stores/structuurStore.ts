@@ -4,7 +4,8 @@ import { apiFetch } from '../api'
 import type {
   UserStory, ClientQuestion, Fase1Summary,
   SiteNode, PageBlock, PageChecklist,
-  StructuurProgress, ChangeLogEntry, StructureWarning, StructureImport
+  StructuurProgress, ChangeLogEntry, StructureWarning, StructureImport,
+  StructureImportResult
 } from '@shared/types'
 
 export const useStructuurStore = defineStore('structuur', () => {
@@ -15,6 +16,7 @@ export const useStructuurStore = defineStore('structuur', () => {
   const fase1Summary = ref<Fase1Summary | null>(null)
   const siteNodes = ref<SiteNode[]>([])
   const pageBlocks = ref<PageBlock[]>([])
+  const allProjectBlocks = ref<PageBlock[]>([])
   const pageChecklist = ref<PageChecklist | null>(null)
   const warnings = ref<StructureWarning[]>([])
   const changeLog = ref<ChangeLogEntry[]>([])
@@ -158,14 +160,22 @@ export const useStructuurStore = defineStore('structuur', () => {
     return result
   }
   async function importNodes(projectId: string, data: StructureImport) {
-    const nodes = await apiFetch<SiteNode[]>('POST', `/structuur/${projectId}/nodes/import`, data)
-    siteNodes.value = [...siteNodes.value, ...nodes]
-    return nodes
+    const result = await apiFetch<StructureImportResult>('POST', `/structuur/${projectId}/nodes/import`, data)
+    siteNodes.value = [...siteNodes.value, ...result.nodes]
+    if (result.blocks && result.blocks.length > 0) {
+      allProjectBlocks.value = [...allProjectBlocks.value, ...result.blocks]
+    }
+    return result
   }
   async function importFlatNodes(projectId: string, rows: Array<{ title: string; slug: string; parentTitle?: string; level?: number }>) {
     const nodes = await apiFetch<SiteNode[]>('POST', `/structuur/${projectId}/nodes/import-flat`, { rows })
     siteNodes.value = [...siteNodes.value, ...nodes]
     return nodes
+  }
+
+  // --- All blocks for project (Fase 3 overview) ---
+  async function fetchAllBlocks(projectId: string) {
+    allProjectBlocks.value = await apiFetch<PageBlock[]>('GET', `/structuur/${projectId}/blocks`)
   }
 
   // --- Warnings ---
@@ -233,7 +243,7 @@ export const useStructuurStore = defineStore('structuur', () => {
   return {
     // State
     progress, userStories, clientQuestions, fase1Summary,
-    siteNodes, pageBlocks, pageChecklist, warnings, changeLog,
+    siteNodes, pageBlocks, allProjectBlocks, pageChecklist, warnings, changeLog,
     loading, selectedNodeId,
     // Computed
     selectedNode, treeNodes, flatSortedNodes, parkedNodes, mainNavNodes,
@@ -248,7 +258,7 @@ export const useStructuurStore = defineStore('structuur', () => {
     fetchNodes, createNode, updateNode, deleteNode, duplicateNode, moveNode,
     importNodes, importFlatNodes, fetchWarnings,
     // Fase 3
-    fetchBlocks, createBlock, updateBlock, deleteBlock, reorderBlocks,
+    fetchBlocks, fetchAllBlocks, createBlock, updateBlock, deleteBlock, reorderBlocks,
     fetchChecklist, updateChecklist,
     // Changelog
     fetchChangeLog,

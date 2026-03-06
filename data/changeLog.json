@@ -108,5 +108,35 @@
     "entityId": "bulk-import",
     "entityTitle": "Import",
     "details": "30 pagina's geïmporteerd vanuit structuurbestand"
+  },
+  {
+    "id": "8e343687",
+    "projectId": "demo0001",
+    "timestamp": "2026-03-06T10:05:09.973Z",
+    "action": "deleted",
+    "entityType": "siteNode",
+    "entityId": "a7ccbd40",
+    "entityTitle": "Home",
+    "details": "Pagina verwijderd: Home (30 pagina's inclusief children)"
+  },
+  {
+    "id": "a0a0c61e",
+    "projectId": "demo0001",
+    "timestamp": "2026-03-06T10:05:09.990Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "bulk-import",
+    "entityTitle": "Import",
+    "details": "46 blokken geïmporteerd vanuit structuurbestand"
+  },
+  {
+    "id": "b6835793",
+    "projectId": "demo0001",
+    "timestamp": "2026-03-06T10:05:09.991Z",
+    "action": "added",
+    "entityType": "siteNode",
+    "entityId": "bulk-import",
+    "entityTitle": "Import",
+    "details": "8 pagina's geïmporteerd vanuit structuurbestand"
   }
 ]

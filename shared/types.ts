@@ -155,15 +155,28 @@ export interface AuditIssue {
 }
 
 // ---------- Structuur Import ----------
+export interface StructureBlockNode {
+  name: string
+  type: BlockType | string
+  goal?: string
+  contentDescription?: string
+}
+
 export interface StructureNode {
   title: string
   slug: string
   type?: PageType
   children?: StructureNode[]
+  blocks?: StructureBlockNode[]
 }
 
 export interface StructureImport {
   root: StructureNode[]
+}
+
+export interface StructureImportResult {
+  nodes: SiteNode[]
+  blocks: PageBlock[]
 }
 
 // ============================================================
