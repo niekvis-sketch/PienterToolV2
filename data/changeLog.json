@@ -1,0 +1,102 @@
+[
+  {
+    "id": "seed0180",
+    "projectId": "demo0001",
+    "timestamp": "2026-02-22T10:00:00.000Z",
+    "action": "added",
+    "entityType": "siteNode",
+    "entityId": "seed0158",
+    "entityTitle": "Home",
+    "details": "Initiële structuur aangemaakt"
+  },
+  {
+    "id": "seed0181",
+    "projectId": "demo0001",
+    "timestamp": "2026-02-22T10:05:00.000Z",
+    "action": "added",
+    "entityType": "siteNode",
+    "entityId": "seed0162",
+    "entityTitle": "Horeca",
+    "details": "Nieuwe branche-pagina toegevoegd onder Diensten"
+  },
+  {
+    "id": "seed0182",
+    "projectId": "demo0001",
+    "timestamp": "2026-02-22T10:10:00.000Z",
+    "action": "added",
+    "entityType": "siteNode",
+    "entityId": "seed0164",
+    "entityTitle": "Werken bij",
+    "details": "Nieuwe pagina toegevoegd onder Over ons"
+  },
+  {
+    "id": "seed0183",
+    "projectId": "demo0001",
+    "timestamp": "2026-02-23T14:00:00.000Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "seed0158",
+    "entityTitle": "Home",
+    "details": "5 blokken toegevoegd aan Home pagina"
+  },
+  {
+    "id": "09cb08c4",
+    "projectId": "demo0001",
+    "timestamp": "2026-03-05T16:20:07.468Z",
+    "action": "added",
+    "entityType": "siteNode",
+    "entityId": "a4505c56",
+    "entityTitle": "Subpagina",
+    "details": "Pagina toegevoegd: https:/csh-nieuw.nl/diensten/subpagina"
+  },
+  {
+    "id": "c61c35e1",
+    "projectId": "demo0001",
+    "timestamp": "2026-03-05T16:20:09.039Z",
+    "action": "added",
+    "entityType": "siteNode",
+    "entityId": "2a718101",
+    "entityTitle": "Subpagina",
+    "details": "Pagina toegevoegd: https:/csh-nieuw.nl/diensten/subpagina"
+  },
+  {
+    "id": "7e6426ef",
+    "projectId": "demo0001",
+    "timestamp": "2026-03-05T16:22:46.435Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "5731d7b2",
+    "entityTitle": "Hero",
+    "details": "Blok \"Hero\" toegevoegd aan pagina"
+  },
+  {
+    "id": "fca14450",
+    "projectId": "demo0001",
+    "timestamp": "2026-03-05T16:22:55.390Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "2b62368d",
+    "entityTitle": "FAQ",
+    "details": "Blok \"FAQ\" toegevoegd aan pagina"
+  },
+  {
+    "id": "9c7255c4",
+    "projectId": "demo0001",
+    "timestamp": "2026-03-05T16:26:26.337Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "28738e2e",
+    "entityTitle": "Hero",
+    "details": "Blok \"Hero\" toegevoegd aan pagina"
+  },
+  {
+    "id": "31e03b68",
+    "projectId": "demo0001",
+    "timestamp": "2026-03-05T16:26:29.474Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "6989d29f",
+    "entityTitle": "USP's",
+    "details": "Blok \"USP's\" toegevoegd aan pagina"
+  }
+]

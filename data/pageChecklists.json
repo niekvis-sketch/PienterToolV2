@@ -1,0 +1,38 @@
+[
+  {
+    "siteNodeId": "seed0158",
+    "mainQuestionAnswered": true,
+    "logicalFlow": true,
+    "hasSocialProof": true,
+    "hasCta": true,
+    "contentComplete": false,
+    "hasVisuals": false,
+    "noDuplicateBlocks": true,
+    "noMissingEssentials": false,
+    "notes": "Hero-afbeelding nog nodig"
+  },
+  {
+    "siteNodeId": "seed0171",
+    "mainQuestionAnswered": true,
+    "logicalFlow": true,
+    "hasSocialProof": false,
+    "hasCta": true,
+    "contentComplete": false,
+    "hasVisuals": false,
+    "noDuplicateBlocks": true,
+    "noMissingEssentials": true,
+    "notes": ""
+  },
+  {
+    "siteNodeId": "seed0168",
+    "mainQuestionAnswered": false,
+    "logicalFlow": false,
+    "hasSocialProof": false,
+    "hasCta": false,
+    "contentComplete": false,
+    "hasVisuals": false,
+    "noDuplicateBlocks": false,
+    "noMissingEssentials": false,
+    "notes": ""
+  }
+]

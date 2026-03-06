@@ -166,6 +166,172 @@ export interface StructureImport {
   root: StructureNode[]
 }
 
+// ============================================================
+// Websitestructuur Bepalen – 3-fasen systeem
+// ============================================================
+
+// ---------- Fase-tracking ----------
+export type StructuurFase = 1 | 2 | 3
+
+export interface StructuurProgress {
+  id: string
+  projectId: string
+  currentFase: StructuurFase
+  fase1Complete: boolean
+  fase2Complete: boolean
+  fase3Complete: boolean
+  updatedAt: string
+}
+
+// ---------- Fase 1: User Stories & Klantvragen ----------
+export interface UserStory {
+  id: string
+  projectId: string
+  title: string
+  asA: string          // "Als een [doelgroep]"
+  iWant: string        // "wil ik [actie]"
+  soThat: string       // "zodat ik [doel]"
+  sourceId: string | null  // koppeling naar Bronnen-tab
+  tags: string[]
+  createdAt: string
+}
+
+export type QuestionStatus = 'open' | 'answered' | 'assumption' | 'insight'
+export type QuestionGroup = 'navigatie' | 'doelgroep' | 'content' | 'seo' | 'functionaliteit' | 'beeldmateriaal' | 'conversie'
+
+export interface ClientQuestion {
+  id: string
+  projectId: string
+  userStoryId: string | null
+  question: string
+  answer: string
+  status: QuestionStatus
+  group: QuestionGroup
+  impactOnStructure: string   // korte notitie over gevolgen voor structuur
+  createdAt: string
+}
+
+export interface Fase1Summary {
+  id: string
+  projectId: string
+  mainTopics: string[]           // hoofdonderwerpen die terugkomen
+  uncertainTopics: string[]      // onderdelen die nog onzeker zijn
+  seoImportantPages: string[]    // pagina's belangrijk voor vindbaarheid
+  bundleOpportunities: string[]  // onderwerpen die gebundeld kunnen worden
+  pendingFromClient: string[]    // wat klant nog moet aanleveren
+  generatedAt: string
+}
+
+// ---------- Fase 2: Sitestructuur & Navigatie ----------
+export type SiteNodeType = 'page' | 'post' | 'archive' | 'case' | 'utility' | 'landing' | 'service' | 'branch' | 'blog' | 'detail-template'
+export type SiteNodeGoal = 'informeren' | 'overtuigen' | 'converteren'
+export type SiteNodePriority = 'hoog' | 'middel' | 'laag'
+export type SiteNodeLabel = 'nieuw' | 'bestaand' | 'herschrijven' | 'migreren' | 'onderzoeken' | 'fase-1' | 'fase-2'
+export type ContentStatus = 'niet-gestart' | 'in-progress' | 'klaar' | 'review'
+
+export interface SiteNode {
+  id: string
+  projectId: string
+  parentId: string | null
+  title: string
+  slug: string
+  fullUrl: string
+  level: number
+  sortOrder: number
+  // Uitgebreide velden
+  type: SiteNodeType
+  goal: SiteNodeGoal | null
+  targetAudience: string
+  reasonExists: string          // "waarom bestaat deze pagina?"
+  isInMainNav: boolean
+  isDetailTemplate: boolean
+  isParked: boolean             // tijdelijk geparkeerd
+  priority: SiteNodePriority
+  label: SiteNodeLabel
+  contentStatus: ContentStatus
+  // SEO
+  focusTopic: string
+  metaTitle: string
+  metaDescription: string
+  redirectsFrom: string[]       // oude URL's
+  needsRedirect: boolean
+  // Koppelingen
+  relatedUserStoryIds: string[]
+  openQuestionIds: string[]     // open vragen uit fase 1
+  notes: string
+  // Timestamps
+  createdAt: string
+  updatedAt: string
+}
+
+export interface StructureWarning {
+  type: 'duplicate' | 'no-goal' | 'too-deep' | 'orphan' | 'name-slug-mismatch' | 'content-overlap' | 'merge-candidate' | 'internal-name' | 'no-focus' | 'needs-research'
+  severity: 'info' | 'warning' | 'error'
+  nodeId: string
+  relatedNodeId?: string
+  message: string
+}
+
+export interface UrlChange {
+  nodeId: string
+  oldUrl: string
+  newUrl: string
+  childrenAffected: number
+  needsRedirect: boolean
+}
+
+// ---------- Fase 3: Pagina-indeling (Blokken) ----------
+export type BlockType = 'hero' | 'introductie' | 'usp' | 'dienst-uitleg' | 'stappenplan' | 'cases' | 'reviews' | 'faq' | 'cta' | 'contact' | 'formulier' | 'afbeelding-tekst' | 'branche-overzicht' | 'gerelateerde-paginas' | 'video' | 'prijzen' | 'team' | 'statistieken' | 'custom'
+
+export interface PageBlock {
+  id: string
+  projectId: string
+  siteNodeId: string
+  sortOrder: number
+  name: string
+  type: BlockType
+  goal: string
+  targetUser: string           // voor welke gebruiker/vraag
+  contentDescription: string   // welke content moet hierin
+  componentPattern: string     // welk component/patroon past
+  isReusable: boolean          // herbruikbaar blok?
+  reusableBlockId: string | null // verwijst naar origineel blok als hergebruikt
+  notesContent: string
+  notesSeo: string
+  notesDesign: string
+  // Koppelingen fase 1
+  answersQuestionIds: string[]  // beantwoordt klantvraag X
+  forUserStoryIds: string[]     // voor userstory Y
+  createdAt: string
+}
+
+export interface PageChecklist {
+  siteNodeId: string
+  mainQuestionAnswered: boolean
+  logicalFlow: boolean
+  hasSocialProof: boolean
+  hasCta: boolean
+  contentComplete: boolean
+  hasVisuals: boolean
+  noDuplicateBlocks: boolean
+  noMissingEssentials: boolean
+  notes: string
+}
+
+// ---------- Wijzigingslog ----------
+export interface ChangeLogEntry {
+  id: string
+  projectId: string
+  timestamp: string
+  action: 'added' | 'moved' | 'renamed' | 'deleted' | 'url-changed' | 'block-added' | 'block-removed' | 'merged' | 'split'
+  entityType: 'siteNode' | 'pageBlock'
+  entityId: string
+  entityTitle: string
+  details: string          // bijv. "Verplaatst van /diensten naar /oplossingen"
+  oldValue?: string
+  newValue?: string
+}
+
 // ---------- API Responses ----------
 export interface ApiResponse<T> {
   ok: boolean

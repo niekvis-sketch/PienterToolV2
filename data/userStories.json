@@ -1,0 +1,73 @@
+[
+  {
+    "id": "seed0140",
+    "projectId": "demo0001",
+    "title": "Facility manager zoekt koelspecialist",
+    "asA": "facility manager van een supermarktketen",
+    "iWant": "snel kunnen zien welke koeldiensten CSH aanbiedt",
+    "soThat": "ik kan beoordelen of zij de juiste partner zijn voor ons onderhoud",
+    "sourceId": null,
+    "tags": [
+      "navigatie",
+      "diensten"
+    ],
+    "createdAt": "2026-02-15T10:00:00.000Z"
+  },
+  {
+    "id": "seed0141",
+    "projectId": "demo0001",
+    "title": "Horeca-ondernemer wil referenties zien",
+    "asA": "horeca-ondernemer",
+    "iWant": "projectreferenties en cases bekijken in mijn branche",
+    "soThat": "ik vertrouwen krijg dat CSH ervaring heeft met mijn type bedrijf",
+    "sourceId": null,
+    "tags": [
+      "cases",
+      "social-proof"
+    ],
+    "createdAt": "2026-02-15T10:30:00.000Z"
+  },
+  {
+    "id": "seed0142",
+    "projectId": "demo0001",
+    "title": "Technisch directeur zoekt info F-gassen",
+    "asA": "technisch directeur",
+    "iWant": "informatie vinden over F-gassen regelgeving en verduurzaming",
+    "soThat": "ik weet of CSH mij kan helpen met de overgang naar natuurlijke koudemiddelen",
+    "sourceId": null,
+    "tags": [
+      "blog",
+      "seo",
+      "regelgeving"
+    ],
+    "createdAt": "2026-02-15T11:00:00.000Z"
+  },
+  {
+    "id": "seed0143",
+    "projectId": "demo0001",
+    "title": "Potentiële klant wil contact opnemen",
+    "asA": "potentiële klant",
+    "iWant": "eenvoudig een offerte kunnen aanvragen of contact opnemen",
+    "soThat": "ik snel antwoord krijg op mijn vragen over koeltechniek",
+    "sourceId": null,
+    "tags": [
+      "conversie",
+      "contact"
+    ],
+    "createdAt": "2026-02-16T09:00:00.000Z"
+  },
+  {
+    "id": "seed0144",
+    "projectId": "demo0001",
+    "title": "Sollicitant wil bedrijfscultuur kennen",
+    "asA": "technisch monteur op zoek naar een nieuwe baan",
+    "iWant": "lezen over het team, de cultuur en vacatures bij CSH",
+    "soThat": "ik kan beslissen of ik wil solliciteren",
+    "sourceId": null,
+    "tags": [
+      "over-ons",
+      "werken-bij"
+    ],
+    "createdAt": "2026-02-16T09:30:00.000Z"
+  }
+]
