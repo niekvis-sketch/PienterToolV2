@@ -10,7 +10,7 @@ import { genId, now, ok, err } from '../helpers'
 import type {
   UserStory, ClientQuestion, Fase1Summary,
   SiteNode, SiteNodeType, SiteNodeGoal,
-  PageBlock, PageChecklist, BlockType,
+  PageBlock, BlockType,
   StructuurProgress, ChangeLogEntry, StructureWarning,
   StructureImport, StructureNode, StructureBlockNode,
   Project
@@ -29,8 +29,6 @@ function getSiteNodes(): SiteNode[] { return readCollection<SiteNode>('siteNodes
 function saveSiteNodes(d: SiteNode[]) { writeCollection('siteNodes', d) }
 function getBlocks(): PageBlock[] { return readCollection<PageBlock>('pageBlocks') }
 function saveBlocks(d: PageBlock[]) { writeCollection('pageBlocks', d) }
-function getChecklists(): PageChecklist[] { return readCollection<PageChecklist>('pageChecklists') }
-function saveChecklists(d: PageChecklist[]) { writeCollection('pageChecklists', d) }
 function getProgress(): StructuurProgress[] { return readCollection<StructuurProgress>('structuurProgress') }
 function saveProgress(d: StructuurProgress[]) { writeCollection('structuurProgress', d) }
 function getChangeLog(): ChangeLogEntry[] { return readCollection<ChangeLogEntry>('changeLog') }
@@ -700,41 +698,6 @@ structuurRouter.put('/:projectId/nodes/:nodeId/blocks-reorder', (req: Request, r
 structuurRouter.get('/:projectId/reusable-blocks', (req: Request, res: Response) => {
   const blocks = getBlocks().filter(b => b.projectId === req.params.projectId && b.isReusable)
   res.json(ok(blocks))
-})
-
-// ===================== FASE 3: PAGE CHECKLIST =====================
-structuurRouter.get('/:projectId/nodes/:nodeId/checklist', (req: Request, res: Response) => {
-  let checklist = getChecklists().find(c => c.siteNodeId === req.params.nodeId)
-  if (!checklist) {
-    checklist = {
-      siteNodeId: req.params.nodeId,
-      mainQuestionAnswered: false, logicalFlow: false, hasSocialProof: false,
-      hasCta: false, contentComplete: false, hasVisuals: false,
-      noDuplicateBlocks: false, noMissingEssentials: false, notes: ''
-    }
-  }
-  res.json(ok(checklist))
-})
-
-structuurRouter.put('/:projectId/nodes/:nodeId/checklist', (req: Request, res: Response) => {
-  const checklists = getChecklists()
-  const idx = checklists.findIndex(c => c.siteNodeId === req.params.nodeId)
-  const data: PageChecklist = {
-    siteNodeId: req.params.nodeId,
-    mainQuestionAnswered: req.body.mainQuestionAnswered ?? false,
-    logicalFlow: req.body.logicalFlow ?? false,
-    hasSocialProof: req.body.hasSocialProof ?? false,
-    hasCta: req.body.hasCta ?? false,
-    contentComplete: req.body.contentComplete ?? false,
-    hasVisuals: req.body.hasVisuals ?? false,
-    noDuplicateBlocks: req.body.noDuplicateBlocks ?? false,
-    noMissingEssentials: req.body.noMissingEssentials ?? false,
-    notes: req.body.notes || ''
-  }
-  if (idx >= 0) checklists[idx] = data
-  else checklists.push(data)
-  saveChecklists(checklists)
-  res.json(ok(data))
 })
 
 // ===================== CHANGELOG =====================

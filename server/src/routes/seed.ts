@@ -6,7 +6,7 @@ import { readCollection, writeCollection, clearAll } from '../storage'
 import { genId, now, ok } from '../helpers'
 import type {
   Project, Page, SEOFields, Task, Source, MediaItem, AuditRun, AuditIssue, ProjectPhase,
-  UserStory, ClientQuestion, Fase1Summary, SiteNode, PageBlock, PageChecklist, StructuurProgress, ChangeLogEntry
+  UserStory, ClientQuestion, Fase1Summary, SiteNode, PageBlock, StructuurProgress, ChangeLogEntry
 } from '../../../shared/types'
 import { generateAuditIssues } from '../audit-engine'
 
@@ -381,13 +381,6 @@ Afspraak: Jan levert voor 1 maart een selectie van bruikbare foto's aan via Driv
     { id: makePageId(), projectId, siteNodeId: nodeContact, sortOrder: 2, name: 'Locatie en bereikbaarheid', type: 'afbeelding-tekst' as const, goal: 'Praktische info tonen', targetUser: 'Bezoekers die langskomen', contentDescription: 'Google Maps embed, adres, openingstijden, routebeschrijving', componentPattern: 'Map + tekst blok', isReusable: false, reusableBlockId: null, notesContent: '', notesSeo: '', notesDesign: 'Google Maps of statische kaart', answersQuestionIds: [], forUserStoryIds: [storyId4], createdAt: now },
   ]
   writeCollection('pageBlocks', pageBlocks)
-
-  // ---- Page Checklists ----
-  const pageChecklists = [
-    { siteNodeId: nodeHome, mainQuestionAnswered: true, logicalFlow: true, hasSocialProof: true, hasCta: true, contentComplete: false, hasVisuals: false, noDuplicateBlocks: true, noMissingEssentials: false, notes: 'Hero-afbeelding nog nodig' },
-    { siteNodeId: nodeContact, mainQuestionAnswered: true, logicalFlow: true, hasSocialProof: false, hasCta: true, contentComplete: false, hasVisuals: false, noDuplicateBlocks: true, noMissingEssentials: true, notes: '' },
-  ]
-  writeCollection('pageChecklists', pageChecklists)
 
   // ---- Change Log ----
   const changeLog = [

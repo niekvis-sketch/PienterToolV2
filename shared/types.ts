@@ -342,19 +342,6 @@ export interface PageBlock {
   createdAt: string
 }
 
-export interface PageChecklist {
-  siteNodeId: string
-  mainQuestionAnswered: boolean
-  logicalFlow: boolean
-  hasSocialProof: boolean
-  hasCta: boolean
-  contentComplete: boolean
-  hasVisuals: boolean
-  noDuplicateBlocks: boolean
-  noMissingEssentials: boolean
-  notes: string
-}
-
 // ---------- Componenten (ACF blokken) ----------
 export type ComponentCategory = 'broodblok' | 'flexblok' | 'posttype'
 

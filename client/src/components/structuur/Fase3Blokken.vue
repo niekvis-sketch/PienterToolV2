@@ -22,7 +22,6 @@
           <span v-if="node.level > 0" class="text-gray-300 text-xs">└</span>
           <span class="flex-1 truncate">{{ node.title }}</span>
           <span class="text-[10px] text-gray-400">{{ blockCountForNode(node.id) }}b</span>
-          <span v-if="checklistScore(node.id) === 8" class="text-green-500 text-xs">✓</span>
         </div>
       </div>
 
@@ -172,27 +171,6 @@
               </button>
             </div>
           </div>
-
-          <!-- Page checklist -->
-          <div class="card p-5">
-            <div class="flex items-center justify-between mb-3">
-              <h4 class="font-semibold text-gray-900">✅ Pagina Checklist</h4>
-              <span class="text-sm font-medium" :class="checklistComplete ? 'text-green-600' : 'text-gray-400'">
-                {{ currentChecklistScore }}/8
-              </span>
-            </div>
-            <div class="space-y-2">
-              <label v-for="item in checklistItems" :key="item.key" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" :checked="(checklist as any)[item.key]"
-                  @change="toggleChecklist(item.key)" class="rounded border-gray-300 text-pienter-600" />
-                <span class="text-sm" :class="(checklist as any)[item.key] ? 'text-gray-900' : 'text-gray-500'">{{ item.label }}</span>
-              </label>
-            </div>
-            <div class="mt-3">
-              <label class="block text-xs font-medium text-gray-600 mb-1">Checklist notities</label>
-              <textarea v-model="checklist.notes" class="textarea text-sm" rows="2" @blur="saveChecklist" />
-            </div>
-          </div>
         </template>
       </div>
     </div>
@@ -202,7 +180,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, reactive, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
-import type { PageBlock, BlockType, PageChecklist } from '@shared/types'
+import type { PageBlock, BlockType } from '@shared/types'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
@@ -228,24 +206,6 @@ const quickBlockTypes = [
   { type: 'reviews' as BlockType, name: 'Reviews', icon: '⭐' },
   { type: 'contact' as BlockType, name: 'Contact', icon: '📞' },
 ]
-
-const checklistItems = [
-  { key: 'mainQuestionAnswered', label: 'Is de belangrijkste vraag van de bezoeker bovenaan beantwoord?' },
-  { key: 'logicalFlow', label: 'Zit er een logische opbouw in de pagina?' },
-  { key: 'hasSocialProof', label: 'Is er genoeg ruimte voor bewijs of vertrouwen (reviews, cases)?' },
-  { key: 'hasCta', label: 'Is er een duidelijke call to action?' },
-  { key: 'contentComplete', label: 'Zijn alle onderdelen qua content uitgewerkt of gedefinieerd?' },
-  { key: 'hasVisuals', label: 'Is er bepaald welk beeldmateriaal nodig is?' },
-  { key: 'noDuplicateBlocks', label: 'Zitten er geen dubbele of overbodige blokken op de pagina?' },
-  { key: 'noMissingEssentials', label: 'Mist er geen essentieel onderdeel?' },
-]
-
-const checklist = reactive<PageChecklist>({
-  siteNodeId: '',
-  mainQuestionAnswered: false, logicalFlow: false, hasSocialProof: false,
-  hasCta: false, contentComplete: false, hasVisuals: false,
-  noDuplicateBlocks: false, noMissingEssentials: false, notes: ''
-})
 
 const selectedNode = computed(() => store.siteNodes.find(n => n.id === selectedNodeId.value) || null)
 const sortedBlocks = computed(() => [...store.pageBlocks].sort((a, b) => a.sortOrder - b.sortOrder))
@@ -273,33 +233,10 @@ function blockCountForNode(nodeId: string): number {
   return store.allProjectBlocks.filter(b => b.siteNodeId === nodeId).length
 }
 
-function checklistScore(nodeId: string): number {
-  // Quick check for sidebar indicator
-  if (!checklist.siteNodeId || checklist.siteNodeId !== nodeId) return 0
-  return checklistItems.filter(item => (checklist as any)[item.key]).length
-}
-
-const currentChecklistScore = computed(() => checklistItems.filter(item => (checklist as any)[item.key]).length)
-const checklistComplete = computed(() => currentChecklistScore.value === 8)
-
 async function selectPage(nodeId: string) {
   selectedNodeId.value = nodeId
   store.selectedNodeId = nodeId
-  await Promise.all([
-    store.fetchBlocks(props.projectId, nodeId),
-    store.fetchChecklist(props.projectId, nodeId),
-  ])
-  // Update local checklist
-  if (store.pageChecklist) {
-    Object.assign(checklist, store.pageChecklist)
-  } else {
-    Object.assign(checklist, {
-      siteNodeId: nodeId,
-      mainQuestionAnswered: false, logicalFlow: false, hasSocialProof: false,
-      hasCta: false, contentComplete: false, hasVisuals: false,
-      noDuplicateBlocks: false, noMissingEssentials: false, notes: ''
-    })
-  }
+  await store.fetchBlocks(props.projectId, nodeId)
 }
 
 async function addBlock() {
@@ -384,16 +321,6 @@ function toggleQuestionLink(block: PageBlock, questionId: string) {
   if (idx >= 0) block.answersQuestionIds.splice(idx, 1)
   else block.answersQuestionIds.push(questionId)
   updateBlock(block)
-}
-
-async function toggleChecklist(key: string) {
-  ;(checklist as any)[key] = !(checklist as any)[key]
-  await saveChecklist()
-}
-
-async function saveChecklist() {
-  if (!selectedNodeId.value) return
-  await store.updateChecklist(props.projectId, selectedNodeId.value, { ...checklist })
 }
 
 function blockTypeIcon(type: BlockType) {

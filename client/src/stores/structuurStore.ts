@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { apiFetch } from '../api'
 import type {
   UserStory, ClientQuestion, Fase1Summary,
-  SiteNode, PageBlock, PageChecklist,
+  SiteNode, PageBlock,
   StructuurProgress, ChangeLogEntry, StructureWarning, StructureImport,
   StructureImportResult
 } from '@shared/types'
@@ -17,7 +17,6 @@ export const useStructuurStore = defineStore('structuur', () => {
   const siteNodes = ref<SiteNode[]>([])
   const pageBlocks = ref<PageBlock[]>([])
   const allProjectBlocks = ref<PageBlock[]>([])
-  const pageChecklist = ref<PageChecklist | null>(null)
   const warnings = ref<StructureWarning[]>([])
   const changeLog = ref<ChangeLogEntry[]>([])
   const loading = ref(false)
@@ -211,14 +210,6 @@ export const useStructuurStore = defineStore('structuur', () => {
     }
   }
 
-  // --- Fase 3: Checklist ---
-  async function fetchChecklist(projectId: string, nodeId: string) {
-    pageChecklist.value = await apiFetch<PageChecklist>('GET', `/structuur/${projectId}/nodes/${nodeId}/checklist`)
-  }
-  async function updateChecklist(projectId: string, nodeId: string, data: Partial<PageChecklist>) {
-    pageChecklist.value = await apiFetch<PageChecklist>('PUT', `/structuur/${projectId}/nodes/${nodeId}/checklist`, data)
-  }
-
   // --- Changelog ---
   async function fetchChangeLog(projectId: string) {
     changeLog.value = await apiFetch<ChangeLogEntry[]>('GET', `/structuur/${projectId}/changelog`)
@@ -243,7 +234,7 @@ export const useStructuurStore = defineStore('structuur', () => {
   return {
     // State
     progress, userStories, clientQuestions, fase1Summary,
-    siteNodes, pageBlocks, allProjectBlocks, pageChecklist, warnings, changeLog,
+    siteNodes, pageBlocks, allProjectBlocks, warnings, changeLog,
     loading, selectedNodeId,
     // Computed
     selectedNode, treeNodes, flatSortedNodes, parkedNodes, mainNavNodes,
@@ -259,7 +250,6 @@ export const useStructuurStore = defineStore('structuur', () => {
     importNodes, importFlatNodes, fetchWarnings,
     // Fase 3
     fetchBlocks, fetchAllBlocks, createBlock, updateBlock, deleteBlock, reorderBlocks,
-    fetchChecklist, updateChecklist,
     // Changelog
     fetchChangeLog,
     // Bulk
