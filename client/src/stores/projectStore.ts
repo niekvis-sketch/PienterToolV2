@@ -267,7 +267,7 @@ export const useProjectStore = defineStore('project', () => {
     const formData = new FormData()
     formData.append('image', file)
     const res = await api.post<{ ok: boolean; data: ComponentBlock }>(
-      `/api/componenten/${projectId}/${componentId}/image`,
+      `/componenten/${projectId}/${componentId}/image`,
       formData,
       { headers: { 'Content-Type': 'multipart/form-data' } }
     )
