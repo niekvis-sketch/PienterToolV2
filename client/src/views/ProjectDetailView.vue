@@ -31,6 +31,7 @@
         <TakenTab v-else-if="activeTab === 'taken'" />
         <BronnenTab v-else-if="activeTab === 'bronnen'" />
         <MediaTab v-else-if="activeTab === 'media'" />
+        <ComponentenTab v-else-if="activeTab === 'componenten'" />
         <AuditTab v-else-if="activeTab === 'audit'" />
         <InstellingenTab v-else-if="activeTab === 'instellingen'" />
       </div>
@@ -49,6 +50,7 @@ import MediaTab from '../components/tabs/MediaTab.vue'
 import AuditTab from '../components/tabs/AuditTab.vue'
 import InstellingenTab from '../components/tabs/InstellingenTab.vue'
 import DoelgroepenTab from '../components/tabs/DoelgroepenTab.vue'
+import ComponentenTab from '../components/tabs/ComponentenTab.vue'
 
 const props = defineProps<{ id: string }>()
 const store = useProjectStore()
@@ -61,6 +63,7 @@ const tabs = [
   { key: 'taken', label: 'Taken', icon: '✅' },
   { key: 'bronnen', label: 'Bronnen', icon: '📄' },
   { key: 'media', label: 'Media', icon: '🖼️' },
+  { key: 'componenten', label: 'Componenten', icon: '🧩' },
   { key: 'audit', label: 'Pre-live check', icon: '🔍' },
   { key: 'instellingen', label: 'Instellingen', icon: '⚙️' },
 ]
@@ -75,6 +78,7 @@ async function loadAll() {
     store.fetchMedia(props.id),
     store.fetchAuditRuns(props.id),
     store.fetchDoelgroepen(props.id),
+    store.fetchComponenten(props.id),
   ])
 }
 

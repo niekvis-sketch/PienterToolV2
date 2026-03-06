@@ -355,6 +355,20 @@ export interface PageChecklist {
   notes: string
 }
 
+// ---------- Componenten (ACF blokken) ----------
+export type ComponentCategory = 'broodblok' | 'flexblok' | 'posttype'
+
+export interface ComponentBlock {
+  id: string
+  projectId: string
+  name: string
+  category: ComponentCategory
+  description: string
+  imagePath: string        // relatief pad naar geüploade afbeelding
+  createdAt: string
+  updatedAt: string
+}
+
 // ---------- Wijzigingslog ----------
 export interface ChangeLogEntry {
   id: string

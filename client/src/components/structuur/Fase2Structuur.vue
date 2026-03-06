@@ -453,6 +453,9 @@ onMounted(async () => {
   if (projectStore.doelgroepVragen.length === 0) {
     await projectStore.fetchAllDoelgroepVragen(props.projectId)
   }
+  if (projectStore.componenten.length === 0) {
+    await projectStore.fetchComponenten(props.projectId)
+  }
 })
 
 const faseLabels: Record<JourneyFase, string> = { see: 'See / Oriëntatie', think: 'Think / Overweging', do: 'Do / Kiezen', care: 'Care / Behoud & Vergroten' }
@@ -487,20 +490,44 @@ async function copyVragenToClipboard() {
   }
 
   lines.push('')
+  lines.push('=== BESCHIKBARE COMPONENTEN (ACF BLOKKEN) ===')
+  lines.push('Gebruik *uitsluitend* de volgende componentnamen bij het bepalen van de blok-indeling. Elk component heeft een specifieke categorie (broodblok, flexblok, posttype) en soms een beschrijving.')
+  lines.push('')
+  
+  const componenten = projectStore.componenten
+  if (componenten.length > 0) {
+    const cats = ['broodblok', 'flexblok', 'posttype'] as const
+    for (const cat of cats) {
+      const catComps = componenten.filter(c => c.category === cat)
+      if (catComps.length === 0) continue
+      lines.push(`${cat.toUpperCase()}:`)
+      for (const comp of catComps) {
+        let compLine = `  - ${comp.name}`
+        if (comp.description) compLine += `: ${comp.description}`
+        lines.push(compLine)
+      }
+      lines.push('')
+    }
+  } else {
+    lines.push('  - [Geen componenten gevonden in project - gebruik standaard indeling]')
+    lines.push('')
+  }
+
   lines.push('=== OPDRACHT ===')
-  lines.push('Maak op basis van bovenstaande doelgroepen en klantvragen een websitestructuur met per pagina een blok-indeling.')
-  lines.push('Geef het resultaat terug als JSON in dit formaat:')
+  lines.push('Maak op basis van bovenstaande doelgroepen, klantvragen en componenten een websitestructuur met per pagina een blok-indeling.')
+  lines.push('Belangrijk: De waarde voor "type" of "componentPattern" van een blok MOET overeenkomen met exact één van de componentnamen uit de lijst hierboven.')
+  lines.push('Geef het resultaat terug als JSON in exact dit formaat:')
   lines.push('{')
   lines.push('  "root": [')
   lines.push('    {')
   lines.push('      "title": "Home",')
   lines.push('      "slug": "",')
   lines.push('      "blocks": [')
-  lines.push('        { "name": "Hero", "type": "hero", "goal": "Directe aandacht trekken", "contentDescription": "Korte tekst met CTA" },')
-  lines.push('        { "name": "Introductie", "type": "introductie", "goal": "Uitleg wat het bedrijf doet" },')
-  lines.push('        { "name": "Diensten overzicht", "type": "dienst-uitleg", "goal": "Overzicht van diensten" },')
-  lines.push('        { "name": "Reviews", "type": "reviews", "goal": "Vertrouwen opbouwen" },')
-  lines.push('        { "name": "Call to Action", "type": "cta", "goal": "Bezoeker laten converteren" }')
+  lines.push('        { "name": "Hero", "type": "Broodblok-Hero", "goal": "Directe aandacht trekken", "contentDescription": "Korte tekst met CTA" },')
+  lines.push('        { "name": "Introductie", "type": "Flexblok-Tekst", "goal": "Uitleg wat het bedrijf doet" },')
+  lines.push('        { "name": "Diensten overzicht", "type": "Flexblok-Media-Grid", "goal": "Overzicht van diensten" },')
+  lines.push('        { "name": "Reviews", "type": "Flexblok-Testimonials", "goal": "Vertrouwen opbouwen" },')
+  lines.push('        { "name": "Call to Action", "type": "Flexblok-CTA-Banner", "goal": "Bezoeker laten converteren" }')
   lines.push('      ],')
   lines.push('      "children": [')
   lines.push('        { "title": "Pagina", "slug": "pagina", "blocks": [...], "children": [...] }')
@@ -509,16 +536,13 @@ async function copyVragenToClipboard() {
   lines.push('  ]')
   lines.push('}')
   lines.push('')
-  lines.push('Mogelijke bloktypes: hero, introductie, usp, dienst-uitleg, stappenplan, cases, reviews, faq, cta, contact, formulier, afbeelding-tekst, branche-overzicht, gerelateerde-paginas, video, prijzen, team, statistieken, custom')
-  lines.push('')
   lines.push('Houd rekening met:')
   lines.push('- Logische hiërarchie (max 3 niveaus diep)')
   lines.push('- Elke pagina moet een duidelijk doel hebben')
   lines.push('- Groepeer gerelateerde content')
   lines.push('- Gebruik duidelijke, SEO-vriendelijke slugs')
-  lines.push('- Geef per pagina een logische blokindeling die past bij het doel van de pagina')
-  lines.push('- Elke pagina begint met een hero en eindigt met een cta')
-  lines.push('- Gebruik de beschikbare bloktypes, gebruik "custom" alleen als er geen passend type is')
+  lines.push('- Geef per pagina een logische blokindeling die past bij het doel van de pagina en gebruik ALLEEN de voorgedefinieerde componenten.')
+  lines.push('- Elke pagina begint in ieder geval met een Broodblok-Hero (of vergelijkbaar broodblok)')
 
   const text = lines.join('\n')
 

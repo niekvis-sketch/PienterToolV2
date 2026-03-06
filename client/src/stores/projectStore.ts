@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { apiFetch } from '../api'
+import api from '../api'
 import type {
   Project, Page, SEOFields, Task, Source, MediaItem,
   AuditRun, AuditIssue, StructureImport,
-  Doelgroep, DoelgroepVraag
+  Doelgroep, DoelgroepVraag, ComponentBlock
 } from '@shared/types'
 
 export const useProjectStore = defineStore('project', () => {
@@ -20,6 +21,7 @@ export const useProjectStore = defineStore('project', () => {
   const auditIssues = ref<AuditIssue[]>([])
   const doelgroepen = ref<Doelgroep[]>([])
   const doelgroepVragen = ref<DoelgroepVraag[]>([])
+  const componenten = ref<ComponentBlock[]>([])
   const loading = ref(false)
 
   // ---- Projects ----
@@ -232,6 +234,57 @@ export const useProjectStore = defineStore('project', () => {
     return created
   }
 
+  // ---- Componenten ----
+  async function fetchComponenten(projectId: string) {
+    componenten.value = await apiFetch<ComponentBlock[]>('GET', `/componenten/${projectId}`)
+  }
+
+  async function seedComponenten(projectId: string) {
+    const items = await apiFetch<ComponentBlock[]>('POST', `/componenten/${projectId}/seed`)
+    componenten.value = items
+    return items
+  }
+
+  async function createComponent(projectId: string, data: Partial<ComponentBlock>) {
+    const c = await apiFetch<ComponentBlock>('POST', `/componenten/${projectId}`, data)
+    componenten.value.push(c)
+    return c
+  }
+
+  async function updateComponent(projectId: string, componentId: string, data: Partial<ComponentBlock>) {
+    const c = await apiFetch<ComponentBlock>('PUT', `/componenten/${projectId}/${componentId}`, data)
+    const idx = componenten.value.findIndex(x => x.id === componentId)
+    if (idx >= 0) componenten.value[idx] = c
+    return c
+  }
+
+  async function deleteComponent(projectId: string, componentId: string) {
+    await apiFetch<{ deleted: boolean }>('DELETE', `/componenten/${projectId}/${componentId}`)
+    componenten.value = componenten.value.filter(x => x.id !== componentId)
+  }
+
+  async function uploadComponentImage(projectId: string, componentId: string, file: File) {
+    const formData = new FormData()
+    formData.append('image', file)
+    const res = await api.post<{ ok: boolean; data: ComponentBlock }>(
+      `/api/componenten/${projectId}/${componentId}/image`,
+      formData,
+      { headers: { 'Content-Type': 'multipart/form-data' } }
+    )
+    if (!res.data.ok) throw new Error('Upload mislukt')
+    const c = res.data.data
+    const idx = componenten.value.findIndex(x => x.id === componentId)
+    if (idx >= 0) componenten.value[idx] = c
+    return c
+  }
+
+  async function deleteComponentImage(projectId: string, componentId: string) {
+    const c = await apiFetch<ComponentBlock>('DELETE', `/componenten/${projectId}/${componentId}/image`)
+    const idx = componenten.value.findIndex(x => x.id === componentId)
+    if (idx >= 0) componenten.value[idx] = c
+    return c
+  }
+
   // ---- Seed ----
   async function seed() {
     await apiFetch<void>('GET', '/seed')
@@ -240,7 +293,7 @@ export const useProjectStore = defineStore('project', () => {
 
   return {
     projects, currentProject, pages, seoFields, tasks, sources, media,
-    auditRuns, auditIssues, doelgroepen, doelgroepVragen, loading,
+    auditRuns, auditIssues, doelgroepen, doelgroepVragen, componenten, loading,
     fetchProjects, fetchProject, createProject, updateProject,
     fetchPages, updatePage, updateSeoFields, importStructure,
     fetchTasks, createTask, updateTask,
@@ -250,6 +303,8 @@ export const useProjectStore = defineStore('project', () => {
     fetchDoelgroepen, createDoelgroep, updateDoelgroep, deleteDoelgroep,
     fetchDoelgroepVragen, fetchAllDoelgroepVragen, createDoelgroepVraag, updateDoelgroepVraag, deleteDoelgroepVraag,
     bulkImportDoelgroepVragen,
+    fetchComponenten, seedComponenten, createComponent, updateComponent, deleteComponent,
+    uploadComponentImage, deleteComponentImage,
     seed,
   }
 })

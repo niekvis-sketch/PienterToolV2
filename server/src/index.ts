@@ -3,11 +3,13 @@
 // ============================================================
 import express from 'express'
 import cors from 'cors'
+import path from 'path'
 import { projectRouter } from './routes/projects'
 import { auditRouter } from './routes/audit'
 import { seedRouter } from './routes/seed'
 import { structuurRouter } from './routes/structuur'
 import { doelgroepenRouter } from './routes/doelgroepen'
+import { componentenRouter } from './routes/componenten'
 
 const app = express()
 const PORT = process.env.PORT || 3210
@@ -20,7 +22,11 @@ app.use('/api/projects', projectRouter)
 app.use('/api/audit', auditRouter)
 app.use('/api/structuur', structuurRouter)
 app.use('/api/doelgroepen', doelgroepenRouter)
+app.use('/api/componenten', componentenRouter)
 app.use('/api', seedRouter)
+
+// Serveer geüploade bestanden (afbeeldingen)
+app.use('/api/uploads', express.static(path.resolve(__dirname, '../data/uploads')))
 
 // Health check
 app.get('/api/health', (_req, res) => {
