@@ -11,7 +11,7 @@
     "goLiveDate": "2026-05-15",
     "createdAt": "2026-02-10T09:00:00.000Z",
     "stagingNoindex": true,
-    "gtmConnected": false,
+    "gtmConnected": true,
     "eventsDefined": false
   }
 ]

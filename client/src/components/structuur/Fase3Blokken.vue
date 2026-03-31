@@ -39,6 +39,15 @@
             <div class="flex items-center gap-3 mb-3">
               <h4 class="text-lg font-bold text-gray-900">{{ selectedNode.title }}</h4>
               <span class="text-xs text-pienter-600 font-mono">{{ selectedNode.fullUrl }}</span>
+              <div class="ml-auto">
+                <button
+                  class="btn-sm text-xs flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-colors"
+                  :class="showPreview ? 'bg-pienter-600 text-white hover:bg-pienter-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+                  @click="showPreview = !showPreview"
+                >
+                  👁️ {{ showPreview ? 'Verberg preview' : 'Visuele preview' }}
+                </button>
+              </div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
               <div><span class="text-gray-500">Doelgroep:</span> <span class="font-medium">{{ selectedNode.targetAudience || '—' }}</span></div>
@@ -54,6 +63,19 @@
                 <span v-if="q.answer" class="text-green-700"> → {{ q.answer }}</span>
               </div>
             </div>
+          </div>
+
+          <!-- Visual page preview -->
+          <div v-if="showPreview" class="card p-5 mb-4">
+            <div class="flex items-center gap-2 mb-4">
+              <h4 class="text-sm font-semibold text-gray-700">👁️ Visuele pagina preview</h4>
+              <span class="text-[10px] text-gray-400">Gebaseerd op blok-indeling en component afbeeldingen</span>
+            </div>
+            <PageVisualPreview
+              :blocks="sortedBlocks"
+              :components="projectStore.componenten"
+              :page-url="selectedNode.fullUrl"
+            />
           </div>
 
           <!-- Block list -->
@@ -180,14 +202,19 @@
 <script setup lang="ts">
 import { ref, computed, watch, reactive, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
+import { useProjectStore } from '../../stores/projectStore'
+import PageVisualPreview from './PageVisualPreview.vue'
 import type { PageBlock, BlockType } from '@shared/types'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
+const projectStore = useProjectStore()
+const showPreview = ref(false)
 
 // Load all blocks on mount for sidebar counts
 onMounted(async () => {
   await store.fetchAllBlocks(props.projectId)
+  await projectStore.fetchComponenten(props.projectId)
 })
 
 const selectedNodeId = ref<string | null>(null)
