@@ -3,8 +3,7 @@ import { ref } from 'vue'
 import { apiFetch } from '../api'
 import api from '../api'
 import type {
-  Project, Page, SEOFields, Task, Source, MediaItem,
-  AuditRun, AuditIssue, StructureImport,
+  Project, Page, SEOFields,
   Doelgroep, DoelgroepVraag, ComponentBlock
 } from '@shared/types'
 
@@ -14,11 +13,6 @@ export const useProjectStore = defineStore('project', () => {
   const currentProject = ref<Project | null>(null)
   const pages = ref<Page[]>([])
   const seoFields = ref<SEOFields[]>([])
-  const tasks = ref<Task[]>([])
-  const sources = ref<Source[]>([])
-  const media = ref<MediaItem[]>([])
-  const auditRuns = ref<AuditRun[]>([])
-  const auditIssues = ref<AuditIssue[]>([])
   const doelgroepen = ref<Doelgroep[]>([])
   const doelgroepVragen = ref<DoelgroepVraag[]>([])
   const componenten = ref<ComponentBlock[]>([])
@@ -71,97 +65,6 @@ export const useProjectStore = defineStore('project', () => {
     const idx = seoFields.value.findIndex(x => x.pageId === pageId)
     if (idx >= 0) seoFields.value[idx] = s
     return s
-  }
-
-  async function importStructure(projectId: string, data: StructureImport) {
-    const result = await apiFetch<{ pages: Page[]; seoFields: SEOFields[]; tasks: Task[] }>(
-      'POST', `/projects/${projectId}/structure/import`, data
-    )
-    pages.value = result.pages
-    seoFields.value = result.seoFields
-    // Merge tasks
-    for (const t of result.tasks) {
-      if (!tasks.value.find(x => x.id === t.id)) tasks.value.push(t)
-    }
-    return result
-  }
-
-  // ---- Tasks ----
-  async function fetchTasks(projectId: string) {
-    tasks.value = await apiFetch<Task[]>('GET', `/projects/${projectId}/tasks`)
-  }
-
-  async function createTask(projectId: string, data: Partial<Task>) {
-    const t = await apiFetch<Task>('POST', `/projects/${projectId}/tasks`, data)
-    tasks.value.push(t)
-    return t
-  }
-
-  async function updateTask(projectId: string, taskId: string, data: Partial<Task>) {
-    const t = await apiFetch<Task>('PUT', `/projects/${projectId}/tasks/${taskId}`, data)
-    const idx = tasks.value.findIndex(x => x.id === taskId)
-    if (idx >= 0) tasks.value[idx] = t
-    return t
-  }
-
-  // ---- Sources ----
-  async function fetchSources(projectId: string) {
-    sources.value = await apiFetch<Source[]>('GET', `/projects/${projectId}/sources`)
-  }
-
-  async function createSource(projectId: string, data: Partial<Source>) {
-    const s = await apiFetch<Source>('POST', `/projects/${projectId}/sources`, data)
-    sources.value.push(s)
-    return s
-  }
-
-  async function updateSource(projectId: string, sourceId: string, data: Partial<Source>) {
-    const s = await apiFetch<Source>('PUT', `/projects/${projectId}/sources/${sourceId}`, data)
-    const idx = sources.value.findIndex(x => x.id === sourceId)
-    if (idx >= 0) sources.value[idx] = s
-    return s
-  }
-
-  // ---- Media ----
-  async function fetchMedia(projectId: string) {
-    media.value = await apiFetch<MediaItem[]>('GET', `/projects/${projectId}/media`)
-  }
-
-  async function createMedia(projectId: string, data: Partial<MediaItem>) {
-    const m = await apiFetch<MediaItem>('POST', `/projects/${projectId}/media`, data)
-    media.value.push(m)
-    return m
-  }
-
-  async function scrapeMockMedia(projectId: string) {
-    const items = await apiFetch<MediaItem[]>('POST', `/projects/${projectId}/media/scrape-mock`)
-    media.value.push(...items)
-    return items
-  }
-
-  // ---- Audit ----
-  async function fetchAuditRuns(projectId: string) {
-    auditRuns.value = await apiFetch<AuditRun[]>('GET', `/projects/${projectId}/audit`)
-  }
-
-  async function runAudit(projectId: string, environment: 'staging' | 'live') {
-    const result = await apiFetch<{ run: AuditRun; issues: AuditIssue[] }>(
-      'POST', `/projects/${projectId}/audit/run`, { environment }
-    )
-    auditRuns.value.push(result.run)
-    auditIssues.value = result.issues
-    return result
-  }
-
-  async function fetchAuditIssues(projectId: string, runId: string) {
-    auditIssues.value = await apiFetch<AuditIssue[]>('GET', `/projects/${projectId}/audit/${runId}/issues`)
-  }
-
-  async function updateAuditIssue(issueId: string, data: Partial<AuditIssue>) {
-    const issue = await apiFetch<AuditIssue>('PUT', `/audit/issues/${issueId}`, data)
-    const idx = auditIssues.value.findIndex(x => x.id === issueId)
-    if (idx >= 0) auditIssues.value[idx] = issue
-    return issue
   }
 
   // ---- Doelgroepen ----
@@ -292,14 +195,10 @@ export const useProjectStore = defineStore('project', () => {
   }
 
   return {
-    projects, currentProject, pages, seoFields, tasks, sources, media,
-    auditRuns, auditIssues, doelgroepen, doelgroepVragen, componenten, loading,
+    projects, currentProject, pages, seoFields,
+    doelgroepen, doelgroepVragen, componenten, loading,
     fetchProjects, fetchProject, createProject, updateProject,
-    fetchPages, updatePage, updateSeoFields, importStructure,
-    fetchTasks, createTask, updateTask,
-    fetchSources, createSource, updateSource,
-    fetchMedia, createMedia, scrapeMockMedia,
-    fetchAuditRuns, runAudit, fetchAuditIssues, updateAuditIssue,
+    fetchPages, updatePage, updateSeoFields,
     fetchDoelgroepen, createDoelgroep, updateDoelgroep, deleteDoelgroep,
     fetchDoelgroepVragen, fetchAllDoelgroepVragen, createDoelgroepVraag, updateDoelgroepVraag, deleteDoelgroepVraag,
     bulkImportDoelgroepVragen,
