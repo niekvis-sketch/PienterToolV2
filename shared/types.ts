@@ -307,6 +307,36 @@ export interface DoelgroepPaspoort {
   gender: string
 }
 
+// ---------- Content Structuur Document ----------
+export type ContentRowStatus = 'niet-gestart' | 'in-progress' | 'klaar' | 'review'
+
+export interface ContentStructuurRow {
+  id: string
+  projectId: string
+  siteNodeId?: string | null
+  naamPagina: string
+  zoektermen: string
+  tekstKlaar: boolean
+  wiePlaatst: string
+  status: ContentRowStatus
+  watMistNog: string
+  nieuweUrl: string
+  slug: string
+  metaTitel: string
+  metaDescription: string
+  sortOrder: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ContentStructuurPreset {
+  id: string
+  projectId: string
+  name: string
+  visibleColumns: string[]  // keys van ContentStructuurRow velden
+  createdAt: string
+}
+
 // ---------- API Responses ----------
 export interface ApiResponse<T> {
   ok: boolean

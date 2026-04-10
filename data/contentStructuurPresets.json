@@ -1,0 +1,13 @@
+[
+  {
+    "id": "a03b604c",
+    "projectId": "demo0001",
+    "name": "Content",
+    "visibleColumns": [
+      "naamPagina",
+      "tekstKlaar",
+      "zoektermen"
+    ],
+    "createdAt": "2026-04-10T12:21:38.853Z"
+  }
+]
