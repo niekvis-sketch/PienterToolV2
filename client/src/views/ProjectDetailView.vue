@@ -28,6 +28,7 @@
         <DoelgroepenTab v-if="activeTab === 'doelgroepen'" />
         <StructuurTab v-else-if="activeTab === 'structuur'" />
         <ComponentenTab v-else-if="activeTab === 'componenten'" />
+        <PresentatieTab v-else-if="activeTab === 'presentatie'" />
         <InstellingenTab v-else-if="activeTab === 'instellingen'" />
       </div>
     </div>
@@ -41,6 +42,7 @@ import StructuurTab from '../components/tabs/StructuurTab.vue'
 import InstellingenTab from '../components/tabs/InstellingenTab.vue'
 import DoelgroepenTab from '../components/tabs/DoelgroepenTab.vue'
 import ComponentenTab from '../components/tabs/ComponentenTab.vue'
+import PresentatieTab from '../components/tabs/PresentatieTab.vue'
 
 const props = defineProps<{ id: string }>()
 const store = useProjectStore()
@@ -50,6 +52,7 @@ const tabs = [
   { key: 'doelgroepen', label: 'Doelgroepen', icon: '🎯' },
   { key: 'structuur', label: 'Structuur', icon: '🗂️' },
   { key: 'componenten', label: 'Componenten', icon: '🧩' },
+  { key: 'presentatie', label: 'Presentatie', icon: '🎬' },
   { key: 'instellingen', label: 'Instellingen', icon: '⚙️' },
 ]
 

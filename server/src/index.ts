@@ -9,6 +9,7 @@ import { seedRouter } from './routes/seed'
 import { structuurRouter } from './routes/structuur'
 import { doelgroepenRouter } from './routes/doelgroepen'
 import { componentenRouter } from './routes/componenten'
+import { presentatieRouter } from './routes/presentaties'
 
 const app = express()
 const PORT = process.env.PORT || 3210
@@ -21,6 +22,7 @@ app.use('/api/projects', projectRouter)
 app.use('/api/structuur', structuurRouter)
 app.use('/api/doelgroepen', doelgroepenRouter)
 app.use('/api/componenten', componentenRouter)
+app.use('/api/presentaties', presentatieRouter)
 app.use('/api', seedRouter)
 
 // Serveer geüploade bestanden (afbeeldingen)

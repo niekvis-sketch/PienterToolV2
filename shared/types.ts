@@ -261,6 +261,52 @@ export interface ChangeLogEntry {
   newValue?: string
 }
 
+// ---------- Presentatiemodus ----------
+export type PresentatieSlideType =
+  | 'introductie'
+  | 'visie'
+  | 'missie'
+  | 'klantreis'
+  | 'doelgroepen'
+  | 'merkwaarden'
+  | 'kernwaarden'
+  | 'doelgroeppaspoort'
+
+export interface PresentatieSlideConfig {
+  type: PresentatieSlideType
+  enabled: boolean
+  sortOrder: number
+}
+
+export interface PresentatieSessie {
+  id: string
+  projectId: string
+  name: string
+  style: 'light' | 'dark' | 'pienter'
+  slides: PresentatieSlideConfig[]
+  // Slide-inhoud
+  visie: string
+  missie: string
+  merkwaarden: string[]
+  kernwaarden: string[]
+  doelgroepPaspoorten: DoelgroepPaspoort[]
+  createdAt: string
+  updatedAt: string
+}
+
+export interface DoelgroepPaspoort {
+  id: string
+  doelgroepId: string
+  leeftijd: string
+  functie: string
+  opleiding: string
+  bedrijfsgrootte: string
+  beslisser: boolean | null
+  brancheklimaat: string
+  mediakanalen: string[]
+  gender: string
+}
+
 // ---------- API Responses ----------
 export interface ApiResponse<T> {
   ok: boolean

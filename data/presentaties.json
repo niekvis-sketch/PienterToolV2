@@ -1,0 +1,57 @@
+[
+  {
+    "id": "5b35646d",
+    "projectId": "demo0001",
+    "name": "Website sessie",
+    "style": "pienter",
+    "slides": [
+      {
+        "type": "introductie",
+        "enabled": true,
+        "sortOrder": 0
+      },
+      {
+        "type": "visie",
+        "enabled": true,
+        "sortOrder": 1
+      },
+      {
+        "type": "missie",
+        "enabled": true,
+        "sortOrder": 2
+      },
+      {
+        "type": "klantreis",
+        "enabled": true,
+        "sortOrder": 3
+      },
+      {
+        "type": "doelgroepen",
+        "enabled": true,
+        "sortOrder": 4
+      },
+      {
+        "type": "merkwaarden",
+        "enabled": true,
+        "sortOrder": 5
+      },
+      {
+        "type": "kernwaarden",
+        "enabled": true,
+        "sortOrder": 6
+      },
+      {
+        "type": "doelgroeppaspoort",
+        "enabled": true,
+        "sortOrder": 7
+      }
+    ],
+    "visie": "",
+    "missie": "",
+    "merkwaarden": [],
+    "kernwaarden": [],
+    "doelgroepPaspoorten": [],
+    "createdAt": "2026-04-10T07:50:58.115Z",
+    "updatedAt": "2026-04-10T08:11:00.870Z"
+  }
+]
