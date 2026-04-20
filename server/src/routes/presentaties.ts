@@ -4,22 +4,93 @@
 import { Router } from 'express'
 import { readCollection, writeCollection } from '../storage'
 import { genId, now, ok, err } from '../helpers'
-import type { PresentatieSessie, PresentatieSlideConfig } from '@shared/types'
+import type { PresentatieSessie, PresentatieSlideConfig, PresentatieSessieType, PresentatieSlideType } from '@shared/types'
 
 export const presentatieRouter = Router()
 
 const COLLECTION = 'presentaties'
 
-const defaultSlides: PresentatieSlideConfig[] = [
-  { type: 'introductie', enabled: true, sortOrder: 0 },
-  { type: 'visie', enabled: true, sortOrder: 1 },
-  { type: 'missie', enabled: true, sortOrder: 2 },
-  { type: 'klantreis', enabled: true, sortOrder: 3 },
-  { type: 'doelgroepen', enabled: true, sortOrder: 4 },
-  { type: 'merkwaarden', enabled: true, sortOrder: 5 },
-  { type: 'kernwaarden', enabled: true, sortOrder: 6 },
-  { type: 'doelgroeppaspoort', enabled: true, sortOrder: 7 },
-]
+// Slide-presets per sessietype
+const sessionSlidePresets: Record<PresentatieSessieType, { type: PresentatieSlideType; required: boolean }[]> = {
+  intake: [
+    { type: 'introductie', required: true },
+    { type: 'projectdoel', required: true },
+    { type: 'doelgroepen', required: false },
+    { type: 'functionaliteiten', required: false },
+    { type: 'planning', required: false },
+    { type: 'rollen-teams', required: false },
+    { type: 'volgende-stap', required: true },
+  ],
+  websitesessie: [
+    { type: 'introductie', required: true },
+    { type: 'visie', required: false },
+    { type: 'missie', required: false },
+    { type: 'doelgroepen', required: false },
+    { type: 'doelgroeppaspoort', required: false },
+    { type: 'user-stories', required: false },
+    { type: 'klantreis', required: false },
+    { type: 'merkwaarden', required: false },
+    { type: 'kernwaarden', required: false },
+    { type: 'concurrenten-inspiratie', required: false },
+    { type: 'beeldmateriaal', required: false },
+    { type: 'functionaliteiten', required: false },
+    { type: 'paginas', required: false },
+    { type: 'volgende-stap', required: true },
+  ],
+  structuur: [
+    { type: 'introductie', required: true },
+    { type: 'sitemap', required: false },
+    { type: 'paginas', required: false },
+    { type: 'paginadoel', required: false },
+    { type: 'zoekthemas', required: false },
+    { type: 'pagina-prioriteit', required: false },
+    { type: 'content-ontbreekt', required: false },
+    { type: 'volgende-stap', required: true },
+  ],
+  design: [
+    { type: 'introductie', required: true },
+    { type: 'stijlrichting', required: false },
+    { type: 'kleur-typografie', required: false },
+    { type: 'componentvoorbeeld', required: false },
+    { type: 'voorbeeldpagina', required: false },
+    { type: 'design-doelgroep-match', required: false },
+    { type: 'feedbackpunten', required: false },
+    { type: 'volgende-stap', required: true },
+  ],
+  content: [
+    { type: 'introductie', required: true },
+    { type: 'contentstatus', required: false },
+    { type: 'wie-schrijft-wat', required: false },
+    { type: 'beeldmateriaal', required: false },
+    { type: 'zoekthemas', required: false },
+    { type: 'content-ontbreekt', required: false },
+    { type: 'actiepunten', required: false },
+    { type: 'volgende-stap', required: true },
+  ],
+  'intern-overdracht': [
+    { type: 'introductie', required: true },
+    { type: 'samenvatting', required: false },
+    { type: 'projectdoel', required: false },
+    { type: 'sitemap', required: false },
+    { type: 'paginas', required: false },
+    { type: 'componenten-per-pagina', required: false },
+    { type: 'functionele-toelichting', required: false },
+    { type: 'openstaande-punten', required: false },
+    { type: 'risicos', required: false },
+    { type: 'volgende-stap', required: true },
+  ],
+}
+
+function buildSlidesForType(sessieType: PresentatieSessieType): PresentatieSlideConfig[] {
+  const preset = sessionSlidePresets[sessieType] || sessionSlidePresets.websitesessie
+  return preset.map((s, i) => ({
+    type: s.type,
+    enabled: true,
+    required: s.required,
+    sortOrder: i,
+    notes: '',
+  }))
+}
 
 // GET /:projectId – alle sessies voor een project
 presentatieRouter.get('/:projectId', (req, res) => {
@@ -40,13 +111,16 @@ presentatieRouter.get('/:projectId/:sessieId', (req, res) => {
 presentatieRouter.post('/:projectId', (req, res) => {
   const all = readCollection<PresentatieSessie>(COLLECTION)
   const body = req.body as Partial<PresentatieSessie>
+  const sessieType = body.sessieType || 'websitesessie'
 
   const sessie: PresentatieSessie = {
     id: genId(),
     projectId: req.params.projectId,
     name: body.name || 'Nieuwe sessie',
+    sessieType,
     style: body.style || 'pienter',
-    slides: body.slides || [...defaultSlides],
+    slides: body.slides || buildSlidesForType(sessieType),
+    liveNotes: body.liveNotes || [],
     visie: body.visie || '',
     missie: body.missie || '',
     merkwaarden: body.merkwaarden || [],

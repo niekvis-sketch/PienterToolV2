@@ -3,49 +3,74 @@
     "id": "5b35646d",
     "projectId": "demo0001",
     "name": "Website sessie",
+    "sessieType": "websitesessie",
     "style": "pienter",
     "slides": [
       {
         "type": "introductie",
         "enabled": true,
-        "sortOrder": 0
+        "required": true,
+        "sortOrder": 0,
+        "notes": ""
       },
       {
         "type": "visie",
         "enabled": true,
-        "sortOrder": 1
+        "required": false,
+        "sortOrder": 1,
+        "notes": ""
       },
       {
         "type": "missie",
         "enabled": true,
-        "sortOrder": 2
-      },
-      {
-        "type": "klantreis",
-        "enabled": true,
-        "sortOrder": 3
+        "required": false,
+        "sortOrder": 2,
+        "notes": ""
       },
       {
         "type": "doelgroepen",
         "enabled": true,
-        "sortOrder": 4
+        "required": false,
+        "sortOrder": 3,
+        "notes": ""
+      },
+      {
+        "type": "klantreis",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 4,
+        "notes": ""
       },
       {
         "type": "merkwaarden",
         "enabled": true,
-        "sortOrder": 5
+        "required": false,
+        "sortOrder": 5,
+        "notes": ""
       },
       {
         "type": "kernwaarden",
         "enabled": false,
-        "sortOrder": 6
+        "required": false,
+        "sortOrder": 6,
+        "notes": ""
       },
       {
         "type": "doelgroeppaspoort",
         "enabled": true,
-        "sortOrder": 7
+        "required": false,
+        "sortOrder": 7,
+        "notes": ""
+      },
+      {
+        "type": "volgende-stap",
+        "enabled": true,
+        "required": true,
+        "sortOrder": 8,
+        "notes": ""
       }
     ],
+    "liveNotes": [],
     "visie": "",
     "missie": "",
     "merkwaarden": [],
@@ -53,5 +78,127 @@
     "doelgroepPaspoorten": [],
     "createdAt": "2026-04-10T07:50:58.115Z",
     "updatedAt": "2026-04-13T09:42:31.588Z"
+  },
+  {
+    "id": "60b9ccda",
+    "projectId": "demo0001",
+    "name": "Cooling Service Holland B.V. – Websitesessie",
+    "sessieType": "websitesessie",
+    "style": "pienter",
+    "slides": [
+      {
+        "type": "introductie",
+        "enabled": true,
+        "required": true,
+        "sortOrder": 0,
+        "notes": ""
+      },
+      {
+        "type": "visie",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 1,
+        "notes": ""
+      },
+      {
+        "type": "missie",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 2,
+        "notes": ""
+      },
+      {
+        "type": "doelgroepen",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 3,
+        "notes": ""
+      },
+      {
+        "type": "doelgroeppaspoort",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 4,
+        "notes": ""
+      },
+      {
+        "type": "user-stories",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 5,
+        "notes": ""
+      },
+      {
+        "type": "klantreis",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 6,
+        "notes": ""
+      },
+      {
+        "type": "merkwaarden",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 7,
+        "notes": ""
+      },
+      {
+        "type": "kernwaarden",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 8,
+        "notes": ""
+      },
+      {
+        "type": "concurrenten-inspiratie",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 9,
+        "notes": ""
+      },
+      {
+        "type": "beeldmateriaal",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 10,
+        "notes": ""
+      },
+      {
+        "type": "functionaliteiten",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 11,
+        "notes": ""
+      },
+      {
+        "type": "paginas",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 12,
+        "notes": ""
+      },
+      {
+        "type": "volgende-stap",
+        "enabled": true,
+        "required": true,
+        "sortOrder": 13,
+        "notes": ""
+      }
+    ],
+    "liveNotes": [
+      {
+        "id": "mo7arjql",
+        "slideType": "user-stories",
+        "text": "hoi",
+        "createdAt": "2026-04-20T14:35:30.861Z"
+      }
+    ],
+    "visie": "",
+    "missie": "",
+    "merkwaarden": [],
+    "kernwaarden": [],
+    "doelgroepPaspoorten": [],
+    "createdAt": "2026-04-20T14:34:58.083Z",
+    "updatedAt": "2026-04-20T14:35:30.871Z"
   }
 ]

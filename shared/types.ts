@@ -263,27 +263,93 @@ export interface ChangeLogEntry {
 
 // ---------- Presentatiemodus ----------
 export type PresentatieSlideType =
+  // Project
   | 'introductie'
+  | 'projectdoel'
+  | 'planning'
+  | 'rollen-teams'
+  // Strategie
   | 'visie'
   | 'missie'
-  | 'klantreis'
   | 'doelgroepen'
+  | 'doelgroeppaspoort'
+  | 'klantreis'
+  | 'user-stories'
   | 'merkwaarden'
   | 'kernwaarden'
-  | 'doelgroeppaspoort'
+  | 'concurrenten-inspiratie'
+  // Structuur
+  | 'sitemap'
+  | 'paginas'
+  | 'paginadoel'
+  | 'pagina-prioriteit'
+  | 'componenten-per-pagina'
+  | 'zoekthemas'
+  // Content
+  | 'contentstatus'
+  | 'wie-schrijft-wat'
+  | 'beeldmateriaal'
+  | 'content-ontbreekt'
+  // Design
+  | 'stijlrichting'
+  | 'kleur-typografie'
+  | 'componentvoorbeeld'
+  | 'voorbeeldpagina'
+  | 'design-doelgroep-match'
+  | 'feedbackpunten'
+  // Technisch
+  | 'functionaliteiten'
+  | 'integraties'
+  | 'functionele-toelichting'
+  | 'overdracht-development'
+  | 'openstaande-punten'
+  | 'risicos'
+  // Afronding
+  | 'samenvatting'
+  | 'besluiten'
+  | 'actiepunten'
+  | 'volgende-stap'
+
+export type PresentatieSessieType =
+  | 'intake'
+  | 'websitesessie'
+  | 'structuur'
+  | 'design'
+  | 'content'
+  | 'intern-overdracht'
+
+export type PresentatieSlideCategory =
+  | 'project'
+  | 'strategie'
+  | 'structuur'
+  | 'content'
+  | 'design'
+  | 'technisch'
+  | 'afronding'
 
 export interface PresentatieSlideConfig {
   type: PresentatieSlideType
   enabled: boolean
+  required: boolean
   sortOrder: number
+  notes: string
+}
+
+export interface PresentatieLiveNote {
+  id: string
+  slideType: PresentatieSlideType
+  text: string
+  createdAt: string
 }
 
 export interface PresentatieSessie {
   id: string
   projectId: string
   name: string
+  sessieType: PresentatieSessieType
   style: 'light' | 'dark' | 'pienter'
   slides: PresentatieSlideConfig[]
+  liveNotes: PresentatieLiveNote[]
   // Slide-inhoud
   visie: string
   missie: string

@@ -12,8 +12,20 @@
           ← Terug
         </button>
         <span class="text-sm font-semibold" :class="textClass">{{ sessie.name }}</span>
+        <span
+          v-if="sessie.sessieType"
+          class="text-[10px] font-medium uppercase tracking-wide px-1.5 py-0.5 rounded-full bg-pienter-100 text-pienter-700"
+        >{{ sessieTypeLabel(sessie.sessieType) }}</span>
       </div>
       <div class="flex items-center gap-3">
+        <button
+          class="text-xs font-medium px-2.5 py-1 rounded-lg transition-colors"
+          :class="showNotesPanel ? 'bg-pienter-100 text-pienter-700' : btnSecondaryClass"
+          @click="showNotesPanel = !showNotesPanel"
+          title="Aantekeningen paneel"
+        >
+          📝 Notities
+        </button>
         <span class="text-xs" :class="mutedClass">
           Slide {{ currentIndex + 1 }} / {{ activeSlides.length }}
         </span>
@@ -22,8 +34,8 @@
       </div>
     </header>
 
-    <!-- Slide content -->
-    <div class="flex-1 overflow-hidden relative">
+    <!-- Slide content + optional notes panel -->
+    <div class="flex-1 overflow-hidden relative flex">
       <!-- Progress bar -->
       <div class="absolute top-0 left-0 right-0 h-1 bg-gray-200/30 z-10">
         <div
@@ -32,7 +44,8 @@
         ></div>
       </div>
 
-      <div class="h-full pt-1">
+      <!-- Main slide area -->
+      <div class="flex-1 h-full pt-1">
         <SlideIntroductie
           v-if="currentSlideType === 'introductie'"
           :sessie="sessie"
@@ -89,7 +102,69 @@
           :subtextClass="mutedClass"
           @update="onSlideUpdate"
         />
+        <!-- Generieke slide voor alle andere typen -->
+        <SlideGeneric
+          v-else
+          :sessie="sessie"
+          :slideType="currentSlideType!"
+          :textClass="textClass"
+          :subtextClass="mutedClass"
+          :inputBgClass="inputBgClass"
+          @update="onSlideUpdate"
+        />
       </div>
+
+      <!-- Notes side panel -->
+      <aside
+        v-if="showNotesPanel"
+        class="w-80 shrink-0 border-l overflow-y-auto pt-2 px-4 pb-4"
+        :class="sessie.style === 'dark' ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'"
+      >
+        <h3 class="text-xs font-semibold uppercase tracking-wide mb-3" :class="mutedClass">
+          Live aantekeningen
+        </h3>
+
+        <!-- Aantekening toevoegen -->
+        <div class="mb-4">
+          <textarea
+            v-model="panelNoteText"
+            class="w-full border border-gray-200 rounded-lg px-3 py-2 text-xs resize-none focus:ring-1 focus:ring-pienter-500 focus:border-pienter-500"
+            :class="inputBgClass"
+            rows="3"
+            placeholder="Nieuwe aantekening..."
+            @keydown.meta.enter="savePanelNote"
+            @keydown.ctrl.enter="savePanelNote"
+          ></textarea>
+          <button
+            v-if="panelNoteText.trim()"
+            class="mt-1 text-xs px-3 py-1 rounded-lg bg-pienter-600 text-white hover:bg-pienter-700"
+            @click="savePanelNote"
+          >Opslaan</button>
+        </div>
+
+        <!-- Lijst met aantekeningen -->
+        <div v-if="allLiveNotes.length === 0" class="text-xs" :class="mutedClass">
+          Nog geen aantekeningen. Voeg notities toe tijdens de presentatie.
+        </div>
+        <div v-else class="space-y-2">
+          <div
+            v-for="note in allLiveNotes"
+            :key="note.id"
+            class="rounded-lg p-2.5 text-xs border"
+            :class="sessie.style === 'dark' ? 'border-gray-600 bg-gray-700' : 'border-gray-100 bg-gray-50'"
+          >
+            <div class="flex items-center gap-1.5 mb-1" :class="mutedClass">
+              <span class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-pienter-100 text-pienter-700">
+                {{ slideLabel(note.slideType) }}
+              </span>
+              <span class="text-[10px] opacity-60">
+                {{ new Date(note.createdAt).toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' }) }}
+              </span>
+            </div>
+            <p class="whitespace-pre-wrap" :class="textClass">{{ note.text }}</p>
+          </div>
+        </div>
+      </aside>
     </div>
 
     <!-- Navigation bar -->
@@ -104,13 +179,14 @@
       </button>
 
       <!-- Slide dots -->
-      <div class="flex items-center gap-1.5">
+      <div class="flex items-center gap-1.5 flex-wrap justify-center max-w-lg">
         <button
           v-for="(slide, idx) in activeSlides"
           :key="slide.type"
           class="w-2.5 h-2.5 rounded-full transition-all"
           :class="idx === currentIndex ? 'bg-pienter-500 scale-125' : dotClass"
           @click="currentIndex = idx"
+          :title="slideLabel(slide.type)"
         ></button>
       </div>
 
@@ -128,10 +204,10 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useProjectStore } from '../stores/projectStore'
 import { usePresentatieStore } from '../stores/presentatieStore'
-import type { PresentatieSessie, PresentatieSlideConfig } from '@shared/types'
+import type { PresentatieSessie, PresentatieSlideType, PresentatieSessieType, PresentatieLiveNote } from '@shared/types'
 
 import SlideIntroductie from '../components/presentatie/SlideIntroductie.vue'
 import SlideVisie from '../components/presentatie/SlideVisie.vue'
@@ -141,6 +217,7 @@ import SlideDoelgroepen from '../components/presentatie/SlideDoelgroepen.vue'
 import SlideMerkwaarden from '../components/presentatie/SlideMerkwaarden.vue'
 import SlideKernwaarden from '../components/presentatie/SlideKernwaarden.vue'
 import SlideDoelgroeppaspoort from '../components/presentatie/SlideDoelgroeppaspoort.vue'
+import SlideGeneric from '../components/presentatie/SlideGeneric.vue'
 
 const props = defineProps<{ id: string; sessieId: string }>()
 const router = useRouter()
@@ -149,6 +226,8 @@ const presStore = usePresentatieStore()
 
 const currentIndex = ref(0)
 const saving = ref(false)
+const showNotesPanel = ref(false)
+const panelNoteText = ref('')
 
 const project = computed(() => projectStore.currentProject)
 const sessie = computed(() => presStore.currentSessie)
@@ -161,6 +240,72 @@ const activeSlides = computed(() => {
 })
 
 const currentSlideType = computed(() => activeSlides.value[currentIndex.value]?.type)
+
+const allLiveNotes = computed(() =>
+  [...(sessie.value?.liveNotes || [])].sort((a, b) =>
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  )
+)
+
+// Slide labels for notes panel
+const slideLabels: Record<string, string> = {
+  introductie: 'Introductie',
+  projectdoel: 'Projectdoel',
+  planning: 'Planning',
+  'rollen-teams': 'Rollen & teams',
+  visie: 'Visie',
+  missie: 'Missie',
+  doelgroepen: 'Doelgroepen',
+  doelgroeppaspoort: 'Doelgroeppaspoort',
+  klantreis: 'Klantreis',
+  'user-stories': 'User stories',
+  merkwaarden: 'Merkwaarden',
+  kernwaarden: 'Kernwaarden',
+  'concurrenten-inspiratie': 'Concurrenten',
+  sitemap: 'Sitemap',
+  paginas: 'Pagina\'s',
+  paginadoel: 'Paginadoel',
+  'pagina-prioriteit': 'Prioriteiten',
+  'componenten-per-pagina': 'Componenten',
+  zoekthemas: 'Zoekthema\'s',
+  contentstatus: 'Contentstatus',
+  'wie-schrijft-wat': 'Wie schrijft wat',
+  beeldmateriaal: 'Beeldmateriaal',
+  'content-ontbreekt': 'Content ontbreekt',
+  stijlrichting: 'Stijlrichting',
+  'kleur-typografie': 'Kleur & typo',
+  componentvoorbeeld: 'Componenten',
+  voorbeeldpagina: 'Voorbeeldpagina',
+  'design-doelgroep-match': 'Design match',
+  feedbackpunten: 'Feedback',
+  functionaliteiten: 'Functionaliteiten',
+  integraties: 'Integraties',
+  'functionele-toelichting': 'Toelichting',
+  'overdracht-development': 'Overdracht',
+  'openstaande-punten': 'Open punten',
+  risicos: 'Risico\'s',
+  samenvatting: 'Samenvatting',
+  besluiten: 'Besluiten',
+  actiepunten: 'Actiepunten',
+  'volgende-stap': 'Volgende stap',
+}
+
+function slideLabel(type: PresentatieSlideType): string {
+  return slideLabels[type] || type
+}
+
+const sessieTypeLabels: Record<PresentatieSessieType, string> = {
+  intake: 'Intake',
+  websitesessie: 'Websitesessie',
+  structuur: 'Structuur',
+  design: 'Design',
+  content: 'Content',
+  'intern-overdracht': 'Intern',
+}
+
+function sessieTypeLabel(type: PresentatieSessieType): string {
+  return sessieTypeLabels[type] || type
+}
 
 // Style classes based on presentation style
 const bgClass = computed(() => {
@@ -237,6 +382,19 @@ async function onSlideUpdate(patch: Partial<PresentatieSessie>) {
   } finally {
     saving.value = false
   }
+}
+
+async function savePanelNote() {
+  if (!panelNoteText.value.trim() || !sessie.value || !currentSlideType.value) return
+  const newNote: PresentatieLiveNote = {
+    id: Date.now().toString(36),
+    slideType: currentSlideType.value,
+    text: panelNoteText.value.trim(),
+    createdAt: new Date().toISOString(),
+  }
+  const updatedNotes = [...(sessie.value.liveNotes || []), newNote]
+  await onSlideUpdate({ liveNotes: updatedNotes })
+  panelNoteText.value = ''
 }
 
 function exitPresentatie() {
