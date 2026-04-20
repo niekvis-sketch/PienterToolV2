@@ -102,6 +102,14 @@
           :subtextClass="mutedClass"
           @update="onSlideUpdate"
         />
+        <!-- Screenshot slide -->
+        <SlideScreenshot
+          v-else-if="currentSlideType === 'screenshot'"
+          :sessie="sessie"
+          :slideIndex="sessie.slides.indexOf(activeSlides[currentIndex])"
+          :textClass="textClass"
+          :subtextClass="mutedClass"
+        />
         <!-- Generieke slide voor alle andere typen -->
         <SlideGeneric
           v-else
@@ -218,6 +226,7 @@ import SlideMerkwaarden from '../components/presentatie/SlideMerkwaarden.vue'
 import SlideKernwaarden from '../components/presentatie/SlideKernwaarden.vue'
 import SlideDoelgroeppaspoort from '../components/presentatie/SlideDoelgroeppaspoort.vue'
 import SlideGeneric from '../components/presentatie/SlideGeneric.vue'
+import SlideScreenshot from '../components/presentatie/SlideScreenshot.vue'
 
 const props = defineProps<{ id: string; sessieId: string }>()
 const router = useRouter()
@@ -288,6 +297,7 @@ const slideLabels: Record<string, string> = {
   besluiten: 'Besluiten',
   actiepunten: 'Actiepunten',
   'volgende-stap': 'Volgende stap',
+  screenshot: 'Screenshot',
 }
 
 function slideLabel(type: PresentatieSlideType): string {

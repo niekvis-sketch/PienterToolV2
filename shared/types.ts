@@ -309,6 +309,8 @@ export type PresentatieSlideType =
   | 'besluiten'
   | 'actiepunten'
   | 'volgende-stap'
+  // Vrije slides
+  | 'screenshot'
 
 export type PresentatieSessieType =
   | 'intake'
@@ -333,6 +335,8 @@ export interface PresentatieSlideConfig {
   required: boolean
   sortOrder: number
   notes: string
+  title?: string           // custom titel voor screenshot-slides
+  imagePaths?: string[]    // geüploade afbeeldingen (voor screenshot-slides)
 }
 
 export interface PresentatieLiveNote {

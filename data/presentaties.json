@@ -68,6 +68,17 @@
         "required": true,
         "sortOrder": 8,
         "notes": ""
+      },
+      {
+        "type": "screenshot",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 9,
+        "notes": "",
+        "title": "Intro scherm",
+        "imagePaths": [
+          "uploads/slides/f295a51e-1776698278544.png"
+        ]
       }
     ],
     "liveNotes": [],
@@ -77,7 +88,7 @@
     "kernwaarden": [],
     "doelgroepPaspoorten": [],
     "createdAt": "2026-04-10T07:50:58.115Z",
-    "updatedAt": "2026-04-13T09:42:31.588Z"
+    "updatedAt": "2026-04-20T15:18:01.601Z"
   },
   {
     "id": "60b9ccda",
@@ -183,6 +194,13 @@
         "required": true,
         "sortOrder": 13,
         "notes": ""
+      },
+      {
+        "type": "sitemap",
+        "enabled": true,
+        "required": false,
+        "sortOrder": 14,
+        "notes": ""
       }
     ],
     "liveNotes": [
@@ -199,6 +217,6 @@
     "kernwaarden": [],
     "doelgroepPaspoorten": [],
     "createdAt": "2026-04-20T14:34:58.083Z",
-    "updatedAt": "2026-04-20T14:35:30.871Z"
+    "updatedAt": "2026-04-20T14:38:32.702Z"
   }
 ]

@@ -2,6 +2,9 @@
 // Presentatiemodus routes
 // ============================================================
 import { Router } from 'express'
+import multer from 'multer'
+import path from 'path'
+import fs from 'fs'
 import { readCollection, writeCollection } from '../storage'
 import { genId, now, ok, err } from '../helpers'
 import type { PresentatieSessie, PresentatieSlideConfig, PresentatieSessieType, PresentatieSlideType } from '@shared/types'
@@ -9,6 +12,30 @@ import type { PresentatieSessie, PresentatieSlideConfig, PresentatieSessieType, 
 export const presentatieRouter = Router()
 
 const COLLECTION = 'presentaties'
+
+// ---------- Multer config voor slide screenshot uploads ----------
+const UPLOAD_DIR = path.resolve(__dirname, '../../data/uploads/slides')
+if (!fs.existsSync(UPLOAD_DIR)) {
+  fs.mkdirSync(UPLOAD_DIR, { recursive: true })
+}
+
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
+  filename: (_req, file, cb) => {
+    const ext = path.extname(file.originalname)
+    cb(null, `${genId()}-${Date.now()}${ext}`)
+  },
+})
+
+const upload = multer({
+  storage,
+  fileFilter: (_req, file, cb) => {
+    const allowed = ['.png', '.jpg', '.jpeg', '.webp', '.gif']
+    const ext = path.extname(file.originalname).toLowerCase()
+    cb(null, allowed.includes(ext))
+  },
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB for screenshots
+})
 
 // Slide-presets per sessietype
 const sessionSlidePresets: Record<PresentatieSessieType, { type: PresentatieSlideType; required: boolean }[]> = {
@@ -159,10 +186,73 @@ presentatieRouter.put('/:projectId/:sessieId', (req, res) => {
 // DELETE /:projectId/:sessieId – sessie verwijderen
 presentatieRouter.delete('/:projectId/:sessieId', (req, res) => {
   let all = readCollection<PresentatieSessie>(COLLECTION)
-  const exists = all.some(s => s.id === req.params.sessieId && s.projectId === req.params.projectId)
-  if (!exists) return res.status(404).json(err('Sessie niet gevonden', 404))
+  const sessie = all.find(s => s.id === req.params.sessieId && s.projectId === req.params.projectId)
+  if (!sessie) return res.status(404).json(err('Sessie niet gevonden', 404))
+
+  // Cleanup slide images
+  for (const slide of sessie.slides) {
+    if (slide.imagePaths) {
+      for (const imgPath of slide.imagePaths) {
+        const fullPath = path.resolve(__dirname, '../../data', imgPath)
+        if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath)
+      }
+    }
+  }
 
   all = all.filter(s => !(s.id === req.params.sessieId && s.projectId === req.params.projectId))
   writeCollection(COLLECTION, all)
   res.json(ok({ deleted: true }))
+})
+
+// POST /:projectId/:sessieId/slides/:slideIndex/image – screenshot uploaden
+presentatieRouter.post('/:projectId/:sessieId/slides/:slideIndex/image', upload.single('image'), (req, res) => {
+  if (!req.file) return res.status(400).json(err('Geen afbeelding ontvangen'))
+
+  const all = readCollection<PresentatieSessie>(COLLECTION)
+  const idx = all.findIndex(s => s.id === req.params.sessieId && s.projectId === req.params.projectId)
+  if (idx < 0) {
+    fs.unlinkSync(req.file.path)
+    return res.status(404).json(err('Sessie niet gevonden', 404))
+  }
+
+  const slideIndex = parseInt(req.params.slideIndex, 10)
+  if (isNaN(slideIndex) || slideIndex < 0 || slideIndex >= all[idx].slides.length) {
+    fs.unlinkSync(req.file.path)
+    return res.status(400).json(err('Ongeldige slide index'))
+  }
+
+  const relativePath = `uploads/slides/${req.file.filename}`
+  if (!all[idx].slides[slideIndex].imagePaths) {
+    all[idx].slides[slideIndex].imagePaths = []
+  }
+  all[idx].slides[slideIndex].imagePaths!.push(relativePath)
+  all[idx].updatedAt = now()
+
+  writeCollection(COLLECTION, all)
+  res.json(ok(all[idx]))
+})
+
+// DELETE /:projectId/:sessieId/slides/:slideIndex/image/:imageIndex – screenshot verwijderen
+presentatieRouter.delete('/:projectId/:sessieId/slides/:slideIndex/image/:imageIndex', (req, res) => {
+  const all = readCollection<PresentatieSessie>(COLLECTION)
+  const idx = all.findIndex(s => s.id === req.params.sessieId && s.projectId === req.params.projectId)
+  if (idx < 0) return res.status(404).json(err('Sessie niet gevonden', 404))
+
+  const slideIndex = parseInt(req.params.slideIndex, 10)
+  const imageIndex = parseInt(req.params.imageIndex, 10)
+  const slide = all[idx].slides[slideIndex]
+
+  if (!slide || !slide.imagePaths || imageIndex < 0 || imageIndex >= slide.imagePaths.length) {
+    return res.status(400).json(err('Ongeldige index'))
+  }
+
+  const imgPath = slide.imagePaths[imageIndex]
+  const fullPath = path.resolve(__dirname, '../../data', imgPath)
+  if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath)
+
+  slide.imagePaths.splice(imageIndex, 1)
+  all[idx].updatedAt = now()
+
+  writeCollection(COLLECTION, all)
+  res.json(ok(all[idx]))
 })

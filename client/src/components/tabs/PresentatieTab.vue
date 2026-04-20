@@ -229,7 +229,7 @@
                     {{ showExtraSlides ? '▾ Verberg extra slides' : '▸ Toon alle beschikbare slides' }}
                   </button>
                   <div v-if="showExtraSlides" class="mt-3 space-y-3">
-                    <div v-for="cat in slideCategories" :key="'extra-' + cat.key">
+                    <div v-for="cat in slideCategories.filter(c => c.key !== 'custom')" :key="'extra-' + cat.key">
                       <div v-if="extraSlidesInCategory(cat.key).length > 0">
                         <span class="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">{{ cat.label }}</span>
                         <div class="space-y-0.5 mt-1">
@@ -246,6 +246,94 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <!-- Screenshot slides toevoegen -->
+                <div class="border-t border-gray-100 pt-3">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="text-sm">🖼️</span>
+                    <span class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Screenshot slides</span>
+                  </div>
+                  <p class="text-xs text-gray-400 mb-3 ml-5">
+                    Voeg vrije slides toe met screenshots. Upload afbeeldingen die tijdens de presentatie worden getoond.
+                  </p>
+
+                  <!-- Bestaande screenshot slides -->
+                  <div class="space-y-2 ml-5 mb-3">
+                    <div
+                      v-for="(slide, sIdx) in screenshotSlides"
+                      :key="'ss-' + sIdx"
+                      class="border border-gray-200 rounded-lg p-3"
+                    >
+                      <div class="flex items-center gap-2 mb-2">
+                        <input
+                          v-model="slide.enabled"
+                          type="checkbox"
+                          class="rounded border-gray-300 text-pienter-600 focus:ring-pienter-500"
+                        />
+                        <input
+                          v-model="slide.title"
+                          type="text"
+                          class="flex-1 border border-gray-200 rounded px-2 py-1 text-sm focus:ring-1 focus:ring-pienter-500 focus:border-pienter-500"
+                          :placeholder="'Screenshot slide ' + (sIdx + 1)"
+                        />
+                        <button
+                          class="text-red-400 hover:text-red-600 text-xs px-1"
+                          @click="removeScreenshotSlide(slide)"
+                          title="Slide verwijderen"
+                        >✕</button>
+                      </div>
+
+                      <!-- Upload area -->
+                      <div
+                        class="border-2 border-dashed border-gray-200 rounded-lg p-3 text-center hover:border-pienter-400 transition-colors cursor-pointer"
+                        @click="triggerScreenshotUpload(slide)"
+                        @dragover.prevent="onDragOver"
+                        @dragleave.prevent="onDragLeave"
+                        @drop.prevent="(e) => onDropScreenshot(e, slide)"
+                      >
+                        <!-- Uploaded images -->
+                        <div v-if="slide.imagePaths && slide.imagePaths.length > 0" class="space-y-2">
+                          <div
+                            v-for="(imgPath, imgIdx) in slide.imagePaths"
+                            :key="imgIdx"
+                            class="relative group inline-block mr-2"
+                          >
+                            <img
+                              :src="'/api/' + imgPath"
+                              class="h-20 rounded border border-gray-200 object-cover"
+                              :alt="'Screenshot ' + (imgIdx + 1)"
+                            />
+                            <button
+                              class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                              @click.stop="removeScreenshotImage(slide, imgIdx)"
+                            >✕</button>
+                          </div>
+                          <p class="text-[10px] text-gray-400 mt-2">Klik of sleep om meer toe te voegen</p>
+                        </div>
+                        <div v-else>
+                          <span class="text-2xl block mb-1">📸</span>
+                          <p class="text-xs text-gray-400">Klik of sleep een screenshot hierheen</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    class="ml-5 text-xs text-pienter-600 hover:text-pienter-700 font-medium flex items-center gap-1"
+                    @click="addScreenshotSlide"
+                  >
+                    <span>+</span> Screenshot slide toevoegen
+                  </button>
+
+                  <!-- Hidden file input for screenshots -->
+                  <input
+                    ref="screenshotFileInput"
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/gif"
+                    class="hidden"
+                    @change="onScreenshotFileSelected"
+                  />
                 </div>
               </div>
             </div>
@@ -362,6 +450,9 @@ const editingSessie = ref<PresentatieSessie | null>(null)
 const deletingSessie = ref<PresentatieSessie | null>(null)
 const showExtraSlides = ref(false)
 const activeNoteSlide = ref<PresentatieSlideType | null>(null)
+const screenshotFileInput = ref<HTMLInputElement | null>(null)
+const activeScreenshotSlide = ref<PresentatieSlideConfig | null>(null)
+let screenshotCounter = 0
 
 // -- Sessietypes --
 const sessieTypes: { key: PresentatieSessieType; label: string; icon: string; description: string }[] = [
@@ -383,7 +474,7 @@ const styles: { key: PresentatieSessie['style']; label: string; icon: string }[]
 interface SlideDef {
   type: PresentatieSlideType
   label: string
-  category: PresentatieSlideCategory
+  category: PresentatieSlideCategory | 'custom'
 }
 
 const allSlideDefinitions: SlideDef[] = [
@@ -433,9 +524,11 @@ const allSlideDefinitions: SlideDef[] = [
   { type: 'besluiten', label: 'Besluiten', category: 'afronding' },
   { type: 'actiepunten', label: 'Actiepunten', category: 'afronding' },
   { type: 'volgende-stap', label: 'Volgende stap', category: 'afronding' },
+  // Custom
+  { type: 'screenshot', label: 'Screenshot slide', category: 'custom' },
 ]
 
-const slideCategories: { key: PresentatieSlideCategory; label: string; icon: string }[] = [
+const slideCategories: { key: PresentatieSlideCategory | 'custom'; label: string; icon: string }[] = [
   { key: 'project', label: 'Project', icon: '📋' },
   { key: 'strategie', label: 'Strategie', icon: '🧭' },
   { key: 'structuur', label: 'Structuur', icon: '🗂️' },
@@ -443,6 +536,7 @@ const slideCategories: { key: PresentatieSlideCategory; label: string; icon: str
   { key: 'design', label: 'Design', icon: '🎨' },
   { key: 'technisch', label: 'Technisch', icon: '⚙️' },
   { key: 'afronding', label: 'Afronding', icon: '✅' },
+  { key: 'custom', label: 'Screenshot slides', icon: '🖼️' },
 ]
 
 // -- Slide-presets per sessietype (client-side for wizard) --
@@ -544,7 +638,7 @@ function slideLabel(type: PresentatieSlideType): string {
   return allSlideDefinitions.find(d => d.type === type)?.label || type
 }
 
-function slideCategory(type: PresentatieSlideType): PresentatieSlideCategory {
+function slideCategory(type: PresentatieSlideType): PresentatieSlideCategory | 'custom' {
   return allSlideDefinitions.find(d => d.type === type)?.category || 'project'
 }
 
@@ -574,13 +668,15 @@ function defaultNameForType(type: PresentatieSessieType): string {
   return prefix + sessieTypeLabel(type)
 }
 
-function slidesInCategory(cat: PresentatieSlideCategory): PresentatieSlideConfig[] {
+function slidesInCategory(cat: PresentatieSlideCategory | 'custom'): PresentatieSlideConfig[] {
   return wizardForm.value.slides
     .filter(s => slideCategory(s.type) === cat)
     .sort((a, b) => a.sortOrder - b.sortOrder)
 }
 
-function extraSlidesInCategory(cat: PresentatieSlideCategory): SlideDef[] {
+function extraSlidesInCategory(cat: PresentatieSlideCategory | 'custom'): SlideDef[] {
+  // For custom category, don't show extras (user adds them via button)
+  if (cat === 'custom') return []
   const currentTypes = new Set(wizardForm.value.slides.map(s => s.type))
   return allSlideDefinitions.filter(d => d.category === cat && !currentTypes.has(d.type))
 }
@@ -603,6 +699,124 @@ function addSlide(type: PresentatieSlideType) {
     notes: '',
   })
 }
+
+// -- Screenshot slides --
+const screenshotSlides = computed(() =>
+  wizardForm.value.slides
+    .filter(s => s.type === 'screenshot')
+    .sort((a, b) => a.sortOrder - b.sortOrder)
+)
+
+function addScreenshotSlide() {
+  screenshotCounter++
+  const maxOrder = Math.max(0, ...wizardForm.value.slides.map(s => s.sortOrder))
+  wizardForm.value.slides.push({
+    type: 'screenshot',
+    enabled: true,
+    required: false,
+    sortOrder: maxOrder + 1,
+    notes: '',
+    title: '',
+    imagePaths: [],
+  })
+}
+
+function removeScreenshotSlide(slide: PresentatieSlideConfig) {
+  // If editing existing sessie, delete images from server
+  if (editingSessie.value && slide.imagePaths?.length) {
+    const projectId = projectStore.currentProject!.id
+    const slideIdx = editingSessie.value.slides.findIndex(s => s === slide)
+    if (slideIdx >= 0) {
+      // Delete all images for this slide
+      for (let i = slide.imagePaths.length - 1; i >= 0; i--) {
+        presStore.deleteSlideImage(projectId, editingSessie.value.id, slideIdx, i)
+      }
+    }
+  }
+  const idx = wizardForm.value.slides.indexOf(slide)
+  if (idx >= 0) wizardForm.value.slides.splice(idx, 1)
+}
+
+function triggerScreenshotUpload(slide: PresentatieSlideConfig) {
+  activeScreenshotSlide.value = slide
+  screenshotFileInput.value?.click()
+}
+
+function onDragOver(e: DragEvent) {
+  (e.currentTarget as HTMLElement)?.classList.add('border-pienter-500', 'bg-pienter-50/30')
+}
+
+function onDragLeave(e: DragEvent) {
+  (e.currentTarget as HTMLElement)?.classList.remove('border-pienter-500', 'bg-pienter-50/30')
+}
+
+async function onDropScreenshot(e: DragEvent, slide: PresentatieSlideConfig) {
+  (e.currentTarget as HTMLElement)?.classList.remove('border-pienter-500', 'bg-pienter-50/30')
+  const file = e.dataTransfer?.files[0]
+  if (!file || !file.type.startsWith('image/')) return
+  await uploadScreenshotToSlide(slide, file)
+}
+
+async function onScreenshotFileSelected(e: Event) {
+  const input = e.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (!file || !activeScreenshotSlide.value) return
+  await uploadScreenshotToSlide(activeScreenshotSlide.value, file)
+  input.value = '' // reset for next upload
+}
+
+async function uploadScreenshotToSlide(slide: PresentatieSlideConfig, file: File) {
+  if (!editingSessie.value) {
+    // For new sessie (not yet saved), we need to save the sessie first
+    // Store file locally as data URL for preview
+    const reader = new FileReader()
+    reader.onload = () => {
+      if (!slide.imagePaths) slide.imagePaths = []
+      // We'll store a placeholder — actual upload happens at save
+      slide.imagePaths!.push('__pending__')
+      // Store the file for later upload
+      pendingUploads.push({ slide, file })
+    }
+    reader.readAsDataURL(file)
+    return
+  }
+
+  const projectId = projectStore.currentProject!.id
+  const slideIdx = editingSessie.value.slides.findIndex(s =>
+    s.type === slide.type && s.sortOrder === slide.sortOrder && s.title === slide.title
+  )
+  if (slideIdx < 0) return
+
+  await presStore.uploadSlideImage(projectId, editingSessie.value.id, slideIdx, file)
+  // Sync back from store
+  const updated = presStore.sessies.find(s => s.id === editingSessie.value!.id)
+  if (updated) {
+    const updatedSlide = updated.slides[slideIdx]
+    slide.imagePaths = updatedSlide.imagePaths ? [...updatedSlide.imagePaths] : []
+  }
+}
+
+async function removeScreenshotImage(slide: PresentatieSlideConfig, imgIdx: number) {
+  if (editingSessie.value) {
+    const projectId = projectStore.currentProject!.id
+    const slideIdx = editingSessie.value.slides.findIndex(s =>
+      s.type === slide.type && s.sortOrder === slide.sortOrder && s.title === slide.title
+    )
+    if (slideIdx >= 0) {
+      await presStore.deleteSlideImage(projectId, editingSessie.value.id, slideIdx, imgIdx)
+      const updated = presStore.sessies.find(s => s.id === editingSessie.value!.id)
+      if (updated) {
+        const updatedSlide = updated.slides[slideIdx]
+        slide.imagePaths = updatedSlide.imagePaths ? [...updatedSlide.imagePaths] : []
+      }
+      return
+    }
+  }
+  slide.imagePaths?.splice(imgIdx, 1)
+}
+
+// Pending uploads for new sessions
+const pendingUploads: { slide: PresentatieSlideConfig; file: File }[] = []
 
 function buildSlidesFromPreset(sessieType: PresentatieSessieType): PresentatieSlideConfig[] {
   const preset = sessionSlidePresets[sessieType]
@@ -676,12 +890,33 @@ async function saveSessie() {
     })
     closeWizard()
   } else {
+    // Clean pending placeholders before saving
+    for (const slide of wizardForm.value.slides) {
+      if (slide.imagePaths) {
+        slide.imagePaths = slide.imagePaths.filter(p => p !== '__pending__')
+      }
+    }
+
     const sessie = await presStore.createSessie(projectId, {
       name,
       sessieType: wizardForm.value.sessieType,
       style: wizardForm.value.style,
       slides: wizardForm.value.slides,
     })
+
+    // Upload pending screenshots
+    if (pendingUploads.length > 0) {
+      for (const pu of pendingUploads) {
+        const slideIdx = sessie.slides.findIndex(s =>
+          s.type === pu.slide.type && s.sortOrder === pu.slide.sortOrder && s.title === pu.slide.title
+        )
+        if (slideIdx >= 0) {
+          await presStore.uploadSlideImage(projectId, sessie.id, slideIdx, pu.file)
+        }
+      }
+      pendingUploads.length = 0
+    }
+
     closeWizard()
     startPresentatie(sessie.id)
   }
