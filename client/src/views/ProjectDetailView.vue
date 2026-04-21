@@ -3,16 +3,18 @@
   <div v-else class="flex h-[calc(100vh-57px)]">
     <!-- Sidebar -->
     <aside class="w-64 bg-white border-r border-gray-200 shrink-0 flex flex-col">
-      <div class="p-4 border-b border-gray-100">
-        <router-link to="/" class="text-xs text-pienter-600 hover:underline">← Alle projecten</router-link>
-        <h2 class="font-semibold text-gray-900 mt-2 text-sm leading-tight">{{ store.currentProject.name }}</h2>
-        <p class="text-xs text-gray-500 mt-0.5">{{ store.currentProject.clientName }}</p>
-      </div>
-      <nav class="flex-1 p-2 space-y-0.5">
+      <nav class="flex-1 p-2 pt-3 space-y-0.5">
+        <!-- Projecten parent item -->
+        <div class="px-3 py-2 flex items-center gap-2.5 text-sm text-gray-500">
+          <span class="text-base">📁</span>
+          <span class="font-medium text-gray-700">{{ store.currentProject.name }}</span>
+        </div>
+
+        <!-- Tabs als child items, ingesprongen -->
         <button
           v-for="tab in tabs"
           :key="tab.key"
-          class="w-full text-left px-3 py-2 rounded-lg text-sm flex items-center gap-2.5 transition-colors"
+          class="w-full text-left pl-9 pr-3 py-2 rounded-lg text-sm flex items-center gap-2.5 transition-colors"
           :class="activeTab === tab.key ? 'bg-pienter-50 text-pienter-700 font-medium' : 'text-gray-600 hover:bg-gray-50'"
           @click="activeTab = tab.key"
         >

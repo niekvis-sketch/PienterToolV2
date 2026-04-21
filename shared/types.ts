@@ -377,6 +377,52 @@ export interface DoelgroepPaspoort {
   gender: string
 }
 
+// ---------- Klanten ----------
+export type KlantStatus = 'prospect' | 'actief' | 'inactief' | 'voormalig'
+export type KlantCommunicatieType = 'email' | 'telefoon' | 'meeting' | 'notitie' | 'offerte' | 'contract'
+
+export interface Klant {
+  id: string
+  naam: string
+  status: KlantStatus
+  notities: string
+  // Klantinformatie
+  contactpersoon: string
+  email: string
+  telefoon: string
+  website: string
+  kvkNummer: string
+  adres: string
+  stad: string
+  sector: string
+  // Commercieel
+  contractType: string
+  contractWaarde: number | null
+  contractStartdatum: string | null
+  contractEinddatum: string | null
+  facturatiemethode: string
+  betaaltermijn: number | null
+  // Strategisch
+  doelstellingen: string
+  uitdagingen: string
+  kansen: string
+  concurrenten: string
+  positionering: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface KlantCommunicatie {
+  id: string
+  klantId: string
+  type: KlantCommunicatieType
+  datum: string
+  samenvatting: string
+  details: string
+  medewerker: string
+  createdAt: string
+}
+
 // ---------- Content Structuur Document ----------
 export type ContentRowStatus = 'niet-gestart' | 'in-progress' | 'klaar' | 'review'
 

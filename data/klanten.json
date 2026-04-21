@@ -1,0 +1,29 @@
+[
+  {
+    "id": "klant0001",
+    "naam": "Cooling Service Holland B.V.",
+    "status": "actief",
+    "notities": "",
+    "contactpersoon": "",
+    "email": "",
+    "telefoon": "",
+    "website": "coolingserviceholland.nl",
+    "kvkNummer": "",
+    "adres": "",
+    "stad": "",
+    "sector": "Koeltechniek",
+    "contractType": "",
+    "contractWaarde": null,
+    "contractStartdatum": null,
+    "contractEinddatum": null,
+    "facturatiemethode": "",
+    "betaaltermijn": null,
+    "doelstellingen": "",
+    "uitdagingen": "",
+    "kansen": "",
+    "concurrenten": "",
+    "positionering": "",
+    "createdAt": "2026-02-10T09:00:00.000Z",
+    "updatedAt": "2026-02-10T09:00:00.000Z"
+  }
+]

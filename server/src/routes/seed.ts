@@ -6,7 +6,8 @@ import { readCollection, writeCollection, clearAll } from '../storage'
 import { genId, now, ok } from '../helpers'
 import type {
   Project, Page, SEOFields,
-  UserStory, ClientQuestion, Fase1Summary, SiteNode, PageBlock, StructuurProgress, ChangeLogEntry
+  UserStory, ClientQuestion, Fase1Summary, SiteNode, PageBlock, StructuurProgress, ChangeLogEntry,
+  Klant
 } from '../../../shared/types'
 
 export const seedRouter = Router()
@@ -28,6 +29,36 @@ seedRouter.get('/seed/force', (_req: Request, res: Response) => {
 })
 
 function runSeed() {
+  // ---- Klant ----
+  const klant: Klant = {
+    id: 'klant0001',
+    naam: 'Cooling Service Holland B.V.',
+    status: 'actief',
+    notities: '',
+    contactpersoon: '',
+    email: '',
+    telefoon: '',
+    website: 'coolingserviceholland.nl',
+    kvkNummer: '',
+    adres: '',
+    stad: '',
+    sector: 'Koeltechniek',
+    contractType: '',
+    contractWaarde: null,
+    contractStartdatum: null,
+    contractEinddatum: null,
+    facturatiemethode: '',
+    betaaltermijn: null,
+    doelstellingen: '',
+    uitdagingen: '',
+    kansen: '',
+    concurrenten: '',
+    positionering: '',
+    createdAt: '2026-02-10T09:00:00.000Z',
+    updatedAt: '2026-02-10T09:00:00.000Z',
+  }
+  writeCollection('klanten', [klant])
+
   // ---- Project ----
   const projectId = 'demo0001'
   const project: Project = {

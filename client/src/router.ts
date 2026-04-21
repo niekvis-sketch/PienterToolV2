@@ -6,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('./views/HomeView.vue'),
+      component: () => import('./views/KlantenView.vue'),
     },
     {
       path: '/projects/new',
@@ -23,6 +23,22 @@ const router = createRouter({
       path: '/projects/:id/presentatie/:sessieId',
       name: 'presentatie',
       component: () => import('./views/PresentatieView.vue'),
+      props: true,
+    },
+    {
+      path: '/klanten',
+      name: 'klanten',
+      redirect: '/',
+    },,
+    {
+      path: '/klanten/new',
+      name: 'klant-new',
+      component: () => import('./views/KlantNewView.vue'),
+    },
+    {
+      path: '/klanten/:id',
+      name: 'klant-detail',
+      component: () => import('./views/KlantDetailView.vue'),
       props: true,
     },
   ],
