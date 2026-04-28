@@ -1,35 +1,26 @@
 <template>
   <DetailLayout :tabs="tabs" v-model="activeTab">
-    <KlantOverzichtTab v-if="activeTab === 'overzicht'" />
+    <KlantProjectenTab v-if="activeTab === 'diensten'" />
     <KlantInformatieTab v-else-if="activeTab === 'informatie'" />
-    <KlantProjectenTab v-else-if="activeTab === 'diensten'" />
     <CommercieleInformatieTab v-else-if="activeTab === 'commercieel'" />
-    <StrategischeInformatieTab v-else-if="activeTab === 'strategisch'" />
-    <CommunicatieHistorieTab v-else-if="activeTab === 'communicatie'" />
-    <RapportageInzichtTab v-else-if="activeTab === 'rapportage'" />
+    <KlantDoelenTab v-else-if="activeTab === 'doelen'" />
   </DetailLayout>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 import DetailLayout from '../DetailLayout.vue'
-import KlantOverzichtTab from './KlantOverzichtTab.vue'
-import KlantInformatieTab from './KlantInformatieTab.vue'
 import KlantProjectenTab from './KlantProjectenTab.vue'
+import KlantInformatieTab from './KlantInformatieTab.vue'
 import CommercieleInformatieTab from './CommercieleInformatieTab.vue'
-import StrategischeInformatieTab from './StrategischeInformatieTab.vue'
-import CommunicatieHistorieTab from './CommunicatieHistorieTab.vue'
-import RapportageInzichtTab from './RapportageInzichtTab.vue'
+import KlantDoelenTab from './KlantDoelenTab.vue'
 
-const activeTab = ref('overzicht')
+const activeTab = ref('diensten')
 
 const tabs = [
-  { key: 'overzicht', label: 'Klantoverzicht', icon: '📊' },
-  { key: 'informatie', label: 'Klantinformatie', icon: '🏢' },
   { key: 'diensten', label: 'Diensten', icon: '📁' },
-  { key: 'commercieel', label: 'Commerciële', icon: '💼' },
-  { key: 'strategisch', label: 'Strategische', icon: '🎯' },
-  { key: 'communicatie', label: 'Communicatie', icon: '💬' },
-  { key: 'rapportage', label: 'Rapportage', icon: '📈' },
+  { key: 'informatie', label: 'Klantinformatie', icon: '🏢' },
+  { key: 'commercieel', label: 'Commerciële informatie', icon: '💼' },
+  { key: 'doelen', label: 'Doelen', icon: '🎯' },
 ] as const
 </script>

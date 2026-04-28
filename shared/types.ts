@@ -270,7 +270,7 @@ export interface Klant {
   naam: string
   status: KlantStatus
   notities: string
-  // Klantinformatie
+  // Klantinformatie - primaire contactpersoon
   contactpersoon: string
   email: string
   telefoon: string
@@ -279,6 +279,10 @@ export interface Klant {
   adres: string
   stad: string
   sector: string
+  // Merk & identiteit
+  merkverhaal: string
+  toneOfVoice: string
+  kernwaarden: string
   // Commercieel
   contractType: string
   contractWaarde: number | null
@@ -286,7 +290,7 @@ export interface Klant {
   contractEinddatum: string | null
   facturatiemethode: string
   betaaltermijn: number | null
-  // Strategisch
+  // Markt & positionering (voorheen Strategisch)
   doelstellingen: string
   uitdagingen: string
   kansen: string
@@ -305,6 +309,70 @@ export interface KlantCommunicatie {
   details: string
   medewerker: string
   createdAt: string
+}
+
+// Aanvullende contactpersonen (naast primaire op Klant)
+export interface KlantContactpersoon {
+  id: string
+  klantId: string
+  naam: string
+  rol: string
+  email: string
+  telefoon: string
+  opmerkingen: string
+  createdAt: string
+  updatedAt: string
+}
+
+// Geüploade huisstijlbestanden (logo, kleuren, fonts, brandbook etc.)
+export interface KlantHuisstijlBestand {
+  id: string
+  klantId: string
+  bestandsnaam: string
+  filePath: string
+  mimeType: string
+  grootte: number
+  beschrijving: string
+  createdAt: string
+}
+
+// Doelgroep / persona op klantniveau (los van project-doelgroepen)
+export interface KlantDoelgroep {
+  id: string
+  klantId: string
+  naam: string
+  omschrijving: string
+  persona: string
+  pijnpunten: string
+  createdAt: string
+  updatedAt: string
+}
+
+// Doelen
+export type KlantDoelType = 'kort' | 'lang'
+export type KlantDoelTeam = 'seo' | 'content' | 'advertising' | 'website' | 'overig'
+
+export interface KlantDoel {
+  id: string
+  klantId: string
+  titel: string
+  beschrijving: string
+  type: KlantDoelType
+  sortOrder: number
+  createdAt: string
+  updatedAt: string
+}
+
+export interface KlantDoelFocuspunt {
+  id: string
+  doelId: string
+  klantId: string
+  maand: string // formaat YYYY-MM
+  beschrijving: string
+  team: KlantDoelTeam
+  voltooid: boolean
+  createdAt: string
+  updatedAt: string
 }
 
 // ---------- Content Structuur Document ----------

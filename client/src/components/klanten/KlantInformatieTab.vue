@@ -10,7 +10,7 @@
     </div>
 
     <div class="card p-5">
-      <h3 class="font-semibold text-gray-800 mb-4">Contactgegevens</h3>
+      <h3 class="font-semibold text-gray-800 mb-4">Contactgegevens (primaire contactpersoon)</h3>
 
       <div v-if="!editing" class="grid grid-cols-2 gap-x-8 gap-y-4 text-sm">
         <div>
@@ -57,6 +57,8 @@
       </div>
     </div>
 
+    <KlantContactpersonenSection />
+
     <div class="card p-5">
       <h3 class="font-semibold text-gray-800 mb-4">Bedrijfsgegevens</h3>
 
@@ -94,12 +96,98 @@
         </div>
       </div>
     </div>
+
+    <div class="card p-5">
+      <h3 class="font-semibold text-gray-800 mb-4">Merk &amp; identiteit</h3>
+
+      <div v-if="!editing" class="space-y-4 text-sm">
+        <div>
+          <span class="text-gray-500">Merkverhaal</span>
+          <p class="mt-1 whitespace-pre-wrap text-gray-800">{{ klant.merkverhaal || '–' }}</p>
+        </div>
+        <div>
+          <span class="text-gray-500">Tone of voice</span>
+          <p class="mt-1 whitespace-pre-wrap text-gray-800">{{ klant.toneOfVoice || '–' }}</p>
+        </div>
+        <div>
+          <span class="text-gray-500">Kernwaarden</span>
+          <p class="mt-1 whitespace-pre-wrap text-gray-800">{{ klant.kernwaarden || '–' }}</p>
+        </div>
+      </div>
+
+      <div v-else class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Merkverhaal</label>
+          <textarea v-model="form.merkverhaal" class="input min-h-[80px]" rows="3" placeholder="Wat is het verhaal van het merk? Waar staat het voor?" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Tone of voice</label>
+          <textarea v-model="form.toneOfVoice" class="input min-h-[60px]" rows="2" placeholder="bijv. Helder, eerlijk, met gevoel voor humor" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Kernwaarden</label>
+          <textarea v-model="form.kernwaarden" class="input min-h-[60px]" rows="3" placeholder="Eén kernwaarde per regel" />
+        </div>
+      </div>
+    </div>
+
+    <KlantHuisstijlSection />
+
+    <KlantDoelgroepenSection />
+
+    <div class="card p-5">
+      <h3 class="font-semibold text-gray-800 mb-4">Markt &amp; positionering</h3>
+
+      <div v-if="!editing" class="space-y-4 text-sm">
+        <div>
+          <span class="text-gray-500">Uitdagingen</span>
+          <p class="mt-1 whitespace-pre-wrap text-gray-800">{{ klant.uitdagingen || '–' }}</p>
+        </div>
+        <div>
+          <span class="text-gray-500">Kansen</span>
+          <p class="mt-1 whitespace-pre-wrap text-gray-800">{{ klant.kansen || '–' }}</p>
+        </div>
+        <div>
+          <span class="text-gray-500">Concurrenten</span>
+          <p class="mt-1 whitespace-pre-wrap text-gray-800">{{ klant.concurrenten || '–' }}</p>
+        </div>
+        <div>
+          <span class="text-gray-500">Positionering</span>
+          <p class="mt-1 whitespace-pre-wrap text-gray-800">{{ klant.positionering || '–' }}</p>
+        </div>
+      </div>
+
+      <div v-else class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Uitdagingen</label>
+          <textarea v-model="form.uitdagingen" class="input min-h-[80px]" rows="3" placeholder="Welke uitdagingen ervaart de klant?" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Kansen</label>
+          <textarea v-model="form.kansen" class="input min-h-[80px]" rows="3" placeholder="Welke kansen liggen er?" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Concurrenten</label>
+          <textarea v-model="form.concurrenten" class="input min-h-[80px]" rows="3" placeholder="Wie zijn de concurrenten?" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Positionering</label>
+          <textarea v-model="form.positionering" class="input min-h-[80px]" rows="3" placeholder="Hoe positioneert de klant zichzelf in de markt?" />
+        </div>
+      </div>
+    </div>
+
+    <CommunicatieHistorieTab />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
+import CommunicatieHistorieTab from './CommunicatieHistorieTab.vue'
+import KlantContactpersonenSection from './KlantContactpersonenSection.vue'
+import KlantHuisstijlSection from './KlantHuisstijlSection.vue'
+import KlantDoelgroepenSection from './KlantDoelgroepenSection.vue'
 
 const store = useKlantenStore()
 const editing = ref(false)
@@ -108,6 +196,8 @@ const klant = computed(() => store.currentKlant!)
 const form = reactive({
   contactpersoon: '', email: '', telefoon: '', website: '',
   kvkNummer: '', sector: '', adres: '', stad: '',
+  merkverhaal: '', toneOfVoice: '', kernwaarden: '',
+  uitdagingen: '', kansen: '', concurrenten: '', positionering: '',
 })
 
 function startEdit() {
@@ -120,6 +210,13 @@ function startEdit() {
     sector: klant.value.sector,
     adres: klant.value.adres,
     stad: klant.value.stad,
+    merkverhaal: klant.value.merkverhaal,
+    toneOfVoice: klant.value.toneOfVoice,
+    kernwaarden: klant.value.kernwaarden,
+    uitdagingen: klant.value.uitdagingen,
+    kansen: klant.value.kansen,
+    concurrenten: klant.value.concurrenten,
+    positionering: klant.value.positionering,
   })
   editing.value = true
 }

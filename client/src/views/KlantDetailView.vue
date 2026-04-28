@@ -17,6 +17,11 @@ async function loadAll() {
   await store.fetchKlant(props.id)
   await Promise.all([
     store.fetchCommunicatie(props.id),
+    store.fetchContactpersonen(props.id),
+    store.fetchHuisstijl(props.id),
+    store.fetchKlantDoelgroepen(props.id),
+    store.fetchDoelen(props.id),
+    store.fetchFocuspunten(props.id),
     projectStore.fetchProjects(),
   ])
 }
