@@ -261,122 +261,6 @@ export interface ChangeLogEntry {
   newValue?: string
 }
 
-// ---------- Presentatiemodus ----------
-export type PresentatieSlideType =
-  // Project
-  | 'introductie'
-  | 'projectdoel'
-  | 'planning'
-  | 'rollen-teams'
-  // Strategie
-  | 'visie'
-  | 'missie'
-  | 'doelgroepen'
-  | 'doelgroeppaspoort'
-  | 'klantreis'
-  | 'user-stories'
-  | 'merkwaarden'
-  | 'kernwaarden'
-  | 'concurrenten-inspiratie'
-  // Structuur
-  | 'sitemap'
-  | 'paginas'
-  | 'paginadoel'
-  | 'pagina-prioriteit'
-  | 'componenten-per-pagina'
-  | 'zoekthemas'
-  // Content
-  | 'contentstatus'
-  | 'wie-schrijft-wat'
-  | 'beeldmateriaal'
-  | 'content-ontbreekt'
-  // Design
-  | 'stijlrichting'
-  | 'kleur-typografie'
-  | 'componentvoorbeeld'
-  | 'voorbeeldpagina'
-  | 'design-doelgroep-match'
-  | 'feedbackpunten'
-  // Technisch
-  | 'functionaliteiten'
-  | 'integraties'
-  | 'functionele-toelichting'
-  | 'overdracht-development'
-  | 'openstaande-punten'
-  | 'risicos'
-  // Afronding
-  | 'samenvatting'
-  | 'besluiten'
-  | 'actiepunten'
-  | 'volgende-stap'
-  // Vrije slides
-  | 'screenshot'
-
-export type PresentatieSessieType =
-  | 'intake'
-  | 'websitesessie'
-  | 'structuur'
-  | 'design'
-  | 'content'
-  | 'intern-overdracht'
-
-export type PresentatieSlideCategory =
-  | 'project'
-  | 'strategie'
-  | 'structuur'
-  | 'content'
-  | 'design'
-  | 'technisch'
-  | 'afronding'
-
-export interface PresentatieSlideConfig {
-  type: PresentatieSlideType
-  enabled: boolean
-  required: boolean
-  sortOrder: number
-  notes: string
-  title?: string           // custom titel voor screenshot-slides
-  imagePaths?: string[]    // geüploade afbeeldingen (voor screenshot-slides)
-}
-
-export interface PresentatieLiveNote {
-  id: string
-  slideType: PresentatieSlideType
-  text: string
-  createdAt: string
-}
-
-export interface PresentatieSessie {
-  id: string
-  projectId: string
-  name: string
-  sessieType: PresentatieSessieType
-  style: 'light' | 'dark' | 'pienter'
-  slides: PresentatieSlideConfig[]
-  liveNotes: PresentatieLiveNote[]
-  // Slide-inhoud
-  visie: string
-  missie: string
-  merkwaarden: string[]
-  kernwaarden: string[]
-  doelgroepPaspoorten: DoelgroepPaspoort[]
-  createdAt: string
-  updatedAt: string
-}
-
-export interface DoelgroepPaspoort {
-  id: string
-  doelgroepId: string
-  leeftijd: string
-  functie: string
-  opleiding: string
-  bedrijfsgrootte: string
-  beslisser: boolean | null
-  brancheklimaat: string
-  mediakanalen: string[]
-  gender: string
-}
-
 // ---------- Klanten ----------
 export type KlantStatus = 'prospect' | 'actief' | 'inactief' | 'voormalig'
 export type KlantCommunicatieType = 'email' | 'telefoon' | 'meeting' | 'notitie' | 'offerte' | 'contract'
@@ -450,6 +334,78 @@ export interface ContentStructuurPreset {
   projectId: string
   name: string
   visibleColumns: string[]  // keys van ContentStructuurRow velden
+  createdAt: string
+}
+
+// ============================================================
+// Slides – freeform presentatie editor (pptx export)
+// ============================================================
+
+export type SlideLayoutType =
+  | 'title_only'
+  | 'title_content'
+  | 'two_column'
+  | 'image_text'
+  | 'full_image'
+  | 'blank'
+
+export type SlideAlign = 'left' | 'center' | 'right'
+
+export interface SlideTextElement {
+  id: string
+  type: 'text'
+  slot: string
+  value: string
+  x: number
+  y: number
+  w: number
+  h: number
+  fontSize: number
+  bold?: boolean
+  italic?: boolean
+  color: string // hex zonder #, e.g. "1F2937"
+  align: SlideAlign
+}
+
+export interface SlideImageElement {
+  id: string
+  type: 'image'
+  slot: string
+  src: string // relatief pad zoals "uploads/slides-free/abc.png"
+  x: number
+  y: number
+  w: number
+  h: number
+}
+
+export type SlideElement = SlideTextElement | SlideImageElement
+
+export interface SlideContent {
+  elements: SlideElement[]
+  background: string // hex zonder #
+}
+
+export interface Slide {
+  id: string
+  presentationId: string
+  order: number
+  layout: SlideLayoutType
+  content: SlideContent
+}
+
+export interface SlidePresentation {
+  id: string
+  name: string
+  slides: Slide[]
+  createdAt: string
+  updatedAt: string
+}
+
+export interface SlidePreset {
+  id: string
+  name: string
+  layout: SlideLayoutType
+  content: SlideContent
   createdAt: string
 }
 

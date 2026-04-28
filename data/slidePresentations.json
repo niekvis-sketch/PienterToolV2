@@ -1,0 +1,258 @@
+[
+  {
+    "id": "88744a54",
+    "name": "Nieuwe presentatie",
+    "slides": [
+      {
+        "id": "f4989a46",
+        "presentationId": "88744a54",
+        "order": 0,
+        "layout": "full_image",
+        "content": {
+          "elements": [
+            {
+              "id": "vmw94r0r",
+              "type": "image",
+              "slot": "custom",
+              "src": "uploads/slides-free/01e78f29-1777375183796.png",
+              "x": 0,
+              "y": 0,
+              "w": 10.049019607843139,
+              "h": 5.6838235294117645
+            }
+          ],
+          "background": "FFFFFF"
+        }
+      },
+      {
+        "id": "39e1d4ee",
+        "presentationId": "88744a54",
+        "order": 1,
+        "layout": "two_column",
+        "content": {
+          "elements": [
+            {
+              "id": "c98c3557",
+              "type": "text",
+              "slot": "title",
+              "value": "Titel mag hier geplaatst worden",
+              "x": 0.5,
+              "y": 0.4,
+              "w": 9,
+              "h": 1,
+              "fontSize": 36,
+              "bold": true,
+              "color": "1F2937",
+              "align": "left"
+            },
+            {
+              "id": "54d270ac",
+              "type": "text",
+              "slot": "left",
+              "value": "lijstje 1 kan hier komen\n- dewcecwec\n- wcewcwc\n- wecwecwc\n- wecwcegwev",
+              "x": 0.5,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            },
+            {
+              "id": "91ff8e31",
+              "type": "text",
+              "slot": "right",
+              "value": "Rechter kolom",
+              "x": 5.1,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            }
+          ],
+          "background": "7DCA7E"
+        }
+      },
+      {
+        "id": "2d6e2865",
+        "presentationId": "88744a54",
+        "order": 2,
+        "layout": "two_column",
+        "content": {
+          "background": "7DCA7E",
+          "elements": [
+            {
+              "id": "7b1538ff",
+              "type": "text",
+              "slot": "title",
+              "value": "Titel mag hier geplaatst worden",
+              "x": 0.5,
+              "y": 0.4,
+              "w": 9,
+              "h": 1,
+              "fontSize": 36,
+              "bold": true,
+              "color": "1F2937",
+              "align": "left"
+            },
+            {
+              "id": "bd6a00dc",
+              "type": "text",
+              "slot": "left",
+              "value": "lijstje 1 kan hier komen\n- dewcecwec\n- wcewcwc\n- wecwecwc\n- wecwcegwev",
+              "x": 0.5,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            },
+            {
+              "id": "24ecac80",
+              "type": "text",
+              "slot": "right",
+              "value": "Rechter kolom",
+              "x": 5.1,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            },
+            {
+              "id": "vuljzrqv",
+              "type": "text",
+              "slot": "custom",
+              "value": "Hier komt een tekst te staan",
+              "x": 0.5,
+              "y": 3,
+              "w": 4.784313725490196,
+              "h": 0.3,
+              "fontSize": 20,
+              "color": "1F2937",
+              "align": "left"
+            }
+          ]
+        }
+      },
+      {
+        "id": "de056e3f",
+        "presentationId": "88744a54",
+        "order": 3,
+        "layout": "two_column",
+        "content": {
+          "background": "7DCA7E",
+          "elements": [
+            {
+              "id": "360998f1",
+              "type": "text",
+              "slot": "title",
+              "value": "Titel mag hier geplaatst worden",
+              "x": 0.5,
+              "y": 0.4,
+              "w": 9,
+              "h": 1,
+              "fontSize": 36,
+              "bold": true,
+              "color": "1F2937",
+              "align": "left"
+            },
+            {
+              "id": "f9c15ee6",
+              "type": "text",
+              "slot": "left",
+              "value": "lijstje 1 kan hier komen\n- dewcecwec\n- wcewcwc\n- wecwecwc\n- wecwcegwev",
+              "x": 0.5,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            },
+            {
+              "id": "c8e21d27",
+              "type": "text",
+              "slot": "right",
+              "value": "Rechter kolom",
+              "x": 5.1,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            },
+            {
+              "id": "tpw8vzg0",
+              "type": "image",
+              "slot": "custom",
+              "src": "uploads/slides-free/0be8f049-1777375248094.png",
+              "x": 7.066176470588234,
+              "y": 2.0906862745098045,
+              "w": 2.414215686274509,
+              "h": 2.9142156862745097
+            }
+          ]
+        }
+      },
+      {
+        "id": "6caf12b1",
+        "presentationId": "88744a54",
+        "order": 4,
+        "layout": "two_column",
+        "content": {
+          "background": "7DCA7E",
+          "elements": [
+            {
+              "id": "acbf8758",
+              "type": "text",
+              "slot": "title",
+              "value": "Titel mag hier geplaatst worden",
+              "x": 0.5,
+              "y": 0.4,
+              "w": 9,
+              "h": 1,
+              "fontSize": 36,
+              "bold": true,
+              "color": "1F2937",
+              "align": "left"
+            },
+            {
+              "id": "b49609d1",
+              "type": "text",
+              "slot": "left",
+              "value": "lijstje 1 kan hier komen\n- dewcecwec\n- wcewcwc\n- wecwecwc\n- wecwcegwev",
+              "x": 0.5,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            },
+            {
+              "id": "0fcf8b8a",
+              "type": "text",
+              "slot": "right",
+              "value": "Rechter kolom",
+              "x": 5.1,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            }
+          ]
+        }
+      }
+    ],
+    "createdAt": "2026-04-28T11:15:04.415Z",
+    "updatedAt": "2026-04-28T11:39:14.226Z"
+  }
+]

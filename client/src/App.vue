@@ -53,7 +53,7 @@ const route = useRoute()
 const projectStore = useProjectStore()
 const klantenStore = useKlantenStore()
 
-const isProjectRoute = computed(() => route.name === 'project-detail' || route.name === 'presentatie')
+const isProjectRoute = computed(() => route.name === 'project-detail')
 const isKlantRoute = computed(() => route.name === 'klant-detail')
 
 // Zorg dat de klantenlijst altijd geladen is voor breadcrumb-lookups

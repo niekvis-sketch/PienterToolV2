@@ -1,0 +1,53 @@
+[
+  {
+    "id": "6dd99150",
+    "name": "test 1",
+    "layout": "two_column",
+    "content": {
+      "background": "7DCA7E",
+      "elements": [
+        {
+          "id": "e3e38ca5",
+          "type": "text",
+          "slot": "title",
+          "value": "Titel mag hier geplaatst worden",
+          "x": 0.5,
+          "y": 0.4,
+          "w": 9,
+          "h": 1,
+          "fontSize": 36,
+          "bold": true,
+          "color": "1F2937",
+          "align": "left"
+        },
+        {
+          "id": "b95cfe99",
+          "type": "text",
+          "slot": "left",
+          "value": "lijstje 1 kan hier komen\n- dewcecwec\n- wcewcwc\n- wecwecwc\n- wecwcegwev",
+          "x": 0.5,
+          "y": 1.6,
+          "w": 4.4,
+          "h": 3.5,
+          "fontSize": 18,
+          "color": "374151",
+          "align": "left"
+        },
+        {
+          "id": "cae8e97f",
+          "type": "text",
+          "slot": "right",
+          "value": "Rechter kolom",
+          "x": 5.1,
+          "y": 1.6,
+          "w": 4.4,
+          "h": 3.5,
+          "fontSize": 18,
+          "color": "374151",
+          "align": "left"
+        }
+      ]
+    },
+    "createdAt": "2026-04-28T11:17:30.518Z"
+  }
+]

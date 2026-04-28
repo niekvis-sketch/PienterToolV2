@@ -20,16 +20,21 @@ const router = createRouter({
       props: true,
     },
     {
-      path: '/projects/:id/presentatie/:sessieId',
-      name: 'presentatie',
-      component: () => import('./views/PresentatieView.vue'),
+      path: '/slides',
+      name: 'slides-overview',
+      component: () => import('./views/SlidesOverviewView.vue'),
+    },
+    {
+      path: '/slides/:id',
+      name: 'slides-editor',
+      component: () => import('./views/SlideEditorView.vue'),
       props: true,
     },
     {
       path: '/klanten',
       name: 'klanten',
       redirect: '/',
-    },,
+    },
     {
       path: '/klanten/new',
       name: 'klant-new',

@@ -5,7 +5,10 @@
         <h1 class="text-2xl font-bold text-gray-900">Klanten</h1>
         <p class="text-gray-500 text-sm mt-1">Overzicht van alle klanten</p>
       </div>
-      <router-link to="/klanten/new" class="btn-primary">Nieuwe klant</router-link>
+      <div class="flex items-center gap-2">
+        <router-link to="/slides" class="btn-secondary">🎞️ Vrije slides</router-link>
+        <router-link to="/klanten/new" class="btn-primary">Nieuwe klant</router-link>
+      </div>
     </div>
 
     <!-- Loading -->
