@@ -5,7 +5,7 @@
     <!-- Overzichtskaarten -->
     <div class="grid grid-cols-2 gap-4">
       <div class="card p-5">
-        <h3 class="font-semibold text-gray-800 mb-3">Projecten</h3>
+        <h3 class="font-semibold text-gray-800 mb-3">Diensten</h3>
         <div class="space-y-2">
           <div class="flex justify-between text-sm">
             <span class="text-gray-500">Totaal</span>

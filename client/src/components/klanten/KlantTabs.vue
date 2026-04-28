@@ -2,7 +2,7 @@
   <DetailLayout :tabs="tabs" v-model="activeTab">
     <KlantOverzichtTab v-if="activeTab === 'overzicht'" />
     <KlantInformatieTab v-else-if="activeTab === 'informatie'" />
-    <KlantProjectenTab v-else-if="activeTab === 'projecten'" />
+    <KlantProjectenTab v-else-if="activeTab === 'diensten'" />
     <CommercieleInformatieTab v-else-if="activeTab === 'commercieel'" />
     <StrategischeInformatieTab v-else-if="activeTab === 'strategisch'" />
     <CommunicatieHistorieTab v-else-if="activeTab === 'communicatie'" />
@@ -26,7 +26,7 @@ const activeTab = ref('overzicht')
 const tabs = [
   { key: 'overzicht', label: 'Klantoverzicht', icon: '📊' },
   { key: 'informatie', label: 'Klantinformatie', icon: '🏢' },
-  { key: 'projecten', label: 'Projecten', icon: '📁' },
+  { key: 'diensten', label: 'Diensten', icon: '📁' },
   { key: 'commercieel', label: 'Commerciële', icon: '💼' },
   { key: 'strategisch', label: 'Strategische', icon: '🎯' },
   { key: 'communicatie', label: 'Communicatie', icon: '💬' },

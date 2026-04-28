@@ -1,14 +1,14 @@
 <template>
   <div class="space-y-6">
     <div class="flex items-center justify-between">
-      <h2 class="text-xl font-bold text-gray-900">Projecten</h2>
-      <router-link :to="{ path: '/projects/new', query: { clientName: klant.naam } }" class="btn-primary btn-sm">Nieuw project</router-link>
+      <h2 class="text-xl font-bold text-gray-900">Diensten</h2>
+      <router-link :to="{ path: '/projects/new', query: { clientName: klant.naam } }" class="btn-primary btn-sm">Nieuwe dienst</router-link>
     </div>
 
     <div v-if="projektVoorKlant.length === 0" class="card p-10 text-center">
       <div class="text-3xl mb-3">📁</div>
-      <p class="text-gray-500">Nog geen projecten gekoppeld aan deze klant.</p>
-      <p class="text-xs text-gray-400 mt-2">Maak een nieuw project aan en gebruik <strong>{{ klant.naam }}</strong> als klantnaam.</p>
+      <p class="text-gray-500">Nog geen diensten gekoppeld aan deze klant.</p>
+      <p class="text-xs text-gray-400 mt-2">Maak een nieuwe dienst aan en gebruik <strong>{{ klant.naam }}</strong> als klantnaam.</p>
     </div>
 
     <div v-else class="grid gap-3">
