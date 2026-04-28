@@ -107,7 +107,7 @@
     </div>
 
     <!-- Stats -->
-    <div v-if="allVragen.length > 0" class="grid grid-cols-5 gap-4">
+    <div v-if="allVragen.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       <div class="card p-4 text-center">
         <div class="text-2xl font-bold text-gray-900">{{ allVragen.length }}</div>
         <div class="text-xs text-gray-500 mt-1">Totaal vragen</div>

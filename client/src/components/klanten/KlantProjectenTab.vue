@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div class="flex items-center justify-between">
       <h2 class="text-xl font-bold text-gray-900">Projecten</h2>
-      <router-link to="/projects/new" class="btn-primary btn-sm">Nieuw project</router-link>
+      <router-link :to="{ path: '/projects/new', query: { clientName: klant.naam } }" class="btn-primary btn-sm">Nieuw project</router-link>
     </div>
 
     <div v-if="projektVoorKlant.length === 0" class="card p-10 text-center">
@@ -15,7 +15,7 @@
       <router-link
         v-for="project in projektVoorKlant"
         :key="project.id"
-        :to="`/projects/${project.id}`"
+        :to="`/klanten/${klant.id}/website`"
         class="card p-4 hover:border-pienter-300 hover:shadow-md transition-all block"
       >
         <div class="flex items-start justify-between">

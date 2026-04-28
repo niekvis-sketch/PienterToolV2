@@ -1,8 +1,8 @@
 <template>
-  <div class="max-w-3xl mx-auto px-6 py-8">
-    <h1 class="text-2xl font-bold text-gray-900 mb-6">Nieuwe klant aanmaken</h1>
+  <DetailLayout narrow>
+    <h1 class="text-xl font-bold text-gray-900 mb-6">Nieuwe klant aanmaken</h1>
 
-    <form class="card p-6 space-y-5" @submit.prevent="handleSubmit">
+    <form class="space-y-5" @submit.prevent="handleSubmit">
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Bedrijfsnaam <span class="text-red-500">*</span></label>
         <input v-model="form.naam" class="input" placeholder="bijv. Cooling Service Holland B.V." required />
@@ -56,13 +56,14 @@
         <router-link to="/klanten" class="btn-secondary">Annuleren</router-link>
       </div>
     </form>
-  </div>
+  </DetailLayout>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useKlantenStore } from '../stores/klantenStore'
+import DetailLayout from '../components/DetailLayout.vue'
 import type { KlantStatus } from '@shared/types'
 
 const router = useRouter()

@@ -1,21 +1,18 @@
 <template>
-  <div class="max-w-5xl mx-auto px-6 py-8">
-    <div class="flex items-center justify-between mb-8">
+  <DetailLayout>
+    <div class="flex items-center justify-between mb-6">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900">Klanten</h1>
+        <h1 class="text-xl font-bold text-gray-900">Klanten</h1>
         <p class="text-gray-500 text-sm mt-1">Overzicht van alle klanten</p>
       </div>
-      <div class="flex items-center gap-2">
-        <router-link to="/slides" class="btn-secondary">🎞️ Vrije slides</router-link>
-        <router-link to="/klanten/new" class="btn-primary">Nieuwe klant</router-link>
-      </div>
+      <router-link to="/klanten/new" class="btn-primary">Nieuwe klant</router-link>
     </div>
 
     <!-- Loading -->
     <div v-if="store.loading" class="text-center py-16 text-gray-400">Laden...</div>
 
     <!-- Lege staat -->
-    <div v-else-if="store.klanten.length === 0" class="empty-state card p-12 text-center">
+    <div v-else-if="store.klanten.length === 0" class="text-center py-12">
       <div class="text-4xl mb-4">🏢</div>
       <h2 class="text-lg font-semibold text-gray-700">Nog geen klanten</h2>
       <p class="text-gray-500 mt-1">Maak een nieuwe klant aan om te beginnen.</p>
@@ -25,12 +22,12 @@
     </div>
 
     <!-- Klant cards -->
-    <div v-else class="grid gap-4">
+    <div v-else class="grid gap-3">
       <router-link
         v-for="klant in store.klanten"
         :key="klant.id"
         :to="`/klanten/${klant.id}`"
-        class="card p-5 hover:border-pienter-300 hover:shadow-md transition-all block"
+        class="bg-white rounded-lg border border-gray-200 p-4 hover:border-pienter-300 hover:shadow-sm transition-all block"
       >
         <div class="flex items-start justify-between">
           <div>
@@ -52,12 +49,13 @@
         </div>
       </router-link>
     </div>
-  </div>
+  </DetailLayout>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useKlantenStore } from '../stores/klantenStore'
+import DetailLayout from '../components/DetailLayout.vue'
 import type { KlantStatus } from '@shared/types'
 
 const store = useKlantenStore()

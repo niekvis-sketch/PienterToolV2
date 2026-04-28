@@ -52,7 +52,7 @@
     <main class="flex-1 flex flex-col overflow-hidden">
       <!-- Toolbar -->
       <div class="bg-white border-b border-gray-200 px-4 py-2 flex items-center gap-2 shrink-0">
-        <router-link to="/slides" class="btn-secondary btn-sm">← Terug</router-link>
+        <router-link to="/sales/slides" class="btn-secondary btn-sm">← Terug</router-link>
         <input
           v-model="presentation.name"
           class="text-sm font-semibold px-2 py-1 border border-transparent hover:border-gray-300 rounded focus:border-pienter-500 focus:outline-none"

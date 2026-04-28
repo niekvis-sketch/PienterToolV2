@@ -1,8 +1,8 @@
 <template>
-  <div class="max-w-3xl mx-auto px-6 py-8">
-    <h1 class="text-2xl font-bold text-gray-900 mb-6">Nieuw project aanmaken</h1>
+  <DetailLayout narrow>
+    <h1 class="text-xl font-bold text-gray-900 mb-6">Nieuw project aanmaken</h1>
 
-    <form class="card p-6 space-y-5" @submit.prevent="handleSubmit">
+    <form class="space-y-5" @submit.prevent="handleSubmit">
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Projectnaam</label>
         <input v-model="form.name" class="input" placeholder="bijv. Cooling Service Holland" required />
@@ -37,19 +37,23 @@
 
       <div class="flex gap-3 pt-4">
         <button type="submit" class="btn-primary" :disabled="!form.name">Aanmaken</button>
-        <router-link to="/" class="btn-secondary">Annuleren</router-link>
+        <router-link :to="cancelTo" class="btn-secondary">Annuleren</router-link>
       </div>
     </form>
-  </div>
+  </DetailLayout>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { reactive, computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '../stores/projectStore'
+import { useKlantenStore } from '../stores/klantenStore'
+import DetailLayout from '../components/DetailLayout.vue'
 
+const route = useRoute()
 const router = useRouter()
 const store = useProjectStore()
+const klantenStore = useKlantenStore()
 
 const form = reactive({
   name: '',
@@ -60,12 +64,33 @@ const form = reactive({
   goLiveDate: '',
 })
 
+onMounted(async () => {
+  const qClient = route.query.clientName
+  if (typeof qClient === 'string') form.clientName = qClient
+  if (klantenStore.klanten.length === 0) {
+    try { await klantenStore.fetchKlanten() } catch {}
+  }
+})
+
+const cancelTo = computed(() => {
+  const klant = klantenStore.klanten.find(k => k.naam === form.clientName)
+  return klant ? `/klanten/${klant.id}/website` : '/klanten'
+})
+
 async function handleSubmit() {
   const project = await store.createProject({
     ...form,
     languages: form.languages as ('nl' | 'en')[],
     goLiveDate: form.goLiveDate || null,
   })
-  router.push(`/projects/${project.id}`)
+  if (klantenStore.klanten.length === 0) {
+    try { await klantenStore.fetchKlanten() } catch {}
+  }
+  const klant = klantenStore.klanten.find(k => k.naam === project.clientName)
+  if (klant) {
+    router.push(`/klanten/${klant.id}/website`)
+  } else {
+    router.push('/klanten')
+  }
 }
 </script>

@@ -10,7 +10,7 @@
     </div>
 
     <!-- Status kaarten -->
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div class="card p-4 text-center">
         <div class="text-2xl font-bold text-pienter-700">{{ projectenVoorKlant.length }}</div>
         <div class="text-sm text-gray-500 mt-1">Projecten</div>
