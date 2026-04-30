@@ -1,0 +1,46 @@
+[
+  {
+    "id": "31946416",
+    "doelId": "4d40c477",
+    "klantId": "klant0001",
+    "maand": "2026-07",
+    "beschrijving": "ik ga 3 insta post maken over onderwerp ....",
+    "team": "content",
+    "voltooid": false,
+    "createdAt": "2026-04-30T13:38:25.593Z",
+    "updatedAt": "2026-04-30T13:38:29.421Z"
+  },
+  {
+    "id": "1fa5269f",
+    "doelId": "4d40c477",
+    "klantId": "klant0001",
+    "maand": "2026-06",
+    "beschrijving": "ik ga 5 advertenties bouwen met AI",
+    "team": "advertising",
+    "voltooid": false,
+    "createdAt": "2026-04-30T13:38:57.372Z",
+    "updatedAt": "2026-04-30T13:38:57.372Z"
+  },
+  {
+    "id": "82fbabd7",
+    "doelId": "4d40c477",
+    "klantId": "klant0001",
+    "maand": "2026-06",
+    "beschrijving": "ik ga 50 websites maken voor deze klant",
+    "team": "website",
+    "voltooid": false,
+    "createdAt": "2026-04-30T13:39:44.677Z",
+    "updatedAt": "2026-04-30T13:39:44.677Z"
+  },
+  {
+    "id": "de41beca",
+    "doelId": "4d40c477",
+    "klantId": "klant0001",
+    "maand": "2026-08",
+    "beschrijving": "5 keer lunch halen (die lekkere broodjes)",
+    "team": "overig",
+    "voltooid": false,
+    "createdAt": "2026-04-30T13:40:43.138Z",
+    "updatedAt": "2026-04-30T13:40:43.138Z"
+  }
+]

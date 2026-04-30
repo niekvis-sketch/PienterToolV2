@@ -192,10 +192,10 @@
               "type": "image",
               "slot": "custom",
               "src": "uploads/slides-free/0be8f049-1777375248094.png",
-              "x": 7.066176470588234,
-              "y": 2.0906862745098045,
-              "w": 2.414215686274509,
-              "h": 2.9142156862745097
+              "x": 5.325980392156861,
+              "y": 2.213235294117647,
+              "w": 4.522058823529411,
+              "h": 3.1348039215686274
             }
           ]
         }
@@ -250,9 +250,60 @@
             }
           ]
         }
+      },
+      {
+        "id": "39812005",
+        "presentationId": "88744a54",
+        "order": 5,
+        "layout": "two_column",
+        "content": {
+          "background": "7DCA7E",
+          "elements": [
+            {
+              "id": "441e43ee",
+              "type": "text",
+              "slot": "title",
+              "value": "Titel mag hier geplaatst worden",
+              "x": 0.5,
+              "y": 0.4,
+              "w": 9,
+              "h": 1,
+              "fontSize": 36,
+              "bold": true,
+              "color": "1F2937",
+              "align": "left"
+            },
+            {
+              "id": "72be9e8e",
+              "type": "text",
+              "slot": "left",
+              "value": "lijstje 1 kan hier komen\n- dewcecwec\n- wcewcwc\n- wecwecwc\n- wecwcegwev",
+              "x": 0.5,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            },
+            {
+              "id": "346ad052",
+              "type": "text",
+              "slot": "right",
+              "value": "Rechter kolom",
+              "x": 5.1,
+              "y": 1.6,
+              "w": 4.4,
+              "h": 3.5,
+              "fontSize": 18,
+              "color": "374151",
+              "align": "left"
+            }
+          ]
+        }
       }
     ],
     "createdAt": "2026-04-28T11:15:04.415Z",
-    "updatedAt": "2026-04-28T11:39:14.226Z"
+    "updatedAt": "2026-04-29T08:10:59.253Z"
   }
 ]

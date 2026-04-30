@@ -1,11 +1,17 @@
 <template>
   <DetailLayout narrow>
-    <h1 class="text-xl font-bold text-gray-900 mb-6">Nieuw project aanmaken</h1>
+    <h1 class="text-xl font-bold text-gray-900 mb-6">Nieuwe dienst aanmaken</h1>
 
     <form class="space-y-5" @submit.prevent="handleSubmit">
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Projectnaam</label>
-        <input v-model="form.name" class="input" placeholder="bijv. Cooling Service Holland" required />
+        <label class="block text-sm font-medium text-gray-700 mb-1">Dienst</label>
+        <select v-model="form.name" class="select" required>
+          <option value="" disabled>Kies een dienst</option>
+          <option value="Website">Website</option>
+          <option value="SEO">SEO</option>
+          <option value="Content">Content</option>
+          <option value="Advertising">Advertising</option>
+        </select>
       </div>
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Klantnaam</label>

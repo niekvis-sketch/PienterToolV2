@@ -1,0 +1,22 @@
+[
+  {
+    "id": "4d40c477",
+    "klantId": "klant0001",
+    "titel": "50% meer leads",
+    "beschrijving": "is wel handig ",
+    "type": "lang",
+    "sortOrder": 0,
+    "createdAt": "2026-04-30T13:37:39.877Z",
+    "updatedAt": "2026-04-30T13:37:39.877Z"
+  },
+  {
+    "id": "cd64a2ec",
+    "klantId": "klant0001",
+    "titel": "25% meer leads",
+    "beschrijving": "om 1 uur s'nachts met z'n tweeën op een driewieler",
+    "type": "kort",
+    "sortOrder": 1,
+    "createdAt": "2026-04-30T13:42:06.938Z",
+    "updatedAt": "2026-04-30T13:42:06.938Z"
+  }
+]
