@@ -11,6 +11,7 @@ import { doelgroepenRouter } from './routes/doelgroepen'
 import { componentenRouter } from './routes/componenten'
 import { contentStructuurRouter } from './routes/contentStructuur'
 import { klantenRouter } from './routes/klanten'
+import { medewerkersRouter } from './routes/medewerkers'
 import { slidesRouter } from './routes/slides'
 
 const app = express()
@@ -26,6 +27,7 @@ app.use('/api/doelgroepen', doelgroepenRouter)
 app.use('/api/componenten', componentenRouter)
 app.use('/api/content-structuur', contentStructuurRouter)
 app.use('/api/klanten', klantenRouter)
+app.use('/api/medewerkers', medewerkersRouter)
 app.use('/api/slides', slidesRouter)
 app.use('/api', seedRouter)
 

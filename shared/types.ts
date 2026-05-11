@@ -375,6 +375,22 @@ export interface KlantDoelFocuspunt {
   updatedAt: string
 }
 
+// ---------- Medewerkers ----------
+// Hergebruikt KlantDoelTeam als gedeelde Team-enum; alias zodat bestaande imports
+// blijven werken.
+export type Team = KlantDoelTeam
+
+export interface Medewerker {
+  id: string
+  naam: string
+  email: string
+  functie: string
+  team: Team
+  avatarPath: string | null
+  createdAt: string
+  updatedAt: string
+}
+
 // ---------- Content Structuur Document ----------
 export type ContentRowStatus = 'niet-gestart' | 'in-progress' | 'klaar' | 'review'
 
