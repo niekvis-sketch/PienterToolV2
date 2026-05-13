@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!store.currentKlant" class="text-center py-16 text-gray-400">Laden...</div>
+  <div v-if="!store.currentKlant" class="text-center py-16 text-ink-mute">Laden...</div>
   <KlantTabs v-else />
 </template>
 

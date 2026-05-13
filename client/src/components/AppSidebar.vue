@@ -1,16 +1,17 @@
 <template>
-  <aside class="w-64 bg-white border-r border-gray-200 shrink-0 flex flex-col h-screen">
+  <aside class="w-64 bg-white border-r border-cream-400 shrink-0 flex flex-col h-screen">
     <!-- Header -->
-    <div class="p-4 border-b border-gray-100 flex items-center gap-2">
-      <svg class="w-7 h-7 text-pienter-700" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="6" fill="currentColor"/>
-        <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="system-ui" font-weight="700" font-size="18">P</text>
+    <div class="h-12 px-5 border-b border-cream-400 flex items-center gap-2.5">
+      <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="6" fill="var(--primary)"/>
+        <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Space Grotesk, system-ui" font-weight="700" font-size="16">P</text>
       </svg>
-      <span class="font-bold text-gray-900">Pienter Dashboard</span>
+      <span class="font-semibold text-ink tracking-tight">Pienter Dashboard</span>
+      <span class="accent-dot ml-auto"></span>
     </div>
 
     <!-- Sections -->
-    <nav class="flex-1 overflow-y-auto p-2 space-y-1">
+    <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1.5">
       <!-- Klanten -->
       <SidebarSection
         label="Klanten"
@@ -21,27 +22,27 @@
       >
         <router-link
           to="/klanten"
-          class="block px-3 py-1.5 rounded-lg text-sm transition-colors"
-          :class="route.path === '/klanten' ? 'bg-pienter-50 text-pienter-700 font-medium' : 'text-gray-600 hover:bg-gray-50'"
+          class="nav-item"
+          :class="{ 'is-active': route.path === '/klanten' }"
         >Alle klanten</router-link>
 
         <!-- Active klant -->
         <div v-if="activeKlant" class="mt-0.5">
           <router-link
             :to="`/klanten/${activeKlant.id}`"
-            class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors"
-            :class="isKlantRoot ? 'bg-pienter-50 text-pienter-700 font-medium' : 'text-gray-700 hover:bg-gray-50'"
+            class="nav-item"
+            :class="{ 'is-active': isKlantRoot }"
           >
             <span class="text-base">📄</span>
             <span class="truncate">{{ activeKlant.naam }}</span>
           </router-link>
-          <div class="ml-3 pl-3 border-l border-gray-200 mt-0.5 space-y-0.5">
+          <div class="ml-3 pl-3 border-l border-cream-400 mt-0.5 space-y-0.5">
             <router-link
               v-for="item in klantSubItems"
               :key="item.segment"
               :to="`/klanten/${activeKlant.id}/${item.segment}`"
-              class="block px-3 py-1.5 rounded-lg text-sm transition-colors"
-              :class="activeSegment === item.segment ? 'bg-pienter-50 text-pienter-700 font-medium' : 'text-gray-600 hover:bg-gray-50'"
+              class="nav-item nav-item-sm"
+              :class="{ 'is-active': activeSegment === item.segment }"
             >{{ item.label }}</router-link>
           </div>
         </div>
@@ -57,8 +58,8 @@
       >
         <router-link
           to="/medewerkers"
-          class="block px-3 py-1.5 rounded-lg text-sm transition-colors"
-          :class="route.path === '/medewerkers' ? 'bg-pienter-50 text-pienter-700 font-medium' : 'text-gray-600 hover:bg-gray-50'"
+          class="nav-item"
+          :class="{ 'is-active': route.path === '/medewerkers' }"
         >Overzicht</router-link>
       </SidebarSection>
 
@@ -72,14 +73,17 @@
       >
         <router-link
           to="/sales"
-          class="block px-3 py-1.5 rounded-lg text-sm transition-colors"
-          :class="route.path === '/sales' ? 'bg-pienter-50 text-pienter-700 font-medium' : 'text-gray-600 hover:bg-gray-50'"
+          class="nav-item"
+          :class="{ 'is-active': route.path === '/sales' }"
         >Overzicht</router-link>
         <router-link
           to="/sales/slides"
-          class="block px-3 py-1.5 rounded-lg text-sm transition-colors"
-          :class="route.path.startsWith('/sales/slides') ? 'bg-pienter-50 text-pienter-700 font-medium' : 'text-gray-600 hover:bg-gray-50'"
-        >🎞️ Vrije slides</router-link>
+          class="nav-item"
+          :class="{ 'is-active': route.path.startsWith('/sales/slides') }"
+        >
+          <span class="text-base">🎞️</span>
+          Vrije slides
+        </router-link>
       </SidebarSection>
     </nav>
   </aside>
@@ -140,11 +144,11 @@ const salesOpen = ref(loadCollapsed('sidebar.sales.open', false))
 
 function toggleMedewerkers() {
   medewerkersOpen.value = !medewerkersOpen.value
-  try { localStorage.setItem('sidebar.medewerkers.open', String(medewerkersOpen.value)) } catch {}
+  try { localStorage.setItem('sidebar.medewerkers.open', String(medewerkersOpen.value)) } catch { /* empty */ }
 }
 function toggleSales() {
   salesOpen.value = !salesOpen.value
-  try { localStorage.setItem('sidebar.sales.open', String(salesOpen.value)) } catch {}
+  try { localStorage.setItem('sidebar.sales.open', String(salesOpen.value)) } catch { /* empty */ }
 }
 
 // Auto-open de juiste sectie bij route-wijziging
@@ -153,3 +157,44 @@ watch(() => route.path, (path) => {
   if (path.startsWith('/sales')) salesOpen.value = true
 }, { immediate: true })
 </script>
+
+<style scoped>
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: var(--r-2);
+  color: var(--ink-2);
+  font-weight: 500;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background .12s, color .12s;
+}
+.nav-item:hover {
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+  color: var(--ink);
+}
+.nav-item.is-active {
+  background: var(--surface-2);
+  color: var(--primary);
+  box-shadow: var(--shadow-1, 0 1px 0 rgba(20,36,27,0.04));
+  font-weight: 600;
+}
+.nav-item.is-active::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.nav-item-sm {
+  height: 30px;
+  font-size: 13px;
+}
+</style>

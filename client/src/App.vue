@@ -1,28 +1,35 @@
 <template>
-  <div class="flex h-screen">
+  <div class="flex h-screen bg-cream-200">
     <AppSidebar />
 
     <div class="flex-1 flex flex-col min-w-0">
       <!-- Topbar -->
-      <header class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between shrink-0">
-        <nav class="flex items-center gap-1 text-sm min-w-0">
-          <span v-if="!breadcrumb.length" class="text-gray-500">Pienter Portaal</span>
+      <header class="bg-white border-b border-cream-400 px-6 h-12 flex items-center justify-between shrink-0">
+        <nav class="flex items-center gap-1.5 text-sm min-w-0">
+          <span v-if="!breadcrumb.length" class="text-ink-2 font-medium">
+            Pienter Portaal
+            <span class="accent-dot ml-1"></span>
+          </span>
           <template v-for="(crumb, idx) in breadcrumb" :key="idx">
-            <span v-if="idx > 0" class="text-gray-300 mx-1">›</span>
+            <span v-if="idx > 0" class="text-ink-mute mx-1">›</span>
             <router-link
               v-if="crumb.to && idx < breadcrumb.length - 1"
               :to="crumb.to"
-              class="text-gray-600 hover:text-gray-900 truncate max-w-[220px]"
+              class="text-ink-2 hover:text-pienter-700 truncate max-w-[220px]"
             >{{ crumb.label }}</router-link>
-            <span v-else class="text-gray-900 font-medium truncate max-w-[260px]">{{ crumb.label }}</span>
+            <span v-else class="text-ink font-semibold truncate max-w-[260px]">{{ crumb.label }}</span>
           </template>
         </nav>
 
-        <span class="badge bg-amber-100 text-amber-700 border border-amber-300 text-xs font-semibold px-3 py-1">Demo mode</span>
+        <span class="inline-flex items-center gap-1.5 h-6 px-3 rounded-full text-[11px] font-medium uppercase tracking-wider"
+              style="background: var(--highlight-soft); color: var(--highlight-press);">
+          <span class="w-1.5 h-1.5 rounded-full" style="background: var(--highlight);"></span>
+          Demo mode
+        </span>
       </header>
 
       <!-- Content -->
-      <main class="flex-1 overflow-y-auto bg-gray-50">
+      <main class="flex-1 overflow-y-auto" style="background: var(--bg);">
         <router-view />
       </main>
     </div>

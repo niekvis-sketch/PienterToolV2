@@ -1,11 +1,11 @@
 <template>
   <DetailLayout>
-    <div class="text-center py-12">
+    <div class="empty-state">
       <div class="text-4xl mb-4">💼</div>
-      <h2 class="text-lg font-semibold text-gray-700">Sales komt eraan</h2>
-      <p class="text-gray-500 mt-1">
+      <h2 class="text-lg font-semibold text-ink-2">Sales komt eraan</h2>
+      <p>
         Voor nu kun je via de zijbalk naar
-        <router-link to="/sales/slides" class="text-pienter-700 hover:underline">Vrije slides</router-link>.
+        <router-link to="/sales/slides" class="text-pienter-700 font-medium hover:underline">Vrije slides</router-link>.
       </p>
     </div>
   </DetailLayout>

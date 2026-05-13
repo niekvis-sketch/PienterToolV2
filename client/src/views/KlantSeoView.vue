@@ -1,9 +1,9 @@
 <template>
   <DetailLayout>
-    <div class="text-center py-12">
+    <div class="empty-state">
       <div class="text-4xl mb-4">🔍</div>
-      <h2 class="text-lg font-semibold text-gray-700">SEO komt eraan</h2>
-      <p class="text-gray-500 mt-1">Hier komt het SEO-traject voor deze klant.</p>
+      <h2 class="text-lg font-semibold text-ink-2">SEO komt eraan</h2>
+      <p>Hier komt het SEO-traject voor deze klant.</p>
     </div>
   </DetailLayout>
 </template>

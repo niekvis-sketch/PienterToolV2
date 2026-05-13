@@ -2,82 +2,271 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ======== Basis stijlen Pienter Portaal ======== */
-body {
-  @apply min-h-screen;
+/* ======== Veld design tokens (Pienter Portaal) ========
+   Sage groen, zachte roze accent, amber highlight, warme crème basis. */
+:root {
+  --bg:           #F9F7F2;
+  --bg-elev:      #F3F0E8;
+  --surface:      #FFFFFF;
+  --surface-2:    #FAF8F3;
+  --line:         #ECE7DA;
+  --line-strong:  #D9D2C0;
+  --ink:          #1F2A22;
+  --ink-2:        #4E5A50;
+  --ink-3:        #828B82;
+  --ink-mute:     #B0B6AE;
+
+  --primary:      #53935E;
+  --primary-hover:#467F51;
+  --primary-press:#3B6E44;
+  --primary-soft: #E5F0E7;
+  --primary-soft-2:#C9E0CE;
+
+  --accent:       #F6BDCA;
+  --accent-soft:  #FCE9EE;
+  --accent-soft-2:#F9D2DB;
+  --accent-deep:  #B85674;
+  --on-accent:    #2A1820;
+
+  --highlight:       #FFAB40;
+  --highlight-hover: #F39A28;
+  --highlight-press: #E08815;
+  --highlight-soft:  #FFE9CC;
+
+  --success:      #1F8A5B;
+  --success-soft: #E0EFE6;
+  --warning:      #C77F3D;
+  --warning-soft: #F6EAD7;
+  --danger:       #B83A3A;
+  --danger-soft:  #F4DEDE;
+  --info:         #3D6EB8;
+  --info-soft:    #E0E8F4;
+
+  --r-1: 4px;
+  --r-2: 6px;
+  --r-3: 8px;
+  --r-4: 12px;
+
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
-/* Status badges */
-.badge {
-  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+/* ======== Basis ======== */
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01' on, 'cv11' on;
 }
-.badge-todo { @apply bg-gray-100 text-gray-700; }
-.badge-doing { @apply bg-blue-100 text-blue-700; }
-.badge-blocked { @apply bg-red-100 text-red-700; }
-.badge-done { @apply bg-green-100 text-green-700; }
-.badge-draft { @apply bg-gray-100 text-gray-600; }
-.badge-content-ready { @apply bg-yellow-100 text-yellow-700; }
-.badge-design-ready { @apply bg-purple-100 text-purple-700; }
-.badge-dev-ready { @apply bg-indigo-100 text-indigo-700; }
-.badge-staged { @apply bg-cyan-100 text-cyan-700; }
-.badge-live { @apply bg-green-100 text-green-700; }
+body { @apply min-h-screen; }
+
+/* ======== Generieke badge ======== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 10px;
+  font-size: 11.5px;
+  font-weight: 500;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+}
+
+/* Status badges (Veld-palet) */
+.badge-todo          { background: color-mix(in srgb, var(--ink) 8%, var(--surface)); color: var(--ink-2); }
+.badge-doing         { background: var(--info-soft); color: var(--info); }
+.badge-blocked       { background: var(--danger-soft); color: var(--danger); }
+.badge-done          { background: var(--success-soft); color: var(--success); }
+.badge-draft         { background: color-mix(in srgb, var(--ink) 8%, var(--surface)); color: var(--ink-3); }
+.badge-content-ready { background: var(--highlight-soft); color: var(--highlight-press); }
+.badge-design-ready  { background: var(--accent-soft); color: var(--accent-deep); }
+.badge-dev-ready     { background: var(--primary-soft); color: var(--primary); }
+.badge-staged        { background: var(--info-soft); color: var(--info); }
+.badge-live          { background: var(--success-soft); color: var(--success); }
+
+/* Highlight-pill (amber pop) — voor team / featured tags */
+.badge-highlight {
+  background: var(--highlight);
+  color: #fff;
+}
+.badge-highlight-soft {
+  background: var(--highlight-soft);
+  color: var(--highlight-press);
+}
+.badge-primary { background: var(--primary-soft); color: var(--primary); }
+.badge-accent  { background: var(--accent-soft); color: var(--accent-deep); }
 
 /* Severity badges */
-.severity-low { @apply bg-yellow-50 text-yellow-700 border border-yellow-200; }
-.severity-medium { @apply bg-orange-50 text-orange-700 border border-orange-200; }
-.severity-high { @apply bg-red-50 text-red-700 border border-red-200; }
+.severity-low    { background: var(--highlight-soft); color: var(--highlight-press); border: 1px solid color-mix(in srgb, var(--highlight) 40%, transparent); }
+.severity-medium { background: var(--warning-soft); color: var(--warning); border: 1px solid color-mix(in srgb, var(--warning) 40%, transparent); }
+.severity-high   { background: var(--danger-soft); color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent); }
 
-/* Knoppen */
+/* ======== Knoppen ======== */
 .btn {
-  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: var(--r-2);
+  border: 1px solid transparent;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .12s ease, box-shadow .15s ease, color .15s ease;
 }
-.btn-primary {
-  @apply btn bg-pienter-600 text-white hover:bg-pienter-700 focus:ring-pienter-500;
-}
-.btn-secondary {
-  @apply btn bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-gray-300;
-}
-.btn-tertiary {
-  @apply btn bg-transparent text-pienter-600 hover:bg-pienter-50 focus:ring-pienter-300;
-}
-.btn-danger {
-  @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
-}
-.btn-sm {
-  @apply px-3 py-1.5 text-xs;
-}
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
 
-/* Inputs */
-.input {
-  @apply block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:border-pienter-500 focus:ring-1 focus:ring-pienter-500 focus:outline-none;
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:active { background: var(--primary-press); }
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn-secondary:hover { background: var(--surface-2); border-color: var(--ink-2); }
+
+.btn-tertiary {
+  background: transparent;
+  color: var(--primary);
+}
+.btn-tertiary:hover { background: var(--primary-soft); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+.btn-ghost:hover { background: var(--primary-soft); color: var(--primary); }
+
+.btn-accent {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.btn-accent:hover { background: var(--accent-soft-2); }
+
+.btn-highlight {
+  background: var(--highlight);
+  color: #fff;
+}
+.btn-highlight:hover { background: var(--highlight-hover); }
+
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+.btn-danger:hover { background: #9F3232; }
+
+.btn-destructive {
+  background: var(--surface);
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 30%, transparent);
+}
+.btn-destructive:hover { background: var(--danger-soft); }
+
+.btn-sm  { height: 28px; padding: 0 12px; font-size: 12.5px; }
+.btn-lg  { height: 44px; padding: 0 24px; font-size: 15px; }
+
+/* ======== Inputs ======== */
+.input, .textarea, .select {
+  display: block;
+  width: 100%;
+  height: 36px;
+  padding: 0 12px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-2);
+  transition: border-color .15s ease, box-shadow .15s ease;
+  outline: none;
+}
+.input::placeholder, .textarea::placeholder { color: var(--ink-mute); }
+.input:focus, .textarea:focus, .select:focus {
+  border-color: var(--primary);
+  box-shadow: var(--focus-ring);
 }
 .textarea {
-  @apply input resize-y;
+  height: auto;
+  padding: 10px 12px;
+  resize: vertical;
+  min-height: 80px;
 }
-.select {
-  @apply input appearance-none bg-white;
-}
+.select { appearance: none; background-image: none; }
 
-/* Card */
+/* ======== Card ======== */
 .card {
-  @apply bg-white rounded-xl border border-gray-200 shadow-sm;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  box-shadow: var(--shadow-1, 0 1px 0 rgba(20,36,27,0.04), 0 1px 2px rgba(20,36,27,0.04));
 }
 
-/* Tab navigatie */
+/* ======== Tabs ======== */
 .tab-nav {
-  @apply flex border-b border-gray-200 gap-0;
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
 }
 .tab-item {
-  @apply px-4 py-3 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 cursor-pointer transition-colors whitespace-nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-3);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .12s;
+  white-space: nowrap;
+  background: transparent;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
 }
-.tab-item.active {
-  @apply text-pienter-600 border-pienter-600;
-}
+.tab-item:hover { color: var(--ink); border-bottom-color: var(--line-strong); }
+.tab-item.active { color: var(--primary); border-bottom-color: var(--primary); }
 
-/* Lege-staat */
+/* ======== Lege staat ======== */
 .empty-state {
-  @apply text-center py-12 px-4;
+  text-align: center;
+  padding: 48px 16px;
 }
 .empty-state p {
-  @apply text-gray-500 text-sm mt-2;
+  color: var(--ink-3);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* ======== Decoratieve helpers (Veld) ======== */
+.accent-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: middle;
+}
+.eyebrow {
+  color: var(--ink-3);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.divider-dotted {
+  border: 0;
+  border-top: 1px dashed var(--line-strong);
 }

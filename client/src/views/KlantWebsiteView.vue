@@ -1,18 +1,18 @@
 <template>
-  <div v-if="loading" class="text-center py-16 text-gray-400">Laden...</div>
+  <div v-if="loading" class="text-center py-16 text-ink-mute">Laden...</div>
 
   <!-- Empty state: geen Website-project -->
   <DetailLayout v-else-if="!resolvedProject">
-    <div class="text-center py-12">
+    <div class="empty-state">
       <div class="text-4xl mb-4">🌐</div>
-      <h2 class="text-lg font-semibold text-gray-700">Nog geen website-project</h2>
-      <p class="text-gray-500 mt-2">
-        Voor <strong>{{ klantenStore.currentKlant?.naam ?? '...' }}</strong> is nog geen website-project aangemaakt.
+      <h2 class="text-lg font-semibold text-ink-2">Nog geen website-project</h2>
+      <p>
+        Voor <strong class="text-ink">{{ klantenStore.currentKlant?.naam ?? '...' }}</strong> is nog geen website-project aangemaakt.
       </p>
-      <div class="mt-6">
+      <div class="mt-6 flex justify-center">
         <router-link
           :to="{ path: '/projects/new', query: { clientName: klantenStore.currentKlant?.naam } }"
-          class="btn-primary"
+          class="btn btn-primary"
         >Nieuw project aanmaken</router-link>
       </div>
     </div>
