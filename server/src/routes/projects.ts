@@ -40,6 +40,7 @@ projectRouter.post('/', (req: Request, res: Response) => {
     domainNew: req.body.domainNew || '',
     languages: req.body.languages || ['nl'],
     goLiveDate: req.body.goLiveDate || null,
+    ownerId: req.body.ownerId ?? null,
     createdAt: now(),
     stagingNoindex: true,
     gtmConnected: false,

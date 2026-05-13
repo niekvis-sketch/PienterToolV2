@@ -86,12 +86,19 @@
 
             <!-- Wie plaatst -->
             <td v-if="isVisible('wiePlaatst')" class="px-1 py-1">
-              <input
-                v-model="row.wiePlaatst"
-                @blur="saveRow(row)"
-                class="w-full px-2 py-1.5 text-sm border-0 bg-transparent hover:bg-gray-50 focus:bg-white focus:ring-1 focus:ring-pienter-500 rounded"
-                placeholder="Naam..."
-              />
+              <div class="flex items-center gap-1">
+                <MedewerkerSelect
+                  v-model="row.wiePlaatstId"
+                  :allow-null="true"
+                  placeholder="— Geen —"
+                  @update:model-value="saveRow(row)"
+                />
+                <span
+                  v-if="row.wiePlaatstLegacy"
+                  class="text-[10px] text-amber-600 italic truncate"
+                  :title="`Oud: ${row.wiePlaatstLegacy}`"
+                >({{ row.wiePlaatstLegacy }})</span>
+              </div>
             </td>
 
             <!-- Status -->
@@ -270,6 +277,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useContentStructuurStore } from '../../stores/contentStructuurStore'
 import type { ContentStructuurRow, ContentStructuurPreset } from '@shared/types'
+import MedewerkerSelect from '../medewerkers/MedewerkerSelect.vue'
 
 const route = useRoute()
 const projectId = computed(() => route.params.id as string)

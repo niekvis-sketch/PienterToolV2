@@ -7,7 +7,14 @@ import path from 'path'
 import fs from 'fs'
 import { readCollection, writeCollection } from '../storage'
 import { genId, now, ok, err } from '../helpers'
-import type { Medewerker } from '../../../shared/types'
+import type {
+  Medewerker,
+  Klant,
+  KlantCommunicatie,
+  KlantDoelFocuspunt,
+  Project,
+  ContentStructuurRow,
+} from '../../../shared/types'
 
 export const medewerkersRouter = Router()
 
@@ -96,7 +103,43 @@ medewerkersRouter.delete('/:id', (req, res) => {
   }
 
   saveMedewerkers(list.filter(x => x.id !== id))
-  // TODO fase B: zet medewerkerId/assigneeId/accountManagerId op null in andere collecties
+
+  // Cascade naar FK's in andere collecties — zet op null waar gekoppeld.
+  const comms = readCollection<KlantCommunicatie>('klantCommunicatie')
+  let commsChanged = false
+  for (const c of comms) {
+    if (c.medewerkerId === id) { c.medewerkerId = null; commsChanged = true }
+  }
+  if (commsChanged) writeCollection('klantCommunicatie', comms)
+
+  const focuspunten = readCollection<KlantDoelFocuspunt>('klantFocuspunten')
+  let fpChanged = false
+  for (const f of focuspunten) {
+    if (f.assigneeId === id) { f.assigneeId = null; fpChanged = true }
+  }
+  if (fpChanged) writeCollection('klantFocuspunten', focuspunten)
+
+  const klanten = readCollection<Klant>('klanten')
+  let klChanged = false
+  for (const k of klanten) {
+    if (k.accountManagerId === id) { k.accountManagerId = null; klChanged = true }
+  }
+  if (klChanged) writeCollection('klanten', klanten)
+
+  const projects = readCollection<Project>('projects')
+  let projChanged = false
+  for (const p of projects) {
+    if (p.ownerId === id) { p.ownerId = null; projChanged = true }
+  }
+  if (projChanged) writeCollection('projects', projects)
+
+  const rows = readCollection<ContentStructuurRow>('contentStructuur')
+  let rowsChanged = false
+  for (const r of rows) {
+    if (r.wiePlaatstId === id) { r.wiePlaatstId = null; rowsChanged = true }
+  }
+  if (rowsChanged) writeCollection('contentStructuur', rows)
+
   res.json(ok({ deleted: true }))
 })
 

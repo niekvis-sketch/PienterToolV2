@@ -102,6 +102,15 @@
                   <option value="overig">Overig</option>
                 </select>
               </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 mb-0.5">Verantwoordelijke</label>
+                <MedewerkerSelect
+                  v-model="focusForm.assigneeId"
+                  :team="focusForm.team"
+                  :allow-null="true"
+                  placeholder="— Niemand toegewezen —"
+                />
+              </div>
               <div class="col-span-3">
                 <label class="block text-xs font-medium text-gray-600 mb-0.5">Beschrijving</label>
                 <input v-model="focusForm.beschrijving" class="input text-sm" placeholder="Wat ga je deze maand doen?" />
@@ -135,6 +144,7 @@
                     :class="teamClass(fp.team)"
                   >{{ teamLabel(fp.team) }}</span>
                   <span class="flex-1 min-w-0" :class="fp.voltooid ? 'line-through text-gray-400' : 'text-gray-800'">{{ fp.beschrijving }}</span>
+                  <MedewerkerTag v-if="fp.assigneeId" :medewerker-id="fp.assigneeId" />
                   <button class="text-gray-300 hover:text-red-500 text-xs px-1 shrink-0" @click="handleDeleteFocuspunt(fp.id)">✕</button>
                 </div>
               </div>
@@ -150,6 +160,8 @@
 import { ref, reactive, computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 import type { KlantDoel, KlantDoelType, KlantDoelTeam, KlantDoelFocuspunt } from '@shared/types'
+import MedewerkerSelect from '../medewerkers/MedewerkerSelect.vue'
+import MedewerkerTag from '../medewerkers/MedewerkerTag.vue'
 
 const store = useKlantenStore()
 const klant = computed(() => store.currentKlant!)
@@ -221,10 +233,11 @@ async function handleDeleteDoel(id: string) {
 
 // ---- Focuspunten ----
 const showFocusFormFor = ref<string | null>(null)
-const focusForm = reactive<{ maand: string; team: KlantDoelTeam; beschrijving: string }>({
+const focusForm = reactive<{ maand: string; team: KlantDoelTeam; beschrijving: string; assigneeId: string | null }>({
   maand: new Date().toISOString().slice(0, 7),
   team: 'content',
   beschrijving: '',
+  assigneeId: null,
 })
 
 function focuspuntenVoorDoel(doelId: string): KlantDoelFocuspunt[] {
@@ -248,6 +261,7 @@ function startAddFocuspunt(doelId: string) {
   focusForm.maand = new Date().toISOString().slice(0, 7)
   focusForm.team = 'content'
   focusForm.beschrijving = ''
+  focusForm.assigneeId = null
 }
 
 function cancelFocusForm() {

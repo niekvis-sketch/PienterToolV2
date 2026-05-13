@@ -26,7 +26,7 @@
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Medewerker</label>
-          <input v-model="newForm.medewerker" class="input" placeholder="Naam" />
+          <MedewerkerSelect v-model="newForm.medewerkerId" :allow-null="true" placeholder="— Geen —" />
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Samenvatting</label>
@@ -63,7 +63,7 @@
               <div class="flex items-center gap-2 flex-wrap">
                 <span class="text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded" :class="typeClass(item.type)">{{ typeLabel(item.type) }}</span>
                 <span class="text-xs text-gray-400">{{ formatDate(item.datum) }}</span>
-                <span v-if="item.medewerker" class="text-xs text-gray-400">· {{ item.medewerker }}</span>
+                <MedewerkerTag v-if="item.medewerkerId" :medewerker-id="item.medewerkerId" />
               </div>
               <p class="font-medium text-gray-900 mt-1 text-sm">{{ item.samenvatting }}</p>
               <p v-if="item.details" class="text-sm text-gray-500 mt-1 whitespace-pre-wrap">{{ item.details }}</p>
@@ -80,22 +80,30 @@
 import { ref, reactive, computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 import type { KlantCommunicatieType } from '@shared/types'
+import MedewerkerSelect from '../medewerkers/MedewerkerSelect.vue'
+import MedewerkerTag from '../medewerkers/MedewerkerTag.vue'
 
 const store = useKlantenStore()
 const klant = computed(() => store.currentKlant!)
 const showForm = ref(false)
 
-const newForm = reactive({
-  type: 'notitie' as KlantCommunicatieType,
+const newForm = reactive<{
+  type: KlantCommunicatieType
+  datum: string
+  samenvatting: string
+  details: string
+  medewerkerId: string | null
+}>({
+  type: 'notitie',
   datum: new Date().toISOString().slice(0, 10),
   samenvatting: '',
   details: '',
-  medewerker: '',
+  medewerkerId: null,
 })
 
 function cancelForm() {
   showForm.value = false
-  Object.assign(newForm, { type: 'notitie', datum: new Date().toISOString().slice(0, 10), samenvatting: '', details: '', medewerker: '' })
+  Object.assign(newForm, { type: 'notitie', datum: new Date().toISOString().slice(0, 10), samenvatting: '', details: '', medewerkerId: null })
 }
 
 async function handleCreate() {

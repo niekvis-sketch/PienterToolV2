@@ -6,6 +6,7 @@
     "maand": "2026-07",
     "beschrijving": "ik ga 3 insta post maken over onderwerp ....",
     "team": "content",
+    "assigneeId": null,
     "voltooid": false,
     "createdAt": "2026-04-30T13:38:25.593Z",
     "updatedAt": "2026-04-30T13:38:29.421Z"
@@ -17,6 +18,7 @@
     "maand": "2026-06",
     "beschrijving": "ik ga 5 advertenties bouwen met AI",
     "team": "advertising",
+    "assigneeId": null,
     "voltooid": false,
     "createdAt": "2026-04-30T13:38:57.372Z",
     "updatedAt": "2026-04-30T13:38:57.372Z"
@@ -28,6 +30,7 @@
     "maand": "2026-06",
     "beschrijving": "ik ga 50 websites maken voor deze klant",
     "team": "website",
+    "assigneeId": null,
     "voltooid": false,
     "createdAt": "2026-04-30T13:39:44.677Z",
     "updatedAt": "2026-04-30T13:39:44.677Z"
@@ -39,8 +42,21 @@
     "maand": "2026-08",
     "beschrijving": "5 keer lunch halen (die lekkere broodjes)",
     "team": "overig",
+    "assigneeId": null,
     "voltooid": false,
     "createdAt": "2026-04-30T13:40:43.138Z",
     "updatedAt": "2026-04-30T13:40:43.138Z"
+  },
+  {
+    "id": "2a897d3e",
+    "doelId": "4d40c477",
+    "klantId": "klant0001",
+    "maand": "2026-05",
+    "beschrijving": "ff mooi maken",
+    "team": "website",
+    "assigneeId": "caf39499",
+    "voltooid": false,
+    "createdAt": "2026-05-11T08:46:02.137Z",
+    "updatedAt": "2026-05-11T08:46:02.137Z"
   }
 ]

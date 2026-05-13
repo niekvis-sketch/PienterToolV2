@@ -12,6 +12,8 @@ export interface Project {
   domainNew: string
   languages: ('nl' | 'en')[]
   goLiveDate: string | null
+  // Pienter-interne koppeling (Medewerker.id) — eindverantwoordelijke voor dit project
+  ownerId: string | null
   createdAt: string
   // Instellingen voor auditor
   stagingNoindex: boolean
@@ -296,6 +298,8 @@ export interface Klant {
   kansen: string
   concurrenten: string
   positionering: string
+  // Pienter-interne koppeling (Medewerker.id) — verantwoordelijke account-manager
+  accountManagerId: string | null
   createdAt: string
   updatedAt: string
 }
@@ -307,7 +311,7 @@ export interface KlantCommunicatie {
   datum: string
   samenvatting: string
   details: string
-  medewerker: string
+  medewerkerId: string | null
   createdAt: string
 }
 
@@ -370,6 +374,7 @@ export interface KlantDoelFocuspunt {
   maand: string // formaat YYYY-MM
   beschrijving: string
   team: KlantDoelTeam
+  assigneeId: string | null
   voltooid: boolean
   createdAt: string
   updatedAt: string
@@ -401,7 +406,11 @@ export interface ContentStructuurRow {
   naamPagina: string
   zoektermen: string
   tekstKlaar: boolean
-  wiePlaatst: string
+  wiePlaatstId: string | null
+  // Tijdens migratie: oude vrije-tekst waarden bewaard zodat ze handmatig
+  // omgezet kunnen worden naar wiePlaatstId. Mag in latere fase verwijderd
+  // worden zodra alle rijen gekoppeld zijn.
+  wiePlaatstLegacy?: string
   status: ContentRowStatus
   watMistNog: string
   nieuweUrl: string

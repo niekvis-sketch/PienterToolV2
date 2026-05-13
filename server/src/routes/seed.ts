@@ -57,6 +57,7 @@ function runSeed() {
     kansen: '',
     concurrenten: '',
     positionering: '',
+    accountManagerId: null,
     createdAt: '2026-02-10T09:00:00.000Z',
     updatedAt: '2026-02-10T09:00:00.000Z',
   }
@@ -72,6 +73,7 @@ function runSeed() {
     domainNew: 'csh-nieuw.nl',
     languages: ['nl'],
     goLiveDate: '2026-05-15',
+    ownerId: null,
     createdAt: '2026-02-10T09:00:00.000Z',
     stagingNoindex: true,
     gtmConnected: false,

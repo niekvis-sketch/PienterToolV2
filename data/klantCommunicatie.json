@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "2b918bbf",
+    "klantId": "klant0001",
+    "type": "meeting",
+    "datum": "2026-05-11",
+    "samenvatting": "lekkere luns",
+    "details": "",
+    "medewerkerId": "caf39499",
+    "createdAt": "2026-05-11T08:45:28.624Z"
+  }
+]

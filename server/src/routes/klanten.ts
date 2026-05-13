@@ -81,6 +81,7 @@ function defaultKlantFields(body: Partial<Klant>): Klant {
     kansen: body.kansen || '',
     concurrenten: body.concurrenten || '',
     positionering: body.positionering || '',
+    accountManagerId: body.accountManagerId ?? null,
     createdAt: now(),
     updatedAt: now(),
   }
@@ -159,7 +160,7 @@ klantenRouter.post('/:id/communicatie', (req: Request, res: Response) => {
     datum: req.body.datum || now().slice(0, 10),
     samenvatting: req.body.samenvatting || '',
     details: req.body.details || '',
-    medewerker: req.body.medewerker || '',
+    medewerkerId: req.body.medewerkerId ?? null,
     createdAt: now(),
   }
   comm.push(item)
@@ -373,6 +374,7 @@ klantenRouter.post('/:id/doelen/:doelId/focuspunten', (req: Request, res: Respon
     maand: req.body.maand || now().slice(0, 7),
     beschrijving: req.body.beschrijving || '',
     team: req.body.team || 'overig',
+    assigneeId: req.body.assigneeId ?? null,
     voltooid: !!req.body.voltooid,
     createdAt: now(),
     updatedAt: now(),

@@ -28,9 +28,10 @@
             <div>Aangemaakt: {{ formatDate(project.createdAt) }}</div>
           </div>
         </div>
-        <div class="mt-2 flex gap-2 text-xs text-gray-500">
+        <div class="mt-2 flex items-center gap-2 text-xs text-gray-500">
           <span>{{ project.languages.join(', ').toUpperCase() }}</span>
           <span v-if="project.stagingNoindex">· Staging noindex</span>
+          <MedewerkerTag v-if="project.ownerId" :medewerker-id="project.ownerId" />
         </div>
       </router-link>
     </div>
@@ -41,6 +42,7 @@
 import { computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 import { useProjectStore } from '../../stores/projectStore'
+import MedewerkerTag from '../medewerkers/MedewerkerTag.vue'
 
 const store = useKlantenStore()
 const projectStore = useProjectStore()

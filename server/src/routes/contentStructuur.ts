@@ -63,7 +63,7 @@ contentStructuurRouter.post('/:projectId', (req: Request, res: Response) => {
     naamPagina: req.body.naamPagina ?? '',
     zoektermen: req.body.zoektermen ?? '',
     tekstKlaar: req.body.tekstKlaar ?? false,
-    wiePlaatst: req.body.wiePlaatst ?? '',
+    wiePlaatstId: req.body.wiePlaatstId ?? null,
     status: req.body.status ?? 'niet-gestart',
     watMistNog: req.body.watMistNog ?? '',
     nieuweUrl: req.body.nieuweUrl ?? '',
@@ -86,7 +86,7 @@ contentStructuurRouter.put('/:projectId/:rowId', (req: Request, res: Response) =
   const idx = all.findIndex(r => r.id === req.params.rowId && r.projectId === req.params.projectId)
   if (idx < 0) { res.status(404).json(err('Rij niet gevonden')); return }
 
-  const updatable = ['siteNodeId', 'naamPagina', 'zoektermen', 'tekstKlaar', 'wiePlaatst', 'status', 'watMistNog', 'nieuweUrl', 'slug', 'metaTitel', 'metaDescription', 'sortOrder'] as const
+  const updatable = ['siteNodeId', 'naamPagina', 'zoektermen', 'tekstKlaar', 'wiePlaatstId', 'wiePlaatstLegacy', 'status', 'watMistNog', 'nieuweUrl', 'slug', 'metaTitel', 'metaDescription', 'sortOrder'] as const
   for (const key of updatable) {
     if (req.body[key] !== undefined) {
       ;(all[idx] as any)[key] = req.body[key]
@@ -133,7 +133,7 @@ contentStructuurRouter.post('/:projectId/bulk', (req: Request, res: Response) =>
       naamPagina: row.naamPagina ?? '',
       zoektermen: row.zoektermen ?? '',
       tekstKlaar: row.tekstKlaar ?? false,
-      wiePlaatst: row.wiePlaatst ?? '',
+      wiePlaatstId: row.wiePlaatstId ?? null,
       status: row.status ?? 'niet-gestart',
       watMistNog: row.watMistNog ?? '',
       nieuweUrl: row.nieuweUrl ?? '',
@@ -199,7 +199,7 @@ contentStructuurRouter.post('/:projectId/sync-from-structuur', (req: Request, re
       naamPagina,
       zoektermen: '',
       tekstKlaar: false,
-      wiePlaatst: '',
+      wiePlaatstId: null,
       status: 'niet-gestart',
       watMistNog: '',
       nieuweUrl: node.fullUrl || '',

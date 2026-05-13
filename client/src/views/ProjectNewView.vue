@@ -40,6 +40,10 @@
           <input v-model="form.goLiveDate" type="date" class="input" />
         </div>
       </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Eindverantwoordelijke (optioneel)</label>
+        <MedewerkerSelect v-model="form.ownerId" :allow-null="true" placeholder="— Niemand toegewezen —" />
+      </div>
 
       <div class="flex gap-3 pt-4">
         <button type="submit" class="btn-primary" :disabled="!form.name">Aanmaken</button>
@@ -55,19 +59,29 @@ import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '../stores/projectStore'
 import { useKlantenStore } from '../stores/klantenStore'
 import DetailLayout from '../components/DetailLayout.vue'
+import MedewerkerSelect from '../components/medewerkers/MedewerkerSelect.vue'
 
 const route = useRoute()
 const router = useRouter()
 const store = useProjectStore()
 const klantenStore = useKlantenStore()
 
-const form = reactive({
+const form = reactive<{
+  name: string
+  clientName: string
+  domainCurrent: string
+  domainNew: string
+  languages: string[]
+  goLiveDate: string
+  ownerId: string | null
+}>({
   name: '',
   clientName: '',
   domainCurrent: '',
   domainNew: '',
-  languages: ['nl'] as string[],
+  languages: ['nl'],
   goLiveDate: '',
+  ownerId: null,
 })
 
 onMounted(async () => {

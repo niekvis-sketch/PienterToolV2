@@ -60,6 +60,20 @@
     <KlantContactpersonenSection />
 
     <div class="card p-5">
+      <h3 class="font-semibold text-gray-800 mb-4">Pienter account-manager</h3>
+      <p class="text-xs text-gray-500 mb-3">De Pienter-medewerker die deze klant beheert. Wijzig dit los van de externe contactgegevens hierboven.</p>
+      <div class="flex items-center gap-3">
+        <MedewerkerTag v-if="klant.accountManagerId" :medewerker-id="klant.accountManagerId" />
+        <MedewerkerSelect
+          v-model="accountManagerId"
+          :allow-null="true"
+          placeholder="— Geen account-manager —"
+          @update:model-value="handleAccountManagerChange"
+        />
+      </div>
+    </div>
+
+    <div class="card p-5">
       <h3 class="font-semibold text-gray-800 mb-4">Bedrijfsgegevens</h3>
 
       <div v-if="!editing" class="grid grid-cols-2 gap-x-8 gap-y-4 text-sm">
@@ -188,10 +202,23 @@ import CommunicatieHistorieTab from './CommunicatieHistorieTab.vue'
 import KlantContactpersonenSection from './KlantContactpersonenSection.vue'
 import KlantHuisstijlSection from './KlantHuisstijlSection.vue'
 import KlantDoelgroepenSection from './KlantDoelgroepenSection.vue'
+import MedewerkerSelect from '../medewerkers/MedewerkerSelect.vue'
+import MedewerkerTag from '../medewerkers/MedewerkerTag.vue'
 
 const store = useKlantenStore()
 const editing = ref(false)
 const klant = computed(() => store.currentKlant!)
+
+// Account-manager wordt los van het bewerk-form opgeslagen (direct bij wijzigen),
+// zodat het ook zonder editing-modus instelbaar is.
+const accountManagerId = computed<string | null>({
+  get: () => klant.value.accountManagerId,
+  set: () => { /* via handler */ },
+})
+
+async function handleAccountManagerChange(v: string | null) {
+  await store.updateKlant(klant.value.id, { accountManagerId: v })
+}
 
 const form = reactive({
   contactpersoon: '', email: '', telefoon: '', website: '',

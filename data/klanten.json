@@ -26,8 +26,9 @@
     "kansen": "",
     "concurrenten": "",
     "positionering": "",
+    "accountManagerId": "caf39499",
     "createdAt": "2026-02-10T09:00:00.000Z",
-    "updatedAt": "2026-04-30T13:37:14.799Z"
+    "updatedAt": "2026-05-11T08:41:27.545Z"
   },
   {
     "id": "185571ea",
@@ -56,6 +57,7 @@
     "kansen": "",
     "concurrenten": "",
     "positionering": "",
+    "accountManagerId": null,
     "createdAt": "2026-04-28T12:56:11.291Z",
     "updatedAt": "2026-04-28T12:56:11.291Z"
   },
@@ -86,6 +88,7 @@
     "kansen": "",
     "concurrenten": "",
     "positionering": "",
+    "accountManagerId": null,
     "createdAt": "2026-04-28T12:56:22.535Z",
     "updatedAt": "2026-04-28T12:56:22.535Z"
   }
