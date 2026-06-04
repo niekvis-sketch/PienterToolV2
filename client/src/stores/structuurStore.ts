@@ -7,6 +7,9 @@ import type {
   StructuurProgress, ChangeLogEntry, StructureWarning, StructureImport,
   StructureImportResult
 } from '@shared/types'
+import type { MenuItem } from '../components/structuur/menuTypes'
+
+const genMenuId = () => 'mi_' + Math.random().toString(16).slice(2, 10) + Math.random().toString(16).slice(2, 6)
 
 export const useStructuurStore = defineStore('structuur', () => {
   // --- State ---
@@ -21,6 +24,9 @@ export const useStructuurStore = defineStore('structuur', () => {
   const changeLog = ref<ChangeLogEntry[]>([])
   const loading = ref(false)
   const selectedNodeId = ref<string | null>(null)
+
+  // Menu items (in-memory only — niet gepersisteerd)
+  const menuItems = ref<MenuItem[]>([])
 
   // --- Computed ---
   const selectedNode = computed(() => siteNodes.value.find(n => n.id === selectedNodeId.value) || null)
@@ -215,6 +221,89 @@ export const useStructuurStore = defineStore('structuur', () => {
     changeLog.value = await apiFetch<ChangeLogEntry[]>('GET', `/structuur/${projectId}/changelog`)
   }
 
+  // --- Fase 2: Menu items (in-memory) ---
+
+  // Alle directe kinderen van een parent, op sortOrder.
+  function menuChildren(parentId: string | null) {
+    return menuItems.value
+      .filter(m => m.parentId === parentId)
+      .sort((a, b) => a.sortOrder - b.sortOrder)
+  }
+
+  // Hercompacteer sortOrder (0,1,2,...) binnen één parent-niveau.
+  function recompact(parentId: string | null) {
+    menuChildren(parentId).forEach((m, i) => { m.sortOrder = i })
+  }
+
+  // Verzamel een item + zijn volledige subtree (id's).
+  function collectSubtree(id: string): string[] {
+    const result = [id]
+    for (const child of menuItems.value.filter(m => m.parentId === id)) {
+      result.push(...collectSubtree(child.id))
+    }
+    return result
+  }
+
+  function addMenuItem(siteNodeId: string, parentId: string | null = null): MenuItem {
+    const item: MenuItem = {
+      id: genMenuId(),
+      siteNodeId,
+      parentId,
+      sortOrder: menuChildren(parentId).length,
+      expanded: false,
+    }
+    menuItems.value.push(item)
+    return item
+  }
+
+  function removeMenuItem(id: string) {
+    const item = menuItems.value.find(m => m.id === id)
+    if (!item) return
+    const parentId = item.parentId
+    const toRemove = new Set(collectSubtree(id))
+    menuItems.value = menuItems.value.filter(m => !toRemove.has(m.id))
+    recompact(parentId)
+  }
+
+  function updateMenuItem(id: string, data: Partial<MenuItem>) {
+    const item = menuItems.value.find(m => m.id === id)
+    if (item) Object.assign(item, data)
+  }
+
+  function toggleMenuItemExpanded(id: string) {
+    const item = menuItems.value.find(m => m.id === id)
+    if (item) item.expanded = !item.expanded
+  }
+
+  // Verplaats een item (incl. subtree) naar een nieuwe parent op een gegeven
+  // positie tussen zijn nieuwe siblings. Beschermt tegen cyclus, sleept de
+  // hele subtree mee en hercompacteert sortOrder in oude én nieuwe parent.
+  function moveMenuItem(id: string, newParentId: string | null, newIndex: number) {
+    const item = menuItems.value.find(m => m.id === id)
+    if (!item) return
+
+    // Cyclusbescherming: een item kan niet onder zijn eigen (klein)kind hangen.
+    const subtree = new Set(collectSubtree(id))
+    if (newParentId !== null && subtree.has(newParentId)) return
+
+    const oldParentId = item.parentId
+
+    // Siblings in de doel-parent (zonder het item zelf), op huidige volgorde.
+    const siblings = menuChildren(newParentId).filter(m => m.id !== id)
+    const clampedIndex = Math.max(0, Math.min(newIndex, siblings.length))
+
+    item.parentId = newParentId
+    siblings.splice(clampedIndex, 0, item)
+    siblings.forEach((m, i) => { m.sortOrder = i })
+
+    // Oude parent opnieuw netjes maken (alleen relevant bij parent-wissel).
+    if (oldParentId !== newParentId) recompact(oldParentId)
+  }
+
+  function clearMenu() {
+    menuItems.value = []
+  }
+
   // --- Load all for project ---
   async function loadAll(projectId: string) {
     loading.value = true
@@ -235,7 +324,7 @@ export const useStructuurStore = defineStore('structuur', () => {
     // State
     progress, userStories, clientQuestions, fase1Summary,
     siteNodes, pageBlocks, allProjectBlocks, warnings, changeLog,
-    loading, selectedNodeId,
+    loading, selectedNodeId, menuItems,
     // Computed
     selectedNode, treeNodes, flatSortedNodes, parkedNodes, mainNavNodes,
     openQuestions, answeredQuestions, assumptions, insights,
@@ -248,6 +337,9 @@ export const useStructuurStore = defineStore('structuur', () => {
     // Fase 2
     fetchNodes, createNode, updateNode, deleteNode, duplicateNode, moveNode,
     importNodes, importFlatNodes, fetchWarnings,
+    // Fase 2 — menu (in-memory)
+    menuChildren, addMenuItem, removeMenuItem, updateMenuItem,
+    toggleMenuItemExpanded, moveMenuItem, clearMenu,
     // Fase 3
     fetchBlocks, fetchAllBlocks, createBlock, updateBlock, deleteBlock, reorderBlocks,
     // Changelog
