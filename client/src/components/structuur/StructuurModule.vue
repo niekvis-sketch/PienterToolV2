@@ -46,7 +46,7 @@
         </span>
         <div class="flex gap-3">
           <button v-if="currentFase > 1" class="text-pienter-600 hover:underline" @click="goToFase((currentFase - 1) as any)">← Vorige fase</button>
-          <button v-if="currentFase < 2" class="text-pienter-600 hover:underline font-medium" @click="goToFase((currentFase + 1) as any)">Volgende fase →</button>
+          <button v-if="currentFase < 5" class="text-pienter-600 hover:underline font-medium" @click="goToFase((currentFase + 1) as any)">Volgende fase →</button>
         </div>
       </div>
     </div>
@@ -87,7 +87,13 @@
 
     <!-- Phase content (Fase 3 / pagina-indeling zit nu als sub-tab in Fase 2) -->
     <Fase1Vragen v-if="currentFase === 1" :project-id="projectId" />
-    <Fase2Structuur v-else :project-id="projectId" />
+    <Fase2Structuur v-else-if="currentFase === 2" :project-id="projectId" />
+    <!-- Placeholder-fases 3 t/m 5 -->
+    <div v-else-if="placeholder" class="card p-16 text-center">
+      <div class="text-5xl mb-4">{{ placeholder.icon }}</div>
+      <h3 class="text-lg font-semibold text-gray-700">{{ placeholder.title }}</h3>
+      <p class="text-sm text-gray-400 mt-1">Placeholder</p>
+    </div>
   </div>
 </template>
 
@@ -106,32 +112,41 @@ const projectId = computed(() => projectStore.currentProject?.id || '')
 const showExport = ref(false)
 const showChangelog = ref(false)
 
-// Fase 3 (pagina-indeling) is verhuisd naar een sub-tab binnen Fase 2, dus de
-// fasebalk telt nog 2 stappen. Een opgeslagen currentFase===3 valt terug op 2.
-const currentFase = computed(() => Math.min(store.progress?.currentFase || 1, 2))
+// De oude pagina-indeling zit nu als sub-tab in Fase 2. Daarna volgen 3
+// placeholder-fases. Een opgeslagen currentFase wordt geclampt op het bereik 1-5.
+const currentFase = computed(() => Math.min(store.progress?.currentFase || 1, 5))
 
 const steps = [
   { fase: 1 as StructuurFase, title: 'User Stories → Vragen', subtitle: 'Input verzamelen & analyseren' },
   { fase: 2 as StructuurFase, title: 'Structuur, navigatie & indeling', subtitle: 'Pagina\'s, hiërarchie, URL\'s & blokken' },
+  { fase: 3 as StructuurFase, title: 'Figma', subtitle: 'Placeholder' },
+  { fase: 4 as StructuurFase, title: 'Developer controle', subtitle: 'Placeholder' },
+  { fase: 5 as StructuurFase, title: 'Deploy naar WordPress', subtitle: 'Placeholder' },
 ]
+
+// Placeholder-inhoud voor de fases 3 t/m 5.
+const placeholders: Record<number, { icon: string; title: string }> = {
+  3: { icon: '🎨', title: 'Figma' },
+  4: { icon: '🧑‍💻', title: 'Developer controle' },
+  5: { icon: '🚀', title: 'Deploy naar WordPress' },
+}
+const placeholder = computed(() => placeholders[currentFase.value])
 
 const progressSummary = computed(() => {
   const stories = store.userStories.length
   const questions = store.clientQuestions.length
   const answered = store.answeredQuestions.length
   const nodes = store.siteNodes.length
-  const blocks = store.pageBlocks.length
 
   if (currentFase.value === 1) return `${stories} user stories · ${questions} vragen (${answered} beantwoord)`
   if (currentFase.value === 2) return `${nodes} pagina's in structuur · ${store.warnings.length} waarschuwingen`
-  return `${nodes} pagina's · ${blocks} blokken uitgewerkt`
+  return `${placeholder.value?.title ?? ''} — placeholder`
 })
 
 function isComplete(fase: StructuurFase): boolean {
   if (!store.progress) return false
   if (fase === 1) return store.progress.fase1Complete
   if (fase === 2) return store.progress.fase2Complete
-  if (fase === 3) return store.progress.fase3Complete
   return false
 }
 

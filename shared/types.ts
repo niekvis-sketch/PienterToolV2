@@ -77,7 +77,7 @@ export interface StructureImportResult {
 // ============================================================
 
 // ---------- Fase-tracking ----------
-export type StructuurFase = 1 | 2 | 3
+export type StructuurFase = 1 | 2 | 3 | 4 | 5
 
 export interface StructuurProgress {
   id: string
