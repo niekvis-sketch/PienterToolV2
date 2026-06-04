@@ -640,5 +640,17 @@
     "entityId": "dc18758a",
     "entityTitle": "Introductie",
     "details": "Blok \"Introductie\" toegevoegd aan pagina"
+  },
+  {
+    "id": "7aa30b51",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-04T15:03:11.849Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "89a3ea18",
+    "entityTitle": "Vacatures",
+    "details": "Verplaatst: https://csh-nieuw.nl/vacatures → https://csh-nieuw.nl/vacatures (0 subpagina's mee verplaatst)",
+    "oldValue": "https://csh-nieuw.nl/vacatures",
+    "newValue": "https://csh-nieuw.nl/vacatures"
   }
 ]

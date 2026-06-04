@@ -307,7 +307,7 @@
     "slug": "vacatures",
     "fullUrl": "https://csh-nieuw.nl/vacatures",
     "level": 0,
-    "sortOrder": 6,
+    "sortOrder": 4.5,
     "type": "page",
     "goal": null,
     "targetAudience": "",
@@ -327,7 +327,7 @@
     "openQuestionIds": [],
     "notes": "",
     "createdAt": "2026-06-04T12:07:49.758Z",
-    "updatedAt": "2026-06-04T12:49:40.588Z"
+    "updatedAt": "2026-06-04T15:03:11.848Z"
   },
   {
     "id": "975231a7",
