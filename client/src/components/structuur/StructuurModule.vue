@@ -46,8 +46,7 @@
         </span>
         <div class="flex gap-3">
           <button v-if="currentFase > 1" class="text-pienter-600 hover:underline" @click="goToFase((currentFase - 1) as any)">← Vorige fase</button>
-          <button v-if="currentFase < 3" class="text-pienter-600 hover:underline font-medium" @click="goToFase((currentFase + 1) as any)">Volgende fase →</button>
-          <button v-if="currentFase === 3 && !store.progress?.fase3Complete" class="text-green-600 hover:underline font-medium" @click="markComplete(3)">✓ Fase afronden</button>
+          <button v-if="currentFase < 2" class="text-pienter-600 hover:underline font-medium" @click="goToFase((currentFase + 1) as any)">Volgende fase →</button>
         </div>
       </div>
     </div>
@@ -86,10 +85,9 @@
       </div>
     </div>
 
-    <!-- Phase content -->
+    <!-- Phase content (Fase 3 / pagina-indeling zit nu als sub-tab in Fase 2) -->
     <Fase1Vragen v-if="currentFase === 1" :project-id="projectId" />
-    <Fase2Structuur v-else-if="currentFase === 2" :project-id="projectId" />
-    <Fase3Blokken v-else-if="currentFase === 3" :project-id="projectId" />
+    <Fase2Structuur v-else :project-id="projectId" />
   </div>
 </template>
 
@@ -100,7 +98,6 @@ import { useProjectStore } from '../../stores/projectStore'
 import type { StructuurFase, ChangeLogEntry } from '@shared/types'
 import Fase1Vragen from './Fase1Vragen.vue'
 import Fase2Structuur from './Fase2Structuur.vue'
-import Fase3Blokken from './Fase3Blokken.vue'
 
 const projectStore = useProjectStore()
 const store = useStructuurStore()
@@ -109,12 +106,13 @@ const projectId = computed(() => projectStore.currentProject?.id || '')
 const showExport = ref(false)
 const showChangelog = ref(false)
 
-const currentFase = computed(() => store.progress?.currentFase || 1)
+// Fase 3 (pagina-indeling) is verhuisd naar een sub-tab binnen Fase 2, dus de
+// fasebalk telt nog 2 stappen. Een opgeslagen currentFase===3 valt terug op 2.
+const currentFase = computed(() => Math.min(store.progress?.currentFase || 1, 2))
 
 const steps = [
   { fase: 1 as StructuurFase, title: 'User Stories → Vragen', subtitle: 'Input verzamelen & analyseren' },
-  { fase: 2 as StructuurFase, title: 'Structuur & Navigatie', subtitle: 'Pagina\'s, hiërarchie & URL\'s' },
-  { fase: 3 as StructuurFase, title: 'Pagina-indeling', subtitle: 'Blokken per pagina uitwerken' },
+  { fase: 2 as StructuurFase, title: 'Structuur, navigatie & indeling', subtitle: 'Pagina\'s, hiërarchie, URL\'s & blokken' },
 ]
 
 const progressSummary = computed(() => {
@@ -140,12 +138,6 @@ function isComplete(fase: StructuurFase): boolean {
 async function goToFase(fase: StructuurFase) {
   if (!projectId.value) return
   await store.updateProgress(projectId.value, { currentFase: fase })
-}
-
-async function markComplete(fase: StructuurFase) {
-  if (!projectId.value) return
-  const key = `fase${fase}Complete` as 'fase1Complete' | 'fase2Complete' | 'fase3Complete'
-  await store.updateProgress(projectId.value, { [key]: true })
 }
 
 function formatTime(ts: string) {

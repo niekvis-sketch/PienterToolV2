@@ -76,6 +76,9 @@
 
     <!-- Plattegrond canvas -->
     <PlattegrondCanvas v-else-if="fase2View === 'plattegrond'" :project-id="projectId" />
+
+    <!-- Pagina-indeling (voorheen Fase 3) -->
+    <Fase3Blokken v-else-if="fase2View === 'indeling'" :project-id="projectId" />
   </div>
 </template>
 
@@ -86,15 +89,17 @@ import { useProjectStore } from '../../stores/projectStore'
 import type { JourneyFase } from '@shared/types'
 import MenuStructuurBuilder from './MenuStructuurBuilder.vue'
 import PlattegrondCanvas from './PlattegrondCanvas.vue'
+import Fase3Blokken from './Fase3Blokken.vue'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
 const projectStore = useProjectStore()
 
-const fase2View = ref<'menu' | 'plattegrond'>('menu')
+const fase2View = ref<'menu' | 'plattegrond' | 'indeling'>('menu')
 const fase2Views = [
   { key: 'menu' as const, icon: '🧩', label: 'Menu' },
   { key: 'plattegrond' as const, icon: '🗺️', label: 'Plattegrond' },
+  { key: 'indeling' as const, icon: '📝', label: 'Pagina-indeling' },
 ]
 
 const showImport = ref(false)
