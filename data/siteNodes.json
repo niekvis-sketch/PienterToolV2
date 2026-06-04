@@ -127,7 +127,7 @@
     "slug": "cases",
     "fullUrl": "https:/csh-nieuw.nl/inspiratie/cases",
     "level": 1,
-    "sortOrder": 0,
+    "sortOrder": 0.75,
     "type": "page",
     "goal": null,
     "targetAudience": "",
@@ -147,7 +147,7 @@
     "openQuestionIds": [],
     "notes": "",
     "createdAt": "2026-06-04T12:07:49.758Z",
-    "updatedAt": "2026-06-04T12:55:01.941Z"
+    "updatedAt": "2026-06-04T12:58:09.431Z"
   },
   {
     "id": "6c36f1bd",

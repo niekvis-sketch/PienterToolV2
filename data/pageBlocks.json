@@ -23,7 +23,7 @@
     "id": "e0984955",
     "projectId": "demo0001",
     "siteNodeId": "a97fe753",
-    "sortOrder": 1,
+    "sortOrder": 2,
     "name": "Waarvoor een event",
     "type": "Flexblok-USP-Tekst",
     "goal": "Tonen voor welke doelen een event geschikt is",
@@ -43,7 +43,7 @@
     "id": "3d6b1d2c",
     "projectId": "demo0001",
     "siteNodeId": "a97fe753",
-    "sortOrder": 2,
+    "sortOrder": 1,
     "name": "Soorten events",
     "type": "Flexblok-Media-Grid",
     "goal": "Overzicht van eventtypes als ingang naar de Events-pagina",
@@ -1258,5 +1258,25 @@
     "answersQuestionIds": [],
     "forUserStoryIds": [],
     "createdAt": "2026-06-04T12:07:49.758Z"
+  },
+  {
+    "id": "dc18758a",
+    "projectId": "demo0001",
+    "siteNodeId": "975231a7",
+    "sortOrder": 5,
+    "name": "Introductie",
+    "type": "introductie",
+    "goal": "",
+    "targetUser": "",
+    "contentDescription": "",
+    "componentPattern": "",
+    "isReusable": false,
+    "reusableBlockId": null,
+    "notesContent": "",
+    "notesSeo": "",
+    "notesDesign": "",
+    "answersQuestionIds": [],
+    "forUserStoryIds": [],
+    "createdAt": "2026-06-04T12:58:27.995Z"
   }
 ]

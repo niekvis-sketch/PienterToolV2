@@ -558,5 +558,87 @@
     "details": "Verplaatst: https://csh-nieuw.nl/niquell-pro → https:/csh-nieuw.nl/over-ons/niquell-pro (0 subpagina's mee verplaatst)",
     "oldValue": "https://csh-nieuw.nl/niquell-pro",
     "newValue": "https:/csh-nieuw.nl/over-ons/niquell-pro"
+  },
+  {
+    "id": "cc98dbe6",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-04T12:56:43.594Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "e26285c4",
+    "entityTitle": "Cases",
+    "details": "Verplaatst: https:/csh-nieuw.nl/inspiratie/cases → https://csh-nieuw.nl/cases (0 subpagina's mee verplaatst)",
+    "oldValue": "https:/csh-nieuw.nl/inspiratie/cases",
+    "newValue": "https://csh-nieuw.nl/cases"
+  },
+  {
+    "id": "97b886f0",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-04T12:56:44.897Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "e26285c4",
+    "entityTitle": "Cases",
+    "details": "Verplaatst: https://csh-nieuw.nl/cases → https:/csh-nieuw.nl/inspiratie/cases (0 subpagina's mee verplaatst)",
+    "oldValue": "https://csh-nieuw.nl/cases",
+    "newValue": "https:/csh-nieuw.nl/inspiratie/cases"
+  },
+  {
+    "id": "1bdbb1f8",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-04T12:57:51.935Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "e26285c4",
+    "entityTitle": "Cases",
+    "details": "Verplaatst: https:/csh-nieuw.nl/inspiratie/cases → https://csh-nieuw.nl/cases (0 subpagina's mee verplaatst)",
+    "oldValue": "https:/csh-nieuw.nl/inspiratie/cases",
+    "newValue": "https://csh-nieuw.nl/cases"
+  },
+  {
+    "id": "8df03835",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-04T12:57:53.644Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "e26285c4",
+    "entityTitle": "Cases",
+    "details": "Verplaatst: https://csh-nieuw.nl/cases → https:/csh-nieuw.nl/inspiratie/cases (0 subpagina's mee verplaatst)",
+    "oldValue": "https://csh-nieuw.nl/cases",
+    "newValue": "https:/csh-nieuw.nl/inspiratie/cases"
+  },
+  {
+    "id": "37524462",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-04T12:57:56.719Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "e26285c4",
+    "entityTitle": "Cases",
+    "details": "Verplaatst: https:/csh-nieuw.nl/inspiratie/cases → https://csh-nieuw.nl/cases (0 subpagina's mee verplaatst)",
+    "oldValue": "https:/csh-nieuw.nl/inspiratie/cases",
+    "newValue": "https://csh-nieuw.nl/cases"
+  },
+  {
+    "id": "3ab50a5d",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-04T12:58:09.431Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "e26285c4",
+    "entityTitle": "Cases",
+    "details": "Verplaatst: https://csh-nieuw.nl/cases → https:/csh-nieuw.nl/inspiratie/cases (0 subpagina's mee verplaatst)",
+    "oldValue": "https://csh-nieuw.nl/cases",
+    "newValue": "https:/csh-nieuw.nl/inspiratie/cases"
+  },
+  {
+    "id": "33c2582a",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-04T12:58:27.996Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "dc18758a",
+    "entityTitle": "Introductie",
+    "details": "Blok \"Introductie\" toegevoegd aan pagina"
   }
 ]
