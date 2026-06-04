@@ -6,6 +6,24 @@
     "fase1Complete": true,
     "fase2Complete": false,
     "fase3Complete": true,
-    "updatedAt": "2026-05-22T10:19:35.282Z"
+    "updatedAt": "2026-06-04T08:37:50.668Z"
+  },
+  {
+    "id": "c063183e",
+    "projectId": "bad1f59f",
+    "currentFase": 1,
+    "fase1Complete": false,
+    "fase2Complete": false,
+    "fase3Complete": false,
+    "updatedAt": "2026-05-28T11:45:43.186Z"
+  },
+  {
+    "id": "f8aa9ded",
+    "projectId": "ef56ba97",
+    "currentFase": 1,
+    "fase1Complete": false,
+    "fase2Complete": false,
+    "fase3Complete": false,
+    "updatedAt": "2026-05-28T11:59:23.219Z"
   }
 ]

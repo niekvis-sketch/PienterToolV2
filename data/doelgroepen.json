@@ -12,5 +12,47 @@
     "name": "doelgroep 2",
     "description": "qwdqwdqettest",
     "createdAt": "2026-04-20T14:35:13.738Z"
+  },
+  {
+    "id": "15de72c9",
+    "projectId": "bad1f59f",
+    "name": "HR",
+    "description": "",
+    "createdAt": "2026-05-28T11:42:55.410Z"
+  },
+  {
+    "id": "ec80800d",
+    "projectId": "bad1f59f",
+    "name": "Bezoeker (12-18)",
+    "description": "",
+    "createdAt": "2026-05-28T11:43:12.822Z"
+  },
+  {
+    "id": "c8c8dd24",
+    "projectId": "ef56ba97",
+    "name": "Algemeen",
+    "description": "",
+    "createdAt": "2026-05-28T11:52:51.947Z"
+  },
+  {
+    "id": "91194fd4",
+    "projectId": "ef56ba97",
+    "name": "Onderwijs",
+    "description": "",
+    "createdAt": "2026-05-28T11:56:39.989Z"
+  },
+  {
+    "id": "0a275bae",
+    "projectId": "ef56ba97",
+    "name": "bedrijfsleven/MKB",
+    "description": "",
+    "createdAt": "2026-05-28T11:57:16.863Z"
+  },
+  {
+    "id": "ab3ff985",
+    "projectId": "ef56ba97",
+    "name": "Overheid",
+    "description": "",
+    "createdAt": "2026-05-28T11:58:09.720Z"
   }
 ]
