@@ -78,10 +78,13 @@
           <p class="text-xs text-gray-500 line-clamp-2">
             {{ comp.description || 'Geen beschrijving' }}
           </p>
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-2">
             <span v-if="comp.imagePath" class="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded">✓ Afbeelding</span>
             <span v-else class="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">Geen afbeelding</span>
             <span v-if="comp.description" class="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded">✓ Beschrijving</span>
+            <span v-if="comp.subComponents?.length" class="text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded">{{ comp.subComponents.length }} sub</span>
+            <span v-if="variantCount(comp)" class="text-[10px] bg-sky-100 text-sky-700 px-1.5 py-0.5 rounded">{{ variantCount(comp) }} varianten</span>
+            <span v-if="comp.helpers?.length" class="text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">{{ comp.helpers.length }} helpers</span>
           </div>
         </div>
       </div>
@@ -130,6 +133,51 @@
               @blur="saveField('description')"
             ></textarea>
             <p class="text-[10px] text-gray-400 mt-1">Deze beschrijving wordt door ChatGPT gebruikt om het juiste component te kiezen.</p>
+          </div>
+
+          <!-- Structuur uit Figma-export (read-only) -->
+          <div v-if="hasStructure(editingComponent)" class="border-t border-gray-100 pt-4 space-y-4">
+            <!-- Component-niveau varianten -->
+            <div v-if="editingComponent.variants?.length">
+              <label class="block text-xs font-medium text-gray-600 mb-1.5">Varianten</label>
+              <div class="flex flex-wrap gap-1.5">
+                <span v-for="vr in editingComponent.variants" :key="vr.property"
+                  class="text-[11px] bg-sky-50 text-sky-700 border border-sky-200 rounded px-2 py-0.5">
+                  <span class="font-medium">{{ vr.property }}</span> = {{ vr.values.join(' | ') }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Sub-componenten / views -->
+            <div v-if="editingComponent.subComponents?.length">
+              <label class="block text-xs font-medium text-gray-600 mb-1.5">
+                {{ editingComponent.category === 'posttype' ? 'Views' : 'Sub-componenten' }}
+              </label>
+              <div class="space-y-1.5">
+                <div v-for="sc in editingComponent.subComponents" :key="sc.name"
+                  class="bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+                  <div class="flex items-baseline gap-2 flex-wrap">
+                    <span class="text-sm font-semibold text-gray-800">{{ sc.name }}</span>
+                    <span v-if="sc.description" class="text-xs text-gray-500">{{ sc.description }}</span>
+                  </div>
+                  <div v-if="sc.variants?.length" class="flex flex-wrap gap-1.5 mt-1.5">
+                    <span v-for="vr in sc.variants" :key="vr.property"
+                      class="text-[10px] bg-white text-sky-700 border border-sky-200 rounded px-1.5 py-0.5">
+                      <span class="font-medium">{{ vr.property }}</span> = {{ vr.values.join(' | ') }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Helpers -->
+            <div v-if="editingComponent.helpers?.length">
+              <label class="block text-xs font-medium text-gray-600 mb-1.5">Hulp-componenten</label>
+              <div class="flex flex-wrap gap-1.5">
+                <span v-for="h in editingComponent.helpers" :key="h"
+                  class="text-[11px] bg-gray-100 text-gray-600 rounded px-2 py-0.5">{{ h }}</span>
+              </div>
+            </div>
           </div>
 
           <!-- Afbeelding upload -->
@@ -236,6 +284,17 @@ function categoryIcon(cat: ComponentCategory): string {
 
 function categoryLabel(cat: ComponentCategory): string {
   return cat === 'broodblok' ? 'Broodblok' : cat === 'flexblok' ? 'Flexblok' : 'Posttype'
+}
+
+// Telt alle variant-assen op component- én sub-component-niveau
+function variantCount(comp: ComponentBlock): number {
+  const top = comp.variants?.length || 0
+  const subs = (comp.subComponents || []).reduce((n, sc) => n + (sc.variants?.length || 0), 0)
+  return top + subs
+}
+
+function hasStructure(comp: ComponentBlock): boolean {
+  return !!(comp.variants?.length || comp.subComponents?.length || comp.helpers?.length)
 }
 
 function categoryBadgeClass(cat: ComponentCategory): string {

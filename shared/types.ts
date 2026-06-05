@@ -238,13 +238,30 @@ export interface PageBlock {
 // ---------- Componenten (ACF blokken) ----------
 export type ComponentCategory = 'broodblok' | 'flexblok' | 'posttype'
 
+// Een variant-as, bijv. property "Align" met values ["Left","Center","Right"]
+export interface ComponentVariant {
+  property: string   // bijv. "Layout", "Align", "Count", "Direction", "Variant"
+  values: string[]   // bijv. ["Left", "Center", "Right"]
+}
+
+// Een sub-component binnen een component, bijv. MediaText → "Centered".
+// Voor posttypes worden views (Archive/Detail/Teaser) als sub-componenten gemodelleerd.
+export interface ComponentSubBlock {
+  name: string                    // bijv. "Centered", "Archive", "1Col"
+  description: string             // bijv. de view-component(en) of korte uitleg
+  variants: ComponentVariant[]
+}
+
 export interface ComponentBlock {
   id: string
   projectId: string
   name: string
   category: ComponentCategory
   description: string
-  imagePath: string        // relatief pad naar geüploade afbeelding
+  imagePath: string                       // relatief pad naar geüploade afbeelding
+  variants?: ComponentVariant[]           // variant-assen op component-niveau
+  subComponents?: ComponentSubBlock[]      // sub-componenten / views
+  helpers?: string[]                       // hulp-componenten (bijv. NewsCard, JobItem)
   createdAt: string
   updatedAt: string
 }

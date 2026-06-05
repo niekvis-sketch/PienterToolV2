@@ -652,5 +652,17 @@
     "details": "Verplaatst: https://csh-nieuw.nl/vacatures → https://csh-nieuw.nl/vacatures (0 subpagina's mee verplaatst)",
     "oldValue": "https://csh-nieuw.nl/vacatures",
     "newValue": "https://csh-nieuw.nl/vacatures"
+  },
+  {
+    "id": "f397b3c7",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-05T08:33:03.876Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "5445900f",
+    "entityTitle": "Onze aanpak",
+    "details": "Verplaatst: https://csh-nieuw.nl/onze-aanpak → https://csh-nieuw.nl/onze-aanpak (0 subpagina's mee verplaatst)",
+    "oldValue": "https://csh-nieuw.nl/onze-aanpak",
+    "newValue": "https://csh-nieuw.nl/onze-aanpak"
   }
 ]
