@@ -57,7 +57,7 @@ const v = (property: string, values: string[]): ComponentVariant => ({ property,
 // Helper voor een sub-component
 const sub = (name: string, description = '', variants: ComponentVariant[] = []): ComponentSubBlock => ({ name, description, variants })
 
-const DEFAULT_COMPONENTS: SeedComponent[] = [
+export const DEFAULT_COMPONENTS: SeedComponent[] = [
   // ===================== Broodblokken (4) =====================
   {
     name: 'Hero', category: 'broodblok',
@@ -284,6 +284,24 @@ const DEFAULT_COMPONENTS: SeedComponent[] = [
   },
 ]
 
+// Bouwt de volledige set standaard-componenten voor een project.
+// Eén bron van waarheid: gebruikt door de seed-route én door migratie-scripts.
+export function buildDefaultComponents(projectId: string): ComponentBlock[] {
+  return DEFAULT_COMPONENTS.map(def => ({
+    id: genId(),
+    projectId,
+    name: def.name,
+    category: def.category,
+    description: def.description || '',
+    imagePath: '',
+    variants: def.variants || [],
+    subComponents: def.subComponents || [],
+    helpers: def.helpers || [],
+    createdAt: now(),
+    updatedAt: now(),
+  }))
+}
+
 // ===================== ROUTES =====================
 
 // GET /api/componenten/:projectId
@@ -303,19 +321,7 @@ componentenRouter.post('/:projectId/seed', (req: Request, res: Response) => {
     return res.json(ok(existing))
   }
 
-  const created: ComponentBlock[] = DEFAULT_COMPONENTS.map(def => ({
-    id: genId(),
-    projectId,
-    name: def.name,
-    category: def.category,
-    description: def.description || '',
-    imagePath: '',
-    variants: def.variants || [],
-    subComponents: def.subComponents || [],
-    helpers: def.helpers || [],
-    createdAt: now(),
-    updatedAt: now(),
-  }))
+  const created = buildDefaultComponents(projectId)
 
   all.push(...created)
   saveComponents(all)

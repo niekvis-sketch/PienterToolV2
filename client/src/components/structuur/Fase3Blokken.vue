@@ -131,8 +131,20 @@
                     <input v-model="block.targetUser" class="input text-sm" @blur="updateBlock(block)" placeholder="bijv. potentiële klant die vergelijkt" />
                   </div>
                   <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">Component / patroon</label>
-                    <input v-model="block.componentPattern" class="input text-sm" @blur="updateBlock(block)" placeholder="bijv. 3-kolom grid, full-width hero" />
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Component (uit library)</label>
+                    <select v-model="block.componentPattern" class="select text-sm" @change="updateBlock(block)">
+                      <option value="">— Kies een component —</option>
+                      <optgroup v-for="grp in componentsByCategory" :key="grp.key" :label="grp.label">
+                        <option v-for="opt in grp.items" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
+                      </optgroup>
+                      <!-- Fallback voor een eventuele oude vrije-tekst waarde -->
+                      <option v-if="isLegacyPattern(block.componentPattern)" :value="block.componentPattern">
+                        {{ block.componentPattern }} (oud)
+                      </option>
+                    </select>
+                    <p v-if="projectStore.componenten.length === 0" class="text-[10px] text-amber-600 mt-1">
+                      Nog geen componenten geladen — laad de standaardlibrary in de Componenten-tab.
+                    </p>
                   </div>
                 </div>
                 <div>
@@ -204,7 +216,7 @@ import { ref, computed, watch, reactive, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'
 import PageVisualPreview from './PageVisualPreview.vue'
-import type { PageBlock, BlockType } from '@shared/types'
+import type { PageBlock, BlockType, ComponentCategory } from '@shared/types'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
@@ -233,6 +245,41 @@ const quickBlockTypes = [
   { type: 'reviews' as BlockType, name: 'Reviews', icon: '⭐' },
   { type: 'contact' as BlockType, name: 'Contact', icon: '📞' },
 ]
+
+// Componenten uit de library, gegroepeerd per categorie voor de blok→component select.
+// Sub-componenten verschijnen ingesprongen als "Component / Sub".
+const componentsByCategory = computed(() => {
+  const cats: { key: ComponentCategory; label: string }[] = [
+    { key: 'broodblok', label: '🍞 Broodblokken' },
+    { key: 'flexblok', label: '🔧 Flexibele Content' },
+    { key: 'posttype', label: '📋 Posttypes' },
+  ]
+  return cats
+    .map(c => ({
+      ...c,
+      items: projectStore.componenten
+        .filter(comp => comp.category === c.key)
+        .flatMap(comp => [
+          { value: comp.name, label: comp.name },
+          ...(comp.subComponents || []).map(sc => ({
+            value: `${comp.name} / ${sc.name}`,
+            label: `   ${comp.name} / ${sc.name}`,
+          })),
+        ]),
+    }))
+    .filter(c => c.items.length > 0)
+})
+
+const componentOptionValues = computed(() => {
+  const set = new Set<string>()
+  for (const grp of componentsByCategory.value) for (const it of grp.items) set.add(it.value)
+  return set
+})
+
+// True als de huidige waarde niet (meer) in de library voorkomt — bijv. oude vrije tekst.
+function isLegacyPattern(val: string): boolean {
+  return !!val && !componentOptionValues.value.has(val)
+}
 
 const selectedNode = computed(() => store.siteNodes.find(n => n.id === selectedNodeId.value) || null)
 const sortedBlocks = computed(() => [...store.pageBlocks].sort((a, b) => a.sortOrder - b.sortOrder))

@@ -47,9 +47,9 @@
             <div class="absolute top-1.5 left-1.5 bg-pienter-600 text-white text-[9px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">
               {{ idx + 1 }}
             </div>
-            <!-- Block type badge -->
+            <!-- Component badge (valt terug op block.type) -->
             <div class="absolute top-1.5 right-1.5 bg-white/90 backdrop-blur-sm text-[9px] text-gray-600 font-medium px-1.5 py-0.5 rounded shadow-sm">
-              {{ block.type }}
+              {{ block.componentPattern || block.type }}
             </div>
           </div>
         </div>
@@ -80,19 +80,18 @@ const props = defineProps<{
 
 const PLACEHOLDER = '/component-placeholder.svg'
 
-/** Find the matching component for a block by matching block.type to component.name */
+/** Zoekt het gekoppelde component bij een blok. Primair via componentPattern
+ *  (het gekozen library-component, incl. "Component / Sub" notatie), met
+ *  block.type als legacy-fallback voor oude data. */
 function findComponent(block: PageBlock): ComponentBlock | undefined {
-  // First try exact match on block.type
-  let comp = props.components.find(c => c.name === block.type)
-  if (comp) return comp
-
-  // Also try matching by componentPattern field
   if (block.componentPattern) {
-    comp = props.components.find(c => c.name === block.componentPattern)
+    const base = block.componentPattern.split(' / ')[0].trim()
+    const comp = props.components.find(c => c.name === base)
     if (comp) return comp
   }
 
-  return undefined
+  // Legacy: oude data bewaarde de componentnaam in block.type
+  return props.components.find(c => c.name === block.type)
 }
 
 function hasComponentImage(block: PageBlock): boolean {
