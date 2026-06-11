@@ -88,7 +88,8 @@
     <!-- Phase content (Fase 3 / pagina-indeling zit nu als sub-tab in Fase 2) -->
     <Fase1Vragen v-if="currentFase === 1" :project-id="projectId" />
     <Fase2Structuur v-else-if="currentFase === 2" :project-id="projectId" />
-    <!-- Placeholder-fases 3 t/m 5 -->
+    <Fase3Figma v-else-if="currentFase === 3" :project-id="projectId" />
+    <!-- Placeholder-fases 4 t/m 5 -->
     <div v-else-if="placeholder" class="card p-16 text-center">
       <div class="text-5xl mb-4">{{ placeholder.icon }}</div>
       <h3 class="text-lg font-semibold text-gray-700">{{ placeholder.title }}</h3>
@@ -104,6 +105,7 @@ import { useProjectStore } from '../../stores/projectStore'
 import type { StructuurFase, ChangeLogEntry } from '@shared/types'
 import Fase1Vragen from './Fase1Vragen.vue'
 import Fase2Structuur from './Fase2Structuur.vue'
+import Fase3Figma from './Fase3Figma.vue'
 
 const projectStore = useProjectStore()
 const store = useStructuurStore()
@@ -119,14 +121,13 @@ const currentFase = computed(() => Math.min(store.progress?.currentFase || 1, 5)
 const steps = [
   { fase: 1 as StructuurFase, title: 'User Stories → Vragen', subtitle: 'Input verzamelen & analyseren' },
   { fase: 2 as StructuurFase, title: 'Structuur, navigatie & indeling', subtitle: 'Pagina\'s, hiërarchie, URL\'s & blokken' },
-  { fase: 3 as StructuurFase, title: 'Figma', subtitle: 'Placeholder' },
+  { fase: 3 as StructuurFase, title: 'Figma', subtitle: 'Pagina\'s + componenten exporteren' },
   { fase: 4 as StructuurFase, title: 'Developer controle', subtitle: 'Placeholder' },
   { fase: 5 as StructuurFase, title: 'Deploy naar WordPress', subtitle: 'Placeholder' },
 ]
 
-// Placeholder-inhoud voor de fases 3 t/m 5.
+// Placeholder-inhoud voor de fases 4 en 5 (fase 3 = Figma is uitgewerkt).
 const placeholders: Record<number, { icon: string; title: string }> = {
-  3: { icon: '🎨', title: 'Figma' },
   4: { icon: '🧑‍💻', title: 'Developer controle' },
   5: { icon: '🚀', title: 'Deploy naar WordPress' },
 }
@@ -140,6 +141,7 @@ const progressSummary = computed(() => {
 
   if (currentFase.value === 1) return `${stories} user stories · ${questions} vragen (${answered} beantwoord)`
   if (currentFase.value === 2) return `${nodes} pagina's in structuur · ${store.warnings.length} waarschuwingen`
+  if (currentFase.value === 3) return `${nodes} pagina's beschikbaar om te exporteren`
   return `${placeholder.value?.title ?? ''} — placeholder`
 })
 

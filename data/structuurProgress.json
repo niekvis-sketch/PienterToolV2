@@ -2,11 +2,11 @@
   {
     "id": "seed0139",
     "projectId": "demo0001",
-    "currentFase": 3,
+    "currentFase": 1,
     "fase1Complete": true,
     "fase2Complete": false,
     "fase3Complete": true,
-    "updatedAt": "2026-06-05T09:13:16.144Z"
+    "updatedAt": "2026-06-11T12:23:36.371Z"
   },
   {
     "id": "c063183e",
@@ -25,5 +25,14 @@
     "fase2Complete": false,
     "fase3Complete": false,
     "updatedAt": "2026-05-28T11:59:23.219Z"
+  },
+  {
+    "id": "dc773da2",
+    "projectId": "08e09d70",
+    "currentFase": 1,
+    "fase1Complete": false,
+    "fase2Complete": false,
+    "fase3Complete": false,
+    "updatedAt": "2026-06-11T11:28:18.774Z"
   }
 ]

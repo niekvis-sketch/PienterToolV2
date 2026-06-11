@@ -54,5 +54,26 @@
     "name": "Overheid",
     "description": "",
     "createdAt": "2026-05-28T11:58:09.720Z"
+  },
+  {
+    "id": "05c248b4",
+    "projectId": "08e09d70",
+    "name": "Bedrijven",
+    "description": "",
+    "createdAt": "2026-06-10T13:12:56.826Z"
+  },
+  {
+    "id": "9872d62e",
+    "projectId": "08e09d70",
+    "name": "Hogescholen",
+    "description": "",
+    "createdAt": "2026-06-10T13:13:07.880Z"
+  },
+  {
+    "id": "882ad994",
+    "projectId": "08e09d70",
+    "name": "Overheid",
+    "description": "",
+    "createdAt": "2026-06-10T13:13:19.227Z"
   }
 ]

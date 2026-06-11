@@ -664,5 +664,75 @@
     "details": "Verplaatst: https://csh-nieuw.nl/onze-aanpak → https://csh-nieuw.nl/onze-aanpak (0 subpagina's mee verplaatst)",
     "oldValue": "https://csh-nieuw.nl/onze-aanpak",
     "newValue": "https://csh-nieuw.nl/onze-aanpak"
+  },
+  {
+    "id": "ca6a0ed6",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-10T13:26:16.397Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "6c36f1bd",
+    "entityTitle": "Magazine",
+    "details": "Verplaatst: https:/csh-nieuw.nl/inspiratie/magazine → https://csh-nieuw.nl/magazine (0 subpagina's mee verplaatst)",
+    "oldValue": "https:/csh-nieuw.nl/inspiratie/magazine",
+    "newValue": "https://csh-nieuw.nl/magazine"
+  },
+  {
+    "id": "1ca101a1",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-10T13:26:21.725Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "6c36f1bd",
+    "entityTitle": "Magazine",
+    "details": "Verplaatst: https://csh-nieuw.nl/magazine → https:/csh-nieuw.nl/inspiratie/magazine (0 subpagina's mee verplaatst)",
+    "oldValue": "https://csh-nieuw.nl/magazine",
+    "newValue": "https:/csh-nieuw.nl/inspiratie/magazine"
+  },
+  {
+    "id": "14ad09d9",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-11T11:35:00.190Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "e26285c4",
+    "entityTitle": "Cases",
+    "details": "Verplaatst: https:/csh-nieuw.nl/inspiratie/cases → https://csh-nieuw.nl/cases (0 subpagina's mee verplaatst)",
+    "oldValue": "https:/csh-nieuw.nl/inspiratie/cases",
+    "newValue": "https://csh-nieuw.nl/cases"
+  },
+  {
+    "id": "db1fb474",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-11T11:35:07.127Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "e26285c4",
+    "entityTitle": "Cases",
+    "details": "Verplaatst: https://csh-nieuw.nl/cases → https:/csh-nieuw.nl/inspiratie/cases (0 subpagina's mee verplaatst)",
+    "oldValue": "https://csh-nieuw.nl/cases",
+    "newValue": "https:/csh-nieuw.nl/inspiratie/cases"
+  },
+  {
+    "id": "c277d9d8",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-11T11:35:33.869Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "fde8da99",
+    "entityTitle": "Introductie",
+    "details": "Blok \"Introductie\" toegevoegd aan pagina"
+  },
+  {
+    "id": "36498660",
+    "projectId": "demo0001",
+    "timestamp": "2026-06-11T11:46:20.461Z",
+    "action": "moved",
+    "entityType": "siteNode",
+    "entityId": "2021bc71",
+    "entityTitle": "Over ons",
+    "details": "Verplaatst: https://csh-nieuw.nl/over-ons → https://csh-nieuw.nl/over-ons (2 subpagina's mee verplaatst)",
+    "oldValue": "https://csh-nieuw.nl/over-ons",
+    "newValue": "https://csh-nieuw.nl/over-ons"
   }
 ]

@@ -1278,5 +1278,25 @@
     "answersQuestionIds": [],
     "forUserStoryIds": [],
     "createdAt": "2026-06-04T12:58:27.995Z"
+  },
+  {
+    "id": "fde8da99",
+    "projectId": "demo0001",
+    "siteNodeId": "a97fe753",
+    "sortOrder": 8,
+    "name": "Introductie",
+    "type": "introductie",
+    "goal": "",
+    "targetUser": "",
+    "contentDescription": "",
+    "componentPattern": "",
+    "isReusable": false,
+    "reusableBlockId": null,
+    "notesContent": "",
+    "notesSeo": "",
+    "notesDesign": "",
+    "answersQuestionIds": [],
+    "forUserStoryIds": [],
+    "createdAt": "2026-06-11T11:35:33.867Z"
   }
 ]

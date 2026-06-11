@@ -9,5 +9,16 @@
       "zoektermen"
     ],
     "createdAt": "2026-04-10T12:21:38.853Z"
+  },
+  {
+    "id": "c0bc2396",
+    "projectId": "klant0001",
+    "name": "seo",
+    "visibleColumns": [
+      "naamPagina",
+      "zoektermen",
+      "slug"
+    ],
+    "createdAt": "2026-06-11T12:05:07.395Z"
   }
 ]
