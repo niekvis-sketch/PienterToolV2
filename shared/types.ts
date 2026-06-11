@@ -111,7 +111,15 @@ export interface DoelgroepVraag {
   opmerkingen: string
   sortOrder: number
   createdAt: string
+  // Herkomst van dit record (zie Concurrenten-tab). Default "handmatig".
+  bron?: RecordBron
+  // Aanname die nog door de klant bevestigd moet worden. Default false.
+  aanname?: boolean
 }
+
+// Herkomst van een SiteNode of DoelgroepVraag. Records die ontstaan vanuit de
+// Concurrenten-tab krijgen "concurrentie-analyse" + aanname=true.
+export type RecordBron = 'handmatig' | 'concurrentie-analyse' | 'import'
 
 // ---------- Fase 1: User Stories & Klantvragen ----------
 export interface UserStory {
@@ -189,6 +197,10 @@ export interface SiteNode {
   relatedUserStoryIds: string[]
   openQuestionIds: string[]     // open vragen uit fase 1
   notes: string
+  // Herkomst van deze pagina (zie Concurrenten-tab). Default "handmatig".
+  bron?: RecordBron
+  // Aanname die nog door de klant bevestigd moet worden. Default false.
+  aanname?: boolean
   // Timestamps
   createdAt: string
   updatedAt: string
@@ -445,6 +457,54 @@ export interface ContentStructuurPreset {
   name: string
   visibleColumns: string[]  // keys van ContentStructuurRow velden
   createdAt: string
+}
+
+// ============================================================
+// Concurrenten – inputbron: pagina's & functionaliteit per concurrent,
+// vergelijken over concurrenten heen en doorzetten naar Fase 1/2.
+// ============================================================
+
+export interface ConcurrentPagina {
+  id: string
+  naam: string          // label, bv. "Diensten"
+  url?: string          // diepe link naar die pagina
+  notitie?: string
+}
+
+export interface ConcurrentFunctie {
+  id: string
+  naam: string          // bv. "Offerte aanvragen online"
+  notitie?: string
+}
+
+export interface Concurrent {
+  id: string
+  projectId: string
+  naam: string          // verplicht, bv. "Bouwbedrijf Jansen"
+  url?: string          // homepage, optioneel
+  notitie?: string
+  paginas: ConcurrentPagina[]
+  functies: ConcurrentFunctie[]
+  createdAt: string
+  updatedAt: string
+}
+
+// Log op label-niveau: onthoudt dat een uniek label al is doorgezet naar
+// structuur (één SiteNode) of een vraag (één DoelgroepVraag).
+export interface Doorzet {
+  id: string
+  projectId: string
+  type: 'pagina' | 'functie'
+  label: string         // genormaliseerd label (lowercase, trimmed)
+  doel: 'structuur' | 'vraag'
+  targetId: string      // siteNodeId (structuur) of vraagId (vraag)
+  doorgezetOp: string   // ISO
+}
+
+// Vorm van data/concurrenten/{projectId}.json
+export interface ConcurrentenDoc {
+  concurrenten: Concurrent[]
+  doorzetten: Doorzet[]
 }
 
 // ============================================================

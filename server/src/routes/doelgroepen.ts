@@ -89,6 +89,8 @@ doelgroepenRouter.post('/:projectId/:doelgroepId/vragen', (req: Request, res: Re
     webpagina: req.body.webpagina || '',
     opmerkingen: req.body.opmerkingen || '',
     sortOrder: existing.length,
+    bron: req.body.bron || 'handmatig',
+    aanname: req.body.aanname ?? false,
     createdAt: now(),
   }
   all.push(item)

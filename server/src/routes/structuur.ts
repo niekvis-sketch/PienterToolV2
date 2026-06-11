@@ -273,6 +273,8 @@ structuurRouter.post('/:projectId/nodes', (req: Request, res: Response) => {
     relatedUserStoryIds: req.body.relatedUserStoryIds || [],
     openQuestionIds: req.body.openQuestionIds || [],
     notes: req.body.notes || '',
+    bron: req.body.bron || 'handmatig',
+    aanname: req.body.aanname ?? false,
     createdAt: now(),
     updatedAt: now()
   }

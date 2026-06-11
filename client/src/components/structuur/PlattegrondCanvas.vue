@@ -104,7 +104,7 @@ function rebuild() {
       id: n.id,
       type: 'pageCard',
       position: { x: 0, y: 0 },
-      data: { title: n.title, fullUrl: n.fullUrl, blocks },
+      data: { title: n.title, fullUrl: n.fullUrl, blocks, aanname: !!n.aanname },
       _height: heightFor(n.id, blocks.length),
     }
   })

@@ -8,6 +8,11 @@
     <div class="bg-pienter-100 px-3 py-2 border-b border-pienter-200">
       <div class="truncate text-sm font-semibold text-pienter-900">{{ data.title || 'Naamloos' }}</div>
       <div v-if="data.fullUrl" class="truncate font-mono text-[10px] text-pienter-500">{{ data.fullUrl }}</div>
+      <span
+        v-if="data.aanname"
+        class="inline-block mt-1 rounded-full bg-amber-100 border border-amber-200 px-1.5 py-0.5 text-[9px] font-medium text-amber-700"
+        title="Uit concurrentie-analyse, nog niet bevestigd door de klant"
+      >aanname</span>
     </div>
 
     <!-- Blokken -->
@@ -32,6 +37,6 @@ import { Handle, Position } from '@vue-flow/core'
 
 interface CardBlock { id: string; name: string; type: string; goal: string }
 defineProps<{
-  data: { title: string; fullUrl: string; blocks: CardBlock[] }
+  data: { title: string; fullUrl: string; blocks: CardBlock[]; aanname?: boolean }
 }>()
 </script>

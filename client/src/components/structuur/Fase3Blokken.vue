@@ -21,6 +21,7 @@
         >
           <span v-if="node.level > 0" class="text-gray-300 text-xs">└</span>
           <span class="flex-1 truncate">{{ node.title }}</span>
+          <span v-if="node.aanname" class="text-[9px] text-amber-600" title="Aanname uit concurrentie-analyse">●</span>
           <span class="text-[10px] text-gray-400">{{ blockCountForNode(node.id) }}b</span>
         </div>
       </div>
@@ -39,6 +40,7 @@
             <div class="flex items-center gap-3 mb-3">
               <h4 class="text-lg font-bold text-gray-900">{{ selectedNode.title }}</h4>
               <span class="text-xs text-pienter-600 font-mono">{{ selectedNode.fullUrl }}</span>
+              <AannameBadge v-if="selectedNode.aanname" bevestigbaar @bevestig="bevestigNode(selectedNode.id)" />
               <div class="ml-auto">
                 <button
                   class="btn-sm text-xs flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-colors"
@@ -216,12 +218,18 @@ import { ref, computed, watch, reactive, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'
 import PageVisualPreview from './PageVisualPreview.vue'
+import AannameBadge from '../concurrenten/AannameBadge.vue'
 import type { PageBlock, BlockType, ComponentCategory } from '@shared/types'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
 const projectStore = useProjectStore()
 const showPreview = ref(false)
+
+// Aanname (uit concurrentie-analyse) bevestigen → markering weghalen.
+async function bevestigNode(nodeId: string) {
+  await store.updateNode(props.projectId, nodeId, { aanname: false })
+}
 
 // Load all blocks on mount for sidebar counts
 onMounted(async () => {

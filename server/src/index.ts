@@ -10,6 +10,7 @@ import { structuurRouter } from './routes/structuur'
 import { doelgroepenRouter } from './routes/doelgroepen'
 import { componentenRouter } from './routes/componenten'
 import { contentStructuurRouter } from './routes/contentStructuur'
+import { concurrentenRouter } from './routes/concurrenten'
 import { klantenRouter } from './routes/klanten'
 import { medewerkersRouter } from './routes/medewerkers'
 import { slidesRouter } from './routes/slides'
@@ -22,6 +23,9 @@ app.use(express.json({ limit: '5mb' }))
 
 // Routes
 app.use('/api/projects', projectRouter)
+// Concurrenten-tab hangt onder /api/projects/:projectId/concurrenten. Mount na
+// projectRouter; de paden overlappen niet, dus niet-gematchte requests vallen door.
+app.use('/api/projects', concurrentenRouter)
 app.use('/api/structuur', structuurRouter)
 app.use('/api/doelgroepen', doelgroepenRouter)
 app.use('/api/componenten', componentenRouter)

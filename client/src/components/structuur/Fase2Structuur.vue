@@ -61,6 +61,17 @@
       </div>
     </div>
 
+    <!-- Aanname-notice (uit concurrentie-analyse, nog niet bevestigd) -->
+    <div v-if="aannameNodes.length > 0" class="card p-4 border-l-4 border-amber-300 bg-amber-50/60">
+      <div class="flex items-start gap-2 text-sm text-amber-800">
+        <span>🏢</span>
+        <div>
+          <strong>{{ aannameNodes.length }} pagina's op basis van aanname</strong> (uit concurrentie-analyse, nog niet bevestigd door de klant).
+          <div class="text-xs text-amber-700 mt-0.5">{{ aannameNodes.map(n => n.title).join(', ') }}</div>
+        </div>
+      </div>
+    </div>
+
     <!-- View toggle: Menu | Plattegrond -->
     <div class="flex items-center gap-1 bg-gray-100 rounded-lg p-1 w-fit">
       <button
@@ -83,7 +94,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'
 import type { JourneyFase } from '@shared/types'
@@ -111,6 +122,8 @@ const importMsg = ref('')
 const importError = ref(false)
 const importReplace = ref(true)
 const copySuccess = ref('')
+
+const aannameNodes = computed(() => store.siteNodes.filter(n => n.aanname))
 
 async function addRootNode() {
   await store.createNode(props.projectId, { title: 'Nieuwe pagina', slug: 'nieuwe-pagina' })

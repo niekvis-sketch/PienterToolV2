@@ -69,6 +69,9 @@
                       placeholder="Vraag..."
                       @save="(val: string) => updateVraagField(dg.id, vraag.id, 'text', val)"
                     />
+                    <div v-if="vraag.aanname" class="mt-1">
+                      <AannameBadge bevestigbaar @bevestig="bevestigVraag(dg.id, vraag.id)" />
+                    </div>
                   </td>
                   <td class="px-4 py-2 align-top">
                     <EditableCell
@@ -170,6 +173,7 @@ import { ref, computed, onMounted, defineComponent, h } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'
 import type { DoelgroepVraag, JourneyFase } from '@shared/types'
+import AannameBadge from '../concurrenten/AannameBadge.vue'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
@@ -263,6 +267,11 @@ onMounted(async () => {
 // Update a single field on a vraag
 async function updateVraagField(doelgroepId: string, vraagId: string, field: string, value: string) {
   await projectStore.updateDoelgroepVraag(props.projectId, doelgroepId, vraagId, { [field]: value })
+}
+
+// Aanname (uit concurrentie-analyse) bevestigen → markering weghalen.
+async function bevestigVraag(doelgroepId: string, vraagId: string) {
+  await projectStore.updateDoelgroepVraag(props.projectId, doelgroepId, vraagId, { aanname: false })
 }
 
 // Copy all questions to clipboard in a ChatGPT-friendly format
