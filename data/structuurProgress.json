@@ -29,10 +29,19 @@
   {
     "id": "dc773da2",
     "projectId": "08e09d70",
-    "currentFase": 1,
+    "currentFase": 2,
     "fase1Complete": false,
     "fase2Complete": false,
     "fase3Complete": false,
-    "updatedAt": "2026-06-11T11:28:18.774Z"
+    "updatedAt": "2026-06-15T12:30:39.755Z"
+  },
+  {
+    "id": "b0b29a04",
+    "projectId": "f6a7ce82",
+    "currentFase": 2,
+    "fase1Complete": false,
+    "fase2Complete": false,
+    "fase3Complete": false,
+    "updatedAt": "2026-06-15T11:43:57.085Z"
   }
 ]

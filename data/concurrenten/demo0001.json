@@ -1,0 +1,126 @@
+{
+  "concurrenten": [
+    {
+      "id": "6d31aa01",
+      "projectId": "demo0001",
+      "naam": "Leukefeestjes.nl",
+      "url": "",
+      "notitie": "",
+      "paginas": [
+        {
+          "id": "ae4caaf9",
+          "naam": "Home",
+          "url": "",
+          "notitie": ""
+        },
+        {
+          "id": "7320bd31",
+          "naam": "Cases",
+          "url": "",
+          "notitie": ""
+        },
+        {
+          "id": "0c1c0890",
+          "naam": "Contact",
+          "url": "",
+          "notitie": ""
+        }
+      ],
+      "functies": [
+        {
+          "id": "f406563d",
+          "naam": "Offerte aanvragen",
+          "notitie": ""
+        },
+        {
+          "id": "e8ced550",
+          "naam": "Online afspraak",
+          "notitie": ""
+        },
+        {
+          "id": "fc235b28",
+          "naam": "Reviews-widget",
+          "notitie": ""
+        }
+      ],
+      "createdAt": "2026-06-11T13:27:00.585Z",
+      "updatedAt": "2026-06-11T13:29:31.757Z"
+    },
+    {
+      "id": "1152b99e",
+      "projectId": "demo0001",
+      "naam": "nogleukerefeestjes.nl",
+      "url": "",
+      "notitie": "",
+      "paginas": [
+        {
+          "id": "e8a2dbd3",
+          "naam": "Home",
+          "url": "",
+          "notitie": ""
+        },
+        {
+          "id": "167e4860",
+          "naam": "Diensten",
+          "url": "",
+          "notitie": ""
+        },
+        {
+          "id": "49247b7a",
+          "naam": "Over ons",
+          "url": "",
+          "notitie": ""
+        },
+        {
+          "id": "475b75bb",
+          "naam": "Cases",
+          "url": "",
+          "notitie": ""
+        },
+        {
+          "id": "5111ccaf",
+          "naam": "Contact",
+          "url": "",
+          "notitie": ""
+        },
+        {
+          "id": "4842b0ee",
+          "naam": "Blog",
+          "url": "",
+          "notitie": ""
+        },
+        {
+          "id": "9a6f0b61",
+          "naam": "Vacatures",
+          "url": "",
+          "notitie": ""
+        }
+      ],
+      "functies": [
+        {
+          "id": "024d53a6",
+          "naam": "Offerte aanvragen",
+          "notitie": ""
+        },
+        {
+          "id": "9be86021",
+          "naam": "Klantportaal",
+          "notitie": ""
+        },
+        {
+          "id": "4f7910bf",
+          "naam": "Live chat",
+          "notitie": ""
+        },
+        {
+          "id": "4976698b",
+          "naam": "Reviews-widget",
+          "notitie": ""
+        }
+      ],
+      "createdAt": "2026-06-11T13:30:11.738Z",
+      "updatedAt": "2026-06-11T13:30:23.076Z"
+    }
+  ],
+  "doorzetten": []
+}

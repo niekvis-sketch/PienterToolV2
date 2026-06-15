@@ -201,6 +201,9 @@ export interface SiteNode {
   bron?: RecordBron
   // Aanname die nog door de klant bevestigd moet worden. Default false.
   aanname?: boolean
+  // Handmatige horizontale positie op het Plattegrond-canvas (px). Null/undefined
+  // = automatische dagre-layout. De verticale rij blijft altijd afgeleid van het niveau.
+  canvasX?: number | null
   // Timestamps
   createdAt: string
   updatedAt: string

@@ -1,7 +1,7 @@
 [
   {
     "pageId": "seed0101",
-    "metaTitle": "Cooling Service Holland | Koeltechniek specialist",
+    "metaTitle": "Niquell | Koeltechniek specialist",
     "metaDescription": "Al meer dan 25 jaar uw partner in koeltechniek. Installatie, onderhoud en service voor retail, horeca en industrie.",
     "focusTopic": "koeltechniek specialist",
     "redirectsFrom": []
@@ -29,7 +29,7 @@
   },
   {
     "pageId": "seed0103",
-    "metaTitle": "Over Cooling Service Holland",
+    "metaTitle": "Over Niquell",
     "metaDescription": "",
     "focusTopic": "koeltechniek bedrijf",
     "redirectsFrom": []
@@ -71,11 +71,11 @@
   },
   {
     "pageId": "seed0104",
-    "metaTitle": "Contact | Cooling Service Holland",
+    "metaTitle": "Contact | Niquell",
     "metaDescription": "Neem contact op voor vragen over koeltechniek, installatie of onderhoud.",
     "focusTopic": "contact koeltechniek",
     "redirectsFrom": [
-      "coolingserviceholland.nl/contact"
+      "niquell.nl/contact"
     ]
   }
 ]

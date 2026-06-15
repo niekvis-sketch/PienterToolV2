@@ -994,5 +994,33 @@
     "opmerkingen": "",
     "sortOrder": 14,
     "createdAt": "2026-06-04T12:02:25.373Z"
+  },
+  {
+    "id": "29edf162",
+    "projectId": "f6a7ce82",
+    "doelgroepId": "a9cb45e2",
+    "fase": "see",
+    "text": "test",
+    "answer": "",
+    "webpagina": "",
+    "opmerkingen": "",
+    "sortOrder": 0,
+    "bron": "handmatig",
+    "aanname": false,
+    "createdAt": "2026-06-15T11:19:21.539Z"
+  },
+  {
+    "id": "bcc44d1f",
+    "projectId": "f6a7ce82",
+    "doelgroepId": "a9cb45e2",
+    "fase": "see",
+    "text": "contact formulier",
+    "answer": "",
+    "webpagina": "",
+    "opmerkingen": "",
+    "sortOrder": 1,
+    "bron": "handmatig",
+    "aanname": false,
+    "createdAt": "2026-06-15T11:36:48.937Z"
   }
 ]

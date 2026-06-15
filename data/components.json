@@ -858,5 +858,865 @@
     ],
     "createdAt": "2026-06-05T08:54:57.043Z",
     "updatedAt": "2026-06-05T08:54:57.043Z"
+  },
+  {
+    "id": "3fc062e6",
+    "projectId": "08e09d70",
+    "name": "Hero",
+    "category": "broodblok",
+    "description": "Grote intro-sectie bovenaan een pagina met heading, afbeelding en CTA-buttons. Altijd het eerste blok op een pagina, full-width en visueel dominant.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Groot/ImageMetTekst",
+        "description": "Full-size hero met achtergrondafbeelding, titel, subtitel en twee buttons.",
+        "variants": []
+      },
+      {
+        "name": "Klein/ImageMetTekst",
+        "description": "Compactere hero met afbeelding en tekst, zelfde opzet als Groot maar kleiner.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.209Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "a4300868",
+    "projectId": "08e09d70",
+    "name": "Navbar",
+    "category": "broodblok",
+    "description": "Hoofdnavigatie bovenaan elke pagina met logo, menu-items en CTA-button. Het enige blok dat op elke pagina terugkomt als navigatie-element.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Klein/Standaard",
+        "description": "Standaard navigatiebalk met logo en menu.",
+        "variants": []
+      },
+      {
+        "name": "Klein/DigitaalToegankelijk",
+        "description": "Navigatiebalk met toegankelijkheidsicoon.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "e4a56c05",
+    "projectId": "08e09d70",
+    "name": "Footer",
+    "category": "broodblok",
+    "description": "Voettekst met logo, social media iconen, links en optioneel een contactformulier. Bevat contactinfo en site-brede links, sluit elke pagina af.",
+    "imagePath": "",
+    "variants": [
+      {
+        "property": "Variant",
+        "values": [
+          "MetContactForm",
+          "Standaard"
+        ]
+      }
+    ],
+    "subComponents": [],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "7b0e8c5c",
+    "projectId": "08e09d70",
+    "name": "UnderFooter",
+    "category": "broodblok",
+    "description": "Smalle balk onder de footer met copyright-informatie. Het kleinste en meest minimalistische blok, altijd onderaan.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Copyrightbalk",
+        "description": "Eenregelige balk met copyright-tekst.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "809758eb",
+    "projectId": "08e09d70",
+    "name": "Text",
+    "category": "flexblok",
+    "description": "Puur tekstblok zonder media. Bevat tagline, heading, body text en twee buttons (primair + secundair). Het enige blok dat uitsluitend tekst toont.",
+    "imagePath": "",
+    "variants": [
+      {
+        "property": "Align",
+        "values": [
+          "Left",
+          "Center",
+          "Right"
+        ]
+      }
+    ],
+    "subComponents": [],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "1b13f054",
+    "projectId": "08e09d70",
+    "name": "MediaText",
+    "category": "flexblok",
+    "description": "Tekst naast of boven/onder media (afbeelding of video). Het meest veelzijdige blok. T.o.v. Cards: media en tekst staan naast/boven elkaar, niet als overlay.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Default",
+        "description": "Twee kolommen side-by-side, tekst en media naast elkaar. Tagline, heading, body, twee buttons.",
+        "variants": [
+          {
+            "property": "Layout",
+            "values": [
+              "TextLeftImageRight",
+              "TextRightImageLeft",
+              "TextLeftVideoRight",
+              "TextRightVideoLeft"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Centered",
+        "description": "Gestapeld verticaal, tekst en media boven/onder elkaar, gecentreerd over de volle breedte.",
+        "variants": [
+          {
+            "property": "Layout",
+            "values": [
+              "TextTopImageBottom",
+              "TextBottomImageTop",
+              "TextTopVideoBottom",
+              "TextBottomVideoTop"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "MediaOnly",
+        "description": "Alleen media zonder tekst, puur een afbeelding of video placeholder.",
+        "variants": [
+          {
+            "property": "Type",
+            "values": [
+              "Image",
+              "Video"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "TextRight",
+        "description": "Losstaande variant met tekst rechts naast media.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "b0ab5c19",
+    "projectId": "08e09d70",
+    "name": "Columns",
+    "category": "flexblok",
+    "description": "Tekst verdeeld over 1, 2 of 3 kolommen. Elke kolom heeft een eigen tagline, heading, body text en button. Ideaal voor het vergelijken van diensten of features.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "1Col",
+        "description": "",
+        "variants": [
+          {
+            "property": "Align",
+            "values": [
+              "Left",
+              "Center",
+              "Right"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "2Col",
+        "description": "",
+        "variants": [
+          {
+            "property": "Align",
+            "values": [
+              "Left",
+              "Center",
+              "Right"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "3Col",
+        "description": "",
+        "variants": [
+          {
+            "property": "Align",
+            "values": [
+              "Left",
+              "Center",
+              "Right"
+            ]
+          }
+        ]
+      }
+    ],
+    "helpers": [
+      "TextBlockLeft",
+      "TextBlockCenter",
+      "TextBlockRight"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "2192653f",
+    "projectId": "08e09d70",
+    "name": "Cards",
+    "category": "flexblok",
+    "description": "Kaart-achtige blokken die tekst combineren met achtergrondafbeeldingen. De afbeelding vormt de achtergrond of is direct gekoppeld aan een tekstkaart.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Blocks",
+        "description": "Verschillende layout-configuraties voor tekst met afbeelding.",
+        "variants": [
+          {
+            "property": "Layout",
+            "values": [
+              "TextOnImage",
+              "TextBelowImage",
+              "TextAboveImage"
+            ]
+          }
+        ]
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "22217e75",
+    "projectId": "08e09d70",
+    "name": "MediaSlider",
+    "category": "flexblok",
+    "description": "Carrousel/slider met gecentreerde tekstbanner en navigatie-controls (pijlen + dots). Het enige blok met navigatie-controls, bedoeld voor doorbladerbare media.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "CenterBanner",
+        "description": "Gecentreerde tekst boven een slider met navigatiepijlen en paginatie.",
+        "variants": []
+      },
+      {
+        "name": "Doorlopend",
+        "description": "Tekstblok naast een doorlopende (auto-scrollende) rij media-tiles die over de rand bleed't.",
+        "variants": [
+          {
+            "property": "Layout",
+            "values": [
+              "TextLeftSliderRight",
+              "TextRightSliderLeft"
+            ]
+          }
+        ]
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "4c187142",
+    "projectId": "08e09d70",
+    "name": "USP",
+    "category": "flexblok",
+    "description": "Unique Selling Points met iconen. Toont USP-items bestaande uit een icoon, heading en korte beschrijving. Verschilt van Columns doordat elk item een visueel icoon heeft.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Default",
+        "description": "1, 2 of 3 USP-items in een rij, bovenaan een heading met button.",
+        "variants": [
+          {
+            "property": "Count",
+            "values": [
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "TextLeftImageRight",
+        "description": "Beschrijvende tekst links met USP-items en een grote afbeelding rechts.",
+        "variants": []
+      },
+      {
+        "name": "GridRightTextLeft",
+        "description": "USP-items als grid rechts, samenvattende tekst links met button.",
+        "variants": []
+      },
+      {
+        "name": "Item",
+        "description": "Individueel USP-bouwblok (icoon + tekst).",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "f4e5445f",
+    "projectId": "08e09d70",
+    "name": "USPNumbers",
+    "category": "flexblok",
+    "description": "Statistieken en cijfers prominent weergegeven. Grote getallen met labels eronder. Draait om numerieke impact i.p.v. iconen.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "CenterBanner",
+        "description": "Cijfers gecentreerd in een rij.",
+        "variants": []
+      },
+      {
+        "name": "NumbersLeftTextRight",
+        "description": "Cijfers links, heading en body text rechts.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "788ef2c0",
+    "projectId": "08e09d70",
+    "name": "CTA",
+    "category": "flexblok",
+    "description": "Opvallende call-to-action blokken met donkere/gekleurde achtergronden en prominente buttons. Het \"conversie-blok\".",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "CenterCard",
+        "description": "Donkere kaart met afbeelding-thumbnail links, tekst en button rechts.",
+        "variants": []
+      },
+      {
+        "name": "ImageLeftTextRight",
+        "description": "Donkere achtergrond met afbeelding links en tekst rechts.",
+        "variants": []
+      },
+      {
+        "name": "BackgroundTextLeft",
+        "description": "Full-width achtergrondafbeelding met tekst-overlay links en button.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "12a7fe2b",
+    "projectId": "08e09d70",
+    "name": "MediaGrid",
+    "category": "flexblok",
+    "description": "Raster van media-items met titels in een grid-layout. Geschikt voor portfolio's, galerijen of productoverzichten.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "TextImage",
+        "description": "Full-width sectie met heading bovenaan, dan grid van afbeeldingskaarten met titels, beschrijvingen en link-iconen.",
+        "variants": []
+      },
+      {
+        "name": "TitleImage",
+        "description": "Grid van afbeeldingen met titels.",
+        "variants": [
+          {
+            "property": "Tags",
+            "values": [
+              "With",
+              "Without"
+            ]
+          }
+        ]
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "50cd98e3",
+    "projectId": "08e09d70",
+    "name": "Quote",
+    "category": "flexblok",
+    "description": "Testimonial/citaat-blokken met aanhalingstekens-icoon, naam en persoonsfoto of bedrijfslogo. Het enige blok specifiek voor sociale bewijskracht.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "TextImage",
+        "description": "Citaat met aanhalingstekens, tekst aan de ene kant, persoonsfoto aan de andere.",
+        "variants": [
+          {
+            "property": "Layout",
+            "values": [
+              "TextLeftPersonRight",
+              "TextRightPersonLeft"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "TextInKader",
+        "description": "Citaat in een gestileerd kader met aanhalingstekens, naam, achternaam en bedrijfslogo.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "21160187",
+    "projectId": "08e09d70",
+    "name": "StepsMedia",
+    "category": "flexblok",
+    "description": "Stapsgewijs proces met afbeelding. Genummerde stappen (1-5) verticaal met heading en beschrijving, plus een ondersteunende visual.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "StepsLeftImageRight",
+        "description": "Genummerde stappen verticaal op een rij, afbeelding rechts.",
+        "variants": []
+      },
+      {
+        "name": "Step",
+        "description": "Individueel stap-bouwblok (nummer + tekst).",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "8fd550b4",
+    "projectId": "08e09d70",
+    "name": "StepsTeaser",
+    "category": "flexblok",
+    "description": "Stapsgewijs proces als compacte teaser met voortgangslijn (dots op een lijn). Het \"stappenplan in een oogopslag\".",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Default",
+        "description": "Stappen als kaarten met voortgangsindicator, grotere stippen.",
+        "variants": [
+          {
+            "property": "Direction",
+            "values": [
+              "Horizontal",
+              "Vertical"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "SmallDots",
+        "description": "Zelfde maar met kleinere stippen op de voortgangslijn.",
+        "variants": [
+          {
+            "property": "Direction",
+            "values": [
+              "Horizontal",
+              "Vertical"
+            ]
+          }
+        ]
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "c5675bae",
+    "projectId": "08e09d70",
+    "name": "Accordion",
+    "category": "flexblok",
+    "description": "Uitklapbare FAQ-achtige component met titel, beschrijvende tekst en inklapbare items met chevron-icoon. Het enige interactieve blok waar content verborgen is tot de gebruiker klikt.",
+    "imagePath": "",
+    "variants": [
+      {
+        "property": "Variant",
+        "values": [
+          "Default"
+        ]
+      }
+    ],
+    "subComponents": [],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "7cb8bea4",
+    "projectId": "08e09d70",
+    "name": "Form",
+    "category": "flexblok",
+    "description": "Formulier-componenten voor leadgeneratie en contact. Het enige blok met invoervelden, bedoeld voor gebruikersinteractie en data-verzameling.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Default",
+        "description": "Twee-kolom layout met contactinfo en USP-bolletjes links, formulierblok met donkere header rechts.",
+        "variants": []
+      },
+      {
+        "name": "Contact",
+        "description": "Eenvoudig formulier met titel, meerdere invoervelden en verzendknop.",
+        "variants": []
+      },
+      {
+        "name": "FieldLeftImageRight",
+        "description": "Formuliervelden links, afbeelding rechts.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "c491101a",
+    "projectId": "08e09d70",
+    "name": "LinkBlocks",
+    "category": "flexblok",
+    "description": "Navigatie/link-kaarten als sectie. Elke kaart is een doorverwijzing met afbeelding, titel, beschrijving en button.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Default",
+        "description": "Sectie met heading, \"bekijk alles\"-link en 3 linkkaarten in een rij met paginatie.",
+        "variants": []
+      },
+      {
+        "name": "Card",
+        "description": "Individuele linkkaart-bouwblok.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "95f26a97",
+    "projectId": "08e09d70",
+    "name": "Featured",
+    "category": "flexblok",
+    "description": "Highlight-blok met uitgelicht content-item, geschikt voor het uitlichten van een persoon, case study of artikel.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "TextLeftHighlightRight",
+        "description": "Beschrijvende tekst links en een uitgelichte kaart rechts met persoonsfoto, overlay-label en doorlink-pijl.",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "8f673ec0",
+    "projectId": "08e09d70",
+    "name": "News",
+    "category": "posttype",
+    "description": "Nieuwsberichten en actualiteiten.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Archive",
+        "description": "CardGrid",
+        "variants": []
+      },
+      {
+        "name": "Teaser",
+        "description": "CardSlider",
+        "variants": []
+      }
+    ],
+    "helpers": [
+      "NewsCard"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "09c16f8e",
+    "projectId": "08e09d70",
+    "name": "Blogs",
+    "category": "posttype",
+    "description": "Blogartikelen met overzicht, detail en teaser views.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Archive",
+        "description": "CardGrid",
+        "variants": []
+      },
+      {
+        "name": "Detail",
+        "description": "ArticlePage",
+        "variants": []
+      },
+      {
+        "name": "Teaser",
+        "description": "CardSlider",
+        "variants": []
+      }
+    ],
+    "helpers": [
+      "BlogCard",
+      "BlogHeading"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "8b4e54f6",
+    "projectId": "08e09d70",
+    "name": "Events",
+    "category": "posttype",
+    "description": "Evenementen en bijeenkomsten.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Archive",
+        "description": "CardGrid",
+        "variants": []
+      },
+      {
+        "name": "Teaser",
+        "description": "CardSlider",
+        "variants": []
+      }
+    ],
+    "helpers": [
+      "EventCard"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "d730e869",
+    "projectId": "08e09d70",
+    "name": "Affiliates",
+    "category": "posttype",
+    "description": "Partner- en affiliate-links.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Teaser",
+        "description": "LinkStrip",
+        "variants": []
+      }
+    ],
+    "helpers": [],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "5b0a844b",
+    "projectId": "08e09d70",
+    "name": "Portfolio",
+    "category": "posttype",
+    "description": "Portfolio-items en projecten.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Archive",
+        "description": "CardGrid",
+        "variants": []
+      },
+      {
+        "name": "Teaser",
+        "description": "CardSlider",
+        "variants": []
+      }
+    ],
+    "helpers": [
+      "PortfolioCard"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "6ae12ac1",
+    "projectId": "08e09d70",
+    "name": "FAQ",
+    "category": "posttype",
+    "description": "Veelgestelde vragen met accordion-layouts.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Archive",
+        "description": "AccordionOneColumn, AccordionTwoColumns",
+        "variants": []
+      },
+      {
+        "name": "Teaser",
+        "description": "AccordionOneColumn, AccordionTwoColumns, TextLeftQuestionsRight",
+        "variants": []
+      }
+    ],
+    "helpers": [
+      "FAQCard (Staat=Open | Staat=Dicht)",
+      "FAQItemOpen",
+      "FAQItemClosed"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "f12c8654",
+    "projectId": "08e09d70",
+    "name": "Jobs",
+    "category": "posttype",
+    "description": "Vacatures en functies.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Teaser",
+        "description": "List, CardSlider",
+        "variants": []
+      }
+    ],
+    "helpers": [
+      "JobItem",
+      "JobCard"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "fbcd94d0",
+    "projectId": "08e09d70",
+    "name": "Cases",
+    "category": "posttype",
+    "description": "Klantcases en projectreferenties.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Archive",
+        "description": "CardGrid",
+        "variants": []
+      },
+      {
+        "name": "Teaser",
+        "description": "CardSlider",
+        "variants": []
+      }
+    ],
+    "helpers": [
+      "CaseCard"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "aaee61e9",
+    "projectId": "08e09d70",
+    "name": "Testimonials",
+    "category": "posttype",
+    "description": "Klantervaringen en aanbevelingen.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Archive",
+        "description": "CardGrid",
+        "variants": []
+      },
+      {
+        "name": "Teaser",
+        "description": "CardSlider",
+        "variants": []
+      }
+    ],
+    "helpers": [
+      "TestimonialCard"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
+  },
+  {
+    "id": "922e6df5",
+    "projectId": "08e09d70",
+    "name": "Reviews",
+    "category": "posttype",
+    "description": "Beoordelingen en reviews.",
+    "imagePath": "",
+    "variants": [],
+    "subComponents": [
+      {
+        "name": "Teaser",
+        "description": "ReviewCards",
+        "variants": []
+      }
+    ],
+    "helpers": [
+      "ReviewCard"
+    ],
+    "createdAt": "2026-06-15T09:35:01.210Z",
+    "updatedAt": "2026-06-15T09:35:01.210Z"
   }
 ]

@@ -3,7 +3,7 @@
     <!-- Toolbar -->
     <div class="flex items-center justify-between gap-3">
       <p class="text-xs text-gray-500">
-        {{ nodes.length }} pagina's · {{ edges.length }} verbindingen — sleep een kaartje <strong>op een ander</strong> om het daaronder te hangen, of naar een <strong>lege plek</strong> om het hoofdpagina te maken. Loslaten tussen siblings bepaalt de volgorde.
+        {{ cardCount }} pagina's · {{ edges.length }} verbindingen — sleep een kaartje naar een <strong>rij</strong> om het niveau te bepalen (bovenste rij = hoofdpagina, lager = sub van de kaart erboven). De <strong>horizontale positie</strong> waar je loslaat wordt bewaard; "↻ Opnieuw ordenen" zet alles terug naar de automatische layout.
       </p>
       <div class="flex shrink-0 gap-2">
         <button class="btn-secondary btn-sm" :disabled="saving" @click="relayout">↻ Opnieuw ordenen</button>
@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, markRaw, watch, onMounted, nextTick } from 'vue'
+import { ref, computed, markRaw, watch, onMounted, nextTick } from 'vue'
 import { VueFlow, useVueFlow, type Node, type Edge, type GraphNode } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
@@ -54,25 +54,43 @@ import '@vue-flow/core/dist/theme-default.css'
 import '@vue-flow/controls/dist/style.css'
 import { useStructuurStore } from '../../stores/structuurStore'
 import PageCardNode from './PageCardNode.vue'
+import LaneBackground from './LaneBackground.vue'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
 
-const { fitView, getIntersectingNodes, onNodeDrag, onNodeDragStop, onNodesInitialized, findNode } = useVueFlow()
+const { fitView, onNodeDrag, onNodeDragStop, onNodesInitialized, findNode } = useVueFlow()
 
 // `as any`: Vue Flow's NodeComponent-type matcht een SFC met defineProps niet
 // schoon — bekende typing-frictie, runtime werkt prima.
-const nodeTypes = { pageCard: markRaw(PageCardNode) as any }
+const nodeTypes = { pageCard: markRaw(PageCardNode) as any, lane: markRaw(LaneBackground) as any }
 
 const nodes = ref<Node[]>([])
 const edges = ref<Edge[]>([])
 const saving = ref(false)
 const moveMsg = ref('')
 
+// Aantal echte pagina-kaarten (lane-achtergronden niet meegeteld).
+const cardCount = computed(() => nodes.value.filter((n) => n.type === 'pageCard').length)
+
 const NODE_WIDTH = 240
 const HEADER_H = 48
 const BLOCK_H = 30
 const PADDING_H = 16
+const RANKSEP = 90
+const LANE_PAD = 38      // verticale marge boven/onder de kaarten binnen een lane
+const LANE_SIDE = 600    // horizontale overhang zodat lanes breed genoeg zijn
+
+// Lane-banden (één per niveau, plus een lege reservelane onderaan), afgeleid
+// uit de dagre-layout. Gebruikt voor zowel rendering als drop-detectie.
+interface Lane { level: number; centerY: number; top: number; height: number }
+let lanes: Lane[] = []
+
+function laneLabel(level: number): string {
+  if (level === 0) return "Hoofdpagina's"
+  if (level === 1) return 'Subpagina’s'
+  return `Niveau ${level + 1}`
+}
 
 function estimateHeight(blockCount: number): number {
   return HEADER_H + PADDING_H + Math.max(1, blockCount) * BLOCK_H
@@ -123,7 +141,7 @@ function rebuild() {
   // dagre layout
   const g = new dagre.graphlib.Graph()
   g.setDefaultEdgeLabel(() => ({}))
-  g.setGraph({ rankdir: 'TB', nodesep: 40, ranksep: 90 })
+  g.setGraph({ rankdir: 'TB', nodesep: 40, ranksep: RANKSEP })
   for (const n of rawNodes) g.setNode(n.id, { width: NODE_WIDTH, height: n._height })
   for (const e of rawEdges) g.setEdge(e.source, e.target)
   dagre.layout(g)
@@ -136,21 +154,98 @@ function rebuild() {
     rowMaxHeight.set(key, Math.max(rowMaxHeight.get(key) ?? 0, n._height))
   }
 
-  nodes.value = rawNodes.map((n): Node => {
+  const cardNodes = rawNodes.map((n): Node => {
     const p = g.node(n.id)
     const rowTop = p.y - (rowMaxHeight.get(Math.round(p.y)) ?? n._height) / 2
+    // Verticaal volgt altijd de lane (niveau). Horizontaal: handmatige positie
+    // (canvasX) als die is gezet, anders de automatische dagre-positie.
+    const src = store.siteNodes.find((s) => s.id === n.id)
+    const x = src?.canvasX != null ? src.canvasX : p.x - NODE_WIDTH / 2
     return {
       id: n.id,
       type: n.type,
       data: n.data,
-      position: { x: p.x - NODE_WIDTH / 2, y: rowTop },
+      position: { x, y: rowTop },
       class: '',
     }
   })
+
+  // ---------- Lanes afleiden ----------
+  // Elke dagre-rank (gelijke center-y) is één niveau. Oplopende y = dieper niveau.
+  const rankKeys = [...rowMaxHeight.keys()].sort((a, b) => a - b)
+  lanes = rankKeys.map((key, level): Lane => ({
+    level,
+    centerY: key,
+    top: key - (rowMaxHeight.get(key) ?? 0) / 2,
+    height: rowMaxHeight.get(key) ?? 0,
+  }))
+
+  if (lanes.length > 0) {
+    // Lege reservelane onderaan zodat je één niveau dieper kunt slepen.
+    const last = lanes[lanes.length - 1]
+    const spareHeight = estimateHeight(1)
+    lanes.push({
+      level: last.level + 1,
+      centerY: last.top + last.height + RANKSEP + spareHeight / 2,
+      top: last.top + last.height + RANKSEP,
+      height: spareHeight,
+    })
+  }
+
+  // Horizontale uitstrekking van alle kaarten → breedte van de lane-banden.
+  const xs = cardNodes.map((n) => n.position.x)
+  const minX = xs.length ? Math.min(...xs) : 0
+  const maxRight = xs.length ? Math.max(...cardNodes.map((n) => n.position.x + NODE_WIDTH)) : NODE_WIDTH
+  const laneX = minX - LANE_SIDE
+  const laneWidth = maxRight - minX + LANE_SIDE * 2
+
+  const laneNodes: Node[] = lanes.map((lane) => ({
+    id: `lane-${lane.level}`,
+    type: 'lane',
+    data: { label: laneLabel(lane.level), level: lane.level, active: false },
+    position: { x: laneX, y: lane.top - LANE_PAD },
+    style: { width: `${laneWidth}px`, height: `${lane.height + LANE_PAD * 2}px` },
+    draggable: false,
+    selectable: false,
+    connectable: false,
+    focusable: false,
+    zIndex: -1,
+    class: '',
+  }))
+
+  // Lanes eerst (achtergrond), daarna de kaarten erbovenop.
+  nodes.value = [...laneNodes, ...cardNodes]
   edges.value = rawEdges
 }
 
-function relayout() {
+// Welk niveau hoort bij een gegeven verticale positie? Grenzen liggen op de
+// middens tussen opeenvolgende lane-centers.
+function levelForY(y: number): number {
+  if (lanes.length === 0) return 0
+  for (let i = 0; i < lanes.length; i++) {
+    const next = lanes[i + 1]
+    const upper = next ? (lanes[i].centerY + next.centerY) / 2 : Infinity
+    if (y < upper) return lanes[i].level
+  }
+  return lanes[lanes.length - 1].level
+}
+
+function laneForLevel(level: number): Lane | undefined {
+  return lanes.find((l) => l.level === level)
+}
+
+// "Opnieuw ordenen": handmatige horizontale posities wissen en terug naar de
+// automatische dagre-layout.
+async function relayout() {
+  const manual = store.siteNodes.filter((n) => n.canvasX != null)
+  if (manual.length > 0) {
+    saving.value = true
+    try {
+      for (const n of manual) await store.updateNode(props.projectId, n.id, { canvasX: null })
+    } finally {
+      saving.value = false
+    }
+  }
   rebuild()
   setTimeout(() => fitView({ padding: 0.2 }), 50)
 }
@@ -164,6 +259,7 @@ function onPaneReady() {
 onNodesInitialized(() => {
   let changed = false
   for (const n of nodes.value) {
+    if (n.type !== 'pageCard') continue
     const real = findNode(n.id)?.dimensions?.height
     if (real && Math.abs((heightCache.get(n.id) ?? 0) - real) > 1) {
       heightCache.set(n.id, real)
@@ -194,25 +290,36 @@ function descendantsOf(id: string): Set<string> {
   return out
 }
 
-// Bepaal de geldige drop-parent voor een gesleepte node: het overlappende
-// kaartje met het dichtstbijzijnde middelpunt dat geen (klein)kind is.
-function resolveDropParent(dragged: GraphNode): string | null {
+// Bepaal het doel-niveau (uit de verticale lane) en de bijbehorende parent
+// voor een gesleepte node. De parent is de dichtstbijzijnde kaart één niveau
+// hoger (op X-afstand) die geen (klein)kind van de gesleepte node is.
+interface DropResult { valid: boolean; parentId: string | null; level: number }
+
+function computeDrop(dragged: GraphNode): DropResult {
+  const height = dragged.dimensions?.height || 0
+  const centerY = dragged.position.y + height / 2
+  const level = levelForY(centerY)
+
+  // Bovenste rij → hoofdpagina (geen parent).
+  if (level <= 0) return { valid: true, parentId: null, level: 0 }
+
   const invalid = descendantsOf(dragged.id)
   invalid.add(dragged.id)
-  const hits = getIntersectingNodes(dragged).filter((n) => !invalid.has(n.id))
-  if (hits.length === 0) return null
+
+  // Kandidaat-parents: kaarten precies één niveau hoger, geen eigen (klein)kind.
+  const candidates = store.siteNodes.filter((n) => (n.level ?? 0) === level - 1 && !invalid.has(n.id))
+  if (candidates.length === 0) return { valid: false, parentId: null, level }
 
   const cx = dragged.position.x + NODE_WIDTH / 2
-  const cy = dragged.position.y + (dragged.dimensions?.height || 0) / 2
-  let best: GraphNode | null = null
+  let best: string | null = null
   let bestDist = Infinity
-  for (const n of hits) {
-    const nx = n.position.x + (n.dimensions?.width || NODE_WIDTH) / 2
-    const ny = n.position.y + (n.dimensions?.height || 0) / 2
-    const d = (nx - cx) ** 2 + (ny - cy) ** 2
-    if (d < bestDist) { bestDist = d; best = n }
+  for (const c of candidates) {
+    const fn = nodes.value.find((x) => x.id === c.id)
+    const ccx = fn ? fn.position.x + NODE_WIDTH / 2 : 0
+    const d = Math.abs(ccx - cx)
+    if (d < bestDist) { bestDist = d; best = c.id }
   }
-  return best ? best.id : null
+  return { valid: true, parentId: best, level }
 }
 
 // Bepaal sortOrder zodat de node op de juiste plek tussen siblings landt,
@@ -236,24 +343,44 @@ function computeSortOrder(draggedId: string, parentId: string | null, droppedCen
   return 0
 }
 
-// Live highlight van het kaartje waar je bovenop hangt.
+// Live: snap verticaal naar de doel-lane en highlight lane + doel-parent.
+function clearHighlights() {
+  for (const n of nodes.value) {
+    if (n.type === 'pageCard') n.class = ''
+    else if (n.type === 'lane') n.data = { ...n.data, active: false }
+  }
+}
+
 onNodeDrag(({ node }) => {
-  const targetId = resolveDropParent(node)
-  for (const n of nodes.value) n.class = n.id === targetId ? 'drop-target' : ''
+  const drop = computeDrop(node)
+  const lane = laneForLevel(drop.level)
+  if (lane) node.position.y = lane.top   // houd de kaart in zijn rij
+  for (const n of nodes.value) {
+    if (n.type === 'pageCard') n.class = n.id === drop.parentId ? 'drop-target' : ''
+    else if (n.type === 'lane') n.data = { ...n.data, active: drop.valid && n.id === `lane-${drop.level}` }
+  }
 })
 
 onNodeDragStop(async ({ node }) => {
-  for (const n of nodes.value) n.class = ''
+  clearHighlights()
 
   const current = store.siteNodes.find((n) => n.id === node.id)
   if (!current) { rebuild(); return }
 
-  const newParentId = resolveDropParent(node)
+  const drop = computeDrop(node)
+  // Ongeldige rij (geen kaart om onder te hangen) → terugsnappen.
+  if (!drop.valid) { rebuild(); return }
+
+  const newParentId = drop.parentId
+  const newCanvasX = Math.round(node.position.x)
   const droppedCenterX = node.position.x + NODE_WIDTH / 2
   const newSortOrder = computeSortOrder(node.id, newParentId, droppedCenterX)
 
+  const hierarchyChanged = newParentId !== current.parentId || newSortOrder !== current.sortOrder
+  const xChanged = current.canvasX == null || Math.abs(current.canvasX - newCanvasX) > 0.5
+
   // Niets veranderd → gewoon terugsnappen naar de nette layout.
-  if (newParentId === current.parentId && newSortOrder === current.sortOrder) {
+  if (!hierarchyChanged && !xChanged) {
     rebuild()
     return
   }
@@ -261,10 +388,17 @@ onNodeDragStop(async ({ node }) => {
   saving.value = true
   moveMsg.value = ''
   try {
-    await store.moveNode(props.projectId, node.id, newParentId, newSortOrder)
+    if (hierarchyChanged) {
+      // Niveau/volgorde (en horizontale positie) in één keer opslaan.
+      await store.moveNode(props.projectId, node.id, newParentId, newSortOrder, newCanvasX)
+      const parentTitle = newParentId ? store.siteNodes.find((n) => n.id === newParentId)?.title : null
+      moveMsg.value = parentTitle ? `"${current.title}" verplaatst onder "${parentTitle}".` : `"${current.title}" is nu een hoofdpagina.`
+    } else {
+      // Alleen horizontaal verschoven → lichte update, geen URL-herberekening.
+      await store.updateNode(props.projectId, node.id, { canvasX: newCanvasX })
+      moveMsg.value = `Positie van "${current.title}" aangepast.`
+    }
     rebuild()
-    const parentTitle = newParentId ? store.siteNodes.find((n) => n.id === newParentId)?.title : null
-    moveMsg.value = parentTitle ? `"${current.title}" verplaatst onder "${parentTitle}".` : `"${current.title}" is nu een hoofdpagina.`
     setTimeout(() => { moveMsg.value = '' }, 4000)
   } catch (e: any) {
     moveMsg.value = ''
@@ -293,5 +427,10 @@ watch(
   outline: 2px solid #2563eb;
   outline-offset: 3px;
   border-radius: 0.6rem;
+}
+/* Lane-achtergronden mogen pannen/klikken op de canvas niet blokkeren. */
+.vue-flow__node-lane {
+  pointer-events: none;
+  cursor: default;
 }
 </style>

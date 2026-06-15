@@ -78,5 +78,21 @@
     "stagingNoindex": true,
     "gtmConnected": false,
     "eventsDefined": false
+  },
+  {
+    "id": "f6a7ce82",
+    "name": "Website",
+    "clientName": "Niquell",
+    "domainCurrent": "",
+    "domainNew": "",
+    "languages": [
+      "nl"
+    ],
+    "goLiveDate": null,
+    "ownerId": null,
+    "createdAt": "2026-06-15T11:08:54.272Z",
+    "stagingNoindex": true,
+    "gtmConnected": false,
+    "eventsDefined": false
   }
 ]

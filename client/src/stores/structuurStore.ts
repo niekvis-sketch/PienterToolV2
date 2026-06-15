@@ -158,8 +158,10 @@ export const useStructuurStore = defineStore('structuur', () => {
     siteNodes.value.push(n)
     return n
   }
-  async function moveNode(projectId: string, nodeId: string, parentId: string | null, sortOrder: number) {
-    const result = await apiFetch<{ node: SiteNode; childrenAffected: number }>('PUT', `/structuur/${projectId}/nodes/${nodeId}/move`, { parentId, sortOrder })
+  async function moveNode(projectId: string, nodeId: string, parentId: string | null, sortOrder: number, canvasX?: number | null) {
+    const body: Record<string, unknown> = { parentId, sortOrder }
+    if (canvasX !== undefined) body.canvasX = canvasX
+    const result = await apiFetch<{ node: SiteNode; childrenAffected: number }>('PUT', `/structuur/${projectId}/nodes/${nodeId}/move`, body)
     // Reload all nodes to get updated URLs
     await fetchNodes(projectId)
     return result

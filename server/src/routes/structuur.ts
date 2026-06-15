@@ -275,6 +275,7 @@ structuurRouter.post('/:projectId/nodes', (req: Request, res: Response) => {
     notes: req.body.notes || '',
     bron: req.body.bron || 'handmatig',
     aanname: req.body.aanname ?? false,
+    canvasX: req.body.canvasX ?? null,
     createdAt: now(),
     updatedAt: now()
   }
@@ -410,6 +411,7 @@ structuurRouter.put('/:projectId/nodes/:nodeId/move', (req: Request, res: Respon
   nodes[idx].sortOrder = newSortOrder
   nodes[idx].level = newParentId ? (nodes.find(n => n.id === newParentId)?.level ?? 0) + 1 : 0
   nodes[idx].fullUrl = buildFullUrl(nodes, newParentId, nodes[idx].slug, domain, req.params.projectId)
+  if (req.body.canvasX !== undefined) nodes[idx].canvasX = req.body.canvasX
   nodes[idx].updatedAt = now()
 
   // Herbereken children URLs
