@@ -273,14 +273,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useContentStructuurStore } from '../../stores/contentStructuurStore'
+import { useProjectStore } from '../../stores/projectStore'
 import type { ContentStructuurRow, ContentStructuurPreset } from '@shared/types'
 import MedewerkerSelect from '../medewerkers/MedewerkerSelect.vue'
 
-const route = useRoute()
-const projectId = computed(() => route.params.id as string)
+// De URL bevat de klant-id (/klanten/:id/website); de content-structuur is op
+// project-id gekoppeld. Gebruik daarom het opgeloste project uit de store i.p.v.
+// route.params.id — anders worden rijen onder de verkeerde id opgeslagen/geladen.
+const projectStore = useProjectStore()
+const projectId = computed(() => projectStore.currentProject?.id ?? '')
 const store = useContentStructuurStore()
 
 // Column definitions
@@ -503,13 +506,17 @@ async function confirmImport() {
 }
 
 // ---- Init ----
-onMounted(async () => {
+async function load(id: string) {
+  if (!id) return
   await Promise.all([
-    store.fetchRows(projectId.value),
-    store.fetchPresets(projectId.value),
+    store.fetchRows(id),
+    store.fetchPresets(id),
   ])
   if (store.rows.length === 0) {
     await loadStructuur()
   }
-})
+}
+
+onMounted(() => load(projectId.value))
+watch(projectId, (id) => load(id))
 </script>
