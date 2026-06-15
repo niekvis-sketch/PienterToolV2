@@ -103,7 +103,12 @@ body { @apply min-h-screen; }
 .severity-high   { background: var(--danger-soft); color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent); }
 
 /* ======== Knoppen ======== */
-.btn {
+/* Basis-layout geldt ook voor de variant-classes los, zodat knoppen met enkel
+   bv. `btn-primary` (zonder `btn`) net zo goed gecentreerd zijn, afgeronde
+   hoeken hebben en hun label niet afkappen (white-space: nowrap). */
+.btn,
+.btn-primary, .btn-secondary, .btn-tertiary, .btn-ghost,
+.btn-accent, .btn-highlight, .btn-danger, .btn-destructive {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -116,12 +121,16 @@ body { @apply min-h-screen; }
   border-radius: var(--r-2);
   border: 1px solid transparent;
   line-height: 1;
+  white-space: nowrap;
   cursor: pointer;
   transition: background .15s ease, border-color .15s ease, transform .12s ease, box-shadow .15s ease, color .15s ease;
 }
-.btn:active { transform: translateY(1px); }
-.btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
-.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn:active, .btn-primary:active, .btn-secondary:active, .btn-tertiary:active, .btn-ghost:active,
+.btn-accent:active, .btn-highlight:active, .btn-danger:active, .btn-destructive:active { transform: translateY(1px); }
+.btn:focus-visible, .btn-primary:focus-visible, .btn-secondary:focus-visible, .btn-tertiary:focus-visible, .btn-ghost:focus-visible,
+.btn-accent:focus-visible, .btn-highlight:focus-visible, .btn-danger:focus-visible, .btn-destructive:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.btn:disabled, .btn-primary:disabled, .btn-secondary:disabled, .btn-tertiary:disabled, .btn-ghost:disabled,
+.btn-accent:disabled, .btn-highlight:disabled, .btn-danger:disabled, .btn-destructive:disabled { opacity: .5; cursor: not-allowed; }
 
 .btn-primary {
   background: var(--primary);
