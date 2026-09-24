@@ -148,6 +148,8 @@ function handleGet(segs: string[]): ApiResult {
           return okR(coll('klantContactpersonen').filter((x) => x.klantId === a).sort(byStrAsc('naam')))
         case 'huisstijl':
           return okR(coll('klantHuisstijl').filter((x) => x.klantId === a).sort(byStrDesc('createdAt')))
+        case 'bestanden':
+          return okR(coll('klantBestanden').filter((x) => x.klantId === a).sort(byStrDesc('createdAt')))
         case 'doelgroepen':
           return okR(coll('klantDoelgroepen').filter((x) => x.klantId === a).sort(byStrAsc('naam')))
         case 'doelen':
@@ -292,6 +294,9 @@ export function handle(method: string, url: string, body?: any): ApiResult {
   // Schrijf-acties: vriendelijke no-op zodat de UI niet breekt.
   // Er wordt niets bewaard (read-only demo).
   if (method === 'DELETE') return okR({ ok: true })
+  if (body instanceof FormData && segs[0] === 'klanten' && segs[2] === 'bestanden') {
+    return { ok: false, error: 'Uploaden kan niet in de read-only demo', _status: 400 }
+  }
   // POST/PUT/PATCH: echo een plausibel object terug.
   const base = body && typeof body === 'object' && !(body instanceof FormData) ? body : {}
   return okR({ id: genId(), ...base, updatedAt: nowIso(), createdAt: nowIso() })

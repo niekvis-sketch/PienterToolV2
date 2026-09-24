@@ -44,7 +44,7 @@
             <div v-else class="flex items-center gap-2 flex-1">
               <input
                 v-model="editDoelgroepName"
-                class="input text-sm w-48"
+                class="input text-sm !w-48"
                 placeholder="Naam doelgroep"
                 @keyup.enter="saveDoelgroep"
               />

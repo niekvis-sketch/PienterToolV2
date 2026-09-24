@@ -11,6 +11,7 @@ import { readCollection, writeCollection } from '../storage'
 import { genId, now, ok, err } from '../helpers'
 import type {
   Klant, KlantCommunicatie, KlantContactpersoon, KlantHuisstijlBestand,
+  KlantBestand, KlantBestandCategorie,
   KlantDoelgroep, KlantDoel, KlantDoelFocuspunt,
 } from '../../../shared/types'
 
@@ -31,6 +32,46 @@ const huisstijlUpload = multer({
   limits: { fileSize: 25 * 1024 * 1024 }, // 25MB voor brandbooks etc.
 })
 
+// ---------- Multer config voor algemene klantbestanden ----------
+const BESTANDEN_DIR = path.resolve(__dirname, '../../data/uploads/klantbestanden')
+if (!fs.existsSync(BESTANDEN_DIR)) fs.mkdirSync(BESTANDEN_DIR, { recursive: true })
+
+// Uploads worden via express.static geserveerd; scripts/executables weigeren
+// zodat een upload nooit als pagina of programma uitgevoerd kan worden.
+const GEBLOKKEERDE_EXT = new Set([
+  '.exe', '.msi', '.bat', '.cmd', '.com', '.scr', '.ps1', '.sh', '.vbs',
+  '.js', '.mjs', '.html', '.htm', '.xhtml', '.php',
+])
+const BESTAND_CATEGORIEEN: KlantBestandCategorie[] = [
+  'contract', 'offerte', 'briefing', 'rapportage', 'beeldmateriaal', 'overig',
+]
+
+const bestandenUpload = multer({
+  storage: multer.diskStorage({
+    destination: (_req, _file, cb) => cb(null, BESTANDEN_DIR),
+    filename: (_req, file, cb) => {
+      const ext = path.extname(file.originalname).toLowerCase()
+      cb(null, `${genId()}-${Date.now()}${ext}`)
+    },
+  }),
+  fileFilter: (_req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase()
+    if (GEBLOKKEERDE_EXT.has(ext)) return cb(new Error(`Bestandstype ${ext} is niet toegestaan`))
+    cb(null, true)
+  },
+  limits: { fileSize: 50 * 1024 * 1024, files: 20 },
+})
+
+// Browsers sturen UTF-8 bestandsnamen, busboy leest ze als latin1.
+function decodeBestandsnaam(name: string): string {
+  const utf8 = Buffer.from(name, 'latin1').toString('utf8')
+  return utf8.includes('�') ? name : utf8
+}
+
+function parseCategorie(v: unknown): KlantBestandCategorie {
+  return BESTAND_CATEGORIEEN.includes(v as KlantBestandCategorie) ? v as KlantBestandCategorie : 'overig'
+}
+
 // ---------- helpers ----------
 function getKlanten(): Klant[] { return readCollection<Klant>('klanten') }
 function saveKlanten(k: Klant[]) { writeCollection('klanten', k) }
@@ -43,6 +84,14 @@ function saveContactpersonen(c: KlantContactpersoon[]) { writeCollection('klantC
 
 function getHuisstijl(): KlantHuisstijlBestand[] { return readCollection<KlantHuisstijlBestand>('klantHuisstijl') }
 function saveHuisstijl(c: KlantHuisstijlBestand[]) { writeCollection('klantHuisstijl', c) }
+
+function getBestanden(): KlantBestand[] { return readCollection<KlantBestand>('klantBestanden') }
+function saveBestanden(c: KlantBestand[]) { writeCollection('klantBestanden', c) }
+
+function verwijderUpload(filePath: string) {
+  const fp = path.resolve(__dirname, '../../data', filePath)
+  if (fs.existsSync(fp)) { try { fs.unlinkSync(fp) } catch { /* swallow */ } }
+}
 
 function getDoelgroepen(): KlantDoelgroep[] { return readCollection<KlantDoelgroep>('klantDoelgroepen') }
 function saveDoelgroepen(c: KlantDoelgroep[]) { writeCollection('klantDoelgroepen', c) }
@@ -135,6 +184,10 @@ klantenRouter.delete('/:id', (req: Request, res: Response) => {
     if (fs.existsSync(fp)) { try { fs.unlinkSync(fp) } catch { /* swallow */ } }
   }
   saveHuisstijl(huisstijl.filter(h => h.klantId !== id))
+
+  const bestanden = getBestanden()
+  for (const b of bestanden.filter(x => x.klantId === id)) verwijderUpload(b.filePath)
+  saveBestanden(bestanden.filter(b => b.klantId !== id))
 
   saveDoelgroepen(getDoelgroepen().filter(d => d.klantId !== id))
   saveFocuspunten(getFocuspunten().filter(f => f.klantId !== id))
@@ -267,6 +320,68 @@ klantenRouter.delete('/:id/huisstijl/:fileId', (req: Request, res: Response) => 
   const fp = path.resolve(__dirname, '../../data', item.filePath)
   if (fs.existsSync(fp)) { try { fs.unlinkSync(fp) } catch { /* swallow */ } }
   saveHuisstijl(all.filter(h => h.id !== item.id))
+  res.json(ok({ deleted: true }))
+})
+
+// ===================== KLANTBESTANDEN (alle bestandstypes) =====================
+
+klantenRouter.get('/:id/bestanden', (req: Request, res: Response) => {
+  const items = getBestanden()
+    .filter(b => b.klantId === req.params.id)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+  res.json(ok(items))
+})
+
+klantenRouter.post('/:id/bestanden', (req: Request, res: Response) => {
+  bestandenUpload.array('files', 20)(req, res, (uploadErr: unknown) => {
+    if (uploadErr) {
+      const msg = uploadErr instanceof multer.MulterError && uploadErr.code === 'LIMIT_FILE_SIZE'
+        ? 'Bestand is groter dan 50 MB'
+        : uploadErr instanceof Error ? uploadErr.message : 'Upload mislukt'
+      return res.status(400).json(err(msg))
+    }
+    const files = (req.files as Express.Multer.File[] | undefined) ?? []
+    if (files.length === 0) return res.status(400).json(err('Geen bestand geüpload'))
+
+    const all = getBestanden()
+    const categorie = parseCategorie(req.body.categorie)
+    const items: KlantBestand[] = files.map(f => ({
+      id: genId(),
+      klantId: req.params.id,
+      bestandsnaam: decodeBestandsnaam(f.originalname),
+      filePath: `uploads/klantbestanden/${f.filename}`,
+      mimeType: f.mimetype,
+      grootte: f.size,
+      categorie,
+      beschrijving: req.body.beschrijving || '',
+      createdAt: now(),
+    }))
+    all.push(...items)
+    saveBestanden(all)
+    res.json(ok(items))
+  })
+})
+
+klantenRouter.put('/:id/bestanden/:fileId', (req: Request, res: Response) => {
+  const all = getBestanden()
+  const idx = all.findIndex(b => b.id === req.params.fileId && b.klantId === req.params.id)
+  if (idx < 0) return res.status(404).json(err('Bestand niet gevonden'))
+  // Alleen metadata wijzigbaar; het bestand zelf blijft immutabel
+  all[idx] = {
+    ...all[idx],
+    beschrijving: req.body.beschrijving ?? all[idx].beschrijving,
+    categorie: req.body.categorie !== undefined ? parseCategorie(req.body.categorie) : all[idx].categorie,
+  }
+  saveBestanden(all)
+  res.json(ok(all[idx]))
+})
+
+klantenRouter.delete('/:id/bestanden/:fileId', (req: Request, res: Response) => {
+  const all = getBestanden()
+  const item = all.find(b => b.id === req.params.fileId && b.klantId === req.params.id)
+  if (!item) return res.status(404).json(err('Bestand niet gevonden'))
+  verwijderUpload(item.filePath)
+  saveBestanden(all.filter(b => b.id !== item.id))
   res.json(ok({ deleted: true }))
 })
 

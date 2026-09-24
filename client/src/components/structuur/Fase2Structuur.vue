@@ -8,7 +8,7 @@
       </div>
       <div class="flex gap-2">
         <button class="btn-secondary btn-sm" @click="copyVragenToClipboard">📋 Kopieer klantvragen</button>
-        <button class="btn-secondary btn-sm" @click="showImport = !showImport">📥 Importeren</button>
+        <button class="btn-secondary btn-sm" @click="toggleImport">📥 Importeren</button>
         <button class="btn-secondary btn-sm" @click="fetchWarnings">⚠️ Controleer ({{ store.warnings.length }})</button>
         <button class="btn-primary btn-sm" @click="addRootNode">+ Pagina toevoegen</button>
       </div>
@@ -39,8 +39,8 @@
         <label for="replaceNodes" class="text-sm text-gray-700">Bestaande structuur verwijderen (vervangt alle huidige pagina's en blokken)</label>
       </div>
       <div class="flex gap-2 mt-3">
-        <button v-if="importMode === 'json'" class="btn-primary btn-sm" @click="handleJsonImport" :disabled="!importJson.trim()">Importeren</button>
-        <button v-if="importMode === 'csv'" class="btn-primary btn-sm" @click="handleCsvImport" :disabled="!importCsv.trim()">Importeren</button>
+        <button v-if="importMode === 'json'" class="btn-primary btn-sm" @click="handleJsonImport" :disabled="!importJson.trim()">Toevoegen</button>
+        <button v-if="importMode === 'csv'" class="btn-primary btn-sm" @click="handleCsvImport" :disabled="!importCsv.trim()">Toevoegen</button>
       </div>
       <p v-if="importMsg" class="text-sm mt-2" :class="importError ? 'text-red-600' : 'text-green-600'">{{ importMsg }}</p>
     </div>
@@ -256,6 +256,18 @@ async function clearProjectNodes() {
     await store.deleteNode(props.projectId, node.id)
   }
   store.allProjectBlocks = []
+}
+
+// Projecten kunnen een klaargezette structuur hebben (bv. voor gebruikerstests);
+// die staat dan al in het importveld zodra het paneel opengaat.
+function toggleImport() {
+  showImport.value = !showImport.value
+  if (!showImport.value || importJson.value.trim()) return
+  const project = projectStore.projects.find(p => p.id === props.projectId) ?? projectStore.currentProject
+  if (project?.structuurImportPreset) {
+    importMode.value = 'json'
+    importJson.value = JSON.stringify(project.structuurImportPreset, null, 2)
+  }
 }
 
 async function handleJsonImport() {

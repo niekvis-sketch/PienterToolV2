@@ -191,6 +191,8 @@
       </div>
     </div>
 
+    <KlantBestandenSection />
+
     <CommunicatieHistorieTab />
   </div>
 </template>
@@ -202,6 +204,7 @@ import CommunicatieHistorieTab from './CommunicatieHistorieTab.vue'
 import KlantContactpersonenSection from './KlantContactpersonenSection.vue'
 import KlantHuisstijlSection from './KlantHuisstijlSection.vue'
 import KlantDoelgroepenSection from './KlantDoelgroepenSection.vue'
+import KlantBestandenSection from './KlantBestandenSection.vue'
 import MedewerkerSelect from '../medewerkers/MedewerkerSelect.vue'
 import MedewerkerTag from '../medewerkers/MedewerkerTag.vue'
 

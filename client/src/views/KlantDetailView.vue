@@ -19,6 +19,7 @@ async function loadAll() {
     store.fetchCommunicatie(props.id),
     store.fetchContactpersonen(props.id),
     store.fetchHuisstijl(props.id),
+    store.fetchBestanden(props.id),
     store.fetchKlantDoelgroepen(props.id),
     store.fetchDoelen(props.id),
     store.fetchFocuspunten(props.id),

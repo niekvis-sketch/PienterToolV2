@@ -19,6 +19,8 @@ export interface Project {
   stagingNoindex: boolean
   gtmConnected: boolean
   eventsDefined: boolean
+  // Klaargezette structuur die bij "Importeren" al in het JSON-veld staat (optioneel)
+  structuurImportPreset?: StructureImport
 }
 
 // ---------- Pages ----------
@@ -368,6 +370,22 @@ export interface KlantHuisstijlBestand {
   filePath: string
   mimeType: string
   grootte: number
+  beschrijving: string
+  createdAt: string
+}
+
+// Algemene klantbestanden (contracten, offertes, briefings, etc.) – elk bestandstype
+export type KlantBestandCategorie =
+  | 'contract' | 'offerte' | 'briefing' | 'rapportage' | 'beeldmateriaal' | 'overig'
+
+export interface KlantBestand {
+  id: string
+  klantId: string
+  bestandsnaam: string
+  filePath: string
+  mimeType: string
+  grootte: number
+  categorie: KlantBestandCategorie
   beschrijving: string
   createdAt: string
 }

@@ -20,21 +20,20 @@
       <div v-for="item in items" :key="item.id" class="group flex items-center gap-2">
         <input
           :value="item.naam"
-          :list="datalistId"
-          class="input text-sm py-1 flex-1"
+          class="input text-sm py-1 flex-1 min-w-0"
           @change="emitUpdate(item.id, { naam: ($event.target as HTMLInputElement).value })"
         />
         <input
           v-if="metUrl"
           :value="item.url"
           placeholder="url (optioneel)"
-          class="input text-sm py-1 w-40"
+          class="input text-sm py-1 !w-40 shrink-0"
           @change="emitUpdate(item.id, { url: ($event.target as HTMLInputElement).value })"
         />
         <input
           :value="item.notitie"
           placeholder="notitie"
-          class="input text-sm py-1 w-40"
+          class="input text-sm py-1 !w-40 shrink-0"
           @change="emitUpdate(item.id, { notitie: ($event.target as HTMLInputElement).value })"
         />
         <button class="text-gray-300 hover:text-red-500 px-1 opacity-0 group-hover:opacity-100 transition-opacity" @click="$emit('delete', item.id)">✕</button>
@@ -46,11 +45,11 @@
       <input
         v-model="newNaam"
         :list="datalistId"
-        class="input text-sm py-1 flex-1"
+        class="input no-picker text-sm py-1 flex-1 min-w-0"
         :placeholder="placeholder"
         @keyup.enter="doAdd"
       />
-      <input v-if="metUrl" v-model="newUrl" placeholder="url (optioneel)" class="input text-sm py-1 w-40" @keyup.enter="doAdd" />
+      <input v-if="metUrl" v-model="newUrl" placeholder="url (optioneel)" class="input text-sm py-1 !w-40 shrink-0" @keyup.enter="doAdd" />
       <button class="btn-secondary btn-sm shrink-0" :disabled="!newNaam.trim()" @click="doAdd">+ toevoegen</button>
     </div>
     <p v-if="inlineError" class="text-xs text-amber-600 mt-1">{{ inlineError }}</p>
@@ -145,3 +144,9 @@ function doBulk() {
   showBulk.value = false
 }
 </script>
+
+<style scoped>
+/* Suggesties uit de datalist blijven werken tijdens typen, maar zonder
+   uitklappijltje: het veld moet er niet uitzien als een dropdown. */
+.no-picker::-webkit-calendar-picker-indicator { display: none !important; }
+</style>

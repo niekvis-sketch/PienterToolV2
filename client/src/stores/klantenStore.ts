@@ -4,6 +4,7 @@ import { apiFetch } from '../api'
 import api from '../api'
 import type {
   Klant, KlantCommunicatie, KlantContactpersoon, KlantHuisstijlBestand,
+  KlantBestand, KlantBestandCategorie,
   KlantDoelgroep, KlantDoel, KlantDoelFocuspunt,
 } from '@shared/types'
 
@@ -14,6 +15,7 @@ export const useKlantenStore = defineStore('klanten', () => {
   const communicatie = ref<KlantCommunicatie[]>([])
   const contactpersonen = ref<KlantContactpersoon[]>([])
   const huisstijl = ref<KlantHuisstijlBestand[]>([])
+  const bestanden = ref<KlantBestand[]>([])
   const doelgroepen = ref<KlantDoelgroep[]>([])
   const doelen = ref<KlantDoel[]>([])
   const focuspunten = ref<KlantDoelFocuspunt[]>([])
@@ -131,6 +133,38 @@ export const useKlantenStore = defineStore('klanten', () => {
     huisstijl.value = huisstijl.value.filter(h => h.id !== fileId)
   }
 
+  // ---- Bestanden (alle bestandstypes) ----
+  async function fetchBestanden(klantId: string) {
+    bestanden.value = await apiFetch<KlantBestand[]>('GET', `/klanten/${klantId}/bestanden`)
+  }
+
+  async function uploadBestanden(klantId: string, files: File[], categorie: KlantBestandCategorie) {
+    const formData = new FormData()
+    for (const f of files) formData.append('files', f)
+    formData.append('categorie', categorie)
+    // validateStatus: server-foutmelding (bv. te groot / type geweigerd) tonen i.p.v. axios-error
+    const res = await api.post<{ ok: boolean; data?: KlantBestand[]; error?: string }>(
+      `/klanten/${klantId}/bestanden`,
+      formData,
+      { headers: { 'Content-Type': 'multipart/form-data' }, validateStatus: () => true }
+    )
+    if (!res.data?.ok || !Array.isArray(res.data.data)) throw new Error(res.data?.error || 'Upload mislukt')
+    bestanden.value.unshift(...res.data.data)
+    return res.data.data
+  }
+
+  async function updateBestand(klantId: string, fileId: string, data: Partial<KlantBestand>) {
+    const b = await apiFetch<KlantBestand>('PUT', `/klanten/${klantId}/bestanden/${fileId}`, data)
+    const idx = bestanden.value.findIndex(x => x.id === fileId)
+    if (idx >= 0) bestanden.value[idx] = b
+    return b
+  }
+
+  async function deleteBestand(klantId: string, fileId: string) {
+    await apiFetch('DELETE', `/klanten/${klantId}/bestanden/${fileId}`)
+    bestanden.value = bestanden.value.filter(b => b.id !== fileId)
+  }
+
   // ---- Doelgroepen ----
   async function fetchKlantDoelgroepen(klantId: string) {
     doelgroepen.value = await apiFetch<KlantDoelgroep[]>('GET', `/klanten/${klantId}/doelgroepen`)
@@ -202,12 +236,13 @@ export const useKlantenStore = defineStore('klanten', () => {
   }
 
   return {
-    klanten, currentKlant, communicatie, contactpersonen, huisstijl,
+    klanten, currentKlant, communicatie, contactpersonen, huisstijl, bestanden,
     doelgroepen, doelen, focuspunten, loading,
     fetchKlanten, fetchKlant, createKlant, updateKlant, deleteKlant,
     fetchCommunicatie, createCommunicatie, updateCommunicatie, deleteCommunicatie,
     fetchContactpersonen, createContactpersoon, updateContactpersoon, deleteContactpersoon,
     fetchHuisstijl, uploadHuisstijl, updateHuisstijl, deleteHuisstijl,
+    fetchBestanden, uploadBestanden, updateBestand, deleteBestand,
     fetchKlantDoelgroepen, createKlantDoelgroep, updateKlantDoelgroep, deleteKlantDoelgroep,
     fetchDoelen, createDoel, updateDoel, deleteDoel,
     fetchFocuspunten, createFocuspunt, updateFocuspunt, deleteFocuspunt,
