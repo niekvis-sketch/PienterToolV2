@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, markRaw, watch, onMounted, nextTick } from 'vue'
+import { ref, computed, markRaw, watch, onMounted, nextTick, type Ref } from 'vue'
 import { VueFlow, useVueFlow, type Node, type Edge, type GraphNode } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
 import { Controls } from '@vue-flow/controls'
@@ -65,8 +65,9 @@ const { fitView, onNodeDrag, onNodeDragStop, onNodesInitialized, findNode } = us
 // schoon — bekende typing-frictie, runtime werkt prima.
 const nodeTypes = { pageCard: markRaw(PageCardNode) as any, lane: markRaw(LaneBackground) as any }
 
-const nodes = ref<Node[]>([])
-const edges = ref<Edge[]>([])
+// Cast i.p.v. ref<Node[]>: de diepe unwrap van Vue Flow-types geeft TS2589.
+const nodes = ref([]) as Ref<Node[]>
+const edges = ref([]) as Ref<Edge[]>
 const saving = ref(false)
 const moveMsg = ref('')
 
