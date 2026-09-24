@@ -77,7 +77,768 @@
     "createdAt": "2026-06-10T13:12:42.792Z",
     "stagingNoindex": true,
     "gtmConnected": false,
-    "eventsDefined": false
+    "eventsDefined": false,
+    "structuurImportPreset": {
+      "root": [
+        {
+          "title": "Home",
+          "slug": "",
+          "blocks": [
+            {
+              "name": "Hero",
+              "type": "Broodblok-Hero",
+              "goal": "Directe aandacht trekken en positionering neerzetten",
+              "contentDescription": "Krachtige kop over events met impact, subtekst en CTA's 'Plan een kennismaking' en 'Bekijk cases'"
+            },
+            {
+              "name": "Introductie",
+              "type": "Flexblok-Tekst",
+              "goal": "Uitleggen wat het bureau doet en voor wie",
+              "contentDescription": "Korte intro: van idee tot uitvoering, wij regelen alles zodat jij kunt genieten"
+            },
+            {
+              "name": "Soorten evenementen",
+              "type": "Flexblok-Media-Grid",
+              "goal": "Bezoekers met een concrete aanleiding snel doorsturen",
+              "contentDescription": "Tegels: personeelsevent, klantendag, productlancering, kennisevent, recruitment event"
+            },
+            {
+              "name": "Voor wie",
+              "type": "Flexblok-Media-Grid",
+              "goal": "Doorverwijzen naar doelgroeppagina's",
+              "contentDescription": "Drie tegels: Onderwijs, Bedrijfsleven/MKB, Overheid"
+            },
+            {
+              "name": "USP's",
+              "type": "Flexblok-USP",
+              "goal": "Vertrouwen en onderscheidend vermogen tonen",
+              "contentDescription": "Jarenlange ervaring, IDEA-keurmerk, vast aanspreekpunt, volledige ontzorging, duurzaam"
+            },
+            {
+              "name": "Uitgelichte cases",
+              "type": "Posttype-Overzicht",
+              "goal": "Bewijs leveren met eerdere evenementen",
+              "contentDescription": "3 recente cases met beeld en resultaat"
+            },
+            {
+              "name": "Reviews",
+              "type": "Flexblok-Testimonials",
+              "goal": "Vertrouwen opbouwen via ervaringen van anderen"
+            },
+            {
+              "name": "Logo's klanten",
+              "type": "Flexblok-Logo-Slider",
+              "goal": "Social proof over sectoren heen"
+            },
+            {
+              "name": "Call to Action",
+              "type": "Flexblok-CTA-Banner",
+              "goal": "Bezoeker laten converteren",
+              "contentDescription": "Offerte aanvragen of kennismaking plannen"
+            }
+          ],
+          "children": [
+            {
+              "title": "Evenementen",
+              "slug": "evenementen",
+              "blocks": [
+                {
+                  "name": "Hero",
+                  "type": "Broodblok-Hero",
+                  "goal": "Overzicht van het aanbod introduceren"
+                },
+                {
+                  "name": "Introductie",
+                  "type": "Flexblok-Tekst",
+                  "goal": "Uitleggen dat alles mogelijk is: van eigen idee tot volledig concept",
+                  "contentDescription": "Beantwoordt 'Kunnen jullie een idee verder uitwerken?' en 'Kunnen jullie alles voor mij doen?'"
+                },
+                {
+                  "name": "Eventtypes",
+                  "type": "Flexblok-Media-Grid",
+                  "goal": "Doorklikken naar het juiste eventtype"
+                },
+                {
+                  "name": "Wat levert een event op",
+                  "type": "Flexblok-Tekst",
+                  "goal": "Waarde van events onderbouwen",
+                  "contentDescription": "Binding, zichtbaarheid, werving, kennisdeling"
+                },
+                {
+                  "name": "Call to Action",
+                  "type": "Flexblok-CTA-Banner",
+                  "goal": "Contact of offerte"
+                }
+              ],
+              "children": [
+                {
+                  "title": "Personeelsevent",
+                  "slug": "personeelsevent",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Aanhaken op 'ik wil iets leuks voor mijn medewerkers organiseren'"
+                    },
+                    {
+                      "name": "Toelichting",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Mogelijkheden en effect op medewerkersbetrokkenheid uitleggen"
+                    },
+                    {
+                      "name": "Voorbeelden",
+                      "type": "Posttype-Overzicht",
+                      "goal": "Relevante cases tonen"
+                    },
+                    {
+                      "name": "Reviews",
+                      "type": "Flexblok-Testimonials",
+                      "goal": "Vertrouwen opbouwen"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Offerte aanvragen"
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "title": "Klantendag",
+                  "slug": "klantendag",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Aanhaken op 'Kunnen jullie een klantendag organiseren?'"
+                    },
+                    {
+                      "name": "Klantbinding",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Uitleggen hoe een event klanten aan je bindt en wat het financieel oplevert"
+                    },
+                    {
+                      "name": "Voorbeelden",
+                      "type": "Posttype-Overzicht",
+                      "goal": "Eerdere klantendagen tonen"
+                    },
+                    {
+                      "name": "FAQ",
+                      "type": "Flexblok-FAQ",
+                      "goal": "Vragen over kosten, tijdsinvestering en aanwezigheid op de dag beantwoorden"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Offerte aanvragen"
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "title": "Productlancering",
+                  "slug": "productlancering",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Aanhaken op 'ik moet een nieuw product lanceren'"
+                    },
+                    {
+                      "name": "Aanpak",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Uitleggen hoe een lancering-event impact en zichtbaarheid creëert"
+                    },
+                    {
+                      "name": "Voorbeelden",
+                      "type": "Posttype-Overzicht",
+                      "goal": "Relevante cases tonen"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Offerte aanvragen"
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "title": "Kennisevent",
+                  "slug": "kennisevent",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Kennisevents en congressen positioneren"
+                    },
+                    {
+                      "name": "Toelichting",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Formats uitleggen: congres, symposium, inspiratiesessie"
+                    },
+                    {
+                      "name": "Voorbeelden",
+                      "type": "Posttype-Overzicht",
+                      "goal": "Relevante cases tonen"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Offerte aanvragen"
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "title": "Recruitment event",
+                  "slug": "recruitment-event",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Aanhaken op 'ik wil nieuwe medewerkers aantrekken'"
+                    },
+                    {
+                      "name": "Toelichting",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Uitleggen hoe events bijdragen aan employer branding"
+                    },
+                    {
+                      "name": "Voorbeelden",
+                      "type": "Posttype-Overzicht",
+                      "goal": "Relevante cases tonen"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Offerte aanvragen"
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "title": "Voor wie",
+              "slug": "voor-wie",
+              "blocks": [
+                {
+                  "name": "Hero",
+                  "type": "Broodblok-Hero",
+                  "goal": "Doelgroepen introduceren"
+                },
+                {
+                  "name": "Doelgroepen",
+                  "type": "Flexblok-Media-Grid",
+                  "goal": "Doorklikken naar de eigen sector"
+                },
+                {
+                  "name": "Call to Action",
+                  "type": "Flexblok-CTA-Banner",
+                  "goal": "Contact opnemen"
+                }
+              ],
+              "children": [
+                {
+                  "title": "Onderwijs",
+                  "slug": "onderwijs",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Onderwijsinstellingen direct aanspreken"
+                    },
+                    {
+                      "name": "Aanbod onderwijs",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Kennisevents voor medewerkers en samenwerking met studenten uitleggen"
+                    },
+                    {
+                      "name": "Minoropdrachten & studentsamenwerking",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Antwoord geven op vragen over minoropdrachten en stages"
+                    },
+                    {
+                      "name": "Cases onderwijs",
+                      "type": "Posttype-Overzicht",
+                      "goal": "Tonen wat voor andere onderwijsinstellingen is georganiseerd"
+                    },
+                    {
+                      "name": "Reviews",
+                      "type": "Flexblok-Testimonials",
+                      "goal": "Vertrouwen opbouwen binnen de sector"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Contact opnemen"
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "title": "Bedrijfsleven en MKB",
+                  "slug": "bedrijfsleven-mkb",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "MKB aanspreken met focus op rendement en ontzorging"
+                    },
+                    {
+                      "name": "Rendement",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Beantwoorden wat een event (financieel) oplevert"
+                    },
+                    {
+                      "name": "Volledige ontzorging",
+                      "type": "Flexblok-USP",
+                      "goal": "Laten zien dat wij alles regelen en aanwezig zijn op de dag, zodat de klant zelf kan genieten"
+                    },
+                    {
+                      "name": "Cases bedrijfsleven",
+                      "type": "Posttype-Overzicht",
+                      "goal": "Relevante voorbeelden tonen"
+                    },
+                    {
+                      "name": "FAQ",
+                      "type": "Flexblok-FAQ",
+                      "goal": "Vragen over kosten en tijdsinvestering beantwoorden"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Offerte aanvragen"
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "title": "Overheid",
+                  "slug": "overheid",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Overheid aanspreken op professionaliteit en betrouwbaarheid"
+                    },
+                    {
+                      "name": "Kennis van de sector",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Branchekennis, werkwijze en aanbestedingsroutes toelichten"
+                    },
+                    {
+                      "name": "Keurmerken & MVO",
+                      "type": "Flexblok-USP",
+                      "goal": "Certificaten, IDEA-keurmerk en duurzaamheid benadrukken"
+                    },
+                    {
+                      "name": "Cases overheid",
+                      "type": "Posttype-Overzicht",
+                      "goal": "Bewijs van eerdere overheidsprojecten"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Contact opnemen"
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "title": "Cases",
+              "slug": "cases",
+              "blocks": [
+                {
+                  "name": "Hero",
+                  "type": "Broodblok-Hero",
+                  "goal": "Portfolio introduceren"
+                },
+                {
+                  "name": "Casesoverzicht",
+                  "type": "Posttype-Overzicht",
+                  "goal": "Alle eerdere evenementen tonen, filterbaar op eventtype en sector"
+                },
+                {
+                  "name": "Reviews",
+                  "type": "Flexblok-Testimonials",
+                  "goal": "Ervaringen van opdrachtgevers tonen"
+                },
+                {
+                  "name": "Call to Action",
+                  "type": "Flexblok-CTA-Banner",
+                  "goal": "'Wil je zo'n event ook?' naar offerte"
+                }
+              ],
+              "children": [
+                {
+                  "title": "Case detail",
+                  "slug": "cases/case-naam",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Sfeer en titel van het event"
+                    },
+                    {
+                      "name": "Uitdaging & aanpak",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Vraag van de klant en de oplossing beschrijven"
+                    },
+                    {
+                      "name": "Beeldmateriaal",
+                      "type": "Flexblok-Media-Grid",
+                      "goal": "Tonen hoe de locatie en het event eruitzagen"
+                    },
+                    {
+                      "name": "Quote opdrachtgever",
+                      "type": "Flexblok-Testimonials",
+                      "goal": "Resultaat bevestigen"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Soortgelijk event aanvragen"
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "title": "Werkwijze",
+              "slug": "werkwijze",
+              "blocks": [
+                {
+                  "name": "Hero",
+                  "type": "Broodblok-Hero",
+                  "goal": "Transparant maken hoe samenwerken werkt"
+                },
+                {
+                  "name": "Stappenplan",
+                  "type": "Flexblok-Stappenplan",
+                  "goal": "Van eerste gesprek tot evaluatie laten zien, inclusief vast contactpersoon"
+                },
+                {
+                  "name": "Planning",
+                  "type": "Flexblok-Tekst",
+                  "goal": "Beantwoorden wanneer je moet beginnen met organiseren"
+                },
+                {
+                  "name": "FAQ",
+                  "type": "Flexblok-FAQ",
+                  "goal": "Vragen over tijdsinvestering, aanwezigheid en ontzorging"
+                },
+                {
+                  "name": "Call to Action",
+                  "type": "Flexblok-CTA-Banner",
+                  "goal": "Kennismaking plannen"
+                }
+              ],
+              "children": [
+                {
+                  "title": "Kosten",
+                  "slug": "kosten",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Aanhaken op 'Wat zijn de kosten?'"
+                    },
+                    {
+                      "name": "Opbouw van de prijs",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Uitleggen waar de kosten van afhangen, met indicaties"
+                    },
+                    {
+                      "name": "Wat levert het op",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Kosten afzetten tegen rendement"
+                    },
+                    {
+                      "name": "FAQ",
+                      "type": "Flexblok-FAQ",
+                      "goal": "Veelgestelde prijsvragen"
+                    },
+                    {
+                      "name": "Offerte",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Offerte aanvragen"
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "title": "Over ons",
+              "slug": "over-ons",
+              "blocks": [
+                {
+                  "name": "Hero",
+                  "type": "Broodblok-Hero",
+                  "goal": "Bureau en verhaal introduceren"
+                },
+                {
+                  "name": "Ons verhaal",
+                  "type": "Flexblok-Tekst",
+                  "goal": "Beantwoorden hoe lang het bureau al bestaat en waar het voor staat"
+                },
+                {
+                  "name": "Kerncijfers & keurmerken",
+                  "type": "Flexblok-USP",
+                  "goal": "Betrouwbaarheid tonen: jaren ervaring, aantal events, IDEA-keurmerk"
+                },
+                {
+                  "name": "Team",
+                  "type": "Flexblok-Team",
+                  "goal": "Laten zien wie er werken en met wie je contact hebt"
+                },
+                {
+                  "name": "Call to Action",
+                  "type": "Flexblok-CTA-Banner",
+                  "goal": "Kennismaken"
+                }
+              ],
+              "children": [
+                {
+                  "title": "Team",
+                  "slug": "team",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Mensen achter het bureau tonen"
+                    },
+                    {
+                      "name": "Teamleden",
+                      "type": "Flexblok-Team",
+                      "goal": "Contactpersonen met foto, rol en directe contactgegevens"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Direct contact met een contactpersoon"
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "title": "Duurzaamheid en keurmerken",
+                  "slug": "duurzaamheid-keurmerken",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "MVO-beleid positioneren"
+                    },
+                    {
+                      "name": "MVO-beleid",
+                      "type": "Flexblok-Tekst",
+                      "goal": "Duurzame werkwijze toelichten"
+                    },
+                    {
+                      "name": "Keurmerken",
+                      "type": "Flexblok-Logo-Slider",
+                      "goal": "IDEA-keurmerk en overige certificaten tonen"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Contact opnemen"
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "title": "Reviews",
+                  "slug": "reviews",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Ervaringen van klanten bundelen"
+                    },
+                    {
+                      "name": "Reviews",
+                      "type": "Flexblok-Testimonials",
+                      "goal": "Alle reviews tonen"
+                    },
+                    {
+                      "name": "Review schrijven",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Klanten uitnodigen zelf een review te schrijven (link naar reviewplatform)"
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "title": "Inspiratie",
+              "slug": "inspiratie",
+              "blocks": [
+                {
+                  "name": "Hero",
+                  "type": "Broodblok-Hero",
+                  "goal": "Inspiratie- en kennisplatform introduceren"
+                },
+                {
+                  "name": "Artikelen",
+                  "type": "Posttype-Overzicht",
+                  "goal": "Blogs, trends en tips over events"
+                },
+                {
+                  "name": "Nieuwsbrief",
+                  "type": "Flexblok-Formulier",
+                  "goal": "Inschrijven voor de nieuwsbrief"
+                },
+                {
+                  "name": "Social media",
+                  "type": "Flexblok-CTA-Banner",
+                  "goal": "Volgen op social media"
+                }
+              ],
+              "children": [
+                {
+                  "title": "Agenda",
+                  "slug": "agenda",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Eigen evenementen tonen, voor bezoekers die via een event binnenkomen"
+                    },
+                    {
+                      "name": "Aankomende events",
+                      "type": "Posttype-Overzicht",
+                      "goal": "Overzicht van eigen evenementen"
+                    },
+                    {
+                      "name": "Doorverwijzing",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "'Was je bij ons event? Wij organiseren dit ook voor jou'"
+                    }
+                  ],
+                  "children": []
+                },
+                {
+                  "title": "Magazine",
+                  "slug": "magazine",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Magazine presenteren"
+                    },
+                    {
+                      "name": "Edities",
+                      "type": "Flexblok-Media-Grid",
+                      "goal": "Magazine-edities online lezen of downloaden"
+                    },
+                    {
+                      "name": "Call to Action",
+                      "type": "Flexblok-CTA-Banner",
+                      "goal": "Van lezer naar opdrachtgever: kennismaking plannen"
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            },
+            {
+              "title": "Niquell Pro",
+              "slug": "niquell-pro",
+              "blocks": [
+                {
+                  "name": "Hero",
+                  "type": "Broodblok-Hero",
+                  "goal": "Leer- en netwerkaanbod positioneren"
+                },
+                {
+                  "name": "Wat is Niquell Pro",
+                  "type": "Flexblok-Tekst",
+                  "goal": "Uitleggen hoe klanten meer kunnen leren en onderdeel worden van een netwerk van gelijkgestemden"
+                },
+                {
+                  "name": "Voordelen",
+                  "type": "Flexblok-USP",
+                  "goal": "Meerwaarde voor bestaande klanten tonen"
+                },
+                {
+                  "name": "Ervaringen",
+                  "type": "Flexblok-Testimonials",
+                  "goal": "Deelnemers aan het woord"
+                },
+                {
+                  "name": "Aanmelden",
+                  "type": "Flexblok-Formulier",
+                  "goal": "Aanmelden of meer informatie aanvragen"
+                }
+              ],
+              "children": []
+            },
+            {
+              "title": "Contact",
+              "slug": "contact",
+              "blocks": [
+                {
+                  "name": "Hero",
+                  "type": "Broodblok-Hero",
+                  "goal": "Laagdrempelig contact uitnodigen"
+                },
+                {
+                  "name": "Contactgegevens & kantoor",
+                  "type": "Flexblok-Contact-Kaart",
+                  "goal": "Adres, kaart, telefoon en e-mail tonen"
+                },
+                {
+                  "name": "Contactformulier",
+                  "type": "Flexblok-Formulier",
+                  "goal": "Vraag stellen of afspraak maken"
+                },
+                {
+                  "name": "Contactpersonen",
+                  "type": "Flexblok-Team",
+                  "goal": "Laten zien met wie je contact krijgt"
+                }
+              ],
+              "children": [
+                {
+                  "title": "Offerte aanvragen",
+                  "slug": "offerte-aanvragen",
+                  "blocks": [
+                    {
+                      "name": "Hero",
+                      "type": "Broodblok-Hero",
+                      "goal": "Conversiepagina met focus"
+                    },
+                    {
+                      "name": "Wat gebeurt er na je aanvraag",
+                      "type": "Flexblok-Stappenplan",
+                      "goal": "Verwachtingen managen en drempel verlagen"
+                    },
+                    {
+                      "name": "Offerteformulier",
+                      "type": "Flexblok-Formulier",
+                      "goal": "Offerteaanvraag met eventtype, datum, aantal gasten en budget"
+                    },
+                    {
+                      "name": "Reviews",
+                      "type": "Flexblok-Testimonials",
+                      "goal": "Laatste vertrouwensduwtje"
+                    }
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   },
   {
     "id": "f6a7ce82",

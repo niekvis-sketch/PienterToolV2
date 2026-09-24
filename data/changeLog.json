@@ -1172,5 +1172,65 @@
     "details": "Verplaatst: https:/example.com/voor-wie → https:/example.com/voor-wie (4 subpagina's mee verplaatst)",
     "oldValue": "https:/example.com/voor-wie",
     "newValue": "https:/example.com/voor-wie"
+  },
+  {
+    "id": "879d88ec",
+    "projectId": "ef56ba97",
+    "timestamp": "2026-09-24T06:37:14.580Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "bulk-import",
+    "entityTitle": "Import",
+    "details": "113 blokken geïmporteerd vanuit structuurbestand"
+  },
+  {
+    "id": "0326c325",
+    "projectId": "ef56ba97",
+    "timestamp": "2026-09-24T06:37:14.581Z",
+    "action": "added",
+    "entityType": "siteNode",
+    "entityId": "bulk-import",
+    "entityTitle": "Import",
+    "details": "25 pagina's geïmporteerd vanuit structuurbestand"
+  },
+  {
+    "id": "2ae6137a",
+    "projectId": "ef56ba97",
+    "timestamp": "2026-09-24T06:38:06.476Z",
+    "action": "block-added",
+    "entityType": "pageBlock",
+    "entityId": "2d5c2d0d",
+    "entityTitle": "Introductie",
+    "details": "Blok \"Introductie\" toegevoegd aan pagina"
+  },
+  {
+    "id": "bc95a402",
+    "projectId": "ef56ba97",
+    "timestamp": "2026-09-24T06:38:20.805Z",
+    "action": "block-removed",
+    "entityType": "pageBlock",
+    "entityId": "2d5c2d0d",
+    "entityTitle": "Introductie",
+    "details": "Blok \"Introductie\" verwijderd"
+  },
+  {
+    "id": "4524be78",
+    "projectId": "08e09d70",
+    "timestamp": "2026-09-24T07:08:20.821Z",
+    "action": "added",
+    "entityType": "siteNode",
+    "entityId": "c30adb4a",
+    "entityTitle": "Over ons",
+    "details": "Pagina toegevoegd: https://example.com/over-ons"
+  },
+  {
+    "id": "b0d7bf22",
+    "projectId": "08e09d70",
+    "timestamp": "2026-09-24T07:10:59.132Z",
+    "action": "added",
+    "entityType": "siteNode",
+    "entityId": "f6c73c4f",
+    "entityTitle": "Nieuwe pagina",
+    "details": "Pagina toegevoegd: https://example.com/nieuwe-pagina"
   }
 ]
