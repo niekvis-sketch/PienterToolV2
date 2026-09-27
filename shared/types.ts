@@ -55,12 +55,25 @@ export interface StructureBlockNode {
   type: BlockType | string
   goal?: string
   contentDescription?: string
+  componentPattern?: string
+  isReusable?: boolean
 }
 
+// Optionele paginavelden in een import (bv. een klaargezette structuur voor een
+// gebruikerstest). Ontbrekende velden krijgen de standaardwaarde.
 export interface StructureNode {
   title: string
   slug: string
-  type?: PageType
+  type?: SiteNodeType
+  goal?: SiteNodeGoal | null
+  label?: SiteNodeLabel
+  focusTopic?: string
+  targetAudience?: string
+  reasonExists?: string
+  requirements?: string
+  redirectsFrom?: string[]
+  notes?: string
+  isInMainNav?: boolean
   children?: StructureNode[]
   blocks?: StructureBlockNode[]
 }
@@ -199,6 +212,8 @@ export interface SiteNode {
   relatedUserStoryIds: string[]
   openQuestionIds: string[]     // open vragen uit fase 1
   notes: string
+  // "Wat moet deze pagina kunnen?" — functionele eisen voor de developer.
+  requirements?: string
   // Herkomst van deze pagina (zie Concurrenten-tab). Default "handmatig".
   bron?: RecordBron
   // Aanname die nog door de klant bevestigd moet worden. Default false.
@@ -212,11 +227,28 @@ export interface SiteNode {
 }
 
 export interface StructureWarning {
-  type: 'duplicate' | 'no-goal' | 'too-deep' | 'orphan' | 'name-slug-mismatch' | 'content-overlap' | 'merge-candidate' | 'internal-name' | 'no-focus' | 'needs-research'
+  type: 'duplicate' | 'no-goal' | 'too-deep' | 'orphan' | 'name-slug-mismatch' | 'content-overlap' | 'merge-candidate' | 'internal-name' | 'no-focus' | 'needs-research' | 'keyword-cannibalization'
   severity: 'info' | 'warning' | 'error'
   nodeId: string
   relatedNodeId?: string
   message: string
+}
+
+// ---------- Fase 2: Menu (navigatie) ----------
+// Een menu-item verwijst via siteNodeId naar een pagina. De menu-hiërarchie staat
+// los van de URL-structuur (een pagina kan in het menu elders hangen).
+export interface ProjectMenuItem {
+  id: string
+  siteNodeId: string
+  customLabel?: string
+  parentId: string | null
+  sortOrder: number
+}
+
+export interface ProjectMenu {
+  projectId: string
+  items: ProjectMenuItem[]
+  updatedAt: string
 }
 
 export interface UrlChange {
@@ -457,6 +489,8 @@ export interface ContentStructuurRow {
   zoektermen: string
   tekstKlaar: boolean
   wiePlaatstId: string | null
+  schrijverId?: string | null   // wie schrijft de tekst
+  nakijkerId?: string | null    // collega die de tekst nakijkt vóór de klant hem ziet
   // Tijdens migratie: oude vrije-tekst waarden bewaard zodat ze handmatig
   // omgezet kunnen worden naar wiePlaatstId. Mag in latere fase verwijderd
   // worden zodra alle rijen gekoppeld zijn.

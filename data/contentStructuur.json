@@ -400,5 +400,25 @@
     "sortOrder": 0,
     "createdAt": "2026-05-11T09:00:40.148Z",
     "updatedAt": "2026-05-11T09:00:40.148Z"
+  },
+  {
+    "id": "vl-team-tekst",
+    "projectId": "08e09d70",
+    "siteNodeId": null,
+    "naamPagina": "Team",
+    "zoektermen": "team Van Lier, koks Van Lier",
+    "tekstKlaar": true,
+    "wiePlaatstId": null,
+    "schrijverId": "mw-suzanne",
+    "nakijkerId": null,
+    "status": "in-progress",
+    "watMistNog": "",
+    "nieuweUrl": "",
+    "slug": "team",
+    "metaTitel": "",
+    "metaDescription": "",
+    "sortOrder": 0,
+    "createdAt": "2026-09-27T12:00:00.000Z",
+    "updatedAt": "2026-09-27T21:01:04.479Z"
   }
 ]

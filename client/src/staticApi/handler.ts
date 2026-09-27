@@ -6,6 +6,7 @@
 // no-op zodat de UI niet crasht, maar er wordt niets bewaard.
 // ============================================================
 import { coll } from './demoData'
+import { computeStructureWarnings } from '@shared/structuurWarnings'
 
 type ApiResult = { ok: boolean; data?: any; error?: string; _status?: number }
 
@@ -23,108 +24,10 @@ const byDateDesc = (k: string) => (a: any, b: any) =>
   new Date(b[k]).getTime() - new Date(a[k]).getTime()
 
 // ============================================================
-//  /structuur/:projectId/warnings  — volledig berekend
+//  /structuur/:projectId/warnings  — gedeelde logica met de server
 // ============================================================
-function jaccard(a: string, b: string): number {
-  const sa = new Set(a.toLowerCase().split(/\s+/).filter(Boolean))
-  const sb = new Set(b.toLowerCase().split(/\s+/).filter(Boolean))
-  const inter = [...sa].filter((w) => sb.has(w))
-  const union = new Set([...sa, ...sb])
-  return union.size === 0 ? 0 : inter.length / union.size
-}
-
 function computeWarnings(projectId: string): any[] {
-  const nodes = coll('siteNodes').filter((n) => n.projectId === projectId)
-  const warnings: any[] = []
-  const internalPatterns = ['test', 'temp', 'draft', 'todo', 'tbd', 'xxx', 'pagina-']
-
-  for (const node of nodes) {
-    const title: string = node.title ?? ''
-    if (node.level > 3) {
-      warnings.push({
-        type: 'too-deep',
-        severity: 'warning',
-        nodeId: node.id,
-        message: `"${title}" hangt ${node.level} niveaus diep – overweeg om deze hoger te plaatsen.`,
-      })
-    }
-    if (!node.goal && !node.isParked) {
-      warnings.push({
-        type: 'no-goal',
-        severity: 'info',
-        nodeId: node.id,
-        message: `"${title}" heeft nog geen paginadoel (informeren/overtuigen/converteren).`,
-      })
-    }
-    if (!node.focusTopic && !node.isParked) {
-      warnings.push({
-        type: 'no-focus',
-        severity: 'info',
-        nodeId: node.id,
-        message: `"${title}" heeft nog geen focus onderwerp voor SEO.`,
-      })
-    }
-    if (node.parentId && !nodes.find((n) => n.id === node.parentId)) {
-      warnings.push({
-        type: 'orphan',
-        severity: 'error',
-        nodeId: node.id,
-        message: `"${title}" verwijst naar een niet-bestaande bovenliggende pagina.`,
-      })
-    }
-    if (node.slug && title) {
-      const titleWords = title.toLowerCase().split(/\s+/).filter(Boolean)
-      const slugWords = node.slug.toLowerCase().replace(/-/g, ' ').split(/\s+/).filter(Boolean)
-      const overlap = slugWords.filter((sw: string) =>
-        titleWords.some((tw) => tw.includes(sw) || sw.includes(tw)),
-      )
-      if (slugWords.length > 0 && overlap.length === 0 && !node.isDetailTemplate) {
-        warnings.push({
-          type: 'name-slug-mismatch',
-          severity: 'warning',
-          nodeId: node.id,
-          message: `De slug "${node.slug}" lijkt niet overeen te komen met de paginanaam "${title}".`,
-        })
-      }
-    }
-    const duplicates = nodes.filter(
-      (n) => n.id !== node.id && (n.title ?? '').toLowerCase() === title.toLowerCase(),
-    )
-    if (duplicates.length > 0) {
-      warnings.push({
-        type: 'duplicate',
-        severity: 'warning',
-        nodeId: node.id,
-        relatedNodeId: duplicates[0].id,
-        message: `"${title}" heeft dezelfde naam als een andere pagina – mogelijke overlap.`,
-      })
-    }
-    if (internalPatterns.some((p) => title.toLowerCase().includes(p))) {
-      warnings.push({
-        type: 'internal-name',
-        severity: 'warning',
-        nodeId: node.id,
-        message: `"${title}" klinkt als een interne werknaam – overweeg een definitieve paginanaam.`,
-      })
-    }
-  }
-
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      const ti: string = nodes[i].title ?? ''
-      const tj: string = nodes[j].title ?? ''
-      if (jaccard(ti, tj) > 0.6 && ti.toLowerCase() !== tj.toLowerCase()) {
-        warnings.push({
-          type: 'merge-candidate',
-          severity: 'info',
-          nodeId: nodes[i].id,
-          relatedNodeId: nodes[j].id,
-          message: `"${ti}" en "${tj}" lijken inhoudelijk overeen te komen – overweeg samenvoegen.`,
-        })
-      }
-    }
-  }
-  return warnings
+  return computeStructureWarnings(coll('siteNodes').filter((n) => n.projectId === projectId))
 }
 
 // ============================================================
@@ -198,6 +101,7 @@ function handleGet(segs: string[]): ApiResult {
         return okR(s ?? null)
       }
       if (b === 'warnings') return okR(computeWarnings(a))
+      if (b === 'menu') return okR(coll('menus').find((m) => m.projectId === a) ?? null)
       if (b === 'reusable-blocks')
         return okR(coll('pageBlocks').filter((x) => x.projectId === a && x.isReusable))
       if (b === 'changelog')

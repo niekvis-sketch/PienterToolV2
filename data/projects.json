@@ -83,755 +83,481 @@
         {
           "title": "Home",
           "slug": "",
+          "label": "herschrijven",
+          "focusTopic": "catering",
+          "targetAudience": "Bedrijven, hogescholen en overheden die catering zoeken",
           "blocks": [
             {
               "name": "Hero",
-              "type": "Broodblok-Hero",
-              "goal": "Directe aandacht trekken en positionering neerzetten",
-              "contentDescription": "Krachtige kop over events met impact, subtekst en CTA's 'Plan een kennismaking' en 'Bekijk cases'"
+              "type": "hero",
+              "componentPattern": "Hero",
+              "goal": "Direct duidelijk maken waar de pagina over gaat",
+              "contentDescription": "Kop over verse catering voor elk moment, subtekst en knop 'Vraag een offerte aan'"
             },
             {
               "name": "Introductie",
-              "type": "Flexblok-Tekst",
-              "goal": "Uitleggen wat het bureau doet en voor wie",
-              "contentDescription": "Korte intro: van idee tot uitvoering, wij regelen alles zodat jij kunt genieten"
+              "type": "introductie",
+              "componentPattern": "Text",
+              "goal": "Van Lier kort voorstellen",
+              "contentDescription": "Twee alinea's over Van Lier als regionale cateraar"
             },
             {
-              "name": "Soorten evenementen",
-              "type": "Flexblok-Media-Grid",
-              "goal": "Bezoekers met een concrete aanleiding snel doorsturen",
-              "contentDescription": "Tegels: personeelsevent, klantendag, productlancering, kennisevent, recruitment event"
+              "name": "Onze diensten",
+              "type": "gerelateerde-paginas",
+              "componentPattern": "MediaGrid",
+              "goal": "Doorsturen naar de juiste dienst",
+              "contentDescription": "Tegels naar Bedrijfscatering, Evenementencatering, Catering onderwijs en Catering overheid"
             },
             {
-              "name": "Voor wie",
-              "type": "Flexblok-Media-Grid",
-              "goal": "Doorverwijzen naar doelgroeppagina's",
-              "contentDescription": "Drie tegels: Onderwijs, Bedrijfsleven/MKB, Overheid"
+              "name": "Waarom Van Lier",
+              "type": "usp",
+              "componentPattern": "USP",
+              "goal": "Vertrouwen opbouwen",
+              "contentDescription": "Vier USP's: vers bereid, duurzaam, flexibel in aantallen, vaste contactpersoon"
             },
             {
-              "name": "USP's",
-              "type": "Flexblok-USP",
-              "goal": "Vertrouwen en onderscheidend vermogen tonen",
-              "contentDescription": "Jarenlange ervaring, IDEA-keurmerk, vast aanspreekpunt, volledige ontzorging, duurzaam"
-            },
-            {
-              "name": "Uitgelichte cases",
-              "type": "Posttype-Overzicht",
-              "goal": "Bewijs leveren met eerdere evenementen",
-              "contentDescription": "3 recente cases met beeld en resultaat"
-            },
-            {
-              "name": "Reviews",
-              "type": "Flexblok-Testimonials",
-              "goal": "Vertrouwen opbouwen via ervaringen van anderen"
+              "name": "Klantreviews",
+              "type": "reviews",
+              "componentPattern": "Testimonials",
+              "goal": "Sociaal bewijs",
+              "contentDescription": "Drie korte reviews van zakelijke klanten met naam, functie en bedrijf"
             },
             {
               "name": "Logo's klanten",
-              "type": "Flexblok-Logo-Slider",
-              "goal": "Social proof over sectoren heen"
+              "type": "custom",
+              "componentPattern": "Affiliates",
+              "goal": "Laten zien voor wie Van Lier werkt",
+              "contentDescription": "Slider met logo's van vaste opdrachtgevers"
             },
             {
-              "name": "Call to Action",
-              "type": "Flexblok-CTA-Banner",
-              "goal": "Bezoeker laten converteren",
-              "contentDescription": "Offerte aanvragen of kennismaking plannen"
+              "name": "Offerte aanvragen",
+              "type": "cta",
+              "componentPattern": "CTA",
+              "goal": "Bezoeker naar de offerte-aanvraag leiden",
+              "contentDescription": "Banner met kop en knop naar het offerteformulier"
+            }
+          ]
+        },
+        {
+          "title": "Diensten",
+          "slug": "diensten",
+          "goal": "informeren",
+          "label": "bestaand",
+          "focusTopic": "catering diensten",
+          "blocks": [
+            {
+              "name": "Hero",
+              "type": "hero",
+              "componentPattern": "Hero",
+              "goal": "Direct duidelijk maken waar de pagina over gaat",
+              "contentDescription": "Kop over de cateringdiensten van Van Lier"
+            },
+            {
+              "name": "Overzicht diensten",
+              "type": "gerelateerde-paginas",
+              "componentPattern": "MediaGrid",
+              "goal": "Juiste dienst laten kiezen",
+              "contentDescription": "Tegel per dienst met korte uitleg"
+            },
+            {
+              "name": "Offerte aanvragen",
+              "type": "cta",
+              "componentPattern": "CTA",
+              "goal": "Bezoeker naar de offerte-aanvraag leiden",
+              "contentDescription": "Banner naar het offerteformulier"
             }
           ],
           "children": [
             {
-              "title": "Evenementen",
-              "slug": "evenementen",
+              "title": "Bedrijfscatering",
+              "slug": "bedrijfscatering",
+              "goal": "converteren",
+              "label": "nieuw",
+              "focusTopic": "bedrijfscatering",
+              "targetAudience": "Office- en HR-managers die dagelijks of wekelijks lunch regelen",
+              "requirements": "Offerte aanvragen via een formulier met aantal personen, datum, locatie en dieetwensen.\nLunchconcepten filteren op vegetarisch, vegan en glutenvrij.\nMenukaart downloaden als pdf.",
               "blocks": [
                 {
                   "name": "Hero",
-                  "type": "Broodblok-Hero",
-                  "goal": "Overzicht van het aanbod introduceren"
+                  "type": "hero",
+                  "componentPattern": "Hero",
+                  "goal": "Direct duidelijk maken waar de pagina over gaat",
+                  "contentDescription": "Kop over zakelijke lunch en catering op kantoor, knop naar de offerte"
                 },
                 {
                   "name": "Introductie",
-                  "type": "Flexblok-Tekst",
-                  "goal": "Uitleggen dat alles mogelijk is: van eigen idee tot volledig concept",
-                  "contentDescription": "Beantwoordt 'Kunnen jullie een idee verder uitwerken?' en 'Kunnen jullie alles voor mij doen?'"
+                  "type": "introductie",
+                  "componentPattern": "Text",
+                  "goal": "Uitleggen wat bedrijfscatering bij Van Lier inhoudt",
+                  "contentDescription": "Korte tekst over dagelijkse lunch, vergaderingen en borrels"
                 },
                 {
-                  "name": "Eventtypes",
-                  "type": "Flexblok-Media-Grid",
-                  "goal": "Doorklikken naar het juiste eventtype"
+                  "name": "Lunchconcepten",
+                  "type": "afbeelding-tekst",
+                  "componentPattern": "MediaGrid",
+                  "goal": "Keuze laten zien",
+                  "contentDescription": "Kaarten per concept: lunchbuffet, broodjes, warme lunch, met filter op dieetwensen"
                 },
                 {
-                  "name": "Wat levert een event op",
-                  "type": "Flexblok-Tekst",
-                  "goal": "Waarde van events onderbouwen",
-                  "contentDescription": "Binding, zichtbaarheid, werving, kennisdeling"
+                  "name": "Zo werkt het",
+                  "type": "stappenplan",
+                  "componentPattern": "StepsMedia",
+                  "goal": "Drempel verlagen",
+                  "contentDescription": "Vier stappen: aanvraag, voorstel, proeverij, levering"
                 },
                 {
-                  "name": "Call to Action",
-                  "type": "Flexblok-CTA-Banner",
-                  "goal": "Contact of offerte"
-                }
-              ],
-              "children": [
-                {
-                  "title": "Personeelsevent",
-                  "slug": "personeelsevent",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Aanhaken op 'ik wil iets leuks voor mijn medewerkers organiseren'"
-                    },
-                    {
-                      "name": "Toelichting",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Mogelijkheden en effect op medewerkersbetrokkenheid uitleggen"
-                    },
-                    {
-                      "name": "Voorbeelden",
-                      "type": "Posttype-Overzicht",
-                      "goal": "Relevante cases tonen"
-                    },
-                    {
-                      "name": "Reviews",
-                      "type": "Flexblok-Testimonials",
-                      "goal": "Vertrouwen opbouwen"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Offerte aanvragen"
-                    }
-                  ],
-                  "children": []
+                  "name": "Offerteformulier",
+                  "type": "formulier",
+                  "componentPattern": "Form",
+                  "goal": "Aanvraag binnenhalen",
+                  "contentDescription": "Velden: aantal personen, datum, locatie, dieetwensen, contactgegevens"
                 },
                 {
-                  "title": "Klantendag",
-                  "slug": "klantendag",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Aanhaken op 'Kunnen jullie een klantendag organiseren?'"
-                    },
-                    {
-                      "name": "Klantbinding",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Uitleggen hoe een event klanten aan je bindt en wat het financieel oplevert"
-                    },
-                    {
-                      "name": "Voorbeelden",
-                      "type": "Posttype-Overzicht",
-                      "goal": "Eerdere klantendagen tonen"
-                    },
-                    {
-                      "name": "FAQ",
-                      "type": "Flexblok-FAQ",
-                      "goal": "Vragen over kosten, tijdsinvestering en aanwezigheid op de dag beantwoorden"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Offerte aanvragen"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "title": "Productlancering",
-                  "slug": "productlancering",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Aanhaken op 'ik moet een nieuw product lanceren'"
-                    },
-                    {
-                      "name": "Aanpak",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Uitleggen hoe een lancering-event impact en zichtbaarheid creëert"
-                    },
-                    {
-                      "name": "Voorbeelden",
-                      "type": "Posttype-Overzicht",
-                      "goal": "Relevante cases tonen"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Offerte aanvragen"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "title": "Kennisevent",
-                  "slug": "kennisevent",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Kennisevents en congressen positioneren"
-                    },
-                    {
-                      "name": "Toelichting",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Formats uitleggen: congres, symposium, inspiratiesessie"
-                    },
-                    {
-                      "name": "Voorbeelden",
-                      "type": "Posttype-Overzicht",
-                      "goal": "Relevante cases tonen"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Offerte aanvragen"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "title": "Recruitment event",
-                  "slug": "recruitment-event",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Aanhaken op 'ik wil nieuwe medewerkers aantrekken'"
-                    },
-                    {
-                      "name": "Toelichting",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Uitleggen hoe events bijdragen aan employer branding"
-                    },
-                    {
-                      "name": "Voorbeelden",
-                      "type": "Posttype-Overzicht",
-                      "goal": "Relevante cases tonen"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Offerte aanvragen"
-                    }
-                  ],
-                  "children": []
+                  "name": "Veelgestelde vragen",
+                  "type": "faq",
+                  "componentPattern": "Accordion",
+                  "goal": "Twijfels wegnemen",
+                  "contentDescription": "Vragen over minimum aantallen, levertijden en annuleren"
                 }
               ]
             },
             {
-              "title": "Voor wie",
-              "slug": "voor-wie",
+              "title": "Zakelijke lunches",
+              "slug": "zakelijke-lunches",
+              "goal": "converteren",
+              "label": "bestaand",
+              "focusTopic": "bedrijfscatering",
+              "notes": "Pagina van de huidige website; inhoud overlapt met Bedrijfscatering.",
               "blocks": [
                 {
                   "name": "Hero",
-                  "type": "Broodblok-Hero",
-                  "goal": "Doelgroepen introduceren"
+                  "type": "hero",
+                  "componentPattern": "Hero",
+                  "goal": "Direct duidelijk maken waar de pagina over gaat",
+                  "contentDescription": "Kop over lunch voor bedrijven"
                 },
                 {
-                  "name": "Doelgroepen",
-                  "type": "Flexblok-Media-Grid",
-                  "goal": "Doorklikken naar de eigen sector"
+                  "name": "Lunchpakketten",
+                  "type": "prijzen",
+                  "componentPattern": "MediaGrid",
+                  "goal": "Pakketten tonen",
+                  "contentDescription": "Drie lunchpakketten met prijs per persoon"
                 },
                 {
-                  "name": "Call to Action",
-                  "type": "Flexblok-CTA-Banner",
-                  "goal": "Contact opnemen"
-                }
-              ],
-              "children": [
-                {
-                  "title": "Onderwijs",
-                  "slug": "onderwijs",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Onderwijsinstellingen direct aanspreken"
-                    },
-                    {
-                      "name": "Aanbod onderwijs",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Kennisevents voor medewerkers en samenwerking met studenten uitleggen"
-                    },
-                    {
-                      "name": "Minoropdrachten & studentsamenwerking",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Antwoord geven op vragen over minoropdrachten en stages"
-                    },
-                    {
-                      "name": "Cases onderwijs",
-                      "type": "Posttype-Overzicht",
-                      "goal": "Tonen wat voor andere onderwijsinstellingen is georganiseerd"
-                    },
-                    {
-                      "name": "Reviews",
-                      "type": "Flexblok-Testimonials",
-                      "goal": "Vertrouwen opbouwen binnen de sector"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Contact opnemen"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "title": "Bedrijfsleven en MKB",
-                  "slug": "bedrijfsleven-mkb",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "MKB aanspreken met focus op rendement en ontzorging"
-                    },
-                    {
-                      "name": "Rendement",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Beantwoorden wat een event (financieel) oplevert"
-                    },
-                    {
-                      "name": "Volledige ontzorging",
-                      "type": "Flexblok-USP",
-                      "goal": "Laten zien dat wij alles regelen en aanwezig zijn op de dag, zodat de klant zelf kan genieten"
-                    },
-                    {
-                      "name": "Cases bedrijfsleven",
-                      "type": "Posttype-Overzicht",
-                      "goal": "Relevante voorbeelden tonen"
-                    },
-                    {
-                      "name": "FAQ",
-                      "type": "Flexblok-FAQ",
-                      "goal": "Vragen over kosten en tijdsinvestering beantwoorden"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Offerte aanvragen"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "title": "Overheid",
-                  "slug": "overheid",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Overheid aanspreken op professionaliteit en betrouwbaarheid"
-                    },
-                    {
-                      "name": "Kennis van de sector",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Branchekennis, werkwijze en aanbestedingsroutes toelichten"
-                    },
-                    {
-                      "name": "Keurmerken & MVO",
-                      "type": "Flexblok-USP",
-                      "goal": "Certificaten, IDEA-keurmerk en duurzaamheid benadrukken"
-                    },
-                    {
-                      "name": "Cases overheid",
-                      "type": "Posttype-Overzicht",
-                      "goal": "Bewijs van eerdere overheidsprojecten"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Contact opnemen"
-                    }
-                  ],
-                  "children": []
+                  "name": "Offerte aanvragen",
+                  "type": "cta",
+                  "componentPattern": "CTA",
+                  "goal": "Bezoeker naar de offerte-aanvraag leiden",
+                  "contentDescription": "Banner naar het offerteformulier"
                 }
               ]
             },
             {
-              "title": "Cases",
-              "slug": "cases",
+              "title": "Evenementencatering",
+              "slug": "evenementencatering",
+              "goal": "converteren",
+              "label": "herschrijven",
+              "focusTopic": "catering evenementen",
               "blocks": [
                 {
                   "name": "Hero",
-                  "type": "Broodblok-Hero",
-                  "goal": "Portfolio introduceren"
+                  "type": "hero",
+                  "componentPattern": "Hero",
+                  "goal": "Direct duidelijk maken waar de pagina over gaat",
+                  "contentDescription": "Kop over catering voor bedrijfsfeesten, congressen en jubilea"
                 },
                 {
-                  "name": "Casesoverzicht",
-                  "type": "Posttype-Overzicht",
-                  "goal": "Alle eerdere evenementen tonen, filterbaar op eventtype en sector"
+                  "name": "Soorten evenementen",
+                  "type": "afbeelding-tekst",
+                  "componentPattern": "MediaGrid",
+                  "goal": "Herkenning bieden",
+                  "contentDescription": "Tegels per type evenement"
                 },
                 {
-                  "name": "Reviews",
-                  "type": "Flexblok-Testimonials",
-                  "goal": "Ervaringen van opdrachtgevers tonen"
-                },
-                {
-                  "name": "Call to Action",
-                  "type": "Flexblok-CTA-Banner",
-                  "goal": "'Wil je zo'n event ook?' naar offerte"
-                }
-              ],
-              "children": [
-                {
-                  "title": "Case detail",
-                  "slug": "cases/case-naam",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Sfeer en titel van het event"
-                    },
-                    {
-                      "name": "Uitdaging & aanpak",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Vraag van de klant en de oplossing beschrijven"
-                    },
-                    {
-                      "name": "Beeldmateriaal",
-                      "type": "Flexblok-Media-Grid",
-                      "goal": "Tonen hoe de locatie en het event eruitzagen"
-                    },
-                    {
-                      "name": "Quote opdrachtgever",
-                      "type": "Flexblok-Testimonials",
-                      "goal": "Resultaat bevestigen"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Soortgelijk event aanvragen"
-                    }
-                  ],
-                  "children": []
+                  "name": "Offerte aanvragen",
+                  "type": "cta",
+                  "componentPattern": "CTA",
+                  "goal": "Bezoeker naar de offerte-aanvraag leiden",
+                  "contentDescription": "Banner naar het offerteformulier"
                 }
               ]
             },
             {
-              "title": "Werkwijze",
-              "slug": "werkwijze",
+              "title": "Catering onderwijs",
+              "slug": "catering-onderwijs",
+              "goal": "overtuigen",
+              "label": "nieuw",
+              "focusTopic": "catering hogescholen",
+              "targetAudience": "Facilitair managers van hogescholen",
               "blocks": [
                 {
                   "name": "Hero",
-                  "type": "Broodblok-Hero",
-                  "goal": "Transparant maken hoe samenwerken werkt"
+                  "type": "hero",
+                  "componentPattern": "Hero",
+                  "goal": "Direct duidelijk maken waar de pagina over gaat",
+                  "contentDescription": "Kop over catering voor hogescholen en universiteiten"
                 },
                 {
-                  "name": "Stappenplan",
-                  "type": "Flexblok-Stappenplan",
-                  "goal": "Van eerste gesprek tot evaluatie laten zien, inclusief vast contactpersoon"
+                  "name": "Aanbod onderwijs",
+                  "type": "dienst-uitleg",
+                  "componentPattern": "Text",
+                  "goal": "Aanbod uitleggen",
+                  "contentDescription": "Kantine, open dagen, diploma-uitreikingen"
                 },
                 {
-                  "name": "Planning",
-                  "type": "Flexblok-Tekst",
-                  "goal": "Beantwoorden wanneer je moet beginnen met organiseren"
-                },
-                {
-                  "name": "FAQ",
-                  "type": "Flexblok-FAQ",
-                  "goal": "Vragen over tijdsinvestering, aanwezigheid en ontzorging"
-                },
-                {
-                  "name": "Call to Action",
-                  "type": "Flexblok-CTA-Banner",
-                  "goal": "Kennismaking plannen"
-                }
-              ],
-              "children": [
-                {
-                  "title": "Kosten",
-                  "slug": "kosten",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Aanhaken op 'Wat zijn de kosten?'"
-                    },
-                    {
-                      "name": "Opbouw van de prijs",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Uitleggen waar de kosten van afhangen, met indicaties"
-                    },
-                    {
-                      "name": "Wat levert het op",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Kosten afzetten tegen rendement"
-                    },
-                    {
-                      "name": "FAQ",
-                      "type": "Flexblok-FAQ",
-                      "goal": "Veelgestelde prijsvragen"
-                    },
-                    {
-                      "name": "Offerte",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Offerte aanvragen"
-                    }
-                  ],
-                  "children": []
+                  "name": "Offerte aanvragen",
+                  "type": "cta",
+                  "componentPattern": "CTA",
+                  "goal": "Bezoeker naar de offerte-aanvraag leiden",
+                  "contentDescription": "Banner naar het offerteformulier"
                 }
               ]
             },
             {
-              "title": "Over ons",
-              "slug": "over-ons",
+              "title": "Catering overheid",
+              "slug": "catering-overheid",
+              "goal": "overtuigen",
+              "label": "nieuw",
+              "focusTopic": "catering overheid",
+              "targetAudience": "Inkopers bij gemeenten en provincies",
               "blocks": [
                 {
                   "name": "Hero",
-                  "type": "Broodblok-Hero",
-                  "goal": "Bureau en verhaal introduceren"
+                  "type": "hero",
+                  "componentPattern": "Hero",
+                  "goal": "Direct duidelijk maken waar de pagina over gaat",
+                  "contentDescription": "Kop over catering voor overheden"
                 },
                 {
-                  "name": "Ons verhaal",
-                  "type": "Flexblok-Tekst",
-                  "goal": "Beantwoorden hoe lang het bureau al bestaat en waar het voor staat"
+                  "name": "Aanbesteding en keurmerken",
+                  "type": "usp",
+                  "componentPattern": "USP",
+                  "goal": "Voldoen aan inkoopeisen",
+                  "contentDescription": "Keurmerken, MVO en ervaring met aanbestedingen"
                 },
                 {
-                  "name": "Kerncijfers & keurmerken",
-                  "type": "Flexblok-USP",
-                  "goal": "Betrouwbaarheid tonen: jaren ervaring, aantal events, IDEA-keurmerk"
-                },
-                {
-                  "name": "Team",
-                  "type": "Flexblok-Team",
-                  "goal": "Laten zien wie er werken en met wie je contact hebt"
-                },
-                {
-                  "name": "Call to Action",
-                  "type": "Flexblok-CTA-Banner",
-                  "goal": "Kennismaken"
+                  "name": "Offerte aanvragen",
+                  "type": "cta",
+                  "componentPattern": "CTA",
+                  "goal": "Bezoeker naar de offerte-aanvraag leiden",
+                  "contentDescription": "Banner naar het offerteformulier"
                 }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Menukaarten",
+          "slug": "menukaarten",
+          "goal": "informeren",
+          "label": "migreren",
+          "focusTopic": "menukaart catering",
+          "blocks": [
+            {
+              "name": "Hero",
+              "type": "hero",
+              "componentPattern": "Hero",
+              "goal": "Direct duidelijk maken waar de pagina over gaat",
+              "contentDescription": "Kop over de menukaarten"
+            },
+            {
+              "name": "Menukaarten",
+              "type": "custom",
+              "componentPattern": "MediaGrid",
+              "goal": "Menukaarten laten bekijken",
+              "contentDescription": "Menukaart per dienst, te downloaden als pdf"
+            }
+          ]
+        },
+        {
+          "title": "Duurzaamheid",
+          "slug": "duurzaamheid",
+          "goal": "overtuigen",
+          "label": "herschrijven",
+          "focusTopic": "duurzame catering",
+          "blocks": [
+            {
+              "name": "Hero",
+              "type": "hero",
+              "componentPattern": "Hero",
+              "goal": "Direct duidelijk maken waar de pagina over gaat",
+              "contentDescription": "Kop over duurzaam ondernemen"
+            },
+            {
+              "name": "Minder voedselverspilling",
+              "type": "introductie",
+              "componentPattern": "Text",
+              "goal": "Aanpak foodwaste uitleggen",
+              "contentDescription": "Hoe Van Lier voedselverspilling tegengaat"
+            },
+            {
+              "name": "Keurmerken",
+              "type": "custom",
+              "componentPattern": "Affiliates",
+              "goal": "Bewijs leveren",
+              "contentDescription": "Logo's van keurmerken"
+            }
+          ]
+        },
+        {
+          "title": "Over ons",
+          "slug": "over-ons",
+          "label": "herschrijven",
+          "focusTopic": "Van Lier catering",
+          "blocks": [
+            {
+              "name": "Hero",
+              "type": "hero",
+              "componentPattern": "Hero",
+              "goal": "Direct duidelijk maken waar de pagina over gaat",
+              "contentDescription": "Kop over het verhaal van Van Lier"
+            },
+            {
+              "name": "Ons verhaal",
+              "type": "introductie",
+              "componentPattern": "Text",
+              "goal": "",
+              "contentDescription": "Geschiedenis van het familiebedrijf en de keuken"
+            },
+            {
+              "name": "Kerncijfers",
+              "type": "statistieken",
+              "componentPattern": "USP",
+              "goal": "",
+              "contentDescription": "Jaren ervaring, maaltijden per dag, vaste klanten"
+            },
+            {
+              "name": "Team",
+              "type": "team",
+              "componentPattern": "Cards",
+              "goal": "",
+              "contentDescription": "Foto's van de koks en de vaste contactpersonen"
+            },
+            {
+              "name": "Offerte aanvragen",
+              "type": "cta",
+              "componentPattern": "CTA",
+              "goal": "Bezoeker naar de offerte-aanvraag leiden",
+              "contentDescription": "Banner naar contact en offerte"
+            }
+          ],
+          "children": [
+            {
+              "title": "Team",
+              "slug": "team",
+              "goal": "informeren",
+              "label": "herschrijven",
+              "focusTopic": "team Van Lier",
+              "redirectsFrom": [
+                "/ons-team"
               ],
-              "children": [
+              "blocks": [
                 {
-                  "title": "Team",
-                  "slug": "team",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Mensen achter het bureau tonen"
-                    },
-                    {
-                      "name": "Teamleden",
-                      "type": "Flexblok-Team",
-                      "goal": "Contactpersonen met foto, rol en directe contactgegevens"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Direct contact met een contactpersoon"
-                    }
-                  ],
-                  "children": []
+                  "name": "Hero",
+                  "type": "hero",
+                  "componentPattern": "Hero",
+                  "goal": "Direct duidelijk maken waar de pagina over gaat",
+                  "contentDescription": "Kop over de mensen achter Van Lier"
                 },
                 {
-                  "title": "Duurzaamheid en keurmerken",
-                  "slug": "duurzaamheid-keurmerken",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "MVO-beleid positioneren"
-                    },
-                    {
-                      "name": "MVO-beleid",
-                      "type": "Flexblok-Tekst",
-                      "goal": "Duurzame werkwijze toelichten"
-                    },
-                    {
-                      "name": "Keurmerken",
-                      "type": "Flexblok-Logo-Slider",
-                      "goal": "IDEA-keurmerk en overige certificaten tonen"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Contact opnemen"
-                    }
-                  ],
-                  "children": []
+                  "name": "Teamleden",
+                  "type": "team",
+                  "componentPattern": "Cards",
+                  "goal": "Gezichten laten zien",
+                  "contentDescription": "Foto, naam en functie per teamlid"
                 },
                 {
-                  "title": "Reviews",
-                  "slug": "reviews",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Ervaringen van klanten bundelen"
-                    },
-                    {
-                      "name": "Reviews",
-                      "type": "Flexblok-Testimonials",
-                      "goal": "Alle reviews tonen"
-                    },
-                    {
-                      "name": "Review schrijven",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Klanten uitnodigen zelf een review te schrijven (link naar reviewplatform)"
-                    }
-                  ],
-                  "children": []
+                  "name": "Werken bij Van Lier",
+                  "type": "cta",
+                  "componentPattern": "CTA",
+                  "goal": "Sollicitanten doorsturen",
+                  "contentDescription": "Banner naar de vacaturepagina"
                 }
               ]
             },
             {
-              "title": "Inspiratie",
-              "slug": "inspiratie",
+              "title": "Werken bij",
+              "slug": "werken-bij",
+              "goal": "converteren",
+              "label": "bestaand",
+              "focusTopic": "vacatures catering",
               "blocks": [
                 {
                   "name": "Hero",
-                  "type": "Broodblok-Hero",
-                  "goal": "Inspiratie- en kennisplatform introduceren"
+                  "type": "hero",
+                  "componentPattern": "Hero",
+                  "goal": "Direct duidelijk maken waar de pagina over gaat",
+                  "contentDescription": "Kop over werken in de keuken van Van Lier"
                 },
                 {
-                  "name": "Artikelen",
-                  "type": "Posttype-Overzicht",
-                  "goal": "Blogs, trends en tips over events"
-                },
-                {
-                  "name": "Nieuwsbrief",
-                  "type": "Flexblok-Formulier",
-                  "goal": "Inschrijven voor de nieuwsbrief"
-                },
-                {
-                  "name": "Social media",
-                  "type": "Flexblok-CTA-Banner",
-                  "goal": "Volgen op social media"
-                }
-              ],
-              "children": [
-                {
-                  "title": "Agenda",
-                  "slug": "agenda",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Eigen evenementen tonen, voor bezoekers die via een event binnenkomen"
-                    },
-                    {
-                      "name": "Aankomende events",
-                      "type": "Posttype-Overzicht",
-                      "goal": "Overzicht van eigen evenementen"
-                    },
-                    {
-                      "name": "Doorverwijzing",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "'Was je bij ons event? Wij organiseren dit ook voor jou'"
-                    }
-                  ],
-                  "children": []
-                },
-                {
-                  "title": "Magazine",
-                  "slug": "magazine",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Magazine presenteren"
-                    },
-                    {
-                      "name": "Edities",
-                      "type": "Flexblok-Media-Grid",
-                      "goal": "Magazine-edities online lezen of downloaden"
-                    },
-                    {
-                      "name": "Call to Action",
-                      "type": "Flexblok-CTA-Banner",
-                      "goal": "Van lezer naar opdrachtgever: kennismaking plannen"
-                    }
-                  ],
-                  "children": []
+                  "name": "Vacatures",
+                  "type": "custom",
+                  "componentPattern": "Jobs",
+                  "goal": "Vacatures tonen",
+                  "contentDescription": "Overzicht van openstaande vacatures"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "title": "Contact",
+          "slug": "contact",
+          "goal": "converteren",
+          "label": "bestaand",
+          "focusTopic": "contact Van Lier",
+          "blocks": [
+            {
+              "name": "Hero",
+              "type": "hero",
+              "componentPattern": "Hero",
+              "goal": "Direct duidelijk maken waar de pagina over gaat",
+              "contentDescription": "Kop met contactgegevens"
             },
             {
-              "title": "Niquell Pro",
-              "slug": "niquell-pro",
+              "name": "Contactgegevens en route",
+              "type": "contact",
+              "componentPattern": "MediaText",
+              "goal": "Snel contact mogelijk maken",
+              "contentDescription": "Adres, telefoon, e-mail en kaart"
+            },
+            {
+              "name": "Contactformulier",
+              "type": "formulier",
+              "componentPattern": "Form",
+              "goal": "Vraag stellen",
+              "contentDescription": "Naam, e-mail, vraag"
+            }
+          ],
+          "children": [
+            {
+              "title": "Offerte aanvragen",
+              "slug": "offerte-aanvragen",
+              "goal": "converteren",
+              "label": "nieuw",
+              "focusTopic": "offerte catering",
+              "requirements": "Offerteformulier met bevestigingsmail naar de klant en melding naar Van Lier.",
               "blocks": [
                 {
                   "name": "Hero",
-                  "type": "Broodblok-Hero",
-                  "goal": "Leer- en netwerkaanbod positioneren"
+                  "type": "hero",
+                  "componentPattern": "Hero",
+                  "goal": "Direct duidelijk maken waar de pagina over gaat",
+                  "contentDescription": "Kop over een offerte op maat"
                 },
                 {
-                  "name": "Wat is Niquell Pro",
-                  "type": "Flexblok-Tekst",
-                  "goal": "Uitleggen hoe klanten meer kunnen leren en onderdeel worden van een netwerk van gelijkgestemden"
+                  "name": "Zo gaat het verder",
+                  "type": "stappenplan",
+                  "componentPattern": "StepsMedia",
+                  "goal": "Verwachting scheppen",
+                  "contentDescription": "Wat er gebeurt na de aanvraag"
                 },
                 {
-                  "name": "Voordelen",
-                  "type": "Flexblok-USP",
-                  "goal": "Meerwaarde voor bestaande klanten tonen"
-                },
-                {
-                  "name": "Ervaringen",
-                  "type": "Flexblok-Testimonials",
-                  "goal": "Deelnemers aan het woord"
-                },
-                {
-                  "name": "Aanmelden",
-                  "type": "Flexblok-Formulier",
-                  "goal": "Aanmelden of meer informatie aanvragen"
-                }
-              ],
-              "children": []
-            },
-            {
-              "title": "Contact",
-              "slug": "contact",
-              "blocks": [
-                {
-                  "name": "Hero",
-                  "type": "Broodblok-Hero",
-                  "goal": "Laagdrempelig contact uitnodigen"
-                },
-                {
-                  "name": "Contactgegevens & kantoor",
-                  "type": "Flexblok-Contact-Kaart",
-                  "goal": "Adres, kaart, telefoon en e-mail tonen"
-                },
-                {
-                  "name": "Contactformulier",
-                  "type": "Flexblok-Formulier",
-                  "goal": "Vraag stellen of afspraak maken"
-                },
-                {
-                  "name": "Contactpersonen",
-                  "type": "Flexblok-Team",
-                  "goal": "Laten zien met wie je contact krijgt"
-                }
-              ],
-              "children": [
-                {
-                  "title": "Offerte aanvragen",
-                  "slug": "offerte-aanvragen",
-                  "blocks": [
-                    {
-                      "name": "Hero",
-                      "type": "Broodblok-Hero",
-                      "goal": "Conversiepagina met focus"
-                    },
-                    {
-                      "name": "Wat gebeurt er na je aanvraag",
-                      "type": "Flexblok-Stappenplan",
-                      "goal": "Verwachtingen managen en drempel verlagen"
-                    },
-                    {
-                      "name": "Offerteformulier",
-                      "type": "Flexblok-Formulier",
-                      "goal": "Offerteaanvraag met eventtype, datum, aantal gasten en budget"
-                    },
-                    {
-                      "name": "Reviews",
-                      "type": "Flexblok-Testimonials",
-                      "goal": "Laatste vertrouwensduwtje"
-                    }
-                  ],
-                  "children": []
+                  "name": "Offerteformulier",
+                  "type": "formulier",
+                  "componentPattern": "Form",
+                  "goal": "Aanvraag binnenhalen",
+                  "contentDescription": "Uitgebreid offerteformulier"
                 }
               ]
             }

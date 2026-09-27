@@ -64,6 +64,8 @@ contentStructuurRouter.post('/:projectId', (req: Request, res: Response) => {
     zoektermen: req.body.zoektermen ?? '',
     tekstKlaar: req.body.tekstKlaar ?? false,
     wiePlaatstId: req.body.wiePlaatstId ?? null,
+    schrijverId: req.body.schrijverId ?? null,
+    nakijkerId: req.body.nakijkerId ?? null,
     status: req.body.status ?? 'niet-gestart',
     watMistNog: req.body.watMistNog ?? '',
     nieuweUrl: req.body.nieuweUrl ?? '',
@@ -86,7 +88,7 @@ contentStructuurRouter.put('/:projectId/:rowId', (req: Request, res: Response) =
   const idx = all.findIndex(r => r.id === req.params.rowId && r.projectId === req.params.projectId)
   if (idx < 0) { res.status(404).json(err('Rij niet gevonden')); return }
 
-  const updatable = ['siteNodeId', 'naamPagina', 'zoektermen', 'tekstKlaar', 'wiePlaatstId', 'wiePlaatstLegacy', 'status', 'watMistNog', 'nieuweUrl', 'slug', 'metaTitel', 'metaDescription', 'sortOrder'] as const
+  const updatable = ['siteNodeId', 'naamPagina', 'zoektermen', 'tekstKlaar', 'wiePlaatstId', 'wiePlaatstLegacy', 'schrijverId', 'nakijkerId', 'status', 'watMistNog', 'nieuweUrl', 'slug', 'metaTitel', 'metaDescription', 'sortOrder'] as const
   for (const key of updatable) {
     if (req.body[key] !== undefined) {
       ;(all[idx] as any)[key] = req.body[key]
@@ -134,6 +136,8 @@ contentStructuurRouter.post('/:projectId/bulk', (req: Request, res: Response) =>
       zoektermen: row.zoektermen ?? '',
       tekstKlaar: row.tekstKlaar ?? false,
       wiePlaatstId: row.wiePlaatstId ?? null,
+      schrijverId: row.schrijverId ?? null,
+      nakijkerId: row.nakijkerId ?? null,
       status: row.status ?? 'niet-gestart',
       watMistNog: row.watMistNog ?? '',
       nieuweUrl: row.nieuweUrl ?? '',
@@ -200,6 +204,8 @@ contentStructuurRouter.post('/:projectId/sync-from-structuur', (req: Request, re
       zoektermen: '',
       tekstKlaar: false,
       wiePlaatstId: null,
+      schrijverId: null,
+      nakijkerId: null,
       status: 'niet-gestart',
       watMistNog: '',
       nieuweUrl: node.fullUrl || '',

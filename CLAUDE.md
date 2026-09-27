@@ -214,8 +214,30 @@ Binnen de **Structuur**-tab van een Website-project zit het kernfeature van de t
 | Fase | Component | Doel | Data |
 |------|-----------|------|------|
 | **1 — Vragen** | [Fase1Vragen.vue](client/src/components/structuur/Fase1Vragen.vue) | Discovery: klantvragen + user stories + samenvatting | `clientQuestions.json`, `userStories.json`, `fase1Summaries.json` |
-| **2 — Structuur** | [Fase2Structuur.vue](client/src/components/structuur/Fase2Structuur.vue) | Sitemap-tree (titel, slug, navigatie, redirects, meta) | `siteNodes.json`, `seoFields.json` |
-| **3 — Blokken** | [Fase3Blokken.vue](client/src/components/structuur/Fase3Blokken.vue) | Content-blokken per pagina | `pageBlocks.json`, `components.json` |
+| **2 — Structuur** | [Fase2Structuur.vue](client/src/components/structuur/Fase2Structuur.vue) | Menu, plattegrond en pagina's (instellingen + blok-indeling) | `siteNodes.json`, `pageBlocks.json`, `menus.json` |
+| **3 — Figma** | [Fase3Figma.vue](client/src/components/structuur/Fase3Figma.vue) | Export per pagina met componenten, voor het ontwerp in Figma | — |
+
+Fase 4 en 5 zijn placeholders.
+
+**Fase 2 heeft drie weergaven** (lokale state `fase2View`, niet in de URL):
+
+- **Menu** ([MenuStructuurBuilder.vue](client/src/components/structuur/MenuStructuurBuilder.vue)): navigatie opbouwen met slepen of de pijlknoppen voor in- en uitspringen. Het menu staat per project in `menus.json` (`GET/PUT /api/structuur/:projectId/menu`). Zonder opgeslagen menu bouwt de store het op uit de paginastructuur (pagina's met `isInMainNav`), en dat gebeurt ook na een import in een leeg menu. De menu-hiërarchie staat los van de URL-structuur.
+- **Plattegrond** ([PlattegrondCanvas.vue](client/src/components/structuur/PlattegrondCanvas.vue)): Vue Flow-canvas van de pagina-hiërarchie.
+- **Pagina's** ([Fase3Blokken.vue](client/src/components/structuur/Fase3Blokken.vue)): links de paginalijst, rechts [PaginaInstellingen.vue](client/src/components/structuur/PaginaInstellingen.vue) met:
+  - paginadoel (`goal`);
+  - bouwen of hergebruiken (`label`);
+  - focus-zoekwoord;
+  - doelgroep;
+  - oude URL's (`redirectsFrom`);
+  - "wat moet deze pagina kunnen" (`requirements`).
+
+  Daaronder staan de blokken. De geselecteerde pagina staat in `structuurStore.selectedNodeId`, zodat het menu en de waarschuwingen een pagina kunnen openen.
+
+**Waarschuwingen** komen uit [shared/structuurWarnings.ts](shared/structuurWarnings.ts). Die pure functie gebruiken zowel de server als de statische demo-API. De store vraagt ze na elke structuurwijziging automatisch opnieuw op (`scheduleWarnings`). Pagina's met hetzelfde focus-zoekwoord geven een `keyword-cannibalization`-fout. Die los je op met **samenvoegen** (`POST /nodes/:nodeId/merge`, [SamenvoegenDialog.vue](client/src/components/structuur/SamenvoegenDialog.vue)): de bronpagina verdwijnt en naar het doel verhuizen haar blokken (behalve blokken met een naam die het doel al heeft), haar subpagina's en haar URL (als redirect).
+
+**Herbruikbare blokken**: een origineel heeft `isReusable: true` en `reusableBlockId: null`. Een kopie op een andere pagina verwijst via `reusableBlockId` naar het origineel. Wijzigingen aan het origineel neemt de server over in alle kopieën; in de UI zijn kopieën alleen-lezen. Verdwijnt het origineel, dan worden de kopieën zelfstandig.
+
+**Contentplanning** ([ContentStructuurTab.vue](client/src/components/tabs/ContentStructuurTab.vue)) heeft per pagina een schrijver en een nakijker. De statusflow is: Wordt geschreven → Nakijken door collega (`review`) → Goedgekeurd, mag naar klant (`klaar`). Bij openen wordt de tabel altijd gesynchroniseerd met de structuur; bestaande rijen zonder `siteNodeId` worden op paginanaam gekoppeld.
 
 ---
 
@@ -284,7 +306,7 @@ API in [server/src/index.ts](server/src/index.ts) met routers per resource ([ser
 JSON-collecties in [data/](data/) zijn niet onder git (`.gitignore` excludeert `server/data/*.json`). Per domein:
 
 - **Klant-niveau**: `klanten.json`, `klantCommunicatie.json`, `klantContactpersonen.json`, `klantHuisstijl.json`, `klantDoelgroepen.json`, `klantDoelen.json`, `klantDoelFocuspunten.json`.
-- **Project / structuur**: `projects.json`, `structuurProgress.json`, `siteNodes.json`, `pages.json`, `pageBlocks.json`, `seoFields.json`, `components.json`.
+- **Project / structuur**: `projects.json` (incl. optionele `structuurImportPreset`, die al in het importveld van Fase 2 staat), `structuurProgress.json`, `siteNodes.json`, `pages.json`, `pageBlocks.json`, `seoFields.json`, `components.json`, `menus.json`.
 - **Fase 1 / discovery**: `clientQuestions.json`, `userStories.json`, `doelgroepen.json`, `doelgroepVragen.json`, `fase1Summaries.json`.
 - **Content planning**: `contentStructuur.json`, `contentStructuurPresets.json`.
 - **Sales**: `slidePresentations.json`, `slidePresets.json`.

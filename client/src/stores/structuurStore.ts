@@ -5,11 +5,17 @@ import type {
   UserStory, ClientQuestion, Fase1Summary,
   SiteNode, PageBlock,
   StructuurProgress, ChangeLogEntry, StructureWarning, StructureImport,
-  StructureImportResult
+  StructureImportResult, ProjectMenu, ProjectMenuItem
 } from '@shared/types'
 import type { MenuItem } from '../components/structuur/menuTypes'
 
 const genMenuId = () => 'mi_' + Math.random().toString(16).slice(2, 10) + Math.random().toString(16).slice(2, 6)
+
+// Inhoudsvelden die een hergebruikt blok van zijn origineel overneemt (spiegel van de server).
+const SHARED_BLOCK_FIELDS = [
+  'name', 'type', 'goal', 'targetUser', 'contentDescription', 'componentPattern',
+  'notesContent', 'notesSeo', 'notesDesign',
+] as const
 
 export const useStructuurStore = defineStore('structuur', () => {
   // --- State ---
@@ -25,8 +31,9 @@ export const useStructuurStore = defineStore('structuur', () => {
   const loading = ref(false)
   const selectedNodeId = ref<string | null>(null)
 
-  // Menu items (in-memory only — niet gepersisteerd)
+  // Menu items — per project op de server bewaard (zie fetchMenu / persistMenu).
   const menuItems = ref<MenuItem[]>([])
+  const menuProjectId = ref<string | null>(null)
 
   // --- Computed ---
   const selectedNode = computed(() => siteNodes.value.find(n => n.id === selectedNodeId.value) || null)
@@ -140,23 +147,45 @@ export const useStructuurStore = defineStore('structuur', () => {
   async function createNode(projectId: string, data: Partial<SiteNode>) {
     const n = await apiFetch<SiteNode>('POST', `/structuur/${projectId}/nodes`, data)
     siteNodes.value.push(n)
+    scheduleWarnings(projectId)
     return n
   }
   async function updateNode(projectId: string, nodeId: string, data: Partial<SiteNode>) {
     const n = await apiFetch<SiteNode>('PUT', `/structuur/${projectId}/nodes/${nodeId}`, data)
     const idx = siteNodes.value.findIndex(x => x.id === nodeId)
     if (idx >= 0) siteNodes.value[idx] = n
+    // Slug/parent gewijzigd → URL's van subpagina's zijn server-side herberekend.
+    if (data.slug !== undefined || data.parentId !== undefined) await fetchNodes(projectId)
+    scheduleWarnings(projectId)
     return n
   }
   async function deleteNode(projectId: string, nodeId: string) {
     const result = await apiFetch<{ deleted: boolean; removedIds: string[] }>('DELETE', `/structuur/${projectId}/nodes/${nodeId}`)
     siteNodes.value = siteNodes.value.filter(n => !result.removedIds.includes(n.id))
+    const removed = new Set(result.removedIds)
+    allProjectBlocks.value = allProjectBlocks.value.filter(b => !removed.has(b.siteNodeId))
+    const menuIds = menuItems.value.filter(m => removed.has(m.siteNodeId)).map(m => m.id)
+    for (const id of menuIds) removeMenuItem(id)
+    if (selectedNodeId.value && removed.has(selectedNodeId.value)) selectedNodeId.value = null
+    scheduleWarnings(projectId)
     return result
   }
   async function duplicateNode(projectId: string, nodeId: string) {
     const n = await apiFetch<SiteNode>('POST', `/structuur/${projectId}/nodes/${nodeId}/duplicate`)
     siteNodes.value.push(n)
+    scheduleWarnings(projectId)
     return n
+  }
+  // Pagina `nodeId` gaat op in `intoNodeId`: blokken, subpagina's en de oude URL
+  // (als redirect) verhuizen mee; de bronpagina verdwijnt.
+  async function mergeNode(projectId: string, nodeId: string, intoNodeId: string) {
+    const result = await apiFetch<{ node: SiteNode; removedId: string; movedBlocks: number }>(
+      'POST', `/structuur/${projectId}/nodes/${nodeId}/merge`, { intoNodeId },
+    )
+    await Promise.all([fetchNodes(projectId), fetchAllBlocks(projectId), fetchMenu(projectId)])
+    if (selectedNodeId.value === nodeId) selectedNodeId.value = intoNodeId
+    await fetchWarnings(projectId)
+    return result
   }
   async function moveNode(projectId: string, nodeId: string, parentId: string | null, sortOrder: number, canvasX?: number | null) {
     const body: Record<string, unknown> = { parentId, sortOrder }
@@ -164,6 +193,7 @@ export const useStructuurStore = defineStore('structuur', () => {
     const result = await apiFetch<{ node: SiteNode; childrenAffected: number }>('PUT', `/structuur/${projectId}/nodes/${nodeId}/move`, body)
     // Reload all nodes to get updated URLs
     await fetchNodes(projectId)
+    scheduleWarnings(projectId)
     return result
   }
   async function importNodes(projectId: string, data: StructureImport) {
@@ -172,11 +202,14 @@ export const useStructuurStore = defineStore('structuur', () => {
     if (result.blocks && result.blocks.length > 0) {
       allProjectBlocks.value = [...allProjectBlocks.value, ...result.blocks]
     }
+    // Een lege (of net geleegde) navigatie opbouwen vanuit de nieuwe structuur.
+    if (menuItems.value.length === 0) seedMenuFromStructure(projectId)
     return result
   }
   async function importFlatNodes(projectId: string, rows: Array<{ title: string; slug: string; parentTitle?: string; level?: number }>) {
     const nodes = await apiFetch<SiteNode[]>('POST', `/structuur/${projectId}/nodes/import-flat`, { rows })
     siteNodes.value = [...siteNodes.value, ...nodes]
+    if (menuItems.value.length === 0) seedMenuFromStructure(projectId)
     return nodes
   }
 
@@ -189,6 +222,13 @@ export const useStructuurStore = defineStore('structuur', () => {
   async function fetchWarnings(projectId: string) {
     warnings.value = await apiFetch<StructureWarning[]>('GET', `/structuur/${projectId}/warnings`)
   }
+  // Na elke structuurwijziging opnieuw controleren (gedebounced), zodat
+  // waarschuwingen vanzelf verschijnen zonder op "Controleer" te klikken.
+  let warningsTimer: ReturnType<typeof setTimeout> | null = null
+  function scheduleWarnings(projectId: string) {
+    if (warningsTimer) clearTimeout(warningsTimer)
+    warningsTimer = setTimeout(() => { fetchWarnings(projectId).catch(() => {}) }, 400)
+  }
 
   // --- Fase 3: Page Blocks ---
   async function fetchBlocks(projectId: string, nodeId: string) {
@@ -197,17 +237,36 @@ export const useStructuurStore = defineStore('structuur', () => {
   async function createBlock(projectId: string, nodeId: string, data: Partial<PageBlock>) {
     const b = await apiFetch<PageBlock>('POST', `/structuur/${projectId}/nodes/${nodeId}/blocks`, data)
     pageBlocks.value.push(b)
+    allProjectBlocks.value.push({ ...b })
     return b
   }
   async function updateBlock(projectId: string, nodeId: string, blockId: string, data: Partial<PageBlock>) {
     const b = await apiFetch<PageBlock>('PUT', `/structuur/${projectId}/nodes/${nodeId}/blocks/${blockId}`, data)
     const idx = pageBlocks.value.findIndex(x => x.id === blockId)
     if (idx >= 0) pageBlocks.value[idx] = b
+    const allIdx = allProjectBlocks.value.findIndex(x => x.id === blockId)
+    if (allIdx >= 0) allProjectBlocks.value[allIdx] = { ...b }
+    // Kopieën van een herbruikbaar origineel lopen server-side mee; lokaal spiegelen.
+    if (!b.reusableBlockId) {
+      for (const copy of [...pageBlocks.value, ...allProjectBlocks.value]) {
+        if (copy.reusableBlockId !== b.id) continue
+        if (b.isReusable) {
+          for (const f of SHARED_BLOCK_FIELDS) (copy as unknown as Record<string, unknown>)[f] = b[f]
+        } else {
+          copy.reusableBlockId = null
+          copy.isReusable = false
+        }
+      }
+    }
     return b
   }
   async function deleteBlock(projectId: string, nodeId: string, blockId: string) {
     await apiFetch<void>('DELETE', `/structuur/${projectId}/nodes/${nodeId}/blocks/${blockId}`)
     pageBlocks.value = pageBlocks.value.filter(b => b.id !== blockId)
+    allProjectBlocks.value = allProjectBlocks.value.filter(b => b.id !== blockId)
+    for (const copy of [...pageBlocks.value, ...allProjectBlocks.value]) {
+      if (copy.reusableBlockId === blockId) { copy.reusableBlockId = null; copy.isReusable = false }
+    }
   }
   async function reorderBlocks(projectId: string, nodeId: string, blockIds: string[]) {
     await apiFetch<void>('PUT', `/structuur/${projectId}/nodes/${nodeId}/blocks-reorder`, { blockIds })
@@ -223,7 +282,55 @@ export const useStructuurStore = defineStore('structuur', () => {
     changeLog.value = await apiFetch<ChangeLogEntry[]>('GET', `/structuur/${projectId}/changelog`)
   }
 
-  // --- Fase 2: Menu items (in-memory) ---
+  // --- Fase 2: Menu items ---
+
+  async function fetchMenu(projectId: string) {
+    const menu = await apiFetch<ProjectMenu | null>('GET', `/structuur/${projectId}/menu`)
+    menuProjectId.value = projectId
+    if (menu) {
+      menuItems.value = menu.items.map(i => ({ ...i, expanded: false }))
+    } else {
+      // Nog nooit een menu gemaakt: begin met de navigatie uit de structuur.
+      seedMenuFromStructure(projectId)
+    }
+  }
+
+  // Menu opbouwen uit de pagina-hiërarchie: pagina's met "in hoofdmenu",
+  // onder de dichtstbijzijnde bovenliggende pagina die ook in het menu staat.
+  function seedMenuFromStructure(projectId: string) {
+    menuProjectId.value = projectId
+    const byNode = new Map<string, MenuItem>()
+    const items: MenuItem[] = []
+    const nodeMap = new Map(siteNodes.value.map(n => [n.id, n]))
+    for (const n of flatSortedNodes.value) {
+      if (n.isParked || !n.isInMainNav) continue
+      let parent = n.parentId ? nodeMap.get(n.parentId) : undefined
+      while (parent && !byNode.has(parent.id)) parent = parent.parentId ? nodeMap.get(parent.parentId) : undefined
+      const parentId = parent ? byNode.get(parent.id)!.id : null
+      const item: MenuItem = {
+        id: genMenuId(), siteNodeId: n.id, parentId,
+        sortOrder: items.filter(i => i.parentId === parentId).length, expanded: false,
+      }
+      items.push(item)
+      byNode.set(n.id, item)
+    }
+    menuItems.value = items
+    // Een leeg menu niet opslaan: dan wordt het later opnieuw uit de structuur opgebouwd.
+    if (items.length > 0) persistMenu()
+  }
+
+  let menuTimer: ReturnType<typeof setTimeout> | null = null
+  function persistMenu() {
+    const projectId = menuProjectId.value
+    if (!projectId) return
+    if (menuTimer) clearTimeout(menuTimer)
+    menuTimer = setTimeout(() => {
+      const items: ProjectMenuItem[] = menuItems.value.map(({ id, siteNodeId, parentId, sortOrder, customLabel }) => ({
+        id, siteNodeId, parentId, sortOrder, ...(customLabel ? { customLabel } : {}),
+      }))
+      apiFetch<ProjectMenu>('PUT', `/structuur/${projectId}/menu`, { items }).catch(() => {})
+    }, 400)
+  }
 
   // Alle directe kinderen van een parent, op sortOrder.
   function menuChildren(parentId: string | null) {
@@ -255,6 +362,7 @@ export const useStructuurStore = defineStore('structuur', () => {
       expanded: false,
     }
     menuItems.value.push(item)
+    persistMenu()
     return item
   }
 
@@ -265,11 +373,13 @@ export const useStructuurStore = defineStore('structuur', () => {
     const toRemove = new Set(collectSubtree(id))
     menuItems.value = menuItems.value.filter(m => !toRemove.has(m.id))
     recompact(parentId)
+    persistMenu()
   }
 
   function updateMenuItem(id: string, data: Partial<MenuItem>) {
     const item = menuItems.value.find(m => m.id === id)
     if (item) Object.assign(item, data)
+    persistMenu()
   }
 
   function toggleMenuItemExpanded(id: string) {
@@ -300,10 +410,33 @@ export const useStructuurStore = defineStore('structuur', () => {
 
     // Oude parent opnieuw netjes maken (alleen relevant bij parent-wissel).
     if (oldParentId !== newParentId) recompact(oldParentId)
+    persistMenu()
+  }
+
+  // Inspringen: item wordt subitem van zijn vorige sibling (achteraan).
+  function indentMenuItem(id: string) {
+    const item = menuItems.value.find(m => m.id === id)
+    if (!item) return
+    const siblings = menuChildren(item.parentId)
+    const pos = siblings.findIndex(m => m.id === id)
+    if (pos <= 0) return
+    const newParent = siblings[pos - 1]
+    moveMenuItem(id, newParent.id, menuChildren(newParent.id).length)
+  }
+
+  // Uitspringen: item komt direct ná zijn huidige parent te staan.
+  function outdentMenuItem(id: string) {
+    const item = menuItems.value.find(m => m.id === id)
+    if (!item || !item.parentId) return
+    const parent = menuItems.value.find(m => m.id === item.parentId)
+    if (!parent) return
+    const parentPos = menuChildren(parent.parentId).findIndex(m => m.id === parent.id)
+    moveMenuItem(id, parent.parentId, parentPos + 1)
   }
 
   function clearMenu() {
     menuItems.value = []
+    persistMenu()
   }
 
   // --- Load all for project ---
@@ -326,7 +459,7 @@ export const useStructuurStore = defineStore('structuur', () => {
     // State
     progress, userStories, clientQuestions, fase1Summary,
     siteNodes, pageBlocks, allProjectBlocks, warnings, changeLog,
-    loading, selectedNodeId, menuItems,
+    loading, selectedNodeId, menuItems, menuProjectId,
     // Computed
     selectedNode, treeNodes, flatSortedNodes, parkedNodes, mainNavNodes,
     openQuestions, answeredQuestions, assumptions, insights,
@@ -337,7 +470,8 @@ export const useStructuurStore = defineStore('structuur', () => {
     fetchQuestions, createQuestion, updateQuestion, deleteQuestion,
     fetchFase1Summary, generateFase1Summary,
     // Fase 2
-    fetchNodes, createNode, updateNode, deleteNode, duplicateNode, moveNode,
+    fetchNodes, createNode, updateNode, deleteNode, duplicateNode, moveNode, mergeNode,
+    fetchMenu, seedMenuFromStructure, indentMenuItem, outdentMenuItem, scheduleWarnings,
     importNodes, importFlatNodes, fetchWarnings,
     // Fase 2 — menu (in-memory)
     menuChildren, addMenuItem, removeMenuItem, updateMenuItem,

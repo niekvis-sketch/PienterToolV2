@@ -8,5 +8,45 @@
     "avatarPath": "uploads/medewerkers/4bfc0976-1778674746438.png",
     "createdAt": "2026-05-11T08:17:57.631Z",
     "updatedAt": "2026-05-13T12:19:06.441Z"
+  },
+  {
+    "id": "mw-suzanne",
+    "naam": "Suzanne",
+    "email": "suzanne@pienter",
+    "functie": "Contentspecialist",
+    "team": "content",
+    "avatarPath": null,
+    "createdAt": "2026-09-27T12:00:00.000Z",
+    "updatedAt": "2026-09-27T12:00:00.000Z"
+  },
+  {
+    "id": "mw-timo",
+    "naam": "Timo",
+    "email": "timo@pienter",
+    "functie": "SEO-specialist",
+    "team": "seo",
+    "avatarPath": null,
+    "createdAt": "2026-09-27T12:00:00.000Z",
+    "updatedAt": "2026-09-27T12:00:00.000Z"
+  },
+  {
+    "id": "mw-robert",
+    "naam": "Robert",
+    "email": "robert@pienter",
+    "functie": "Developer",
+    "team": "website",
+    "avatarPath": null,
+    "createdAt": "2026-09-27T12:00:00.000Z",
+    "updatedAt": "2026-09-27T12:00:00.000Z"
+  },
+  {
+    "id": "mw-roel",
+    "naam": "Roel",
+    "email": "roel@pienter",
+    "functie": "Projectmanager",
+    "team": "overig",
+    "avatarPath": null,
+    "createdAt": "2026-09-27T12:00:00.000Z",
+    "updatedAt": "2026-09-27T12:00:00.000Z"
   }
 ]

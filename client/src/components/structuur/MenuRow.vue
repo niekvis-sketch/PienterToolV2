@@ -11,13 +11,29 @@
   >
     <div class="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 hover:border-pienter-300 transition-colors">
       <!-- Sleep-handvat -->
-      <span class="cursor-grab select-none text-gray-300 group-hover:text-gray-400" title="Sleep om te verplaatsen">⋮⋮</span>
+      <KIcon name="grip" :size="16" class="cursor-grab select-none text-gray-300 group-hover:text-gray-400 shrink-0" title="Sleep om te verplaatsen" />
 
       <!-- Label -->
       <span class="flex-1 truncate text-sm font-medium text-gray-900">{{ displayLabel }}</span>
 
       <!-- Subitem-tag -->
       <span v-if="item.level > 0" class="italic text-[11px] text-gray-400">Subitem</span>
+
+      <!-- Uit- en inspringen (alternatief voor slepen) -->
+      <button
+        class="text-gray-400 hover:text-pienter-600 disabled:opacity-30 disabled:hover:text-gray-400 inline-flex"
+        :disabled="!canOutdent"
+        title="Uitspringen: een niveau hoger in het menu"
+        aria-label="Uitspringen"
+        @click="emit('outdent')"
+      ><KIcon name="arrowL" :size="14" /></button>
+      <button
+        class="text-gray-400 hover:text-pienter-600 disabled:opacity-30 disabled:hover:text-gray-400 inline-flex"
+        :disabled="!canIndent"
+        title="Inspringen: onder het item erboven hangen"
+        aria-label="Inspringen"
+        @click="emit('indent')"
+      ><KIcon name="arrowR" :size="14" /></button>
 
       <!-- Verwijder (bij hover) -->
       <button
@@ -54,6 +70,9 @@
           <span class="font-medium text-gray-700">{{ page?.title || 'Onbekende pagina' }}</span>
         </div>
         <div v-if="page" class="mt-0.5 font-mono text-pienter-600">{{ page.fullUrl }}</div>
+        <button v-if="page" class="mt-2 text-pienter-600 hover:underline inline-flex items-center gap-1 font-medium" @click="emit('open-page')">
+          Pagina-instellingen openen<KIcon name="arrowR" :size="12" />
+        </button>
       </div>
     </div>
   </div>
@@ -69,6 +88,8 @@ const props = defineProps<{
   item: FlatMenuItem
   page?: SiteNode
   isDragging: boolean
+  canIndent: boolean
+  canOutdent: boolean
 }>()
 
 const emit = defineEmits<{
@@ -79,6 +100,9 @@ const emit = defineEmits<{
   (e: 'dragend'): void
   (e: 'dragover', event: DragEvent): void
   (e: 'drop'): void
+  (e: 'indent'): void
+  (e: 'outdent'): void
+  (e: 'open-page'): void
 }>()
 
 const displayLabel = computed(() => props.item.customLabel || props.page?.title || 'Naamloos item')

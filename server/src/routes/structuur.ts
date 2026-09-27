@@ -7,13 +7,14 @@
 import { Router, Request, Response } from 'express'
 import { readCollection, writeCollection } from '../storage'
 import { genId, now, ok, err } from '../helpers'
+import { computeStructureWarnings } from '../../../shared/structuurWarnings'
 import type {
   UserStory, ClientQuestion, Fase1Summary,
   SiteNode, SiteNodeType, SiteNodeGoal,
   PageBlock, BlockType,
   StructuurProgress, ChangeLogEntry, StructureWarning,
   StructureImport, StructureNode, StructureBlockNode,
-  Project
+  Project, ProjectMenu, ProjectMenuItem
 } from '../../../shared/types'
 
 export const structuurRouter = Router()
@@ -34,6 +35,55 @@ function saveProgress(d: StructuurProgress[]) { writeCollection('structuurProgre
 function getChangeLog(): ChangeLogEntry[] { return readCollection<ChangeLogEntry>('changeLog') }
 function saveChangeLog(d: ChangeLogEntry[]) { writeCollection('changeLog', d) }
 function getProjects(): Project[] { return readCollection<Project>('projects') }
+function getMenus(): ProjectMenu[] { return readCollection<ProjectMenu>('menus') }
+function saveMenus(d: ProjectMenu[]) { writeCollection('menus', d) }
+
+// Menu-items opruimen nadat pagina's verdwenen zijn. `remap` vervangt een
+// verwijderde pagina door een andere (samenvoegen) in plaats van het item te schrappen.
+function pruneMenu(projectId: string, removedIds: string[], remap: Record<string, string> = {}) {
+  const menus = getMenus()
+  const menu = menus.find(m => m.projectId === projectId)
+  if (!menu) return
+  const removed = new Set(removedIds)
+  const present = new Set(menu.items.filter(i => !removed.has(i.siteNodeId)).map(i => i.siteNodeId))
+  const dropped = new Set<string>()
+  const items: ProjectMenuItem[] = []
+  for (const item of menu.items) {
+    if (!removed.has(item.siteNodeId)) { items.push(item); continue }
+    const target = remap[item.siteNodeId]
+    if (target && !present.has(target)) {
+      items.push({ ...item, siteNodeId: target })
+      present.add(target)
+    } else {
+      dropped.add(item.id)
+    }
+  }
+  // Kinderen van geschrapte items schuiven een niveau op.
+  for (const item of items) {
+    let parent = item.parentId
+    while (parent && dropped.has(parent)) parent = menu.items.find(i => i.id === parent)?.parentId ?? null
+    item.parentId = parent
+  }
+  menu.items = items
+  menu.updatedAt = now()
+  saveMenus(menus)
+}
+
+// Hergebruikte kopieën loskoppelen als hun origineel verdwijnt.
+function detachCopies(blocks: PageBlock[], originalIds: Set<string>) {
+  for (const b of blocks) {
+    if (b.reusableBlockId && originalIds.has(b.reusableBlockId)) {
+      b.reusableBlockId = null
+      b.isReusable = false
+    }
+  }
+}
+
+// Inhoudsvelden die een hergebruikt blok van zijn origineel overneemt.
+const SHARED_BLOCK_FIELDS = [
+  'name', 'type', 'goal', 'targetUser', 'contentDescription', 'componentPattern',
+  'notesContent', 'notesSeo', 'notesDesign',
+] as const
 
 // ---------- Changelog helper ----------
 function addLogEntry(projectId: string, entry: Omit<ChangeLogEntry, 'id' | 'projectId' | 'timestamp'>) {
@@ -273,6 +323,7 @@ structuurRouter.post('/:projectId/nodes', (req: Request, res: Response) => {
     relatedUserStoryIds: req.body.relatedUserStoryIds || [],
     openQuestionIds: req.body.openQuestionIds || [],
     notes: req.body.notes || '',
+    requirements: req.body.requirements || '',
     bron: req.body.bron || 'handmatig',
     aanname: req.body.aanname ?? false,
     canvasX: req.body.canvasX ?? null,
@@ -363,10 +414,79 @@ structuurRouter.delete('/:projectId/nodes/:nodeId', (req: Request, res: Response
 
   // Verwijder bijbehorende blocks
   let blocks = getBlocks()
+  const removedBlockIds = new Set(blocks.filter(b => idsToRemove.includes(b.siteNodeId)).map(b => b.id))
   blocks = blocks.filter(b => !idsToRemove.includes(b.siteNodeId))
+  detachCopies(blocks, removedBlockIds)
   saveBlocks(blocks)
+  pruneMenu(req.params.projectId, idsToRemove)
 
   res.json(ok({ deleted: true, removedIds: idsToRemove }))
+})
+
+// ---- Merge node: pagina A opgaan in pagina B ----
+// De bronpagina verdwijnt; haar blokken (met een naam die B nog niet heeft) en
+// subpagina's gaan naar B, en haar URL wordt een redirect naar B.
+structuurRouter.post('/:projectId/nodes/:nodeId/merge', (req: Request, res: Response) => {
+  const { projectId, nodeId } = req.params
+  const intoNodeId: string | undefined = req.body.intoNodeId
+  const nodes = getSiteNodes()
+  const project = getProjects().find(p => p.id === projectId)
+  const domain = project?.domainNew || 'example.com'
+  const source = nodes.find(n => n.id === nodeId && n.projectId === projectId)
+  const target = nodes.find(n => n.id === intoNodeId && n.projectId === projectId)
+  if (!source || !target) return res.status(404).json(err('Pagina niet gevonden'))
+  if (source.id === target.id) return res.status(400).json(err('Een pagina kan niet met zichzelf samengevoegd worden'))
+  if (collectChildIds(nodes, source.id, projectId).includes(target.id)) {
+    return res.status(400).json(err('Een pagina kan niet opgaan in een eigen subpagina'))
+  }
+
+  // Blokken verhuizen
+  const blocks = getBlocks()
+  const targetBlocks = blocks.filter(b => b.siteNodeId === target.id)
+  const existingNames = new Set(targetBlocks.map(b => b.name.trim().toLowerCase()))
+  let sortOrder = targetBlocks.length ? Math.max(...targetBlocks.map(b => b.sortOrder)) + 1 : 0
+  const droppedBlockIds = new Set<string>()
+  let movedBlocks = 0
+  for (const b of [...blocks.filter(b => b.siteNodeId === source.id)].sort((a, c) => a.sortOrder - c.sortOrder)) {
+    if (existingNames.has(b.name.trim().toLowerCase())) { droppedBlockIds.add(b.id); continue }
+    b.siteNodeId = target.id
+    b.sortOrder = sortOrder++
+    existingNames.add(b.name.trim().toLowerCase())
+    movedBlocks++
+  }
+  const keptBlocks = blocks.filter(b => !droppedBlockIds.has(b.id))
+  detachCopies(keptBlocks, droppedBlockIds)
+  saveBlocks(keptBlocks)
+
+  // Subpagina's verhuizen
+  const targetChildren = nodes.filter(n => n.parentId === target.id)
+  let childOrder = targetChildren.length ? Math.max(...targetChildren.map(n => n.sortOrder)) + 1 : 0
+  for (const child of nodes.filter(n => n.parentId === source.id)) {
+    child.parentId = target.id
+    child.sortOrder = childOrder++
+  }
+
+  // Oude URL van de bron wordt een redirect naar het doel
+  const sourcePath = urlPath(source.fullUrl)
+  const redirects = new Set([...(target.redirectsFrom || []), ...(source.redirectsFrom || []), sourcePath])
+  redirects.delete(urlPath(target.fullUrl))
+  target.redirectsFrom = [...redirects]
+  target.needsRedirect = target.redirectsFrom.length > 0
+  target.updatedAt = now()
+
+  const remaining = nodes.filter(n => n.id !== source.id)
+  recalcChildUrls(remaining, target.id, domain, projectId)
+  saveSiteNodes(remaining)
+  pruneMenu(projectId, [source.id], { [source.id]: target.id })
+
+  addLogEntry(projectId, {
+    action: 'merged', entityType: 'siteNode', entityId: target.id,
+    entityTitle: target.title,
+    details: `"${source.title}" samengevoegd met "${target.title}" (${movedBlocks} blokken verplaatst, ${sourcePath} verwijst nu door)`,
+    oldValue: source.title, newValue: target.title
+  })
+
+  res.json(ok({ node: target, removedId: source.id, movedBlocks }))
 })
 
 // ---- Duplicate node ----
@@ -444,17 +564,20 @@ structuurRouter.post('/:projectId/nodes/import', (req: Request, res: Response) =
   function processNode(node: StructureNode, parentId: string | null, basePath: string, level: number, sortIdx: number) {
     const slug = node.slug || ''
     const fullUrl = `https://${domain}/${basePath}${slug}`.replace(/\/+$/, '') || `https://${domain}`
+    const redirectsFrom = Array.isArray(node.redirectsFrom) ? node.redirectsFrom : []
     const siteNode: SiteNode = {
       id: genId(), projectId, parentId,
       title: node.title, slug, fullUrl, level, sortOrder: sortIdx,
       type: (node.type as SiteNodeType) || 'page',
-      goal: null, targetAudience: '', reasonExists: '',
-      isInMainNav: level <= 1, isDetailTemplate: false, isParked: false,
-      priority: 'middel', label: 'nieuw', contentStatus: 'niet-gestart',
-      focusTopic: '', metaTitle: '', metaDescription: '',
-      redirectsFrom: [], needsRedirect: false,
+      goal: node.goal ?? null,
+      targetAudience: node.targetAudience || '', reasonExists: node.reasonExists || '',
+      isInMainNav: node.isInMainNav ?? level <= 1, isDetailTemplate: false, isParked: false,
+      priority: 'middel', label: node.label || 'nieuw', contentStatus: 'niet-gestart',
+      focusTopic: node.focusTopic || '', metaTitle: '', metaDescription: '',
+      redirectsFrom, needsRedirect: redirectsFrom.length > 0,
       relatedUserStoryIds: [], openQuestionIds: [],
-      notes: '', createdAt: now(), updatedAt: now()
+      notes: node.notes || '', requirements: node.requirements || '',
+      createdAt: now(), updatedAt: now()
     }
     newNodes.push(siteNode)
 
@@ -471,8 +594,8 @@ structuurRouter.post('/:projectId/nodes/import', (req: Request, res: Response) =
           goal: b.goal || '',
           targetUser: '',
           contentDescription: b.contentDescription || '',
-          componentPattern: '',
-          isReusable: false,
+          componentPattern: b.componentPattern || '',
+          isReusable: b.isReusable ?? false,
           reusableBlockId: null,
           notesContent: '',
           notesSeo: '',
@@ -556,60 +679,30 @@ structuurRouter.post('/:projectId/nodes/import-flat', (req: Request, res: Respon
 // ---- Warnings / validatie ----
 structuurRouter.get('/:projectId/warnings', (req: Request, res: Response) => {
   const nodes = getSiteNodes().filter(n => n.projectId === req.params.projectId)
-  const warnings: StructureWarning[] = []
-
-  for (const node of nodes) {
-    // Te diep (> 3 niveaus)
-    if (node.level > 3) {
-      warnings.push({ type: 'too-deep', severity: 'warning', nodeId: node.id, message: `"${node.title}" hangt ${node.level} niveaus diep – overweeg om deze hoger te plaatsen.` })
-    }
-    // Geen doel
-    if (!node.goal && !node.isParked) {
-      warnings.push({ type: 'no-goal', severity: 'info', nodeId: node.id, message: `"${node.title}" heeft nog geen paginadoel (informeren/overtuigen/converteren).` })
-    }
-    // Geen focus onderwerp
-    if (!node.focusTopic && !node.isParked) {
-      warnings.push({ type: 'no-focus', severity: 'info', nodeId: node.id, message: `"${node.title}" heeft nog geen focus onderwerp voor SEO.` })
-    }
-    // Orphan (heeft parentId maar parent bestaat niet)
-    if (node.parentId && !nodes.find(n => n.id === node.parentId)) {
-      warnings.push({ type: 'orphan', severity: 'error', nodeId: node.id, message: `"${node.title}" verwijst naar een niet-bestaande bovenliggende pagina.` })
-    }
-    // Naam-slug mismatch (slug bevat woorden die helemaal niet in title voorkomen)
-    if (node.slug && node.title) {
-      const titleWords = node.title.toLowerCase().split(/\s+/)
-      const slugWords = node.slug.replace(/-/g, ' ').toLowerCase().split(/\s+/)
-      const overlap = slugWords.filter(sw => titleWords.some(tw => tw.includes(sw) || sw.includes(tw)))
-      if (slugWords.length > 0 && overlap.length === 0 && !node.isDetailTemplate) {
-        warnings.push({ type: 'name-slug-mismatch', severity: 'warning', nodeId: node.id, message: `De slug "${node.slug}" lijkt niet overeen te komen met de paginanaam "${node.title}".` })
-      }
-    }
-    // Duplicate titels
-    const duplicates = nodes.filter(n => n.id !== node.id && n.title.toLowerCase() === node.title.toLowerCase())
-    if (duplicates.length > 0) {
-      warnings.push({ type: 'duplicate', severity: 'warning', nodeId: node.id, relatedNodeId: duplicates[0].id, message: `"${node.title}" heeft dezelfde naam als een andere pagina – mogelijke overlap.` })
-    }
-    // Intern geformuleerde namen
-    const internalPatterns = ['test', 'temp', 'draft', 'todo', 'tbd', 'xxx', 'pagina-']
-    if (internalPatterns.some(p => node.title.toLowerCase().includes(p))) {
-      warnings.push({ type: 'internal-name', severity: 'warning', nodeId: node.id, message: `"${node.title}" klinkt als een interne werknaam – overweeg een definitieve paginanaam.` })
-    }
-  }
-
-  // Content overlap: pagina's met zeer vergelijkbare titels
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      if (simpleOverlap(nodes[i].title, nodes[j].title) > 0.6 && nodes[i].title !== nodes[j].title) {
-        warnings.push({
-          type: 'merge-candidate', severity: 'info', nodeId: nodes[i].id, relatedNodeId: nodes[j].id,
-          message: `"${nodes[i].title}" en "${nodes[j].title}" lijken inhoudelijk overeen te komen – overweeg samenvoegen.`
-        })
-      }
-    }
-  }
-
+  const warnings: StructureWarning[] = computeStructureWarnings(nodes)
   res.json(ok(warnings))
 })
+
+// ===================== FASE 2: MENU =====================
+structuurRouter.get('/:projectId/menu', (req: Request, res: Response) => {
+  res.json(ok(getMenus().find(m => m.projectId === req.params.projectId) ?? null))
+})
+
+structuurRouter.put('/:projectId/menu', (req: Request, res: Response) => {
+  const { projectId } = req.params
+  const items: ProjectMenuItem[] = Array.isArray(req.body.items)
+    ? req.body.items.map((i: ProjectMenuItem) => ({
+        id: String(i.id), siteNodeId: String(i.siteNodeId),
+        parentId: i.parentId ?? null, sortOrder: Number(i.sortOrder) || 0,
+        ...(i.customLabel ? { customLabel: String(i.customLabel) } : {}),
+      }))
+    : []
+  const menus = getMenus().filter(m => m.projectId !== projectId)
+  const menu: ProjectMenu = { projectId, items, updatedAt: now() }
+  saveMenus([...menus, menu])
+  res.json(ok(menu))
+})
+
 
 // ===================== FASE 3: PAGE BLOCKS =====================
 
@@ -668,8 +761,22 @@ structuurRouter.put('/:projectId/nodes/:nodeId/blocks/:blockId', (req: Request, 
   const idx = blocks.findIndex(b => b.id === req.params.blockId && b.siteNodeId === req.params.nodeId)
   if (idx < 0) return res.status(404).json(err('Blok niet gevonden'))
   blocks[idx] = { ...blocks[idx], ...req.body, id: blocks[idx].id, projectId: blocks[idx].projectId, siteNodeId: blocks[idx].siteNodeId }
+
+  // Origineel van een herbruikbaar blok: kopieën op andere pagina's lopen mee.
+  // Wordt het blok niet meer herbruikbaar, dan worden de kopieën zelfstandig.
+  const updated = blocks[idx]
+  if (!updated.reusableBlockId) {
+    if (updated.isReusable) {
+      for (const copy of blocks) {
+        if (copy.reusableBlockId !== updated.id) continue
+        for (const f of SHARED_BLOCK_FIELDS) (copy as unknown as Record<string, unknown>)[f] = updated[f]
+      }
+    } else {
+      detachCopies(blocks, new Set([updated.id]))
+    }
+  }
   saveBlocks(blocks)
-  res.json(ok(blocks[idx]))
+  res.json(ok(updated))
 })
 
 structuurRouter.delete('/:projectId/nodes/:nodeId/blocks/:blockId', (req: Request, res: Response) => {
@@ -682,6 +789,7 @@ structuurRouter.delete('/:projectId/nodes/:nodeId/blocks/:blockId', (req: Reques
     })
   }
   blocks = blocks.filter(b => !(b.id === req.params.blockId && b.siteNodeId === req.params.nodeId))
+  detachCopies(blocks, new Set([req.params.blockId]))
   saveBlocks(blocks)
   res.json(ok({ deleted: true }))
 })
@@ -712,14 +820,22 @@ structuurRouter.get('/:projectId/changelog', (req: Request, res: Response) => {
 })
 
 // ===================== HELPERS =====================
+/** Pad van een volledige URL, bv. "https://vanlier.nl/diensten" → "/diensten". */
+function urlPath(fullUrl: string): string {
+  return fullUrl.replace(/^https?:\/+[^/]+/, '') || '/'
+}
+
 function buildFullUrl(nodes: SiteNode[], parentId: string | null, slug: string, domain: string, projectId: string): string {
   if (!parentId) {
     return slug ? `https://${domain}/${slug}` : `https://${domain}`
   }
   const parent = nodes.find(n => n.id === parentId && n.projectId === projectId)
   if (!parent) return `https://${domain}/${slug}`
-  const parentPath = parent.fullUrl.replace(`https://${domain}`, '')
-  return `https://${domain}${parentPath}/${slug}`.replace(/\/\/+/g, '/')
+  // Ook oude, al kapotte URL's ("https:/domein/...") herkennen.
+  const parentPath = parent.fullUrl.replace(/^https?:\/+[^/]+/, '')
+  // Alleen dubbele slashes in het pad samenvoegen — niet die van "https://".
+  const path = `${parentPath}/${slug}`.replace(/\/\/+/g, '/').replace(/\/$/, '')
+  return `https://${domain}${path}`
 }
 
 function recalcChildUrls(nodes: SiteNode[], parentId: string, domain: string, projectId: string) {

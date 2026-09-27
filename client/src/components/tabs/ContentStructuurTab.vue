@@ -7,7 +7,7 @@
         <p class="text-sm text-gray-500 mt-1">Beheer de content status van alle pagina's in een spreadsheet overzicht.</p>
       </div>
       <div class="flex items-center gap-2">
-        <button @click="loadStructuur" class="btn-secondary btn-sm"><KIcon name="refresh" :size="14" />Structuur inladen</button>
+        <button @click="loadStructuur()" class="btn-secondary btn-sm"><KIcon name="refresh" :size="14" />Structuur inladen</button>
         <!-- Preset selector -->
         <select
           v-model="activePresetId"
@@ -25,6 +25,15 @@
         <button @click="addRow" class="btn-primary btn-sm"><KIcon name="plus" :size="14" />Rij toevoegen</button>
       </div>
     </div>
+
+    <!-- Statusflow -->
+    <p class="-mt-3 mb-4 text-xs text-gray-500 flex items-center gap-1.5 flex-wrap">
+      <span class="font-medium text-gray-600">Van tekst naar klant:</span>
+      <span class="badge badge-neutral !h-5">Wordt geschreven</span><KIcon name="chevR" :size="12" />
+      <span class="badge badge-warning !h-5">Nakijken door collega</span><KIcon name="chevR" :size="12" />
+      <span class="badge badge-success !h-5">Goedgekeurd, mag naar klant</span>
+      <span>Kies bij "Nakijken" ook wie de tekst nakijkt.</span>
+    </p>
 
     <!-- Spreadsheet tabel -->
     <div class="bg-white rounded-xl border border-gray-200 overflow-x-auto">
@@ -74,6 +83,16 @@
               />
             </td>
 
+            <!-- schrijver -->
+            <td v-if="isVisible('schrijver')" class="px-1 py-1">
+              <MedewerkerSelect
+                :model-value="row.schrijverId ?? null"
+                :allow-null="true"
+                placeholder="— Niemand —"
+                @update:model-value="v => { row.schrijverId = v; saveRow(row) }"
+              />
+            </td>
+
             <!-- Tekst klaar -->
             <td v-if="isVisible('tekstKlaar')" class="px-1 py-1 text-center">
               <input
@@ -106,14 +125,25 @@
               <select
                 v-model="row.status"
                 @change="saveRow(row)"
-                class="w-full px-2 py-1.5 text-sm border-0 bg-transparent hover:bg-gray-50 focus:bg-white focus:ring-1 focus:ring-pienter-500 rounded"
+                class="w-full px-2 py-1.5 text-sm border-0 hover:ring-1 hover:ring-gray-200 focus:bg-white focus:ring-1 focus:ring-pienter-500 rounded"
+                :class="STATUS_CLASS[row.status]"
               >
-                <option value="niet-gestart">Niet gestart</option>
-                <option value="in-progress">In progress</option>
-                <option value="klaar">Klaar</option>
-                <option value="review">Review</option>
+                <option v-for="s in STATUSES" :key="s.value" :value="s.value">{{ s.label }}</option>
               </select>
             </td>
+
+            <!-- nakijker -->
+            <td v-if="isVisible('nakijker')" class="px-1 py-1">
+              <MedewerkerSelect
+                :model-value="row.nakijkerId ?? null"
+                :allow-null="true"
+                placeholder="— Niemand —"
+                :class="{ 'ring-2 ring-amber-400 rounded-md': row.status === 'review' && !row.nakijkerId }"
+                :title="row.status === 'review' && !row.nakijkerId ? 'Kies wie deze tekst nakijkt' : undefined"
+                @update:model-value="v => { row.nakijkerId = v; saveRow(row) }"
+              />
+            </td>
+
 
             <!-- Wat mist nog -->
             <td v-if="isVisible('watMistNog')" class="px-1 py-1">
@@ -280,6 +310,27 @@ import { useContentStructuurStore } from '../../stores/contentStructuurStore'
 import { useProjectStore } from '../../stores/projectStore'
 import type { ContentStructuurRow, ContentStructuurPreset } from '@shared/types'
 import MedewerkerSelect from '../medewerkers/MedewerkerSelect.vue'
+import { useMedewerkersStore } from '../../stores/medewerkersStore'
+import type { ContentRowStatus } from '@shared/types'
+
+// Statusflow van een tekst: schrijven → nakijken door een collega → goedgekeurd (naar klant).
+const STATUSES: { value: ContentRowStatus; label: string }[] = [
+  { value: 'niet-gestart', label: 'Niet gestart' },
+  { value: 'in-progress', label: 'Wordt geschreven' },
+  { value: 'review', label: 'Nakijken door collega' },
+  { value: 'klaar', label: 'Goedgekeurd, mag naar klant' },
+]
+const STATUS_CLASS: Record<ContentRowStatus, string> = {
+  'niet-gestart': 'bg-transparent text-gray-600',
+  'in-progress': 'bg-gray-100 text-gray-800',
+  review: 'bg-amber-50 text-amber-800',
+  klaar: 'bg-green-50 text-green-800',
+}
+// Kolommen met een medewerker: sleutel → veld met het medewerker-id.
+const PERSON_FIELDS: Record<string, 'schrijverId' | 'nakijkerId' | 'wiePlaatstId'> = {
+  schrijver: 'schrijverId', nakijker: 'nakijkerId', wiePlaatst: 'wiePlaatstId',
+}
+const medewerkersStore = useMedewerkersStore()
 
 // De URL bevat de klant-id (/klanten/:id/website); de content-structuur is op
 // project-id gekoppeld. Gebruik daarom het opgeloste project uit de store i.p.v.
@@ -292,9 +343,11 @@ const store = useContentStructuurStore()
 const allColumns = [
   { key: 'naamPagina', label: 'Naam pagina', width: 'min-w-[160px]' },
   { key: 'zoektermen', label: 'Te benutten zoektermen', width: 'min-w-[180px]' },
+  { key: 'schrijver', label: 'Schrijver', width: 'min-w-[140px]' },
   { key: 'tekstKlaar', label: 'Tekst klaar', width: 'min-w-[80px]' },
   { key: 'wiePlaatst', label: 'Wie plaatst op site', width: 'min-w-[140px]' },
-  { key: 'status', label: 'Status', width: 'min-w-[130px]' },
+  { key: 'status', label: 'Status', width: 'min-w-[190px]' },
+  { key: 'nakijker', label: 'Nakijker', width: 'min-w-[140px]' },
   { key: 'watMistNog', label: 'Wat mist nog', width: 'min-w-[160px]' },
   { key: 'nieuweUrl', label: 'Nieuwe URL', width: 'min-w-[160px]' },
   { key: 'slug', label: 'Slug', width: 'min-w-[120px]' },
@@ -330,8 +383,9 @@ async function addRow() {
   await store.createRow(projectId.value, { naamPagina: '' })
 }
 
-async function loadStructuur() {
+async function loadStructuur(silent = false) {
   const result = await store.syncFromStructuur(projectId.value)
+  if (silent) return
   syncMessage.value = `${result.created} toegevoegd, ${result.updated} bijgewerkt vanuit de structuur.`
   window.setTimeout(() => {
     if (syncMessage.value) syncMessage.value = ''
@@ -387,7 +441,8 @@ function exportCsv() {
 
   const csvRows = store.rows.map(row => {
     return cols.map(col => {
-      const val = (row as any)[col.key]
+      const personField = PERSON_FIELDS[col.key]
+      const val = personField ? (medewerkersStore.getMedewerker(row[personField])?.naam ?? '') : (row as any)[col.key]
       if (typeof val === 'boolean') return val ? 'Ja' : 'Nee'
       const str = String(val ?? '')
       // Escape CSV: als er komma's, aanhalingstekens of newlines in zitten
@@ -455,8 +510,8 @@ function parseCsv(text: string): Partial<ContentStructuurRow>[] {
       if (key === 'tekstKlaar') {
         row[key] = val.toLowerCase() === 'ja' || val === '1' || val.toLowerCase() === 'true'
       } else if (key === 'status') {
-        const valid = ['niet-gestart', 'in-progress', 'klaar', 'review']
-        row[key] = valid.includes(val) ? val : 'niet-gestart'
+        const match = STATUSES.find(s => s.value === val || s.label.toLowerCase() === val.toLowerCase())
+        row[key] = match?.value ?? 'niet-gestart'
       } else {
         row[key] = val
       }
@@ -514,9 +569,8 @@ async function load(id: string) {
     store.fetchRows(id),
     store.fetchPresets(id),
   ])
-  if (store.rows.length === 0) {
-    await loadStructuur()
-  }
+  // Altijd bijwerken vanuit de structuur, zodat nieuwe pagina's er meteen in staan.
+  await loadStructuur(store.rows.length > 0)
 }
 
 onMounted(() => load(projectId.value))

@@ -9,7 +9,7 @@
       <div class="flex gap-2">
         <button class="btn-secondary btn-sm" @click="copyVragenToClipboard"><KIcon name="copy" :size="14" />Kopieer klantvragen</button>
         <button class="btn-secondary btn-sm" @click="toggleImport"><KIcon name="upload" :size="14" />Importeren</button>
-        <button class="btn-secondary btn-sm" @click="fetchWarnings"><KIcon name="alert" :size="14" />Controleer ({{ store.warnings.length }})</button>
+        <button class="btn-secondary btn-sm" @click="fetchWarnings"><KIcon name="refresh" :size="14" />Structuur controleren</button>
         <button class="btn-primary btn-sm" @click="addRootNode"><KIcon name="plus" :size="14" />Pagina toevoegen</button>
       </div>
     </div>
@@ -45,20 +45,48 @@
       <p v-if="importMsg" class="text-sm mt-2" :class="importError ? 'text-red-600' : 'text-green-600'">{{ importMsg }}</p>
     </div>
 
-    <!-- Warnings bar -->
-    <div v-if="store.warnings.length > 0" class="rounded-lg border border-amber-200 bg-amber-50 p-4">
-      <div class="flex items-center justify-between mb-2">
-        <h4 class="text-sm font-semibold text-amber-800 flex items-center gap-1.5"><KIcon name="alert" :size="16" />{{ store.warnings.length }} waarschuwingen</h4>
-        <button class="text-xs text-amber-600 hover:underline" @click="showAllWarnings = !showAllWarnings">
-          {{ showAllWarnings ? 'Inklappen' : 'Alles tonen' }}
-        </button>
-      </div>
-      <div v-if="showAllWarnings" class="space-y-1">
-        <div v-for="w in store.warnings" :key="w.nodeId + w.type" class="flex items-start gap-2 text-xs text-amber-700">
-          <span class="mt-1 w-2 h-2 rounded-full shrink-0" :class="w.severity === 'error' ? 'bg-red-600' : w.severity === 'warning' ? 'bg-amber-400' : 'bg-blue-600'"></span>
+    <!-- Waarschuwingen: problemen altijd zichtbaar, aandachtspunten ingeklapt -->
+    <div
+      v-if="problemWarnings.length > 0"
+      class="rounded-lg border p-4"
+      :class="hasErrors ? 'border-red-200 bg-red-50' : 'border-amber-200 bg-amber-50'"
+      role="alert"
+    >
+      <h4 class="text-sm font-semibold flex items-center gap-1.5" :class="hasErrors ? 'text-red-800' : 'text-amber-800'">
+        <KIcon name="alert" :size="16" />
+        {{ problemWarnings.length }} {{ problemWarnings.length === 1 ? 'probleem' : 'problemen' }} in de structuur
+      </h4>
+      <ul class="mt-3 space-y-2">
+        <li
+          v-for="w in problemWarnings"
+          :key="w.type + w.nodeId + (w.relatedNodeId ?? '')"
+          class="flex items-start gap-2.5 text-sm"
+          :class="w.severity === 'error' ? 'text-red-800' : 'text-amber-800'"
+        >
+          <span class="mt-1.5 w-2 h-2 rounded-full shrink-0" :class="w.severity === 'error' ? 'bg-red-600' : 'bg-amber-400'"></span>
           <span class="flex-1">{{ w.message }}</span>
-        </div>
-      </div>
+          <span class="flex gap-1.5 shrink-0">
+            <button class="btn-secondary btn-sm" @click="openPage(w.nodeId)">Bekijk pagina</button>
+            <button v-if="w.relatedNodeId && mergeable(w)" class="btn-secondary btn-sm" @click="mergePair = [w.nodeId, w.relatedNodeId]">
+              <KIcon name="merge" :size="14" />Samenvoegen…
+            </button>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div v-if="infoWarnings.length > 0" class="rounded-lg border border-gray-200 bg-white px-4 py-3">
+      <button class="w-full flex items-center justify-between text-sm text-gray-600" :aria-expanded="showAllWarnings" @click="showAllWarnings = !showAllWarnings">
+        <span class="flex items-center gap-1.5"><KIcon name="info" :size="16" class="text-blue-600" />{{ infoWarnings.length }} aandachtspunten, zoals pagina's zonder doel of focus-zoekwoord</span>
+        <KIcon name="chevD" :size="15" class="transition-transform" :class="{ 'rotate-180': showAllWarnings }" />
+      </button>
+      <ul v-if="showAllWarnings" class="mt-2 space-y-1">
+        <li v-for="w in infoWarnings" :key="w.type + w.nodeId + (w.relatedNodeId ?? '')">
+          <button class="w-full text-left text-xs text-gray-600 hover:text-pienter-600 flex items-start gap-2 py-0.5" @click="openPage(w.nodeId)">
+            <span class="mt-1 w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0"></span>
+            <span class="flex-1">{{ w.message }}</span>
+          </button>
+        </li>
+      </ul>
     </div>
 
     <!-- Aanname-notice (uit concurrentie-analyse, nog niet bevestigd) -->
@@ -83,13 +111,21 @@
     </div>
 
     <!-- Menu builder -->
-    <MenuStructuurBuilder v-if="fase2View === 'menu'" :project-id="projectId" />
+    <MenuStructuurBuilder v-if="fase2View === 'menu'" :project-id="projectId" @open-page="openPage" />
 
     <!-- Plattegrond canvas -->
     <PlattegrondCanvas v-else-if="fase2View === 'plattegrond'" :project-id="projectId" />
 
-    <!-- Pagina-indeling (voorheen Fase 3) -->
-    <Fase3Blokken v-else-if="fase2View === 'indeling'" :project-id="projectId" />
+    <!-- Pagina's: instellingen + blok-indeling (voorheen Fase 3) -->
+    <Fase3Blokken v-else-if="fase2View === 'indeling'" :project-id="projectId" @merge="ids => mergePair = ids" />
+
+    <SamenvoegenDialog
+      v-if="mergePair"
+      :project-id="projectId"
+      :node-ids="mergePair"
+      @close="mergePair = null"
+      @merged="onMerged"
+    />
   </div>
 </template>
 
@@ -102,6 +138,8 @@ import type { JourneyFase } from '@shared/types'
 import MenuStructuurBuilder from './MenuStructuurBuilder.vue'
 import PlattegrondCanvas from './PlattegrondCanvas.vue'
 import Fase3Blokken from './Fase3Blokken.vue'
+import SamenvoegenDialog from './SamenvoegenDialog.vue'
+import type { StructureWarning } from '@shared/types'
 
 const props = defineProps<{ projectId: string }>()
 const store = useStructuurStore()
@@ -111,7 +149,7 @@ const fase2View = ref<'menu' | 'plattegrond' | 'indeling'>('menu')
 const fase2Views = [
   { key: 'menu' as const, icon: 'list' as const, label: 'Menu' },
   { key: 'plattegrond' as const, icon: 'sitemap' as const, label: 'Plattegrond' },
-  { key: 'indeling' as const, icon: 'layout' as const, label: 'Pagina-indeling' },
+  { key: 'indeling' as const, icon: 'file' as const, label: "Pagina's" },
 ]
 
 const showImport = ref(false)
@@ -134,8 +172,33 @@ async function fetchWarnings() {
   await store.fetchWarnings(props.projectId)
 }
 
+const problemWarnings = computed(() => store.warnings.filter(w => w.severity !== 'info'))
+const infoWarnings = computed(() => store.warnings.filter(w => w.severity === 'info'))
+const hasErrors = computed(() => problemWarnings.value.some(w => w.severity === 'error'))
+
+// Samenvoegen is een logische oplossing bij overlap tussen twee pagina's.
+function mergeable(w: StructureWarning) {
+  return ['keyword-cannibalization', 'duplicate', 'merge-candidate'].includes(w.type)
+    && store.siteNodes.some(n => n.id === w.relatedNodeId)
+}
+
+// Pagina openen in de weergave "Pagina's" (instellingen + blokken).
+function openPage(nodeId: string) {
+  store.selectedNodeId = nodeId
+  fase2View.value = 'indeling'
+}
+
+const mergePair = ref<[string, string] | null>(null)
+function onMerged(keptId: string) {
+  mergePair.value = null
+  openPage(keptId)
+}
+
 // Load doelgroep data on mount
 onMounted(async () => {
+  // Structuur, waarschuwingen en menu van dit project klaarzetten.
+  if (store.siteNodes.length === 0) await store.fetchNodes(props.projectId)
+  await Promise.all([fetchWarnings(), store.fetchMenu(props.projectId), store.fetchAllBlocks(props.projectId)])
   if (projectStore.doelgroepen.length === 0) {
     await projectStore.fetchDoelgroepen(props.projectId)
   }

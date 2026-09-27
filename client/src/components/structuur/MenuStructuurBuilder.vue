@@ -42,9 +42,27 @@
         </div>
 
         <!-- Pagina toevoegen -->
-        <button class="mt-3 w-full text-left text-xs font-medium text-pienter-600 hover:underline inline-flex items-center gap-1" @click="addPage">
-          <KIcon name="plus" :size="12" />Pagina toevoegen
+        <button v-if="!showNewPage" class="mt-3 w-full text-left text-xs font-medium text-pienter-600 hover:underline inline-flex items-center gap-1" @click="openNewPage">
+          <KIcon name="plus" :size="12" />Nieuwe pagina maken
         </button>
+        <form v-else class="mt-3 space-y-2 rounded-lg border border-gray-200 bg-gray-50 p-3" @submit.prevent="addPage">
+          <div>
+            <label class="label !text-xs" for="new-page-title">Naam van de pagina</label>
+            <input id="new-page-title" ref="newPageInput" v-model="newPageTitle" class="input !h-9 text-sm" placeholder="bijv. Verjaardagen" />
+          </div>
+          <div>
+            <label class="label !text-xs" for="new-page-parent">Hoort onder (bepaalt de URL)</label>
+            <select id="new-page-parent" v-model="newPageParent" class="select !h-9 text-sm">
+              <option value="">Geen — hoofdniveau</option>
+              <option v-for="n in parentOptions" :key="n.id" :value="n.id">{{ indent(n.level) }}{{ n.title }}</option>
+            </select>
+            <p class="help mono !mt-1 truncate">{{ newPageUrl }}</p>
+          </div>
+          <div class="flex gap-2">
+            <button type="submit" class="btn-primary btn-sm" :disabled="!newPageTitle.trim()">Pagina maken</button>
+            <button type="button" class="btn-secondary btn-sm" @click="showNewPage = false">Annuleren</button>
+          </div>
+        </form>
 
         <!-- Aan menu toevoegen -->
         <button
@@ -66,7 +84,10 @@
     <!-- ============ RECHTERPANEEL — MENU-STRUCTUUR ============ -->
     <div class="space-y-3">
       <div class="card p-4" @dragover.prevent @drop.prevent="onContainerDrop">
-        <h4 class="mb-3 font-semibold text-sm text-gray-900">Menu-structuur</h4>
+        <h4 class="font-semibold text-sm text-gray-900">Menu-structuur</h4>
+        <p class="mb-3 mt-0.5 text-xs text-gray-500">
+          Sleep items om de volgorde te wijzigen. Sleep een item naar rechts, of gebruik de pijlknoppen, om het onder het item erboven te hangen.
+        </p>
 
         <!-- Empty state -->
         <div v-if="flatMenu.length === 0" class="empty-state py-12">
@@ -88,7 +109,12 @@
               :item="item"
               :page="pageOf(item.siteNodeId)"
               :is-dragging="draggedSet.has(item.id)"
+              :can-indent="canIndent(item)"
+              :can-outdent="!!item.parentId"
               @remove="store.removeMenuItem(item.id)"
+              @indent="store.indentMenuItem(item.id)"
+              @outdent="store.outdentMenuItem(item.id)"
+              @open-page="emit('open-page', item.siteNodeId)"
               @toggle="store.toggleMenuItemExpanded(item.id)"
               @update-label="(v) => store.updateMenuItem(item.id, { customLabel: v || undefined })"
               @dragstart="onRowDragStart(item.id)"
@@ -119,14 +145,22 @@
 
 <script setup lang="ts">
 import KIcon from '../ui/KIcon.vue'
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import type { SiteNode } from '@shared/types'
 import { MAX_LEVEL, type FlatMenuItem } from './menuTypes'
 import MenuRow from './MenuRow.vue'
 
 const props = defineProps<{ projectId: string }>()
+const emit = defineEmits<{ 'open-page': [siteNodeId: string] }>()
 const store = useStructuurStore()
+
+// Inspringen kan als er een vorig item op hetzelfde niveau is en de max diepte niet bereikt is.
+function canIndent(item: FlatMenuItem) {
+  if (item.level >= MAX_LEVEL) return false
+  const siblings = store.menuItems.filter(m => m.parentId === item.parentId).sort((a, b) => a.sortOrder - b.sortOrder)
+  return siblings.findIndex(m => m.id === item.id) > 0
+}
 
 // ---------- Linkerpaneel ----------
 const pageFilters = [
@@ -172,12 +206,45 @@ function addSelectedToMenu() {
   selected.value = new Set()
 }
 
+// ---------- Nieuwe pagina ----------
+const showNewPage = ref(false)
+const newPageTitle = ref('')
+const newPageParent = ref('')
+const newPageInput = ref<HTMLInputElement | null>(null)
+
+const indent = (level: number) => '\u00a0\u00a0\u00a0'.repeat(level)
+const parentOptions = computed(() => store.flatSortedNodes.filter(n => !n.isParked))
+
+function slugify(title: string) {
+  return title.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+
+const newPageUrl = computed(() => {
+  const parent = store.siteNodes.find(n => n.id === newPageParent.value)
+  const base = parent ? parent.fullUrl.replace(/\/$/, '') : (store.siteNodes.find(n => !n.parentId)?.fullUrl.replace(/^(https?:\/+[^/]+).*$/, '$1') ?? '')
+  return `${base}/${slugify(newPageTitle.value) || '...'}`
+})
+
+async function openNewPage() {
+  showNewPage.value = true
+  newPageTitle.value = ''
+  newPageParent.value = ''
+  await nextTick()
+  newPageInput.value?.focus()
+}
+
 async function addPage() {
-  const name = window.prompt('Naam van de nieuwe pagina')
-  if (!name || !name.trim()) return
-  const title = name.trim()
-  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
-  await store.createNode(props.projectId, { title, slug })
+  const title = newPageTitle.value.trim()
+  if (!title) return
+  const node = await store.createNode(props.projectId, {
+    title, slug: slugify(title), parentId: newPageParent.value || null,
+  })
+  showNewPage.value = false
+  // Direct aangevinkt, zodat "Aan menu toevoegen" de volgende stap is.
+  selected.value = new Set([...selected.value, node.id])
+  pageFilter.value = 'recent'
 }
 
 // ---------- Rechterpaneel: boom-opbouw ----------
