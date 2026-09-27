@@ -1,35 +1,34 @@
 <template>
-  <div class="flex h-screen bg-cream-200">
+  <div class="flex h-screen" style="background: var(--bg);">
     <AppSidebar />
 
     <div class="flex-1 flex flex-col min-w-0">
       <!-- Topbar -->
-      <header class="bg-white border-b border-cream-400 px-6 h-12 flex items-center justify-between shrink-0">
-        <nav class="flex items-center gap-1.5 text-sm min-w-0">
-          <span v-if="!breadcrumb.length" class="text-ink-2 font-medium">
+      <header class="topbar h-[60px] px-6 flex items-center justify-between gap-4 shrink-0">
+        <nav class="flex items-center gap-2 text-[13px] text-ink-3 min-w-0" aria-label="Kruimelpad">
+          <span v-if="!breadcrumb.length" class="text-ink font-medium">
             Pienter Portaal
             <span class="accent-dot ml-1"></span>
           </span>
           <template v-for="(crumb, idx) in breadcrumb" :key="idx">
-            <span v-if="idx > 0" class="text-ink-mute mx-1">›</span>
+            <KIcon v-if="idx > 0" name="chevR" :size="13" />
             <router-link
               v-if="crumb.to && idx < breadcrumb.length - 1"
               :to="crumb.to"
-              class="text-ink-2 hover:text-pienter-700 truncate max-w-[220px]"
+              class="text-ink-3 hover:text-ink transition-colors truncate max-w-[220px]"
             >{{ crumb.label }}</router-link>
-            <span v-else class="text-ink font-semibold truncate max-w-[260px]">{{ crumb.label }}</span>
+            <span v-else class="text-ink font-medium truncate max-w-[260px]">{{ crumb.label }}</span>
           </template>
         </nav>
 
-        <span class="inline-flex items-center gap-1.5 h-6 px-3 rounded-full text-[11px] font-medium uppercase tracking-wider"
-              style="background: var(--highlight-soft); color: var(--highlight-press);">
-          <span class="w-1.5 h-1.5 rounded-full" style="background: var(--highlight);"></span>
+        <span class="badge badge-highlight-soft shrink-0">
+          <span class="dot"></span>
           Demo mode
         </span>
       </header>
 
       <!-- Content -->
-      <main class="flex-1 overflow-y-auto" style="background: var(--bg);">
+      <main class="flex-1 overflow-y-auto">
         <router-view />
       </main>
     </div>
@@ -41,6 +40,7 @@ import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useKlantenStore } from './stores/klantenStore'
 import AppSidebar from './components/AppSidebar.vue'
+import KIcon from './components/ui/KIcon.vue'
 
 const route = useRoute()
 const klantenStore = useKlantenStore()
@@ -92,3 +92,10 @@ const breadcrumb = computed(() => {
   return crumbs
 })
 </script>
+
+<style scoped>
+.topbar {
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+</style>

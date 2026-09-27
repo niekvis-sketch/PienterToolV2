@@ -2,7 +2,7 @@
   <DetailLayout narrow>
     <div class="mb-6">
       <p class="eyebrow">Nieuw</p>
-      <h1 class="text-2xl font-bold tracking-tight text-pienter-700 mt-1 flex items-baseline gap-2">
+      <h1 class="text-2xl font-bold tracking-tight text-pienter-600 mt-1 flex items-baseline gap-2">
         Nieuwe klant<span class="accent-dot"></span>
       </h1>
     </div>

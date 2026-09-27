@@ -4,7 +4,7 @@
   <!-- Empty state: geen Website-project -->
   <DetailLayout v-else-if="!resolvedProject">
     <div class="empty-state">
-      <div class="text-4xl mb-4">🌐</div>
+      <div class="empty-state-icon"><KIcon name="globe" :size="22" /></div>
       <h2 class="text-lg font-semibold text-ink-2">Nog geen website-project</h2>
       <p>
         Voor <strong class="text-ink">{{ klantenStore.currentKlant?.naam ?? '...' }}</strong> is nog geen website-project aangemaakt.
@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../components/ui/KIcon.vue'
 import { ref, computed, onMounted, watch } from 'vue'
 import { useKlantenStore } from '../stores/klantenStore'
 import { useProjectStore } from '../stores/projectStore'

@@ -2,10 +2,10 @@
   <div>
     <!-- <2 concurrenten -->
     <div v-if="store.totaal < 2" class="empty-state card p-12 text-center">
-      <div class="text-4xl mb-3">📊</div>
+      <div class="empty-state-icon"><KIcon name="chart" :size="22" /></div>
       <h3 class="text-sm font-semibold text-gray-700">Voeg minstens twee concurrenten toe om te vergelijken</h3>
       <p class="text-xs text-gray-500 mb-4">De matrix laat dan zien welke pagina's en functies vaker terugkomen.</p>
-      <button class="btn-secondary btn-sm" @click="store.actieveSubview = 'invoer'">← Naar invoer</button>
+      <button class="btn-secondary btn-sm" @click="store.actieveSubview = 'invoer'"><KIcon name="arrowL" :size="14" />Naar invoer</button>
     </div>
 
     <div v-else class="space-y-5">
@@ -26,7 +26,7 @@
 
       <VergelijkingMatrix
         titel="Pagina's"
-        icon="📄"
+        icon="file"
         :rows="store.paginaAggregaat"
         :concurrenten="store.concurrenten"
         actie-label="Naar structuur"
@@ -39,7 +39,7 @@
 
       <VergelijkingMatrix
         titel="Functionaliteit"
-        icon="⚙️"
+        icon="settings"
         :rows="store.functieAggregaat"
         :concurrenten="store.concurrenten"
         actie-label="Naar vraag"
@@ -78,6 +78,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref } from 'vue'
 import { useConcurrentenStore, type AggregaatRij } from '../../stores/concurrenten'
 import { useStructuurStore } from '../../stores/structuurStore'

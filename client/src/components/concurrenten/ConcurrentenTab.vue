@@ -23,7 +23,7 @@
     <!-- Foutmelding -->
     <div v-if="store.error" class="mb-4 px-4 py-2.5 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700 flex items-center justify-between">
       <span>{{ store.error }}</span>
-      <button class="text-red-400 hover:text-red-600" @click="store.error = null">✕</button>
+      <button class="text-red-400 hover:text-red-600 inline-flex" aria-label="Melding sluiten" @click="store.error = null"><KIcon name="close" :size="14" /></button>
     </div>
 
     <div v-if="store.loading" class="text-sm text-gray-400 py-8 text-center">Laden…</div>
@@ -35,6 +35,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { onMounted } from 'vue'
 import { useConcurrentenStore } from '../../stores/concurrenten'
 import { useProjectStore } from '../../stores/projectStore'

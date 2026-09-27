@@ -1,7 +1,7 @@
 <template>
   <select
     :value="modelValue ?? ''"
-    class="px-2 py-1.5 border border-gray-300 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-pienter-500 focus:border-transparent"
+    class="select !h-8 !w-auto text-[13px]"
     @change="onChange"
   >
     <option v-if="allowNull" value="">{{ placeholder || '— Geen —' }}</option>

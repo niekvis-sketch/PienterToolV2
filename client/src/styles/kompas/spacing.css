@@ -1,0 +1,48 @@
+/* Kompas — Spacing, radii, shadows, motion, density
+ * 4px spacing base · subtle 4–12px radii · paper-soft warm-tinted shadows.
+ */
+
+:root {
+  /* ── Spacing (4px base) ── */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* ── Radii (subtle) ── */
+  --r-1: 4px;
+  --r-2: 6px;
+  --r-3: 8px;
+  --r-4: 12px;
+  --r-pill: 999px;
+
+  /* ── Shadows (paper-soft, warm-tinted) ── */
+  --shadow-1: 0 1px 0 rgba(20,36,27,0.04), 0 1px 2px rgba(20,36,27,0.04);
+  --shadow-2: 0 1px 0 rgba(20,36,27,0.04), 0 6px 16px -6px rgba(20,36,27,0.10);
+  --shadow-3: 0 2px 0 rgba(20,36,27,0.04), 0 18px 32px -12px rgba(20,36,27,0.14);
+
+  /* ── Motion ── */
+  --motion-tint: 120ms ease; /* @kind other */
+  --motion-base: 150ms ease; /* @kind other */
+  --motion-modal: 220ms cubic-bezier(.2,.7,.3,1); /* @kind other */
+
+  /* ── Density (row height + cell padding) ── */
+  --density-row: 44px;
+  --density-pad: 12px;
+}
+
+/* Density variants */
+[data-density="compact"]     { --density-row: 36px; --density-pad: 8px;  --s-4: 12px; --s-6: 18px; }
+[data-density="comfortable"] { --density-row: 44px; --density-pad: 12px; }
+[data-density="spacious"]    { --density-row: 56px; --density-pad: 18px; --s-4: 20px; --s-6: 28px; }
+
+/* Radius scale variants */
+[data-radius="sharp"]  { --r-1: 2px; --r-2: 2px; --r-3: 4px; --r-4: 6px; }
+[data-radius="subtle"] { --r-1: 4px; --r-2: 6px; --r-3: 8px; --r-4: 12px; }
+[data-radius="soft"]   { --r-1: 8px; --r-2: 12px; --r-3: 16px; --r-4: 20px; }

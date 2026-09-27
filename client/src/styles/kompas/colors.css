@@ -1,0 +1,122 @@
+/* Kompas — Colors
+ * Sage green primary · soft rose accent (decorative) · amber highlight · warm cream base.
+ * Base scale first, then semantic aliases, then theme + accent variants.
+ * Values verified against the Pienter "Kleurpalet" brand spec.
+ */
+
+:root {
+  /* ── Neutrals · Warm cream (default light theme) ── */
+  --bg:           #F9F7F2;   /* warm cream — app background */
+  --bg-elev:      #F3F0E8;   /* slightly deeper — zone separation */
+  --surface:      #FFFFFF;   /* cards, panels, inputs */
+  --surface-2:    #FAF8F3;   /* hover / secondary surface */
+  --line:         #ECE7DA;   /* hairline borders */
+  --line-strong:  #D9D2C0;   /* input borders, stronger dividers */
+  --ink:          #1F2A22;   /* primary text — soft dark, green undertone */
+  --ink-2:        #4E5A50;   /* secondary text */
+  --ink-3:        #828B82;   /* tertiary / meta text */
+  --ink-mute:     #B0B6AE;   /* placeholder, disabled */
+
+  /* ── Primary · Sage green ── */
+  --primary:        #48B070;   /* brand identity — decorative fills, charts, soft tints, focus */
+  --primary-hover:  #3E9760;
+  --primary-press:  #347F51;
+  --primary-soft:   #E9F5EE;
+  --primary-soft-2: #CCE9D7;
+  /* Accessible action/text green — #48B070 is too light to carry white text or
+     to read as green text on light (≈2.7:1). Use these for buttons, green links,
+     active nav text and badge text. White on --primary-strong ≈ 5:1 (AA). */
+  --primary-strong:       #2C7D49;
+  --primary-strong-hover: #24673C;
+  --primary-strong-press: #1D5331;
+  --on-primary:     #FFFFFF;
+
+  /* ── Accent · Soft rose (DECORATIVE: blobs, photo frames, soft fills) ──
+     Too light for text on white; use --accent-deep for readable rose text. */
+  --accent:        #F6BDCA;
+  --accent-hover:  #F0A6B7;
+  --accent-press:  #E58FA4;
+  --accent-soft:   #FCE9EE;
+  --accent-soft-2: #F9D2DB;
+  --accent-deep:   #B85674;   /* readable on white */
+  --on-accent:     #2A1820;   /* dark, readable on soft rose */
+
+  /* ── Highlight · Amber (tags / pop of attention) ── */
+  --highlight:       #FFAB40;
+  --highlight-hover: #F39A28;
+  --highlight-press: #E08815;
+  --highlight-soft:  #FFE9CC;
+  --on-highlight:    #FFFFFF;
+
+  /* ── Status (warm-tinted) ── */
+  --success:       #1F8A5B;
+  --success-soft:  #E0EFE6;
+  --warning:       #C77F3D;
+  --warning-soft:  #F6EAD7;
+  --danger:        #B83A3A;
+  --danger-soft:   #F4DEDE;
+  --info:          #3D6EB8;
+  --info-soft:     #E0E8F4;
+
+  /* ── Focus ring (rose-tinted) ── */
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+
+  /* ── Semantic aliases — prefer these in product code ── */
+  --text-strong:   var(--ink);
+  --text-body:     var(--ink-2);
+  --text-muted:    var(--ink-3);
+  --text-faint:    var(--ink-mute);
+  --surface-page:  var(--bg);
+  --surface-card:  var(--surface);
+  --surface-sunk:  var(--bg-elev);
+  --border-subtle: var(--line);
+  --border-strong: var(--line-strong);
+  --action-primary: var(--primary);
+  --action-accent:  var(--accent);
+}
+
+/* ── Theme · Cool (cooler greens, brighter whites) ── */
+[data-theme="cool"] {
+  --bg:           #F2F4F1;
+  --bg-elev:      #F7F9F6;
+  --surface:      #FFFFFF;
+  --surface-2:    #FAFCF9;
+  --line:         #DCE4DD;
+  --line-strong:  #C5D0C7;
+  --ink:          #0F1A12;
+  --ink-2:        #4A5A4F;
+  --ink-3:        #7A857D;
+}
+
+/* ── Theme · Dark ── */
+[data-theme="dark"] {
+  --bg:           #0E1612;
+  --bg-elev:      #141E18;
+  --surface:      #19241D;
+  --surface-2:    #1F2C24;
+  --line:         #2A3A30;
+  --line-strong:  #3A4C40;
+  --ink:          #ECEFE9;
+  --ink-2:        #B7C0B6;
+  --ink-3:        #7E8B7E;
+  --ink-mute:     #5A655C;
+  --primary:        #57C485;
+  --primary-hover:  #6FD197;
+  --primary-press:  #48B070;
+  --primary-strong:       #57C485;
+  --primary-strong-hover: #6FD197;
+  --primary-strong-press: #48B070;
+  --primary-soft:   #1B2F24;
+  --primary-soft-2: #25422F;
+  --on-primary:     #0E1612;
+  --accent-soft:   #2E1E26;
+  --accent-soft-2: #3E2632;
+  --shadow-1: 0 1px 0 rgba(0,0,0,0.4);
+  --shadow-2: 0 1px 0 rgba(0,0,0,0.4), 0 6px 16px -6px rgba(0,0,0,0.5);
+  --shadow-3: 0 2px 0 rgba(0,0,0,0.4), 0 18px 32px -12px rgba(0,0,0,0.6);
+}
+
+/* ── Accent variants (all decorative/soft; *-deep stays readable) ── */
+[data-accent="amber"]  { --accent: #FFAB40; --accent-hover: #F39A28; --accent-press: #E08815; --accent-soft: #FFE9CC; --accent-soft-2: #FFD299; --accent-deep: #9C5A0E; --on-accent: #FFFFFF; }
+[data-accent="coral"]  { --accent: #F1A48E; --accent-hover: #E8917B; --accent-press: #D27860; --accent-soft: #FDEEE7; --accent-soft-2: #F8CFC0; --accent-deep: #A14A30; --on-accent: #2A1812; }
+[data-accent="lilac"]  { --accent: #C9B6E8; --accent-hover: #B69FDC; --accent-press: #9D85C6; --accent-soft: #EFE9F8; --accent-soft-2: #DECEEC; --accent-deep: #6A53A0; --on-accent: #2A2238; }

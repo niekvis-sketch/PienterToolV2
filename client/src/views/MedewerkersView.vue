@@ -4,7 +4,7 @@
     <div class="flex items-end justify-between mb-6">
       <div>
         <p class="eyebrow">Overzicht</p>
-        <h1 class="text-3xl font-bold tracking-tight text-pienter-700 mt-1 flex items-baseline gap-2">
+        <h1 class="text-3xl font-bold tracking-tight text-pienter-600 mt-1 flex items-baseline gap-2">
           Archive<span class="accent-dot"></span>
         </h1>
         <p class="text-ink-3 text-sm mt-2">Beheer alle Pienter-medewerkers</p>
@@ -51,7 +51,7 @@
 
     <!-- Lege staat -->
     <div v-else-if="filtered.length === 0 && store.medewerkers.length === 0" class="empty-state">
-      <div class="text-4xl mb-4">👥</div>
+      <div class="empty-state-icon"><KIcon name="contacts" :size="22" /></div>
       <h2 class="text-lg font-semibold text-ink-2">Nog geen medewerkers</h2>
       <p>Voeg een medewerker toe om te beginnen.</p>
       <div class="mt-6 flex justify-center">
@@ -206,6 +206,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../components/ui/KIcon.vue'
 import { computed, onMounted, ref, reactive } from 'vue'
 import { useMedewerkersStore } from '../stores/medewerkersStore'
 import DetailLayout from '../components/DetailLayout.vue'

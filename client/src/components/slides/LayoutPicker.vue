@@ -3,7 +3,7 @@
     <div class="bg-white rounded-xl shadow-xl p-6 w-[640px] max-w-full">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-lg font-semibold text-gray-900">Kies een layout</h2>
-        <button class="text-gray-400 hover:text-gray-600 text-2xl leading-none" @click="$emit('close')">×</button>
+        <button class="btn-ghost btn-sm btn-icon" aria-label="Sluiten" @click="$emit('close')"><KIcon name="close" :size="16" /></button>
       </div>
       <div class="grid grid-cols-3 gap-3">
         <button
@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { h } from 'vue'
 import type { SlideLayoutType } from '@shared/types'
 

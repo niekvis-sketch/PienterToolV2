@@ -5,8 +5,8 @@
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-bold text-gray-900">Websitestructuur bepalen</h2>
         <div class="flex gap-2">
-          <button class="btn-secondary btn-sm" @click="showExport = !showExport">📤 Exporteren</button>
-          <button class="btn-secondary btn-sm" @click="showChangelog = !showChangelog">📋 Wijzigingslog</button>
+          <button class="btn-secondary btn-sm" @click="showExport = !showExport"><KIcon name="download" :size="14" />Exporteren</button>
+          <button class="btn-secondary btn-sm" @click="showChangelog = !showChangelog"><KIcon name="clock" :size="14" />Wijzigingslog</button>
         </div>
       </div>
 
@@ -24,10 +24,10 @@
           <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
             :class="{
               'bg-pienter-600 text-white': currentFase === step.fase,
-              'bg-green-500 text-white': isComplete(step.fase) && currentFase !== step.fase,
+              'bg-green-600 text-white': isComplete(step.fase) && currentFase !== step.fase,
               'bg-gray-200 text-gray-500': !isComplete(step.fase) && currentFase !== step.fase
             }">
-            <span v-if="isComplete(step.fase) && currentFase !== step.fase">✓</span>
+            <KIcon v-if="isComplete(step.fase) && currentFase !== step.fase" name="check" :size="15" stroke-width="2.2" />
             <span v-else>{{ step.fase }}</span>
           </div>
           <div class="min-w-0">
@@ -45,24 +45,24 @@
           {{ progressSummary }}
         </span>
         <div class="flex gap-3">
-          <button v-if="currentFase > 1" class="text-pienter-600 hover:underline" @click="goToFase((currentFase - 1) as any)">← Vorige fase</button>
-          <button v-if="currentFase < 5" class="text-pienter-600 hover:underline font-medium" @click="goToFase((currentFase + 1) as any)">Volgende fase →</button>
+          <button v-if="currentFase > 1" class="text-pienter-600 hover:underline inline-flex items-center gap-1" @click="goToFase((currentFase - 1) as any)"><KIcon name="arrowL" :size="13" />Vorige fase</button>
+          <button v-if="currentFase < 5" class="text-pienter-600 hover:underline font-medium inline-flex items-center gap-1" @click="goToFase((currentFase + 1) as any)">Volgende fase<KIcon name="arrowR" :size="13" /></button>
         </div>
       </div>
     </div>
 
     <!-- Export panel -->
     <div v-if="showExport" class="card p-5 mb-6">
-      <h3 class="font-semibold text-gray-900 mb-3">📤 Exporteren</h3>
+      <h3 class="font-semibold text-gray-900 mb-3">Exporteren</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <button class="btn-secondary btn-sm text-xs text-left" @click="exportStructure('nav-urls')">🧭 Navigatie + URL's</button>
-        <button class="btn-secondary btn-sm text-xs text-left" @click="exportStructure('full-table')">📊 Volledige tabel (CSV)</button>
-        <button class="btn-secondary btn-sm text-xs text-left" @click="exportStructure('content-inventory')">📝 Content-inventarisatie</button>
-        <button class="btn-secondary btn-sm text-xs text-left" @click="exportStructure('page-blocks')">🧱 Pagina-indelingen</button>
-        <button class="btn-secondary btn-sm text-xs text-left" @click="exportStructure('open-questions')">❓ Open vragen</button>
-        <button class="btn-secondary btn-sm text-xs text-left" @click="exportStructure('seo-export')">🔍 SEO-export</button>
-        <button class="btn-secondary btn-sm text-xs text-left" @click="exportStructure('dev-export')">💻 Developer-export</button>
-        <button class="btn-secondary btn-sm text-xs text-left" @click="exportStructure('change-report')">📋 Wijzigingsrapport</button>
+        <button class="btn-secondary btn-sm text-xs !justify-start" @click="exportStructure('nav-urls')"><KIcon name="compass" :size="14" />Navigatie + URL's</button>
+        <button class="btn-secondary btn-sm text-xs !justify-start" @click="exportStructure('full-table')"><KIcon name="table" :size="14" />Volledige tabel (CSV)</button>
+        <button class="btn-secondary btn-sm text-xs !justify-start" @click="exportStructure('content-inventory')"><KIcon name="note" :size="14" />Content-inventarisatie</button>
+        <button class="btn-secondary btn-sm text-xs !justify-start" @click="exportStructure('page-blocks')"><KIcon name="layers" :size="14" />Pagina-indelingen</button>
+        <button class="btn-secondary btn-sm text-xs !justify-start" @click="exportStructure('open-questions')"><KIcon name="help" :size="14" />Open vragen</button>
+        <button class="btn-secondary btn-sm text-xs !justify-start" @click="exportStructure('seo-export')"><KIcon name="search" :size="14" />SEO-export</button>
+        <button class="btn-secondary btn-sm text-xs !justify-start" @click="exportStructure('dev-export')"><KIcon name="code" :size="14" />Developer-export</button>
+        <button class="btn-secondary btn-sm text-xs !justify-start" @click="exportStructure('change-report')"><KIcon name="clipboard" :size="14" />Wijzigingsrapport</button>
       </div>
       <div class="mt-3 text-xs text-gray-500">
         Selecteer een exportformaat. Het bestand wordt direct gedownload als CSV of JSON.
@@ -71,12 +71,12 @@
 
     <!-- Changelog panel -->
     <div v-if="showChangelog" class="card p-5 mb-6 max-h-96 overflow-y-auto">
-      <h3 class="font-semibold text-gray-900 mb-3">📋 Wijzigingslog</h3>
+      <h3 class="font-semibold text-gray-900 mb-3">Wijzigingslog</h3>
       <div v-if="store.changeLog.length === 0" class="text-sm text-gray-400">Nog geen wijzigingen geregistreerd.</div>
       <div v-else class="space-y-2">
         <div v-for="entry in store.changeLog" :key="entry.id" class="flex items-start gap-3 text-xs border-b border-gray-100 pb-2">
           <span class="text-gray-400 whitespace-nowrap">{{ formatTime(entry.timestamp) }}</span>
-          <span>{{ actionIcon(entry.action) }}</span>
+          <KIcon :name="actionIcon(entry.action)" :size="14" class="text-gray-500 mt-px" />
           <div class="flex-1">
             <span class="font-medium text-gray-800">{{ entry.entityTitle }}</span>
             <span class="text-gray-500 ml-1">{{ entry.details }}</span>
@@ -91,7 +91,7 @@
     <Fase3Figma v-else-if="currentFase === 3" :project-id="projectId" />
     <!-- Placeholder-fases 4 t/m 5 -->
     <div v-else-if="placeholder" class="card p-16 text-center">
-      <div class="text-5xl mb-4">{{ placeholder.icon }}</div>
+      <div class="empty-state-icon"><KIcon :name="placeholder.icon" :size="22" /></div>
       <h3 class="text-lg font-semibold text-gray-700">{{ placeholder.title }}</h3>
       <p class="text-sm text-gray-400 mt-1">Placeholder</p>
     </div>
@@ -99,6 +99,8 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
+import type { IconName } from '../ui/icons'
 import { ref, computed, onMounted, watch } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'
@@ -119,7 +121,7 @@ const showChangelog = ref(false)
 const currentFase = computed(() => Math.min(store.progress?.currentFase || 1, 5))
 
 const steps = [
-  { fase: 1 as StructuurFase, title: 'User Stories → Vragen', subtitle: 'Input verzamelen & analyseren' },
+  { fase: 1 as StructuurFase, title: 'User stories en vragen', subtitle: 'Input verzamelen & analyseren' },
   { fase: 2 as StructuurFase, title: 'Structuur, navigatie & indeling', subtitle: 'Pagina\'s, hiërarchie, URL\'s & blokken' },
   { fase: 3 as StructuurFase, title: 'Figma', subtitle: 'Pagina\'s + componenten exporteren' },
   { fase: 4 as StructuurFase, title: 'Developer controle', subtitle: 'Placeholder' },
@@ -127,9 +129,9 @@ const steps = [
 ]
 
 // Placeholder-inhoud voor de fases 4 en 5 (fase 3 = Figma is uitgewerkt).
-const placeholders: Record<number, { icon: string; title: string }> = {
-  4: { icon: '🧑‍💻', title: 'Developer controle' },
-  5: { icon: '🚀', title: 'Deploy naar WordPress' },
+const placeholders: Record<number, { icon: IconName; title: string }> = {
+  4: { icon: 'code', title: 'Developer controle' },
+  5: { icon: 'rocket', title: 'Deploy naar WordPress' },
 }
 const placeholder = computed(() => placeholders[currentFase.value])
 
@@ -162,12 +164,13 @@ function formatTime(ts: string) {
   return d.toLocaleDateString('nl-NL', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
 }
 
-function actionIcon(action: ChangeLogEntry['action']) {
-  return {
-    added: '➕', moved: '↕️', renamed: '✏️', deleted: '🗑',
-    'url-changed': '🔗', 'block-added': '🧱', 'block-removed': '🧱',
-    merged: '🔀', split: '✂️'
-  }[action] || '📝'
+function actionIcon(action: ChangeLogEntry['action']): IconName {
+  const icons: Record<ChangeLogEntry['action'], IconName> = {
+    added: 'plus', moved: 'move', renamed: 'edit', deleted: 'trash',
+    'url-changed': 'link', 'block-added': 'layers', 'block-removed': 'layers',
+    merged: 'merge', split: 'scissors',
+  }
+  return icons[action] ?? 'note'
 }
 
 // === Export functions ===

@@ -17,7 +17,7 @@
 
         <!-- Zoek -->
         <div class="relative mb-3">
-          <span class="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+          <KIcon name="search" :size="15" class="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
           <input v-model="pageSearch" class="input pl-8 text-sm" placeholder="Zoek pagina..." />
         </div>
 
@@ -42,8 +42,8 @@
         </div>
 
         <!-- Pagina toevoegen -->
-        <button class="mt-3 w-full text-left text-xs font-medium text-pienter-600 hover:underline" @click="addPage">
-          + Pagina toevoegen
+        <button class="mt-3 w-full text-left text-xs font-medium text-pienter-600 hover:underline inline-flex items-center gap-1" @click="addPage">
+          <KIcon name="plus" :size="12" />Pagina toevoegen
         </button>
 
         <!-- Aan menu toevoegen -->
@@ -70,7 +70,7 @@
 
         <!-- Empty state -->
         <div v-if="flatMenu.length === 0" class="empty-state py-12">
-          <div class="mb-3 text-4xl">📋</div>
+          <div class="empty-state-icon"><KIcon name="list" :size="22" /></div>
           <p class="text-sm font-medium text-gray-600">Nog geen menu-items</p>
           <p class="text-xs text-gray-400">Vink links pagina's aan en klik op "Aan menu toevoegen".</p>
         </div>
@@ -118,6 +118,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, computed } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import type { SiteNode } from '@shared/types'

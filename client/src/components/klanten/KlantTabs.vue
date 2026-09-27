@@ -18,9 +18,9 @@ import KlantDoelenTab from './KlantDoelenTab.vue'
 const activeTab = ref('diensten')
 
 const tabs = [
-  { key: 'diensten', label: 'Diensten', icon: '📁' },
-  { key: 'informatie', label: 'Klantinformatie', icon: '🏢' },
-  { key: 'commercieel', label: 'Commerciële informatie', icon: '💼' },
-  { key: 'doelen', label: 'Doelen', icon: '🎯' },
+  { key: 'diensten', label: 'Diensten', icon: 'folder' },
+  { key: 'informatie', label: 'Klantinformatie', icon: 'building' },
+  { key: 'commercieel', label: 'Commerciële informatie', icon: 'deals' },
+  { key: 'doelen', label: 'Doelen', icon: 'target' },
 ] as const
 </script>

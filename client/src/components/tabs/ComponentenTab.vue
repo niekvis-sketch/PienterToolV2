@@ -7,9 +7,10 @@
       </div>
       <div class="flex gap-2">
         <button v-if="store.componenten.length === 0" class="btn-secondary btn-sm" @click="seedDefaults">
-          🌱 Standaard componenten laden
+          <KIcon name="leaf" :size="14" />
+          Standaard componenten laden
         </button>
-        <button class="btn-primary btn-sm" @click="showCreate = true">+ Component toevoegen</button>
+        <button class="btn-primary btn-sm" @click="showCreate = true"><KIcon name="plus" :size="14" />Component toevoegen</button>
       </div>
     </div>
 
@@ -18,20 +19,21 @@
       <button
         v-for="cat in categories"
         :key="cat.key"
-        class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+        class="btn-sm"
         :class="activeCategory === cat.key
-          ? 'bg-pienter-600 text-white'
-          : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'"
+          ? 'btn-primary'
+          : 'btn-secondary'"
         @click="activeCategory = cat.key"
       >
-        {{ cat.icon }} {{ cat.label }}
+        <KIcon :name="cat.icon" :size="14" />
+        {{ cat.label }}
         <span class="ml-1 text-xs opacity-70">({{ countByCategory(cat.key) }})</span>
       </button>
     </div>
 
     <!-- Lege staat -->
     <div v-if="store.componenten.length === 0" class="empty-state card p-12">
-      <div class="text-4xl mb-4">🧩</div>
+      <div class="empty-state-icon"><KIcon name="component" :size="22" /></div>
       <h3 class="text-lg font-semibold text-gray-700">Nog geen componenten</h3>
       <p>Klik op "Standaard componenten laden" om de ACF blokken te initialiseren.</p>
     </div>
@@ -53,7 +55,7 @@
             class="w-full h-full object-cover"
           />
           <div v-else class="text-center">
-            <div class="text-3xl mb-1">{{ categoryIcon(comp.category) }}</div>
+            <KIcon :name="componentCategoryIcon(comp.category)" :size="28" class="text-gray-400 mb-1" />
             <div class="text-xs text-gray-400">Geen afbeelding</div>
           </div>
           <!-- Hover overlay -->
@@ -79,9 +81,9 @@
             {{ comp.description || 'Geen beschrijving' }}
           </p>
           <div class="flex flex-wrap items-center gap-2">
-            <span v-if="comp.imagePath" class="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded">✓ Afbeelding</span>
+            <span v-if="comp.imagePath" class="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded">Afbeelding</span>
             <span v-else class="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">Geen afbeelding</span>
-            <span v-if="comp.description" class="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded">✓ Beschrijving</span>
+            <span v-if="comp.description" class="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded">Beschrijving</span>
             <span v-if="comp.subComponents?.length" class="text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded">{{ comp.subComponents.length }} sub</span>
             <span v-if="variantCount(comp)" class="text-[10px] bg-sky-100 text-sky-700 px-1.5 py-0.5 rounded">{{ variantCount(comp) }} varianten</span>
             <span v-if="comp.helpers?.length" class="text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">{{ comp.helpers.length }} helpers</span>
@@ -96,8 +98,8 @@
         <div class="flex items-center justify-between mb-6">
           <h3 class="text-lg font-bold text-gray-900">{{ editingComponent.name }}</h3>
           <div class="flex gap-2">
-            <button class="text-red-500 hover:text-red-700 text-sm" @click="handleDelete">🗑️ Verwijderen</button>
-            <button class="text-gray-400 hover:text-gray-600" @click="closeDetail">✕</button>
+            <button class="btn-destructive btn-sm" @click="handleDelete"><KIcon name="trash" :size="14" />Verwijderen</button>
+            <button class="btn-ghost btn-sm btn-icon" aria-label="Sluiten" @click="closeDetail"><KIcon name="close" :size="16" /></button>
           </div>
         </div>
 
@@ -117,9 +119,9 @@
           <div>
             <label class="block text-xs font-medium text-gray-600 mb-1">Categorie (ACF type)</label>
             <select v-model="editForm.category" class="select" @change="saveField('category')">
-              <option value="broodblok">🍞 Broodblok</option>
-              <option value="flexblok">🔧 Flexibele Content</option>
-              <option value="posttype">📋 Posttype</option>
+              <option value="broodblok">Broodblok</option>
+              <option value="flexblok">Flexibele Content</option>
+              <option value="posttype">Posttype</option>
             </select>
           </div>
 
@@ -191,10 +193,11 @@
                   class="max-h-64 rounded-lg border border-gray-200"
                 />
                 <button
-                  class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
+                  class="absolute top-2 right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-700"
                   @click="removeImage"
                   title="Afbeelding verwijderen"
-                >✕</button>
+                  aria-label="Afbeelding verwijderen"
+                ><KIcon name="close" :size="13" /></button>
               </div>
             </div>
             <div
@@ -210,11 +213,11 @@
                 class="hidden"
                 @change="handleFileSelect"
               />
-              <div class="text-2xl mb-2">📷</div>
+              <KIcon name="upload" :size="24" class="text-gray-400 mb-2" />
               <p class="text-sm text-gray-600">Klik om een afbeelding te uploaden of sleep het hierheen</p>
               <p class="text-xs text-gray-400 mt-1">PNG, JPG, WebP of GIF (max 5MB)</p>
             </div>
-            <div v-if="uploading" class="mt-2 text-sm text-pienter-600">⏳ Uploading...</div>
+            <div v-if="uploading" class="mt-2 text-sm text-pienter-600 inline-flex items-center gap-1.5"><KIcon name="clock" :size="14" />Uploaden…</div>
           </div>
         </div>
       </div>
@@ -232,9 +235,9 @@
           <div>
             <label class="block text-xs font-medium text-gray-600 mb-1">Categorie</label>
             <select v-model="newComponent.category" class="select">
-              <option value="broodblok">🍞 Broodblok</option>
-              <option value="flexblok">🔧 Flexibele Content</option>
-              <option value="posttype">📋 Posttype</option>
+              <option value="broodblok">Broodblok</option>
+              <option value="flexblok">Flexibele Content</option>
+              <option value="posttype">Posttype</option>
             </select>
           </div>
           <div>
@@ -252,6 +255,9 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
+import { componentCategoryIcon } from '../ui/iconMaps'
+import type { IconName } from '../ui/icons'
 import { ref, computed } from 'vue'
 import { useProjectStore } from '../../stores/projectStore'
 import type { ComponentBlock, ComponentCategory } from '@shared/types'
@@ -262,10 +268,10 @@ const projectId = computed(() => store.currentProject?.id || '')
 // Filter
 const activeCategory = ref<ComponentCategory | 'all'>('all')
 const categories = [
-  { key: 'all' as const, label: 'Alles', icon: '🧩' },
-  { key: 'broodblok' as const, label: 'Broodblokken', icon: '🍞' },
-  { key: 'flexblok' as const, label: 'Flexibele Content', icon: '🔧' },
-  { key: 'posttype' as const, label: 'Posttypes', icon: '📋' },
+  { key: 'all' as const, label: 'Alles', icon: 'component' as IconName },
+  { key: 'broodblok' as const, label: 'Broodblokken', icon: componentCategoryIcon('broodblok') },
+  { key: 'flexblok' as const, label: 'Flexibele Content', icon: componentCategoryIcon('flexblok') },
+  { key: 'posttype' as const, label: 'Posttypes', icon: componentCategoryIcon('posttype') },
 ]
 
 const filteredComponents = computed(() => {
@@ -276,10 +282,6 @@ const filteredComponents = computed(() => {
 function countByCategory(cat: string): number {
   if (cat === 'all') return store.componenten.length
   return store.componenten.filter(c => c.category === cat).length
-}
-
-function categoryIcon(cat: ComponentCategory): string {
-  return cat === 'broodblok' ? '🍞' : cat === 'flexblok' ? '🔧' : '📋'
 }
 
 function categoryLabel(cat: ComponentCategory): string {

@@ -56,7 +56,7 @@
           </label>
         </div>
         <button class="btn-primary btn-sm" @click="saveSettings">Instellingen opslaan</button>
-        <span v-if="saved" class="text-sm text-green-600 ml-3">✓ Opgeslagen</span>
+        <span v-if="saved" class="text-sm text-green-600 ml-3 inline-flex items-center gap-1"><KIcon name="check" :size="14" />Opgeslagen</span>
       </div>
     </div>
 
@@ -104,6 +104,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { reactive, ref, onMounted, computed } from 'vue'
 import { useProjectStore } from '../../stores/projectStore'
 

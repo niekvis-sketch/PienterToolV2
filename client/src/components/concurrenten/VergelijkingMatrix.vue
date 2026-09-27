@@ -1,7 +1,7 @@
 <template>
   <div class="card p-0 overflow-hidden">
     <div class="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
-      <h4 class="text-sm font-semibold text-gray-800">{{ icon }} {{ titel }}</h4>
+      <h4 class="text-sm font-semibold text-gray-800 flex items-center gap-1.5"><KIcon :name="icon" :size="16" class="text-gray-500" />{{ titel }}</h4>
       <span class="text-xs text-gray-400">{{ rows.length }} {{ rows.length === 1 ? 'rij' : 'rijen' }}</span>
     </div>
 
@@ -25,8 +25,8 @@
           <tr v-for="rij in rows" :key="rij.key" class="border-t border-gray-100 hover:bg-gray-50/60">
             <td class="px-4 py-2 sticky left-0 bg-white font-medium text-gray-800">{{ rij.label }}</td>
             <td v-for="c in concurrenten" :key="c.id" class="px-2 py-2 text-center">
-              <span v-if="rij.aanwezigBij.includes(c.id)" class="text-green-600">✓</span>
-              <span v-else class="text-gray-300">–</span>
+              <KIcon v-if="rij.aanwezigBij.includes(c.id)" name="check" :size="15" stroke-width="2" class="text-green-600" />
+              <KIcon v-else name="minus" :size="14" class="text-gray-300" />
             </td>
             <td class="px-3 py-2 text-center">
               <span
@@ -36,9 +36,9 @@
             </td>
             <td class="px-3 py-2 text-right whitespace-nowrap">
               <template v-if="rij.doorzet">
-                <span class="text-xs text-green-700 font-medium mr-1">✓ {{ doorzetLabel }}</span>
-                <button class="text-xs text-pienter-600 hover:underline" @click="$emit('bekijk', rij)">{{ bekijkLabel }} →</button>
-                <button class="text-xs text-gray-300 hover:text-red-500 ml-1.5" title="Koppeling ongedaan maken" @click="$emit('loskoppel', rij)">✕</button>
+                <span class="text-xs text-green-700 font-medium mr-1 inline-flex items-center gap-1"><KIcon name="check" :size="13" />{{ doorzetLabel }}</span>
+                <button class="text-xs text-pienter-600 hover:underline inline-flex items-center gap-1" @click="$emit('bekijk', rij)">{{ bekijkLabel }}<KIcon name="arrowR" :size="13" /></button>
+                <button class="text-gray-300 hover:text-red-500 ml-1.5 inline-flex align-middle" title="Koppeling ongedaan maken" aria-label="Koppeling ongedaan maken" @click="$emit('loskoppel', rij)"><KIcon name="close" :size="13" /></button>
               </template>
               <button v-else class="btn-secondary btn-sm" @click="$emit('actie', rij)">{{ actieLabel }}</button>
             </td>
@@ -50,12 +50,14 @@
 </template>
 
 <script setup lang="ts">
+import type { IconName } from '../ui/icons'
+import KIcon from '../ui/KIcon.vue'
 import type { Concurrent } from '@shared/types'
 import type { AggregaatRij } from '../../stores/concurrenten'
 
 defineProps<{
   titel: string
-  icon: string
+  icon: IconName
   rows: AggregaatRij[]
   concurrenten: Concurrent[]
   actieLabel: string

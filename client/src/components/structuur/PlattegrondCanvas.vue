@@ -3,11 +3,11 @@
     <!-- Toolbar -->
     <div class="flex items-center justify-between gap-3">
       <p class="text-xs text-gray-500">
-        {{ cardCount }} pagina's · {{ edges.length }} verbindingen — sleep een kaartje naar een <strong>rij</strong> om het niveau te bepalen (bovenste rij = hoofdpagina, lager = sub van de kaart erboven). De <strong>horizontale positie</strong> waar je loslaat wordt bewaard; "↻ Opnieuw ordenen" zet alles terug naar de automatische layout.
+        {{ cardCount }} pagina's · {{ edges.length }} verbindingen — sleep een kaartje naar een <strong>rij</strong> om het niveau te bepalen (bovenste rij = hoofdpagina, lager = sub van de kaart erboven). De <strong>horizontale positie</strong> waar je loslaat wordt bewaard; "Opnieuw ordenen" zet alles terug naar de automatische layout.
       </p>
       <div class="flex shrink-0 gap-2">
-        <button class="btn-secondary btn-sm" :disabled="saving" @click="relayout">↻ Opnieuw ordenen</button>
-        <button class="btn-secondary btn-sm" @click="fitView({ padding: 0.2 })">⤢ Passend</button>
+        <button class="btn-secondary btn-sm" :disabled="saving" @click="relayout"><KIcon name="refresh" :size="14" />Opnieuw ordenen</button>
+        <button class="btn-secondary btn-sm" @click="fitView({ padding: 0.2 })"><KIcon name="grid" :size="14" />Passend</button>
       </div>
     </div>
 
@@ -18,7 +18,7 @@
     <!-- Canvas -->
     <div class="h-[72vh] w-full overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
       <div v-if="nodes.length === 0" class="flex h-full flex-col items-center justify-center text-center">
-        <div class="mb-3 text-4xl">🗺️</div>
+        <div class="empty-state-icon"><KIcon name="sitemap" :size="22" /></div>
         <p class="text-sm font-medium text-gray-600">Nog geen structuur om te tonen</p>
         <p class="text-xs text-gray-400">Importeer een structuur (knop "Importeren" hierboven) of voeg pagina's toe.</p>
       </div>
@@ -36,7 +36,7 @@
         fit-view-on-init
         @pane-ready="onPaneReady"
       >
-        <Background :gap="22" pattern-color="#d6dee8" />
+        <Background :gap="22" pattern-color="#D9D2C0" />
         <Controls :show-interactive="false" />
       </VueFlow>
     </div>
@@ -44,6 +44,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, computed, markRaw, watch, onMounted, nextTick, type Ref } from 'vue'
 import { VueFlow, useVueFlow, type Node, type Edge, type GraphNode } from '@vue-flow/core'
 import { Background } from '@vue-flow/background'
@@ -136,7 +137,7 @@ function rebuild() {
       target: n.id,
       type: 'default',
       animated: false,
-      style: { stroke: '#94a3b8', strokeWidth: 1.5, strokeDasharray: '6 6' },
+      style: { stroke: 'var(--ink-mute)', strokeWidth: 1.5, strokeDasharray: '6 6' },
     }))
 
   // dagre layout
@@ -425,9 +426,9 @@ watch(
 <!-- Globaal (niet scoped): treft de Vue Flow node-wrapper -->
 <style>
 .vue-flow__node.drop-target {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--primary-strong);
   outline-offset: 3px;
-  border-radius: 0.6rem;
+  border-radius: var(--r-3);
 }
 /* Lane-achtergronden mogen pannen/klikken op de canvas niet blokkeren. */
 .vue-flow__node-lane {

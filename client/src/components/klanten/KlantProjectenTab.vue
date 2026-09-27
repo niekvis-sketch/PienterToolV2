@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <div>
         <p class="eyebrow">Klant</p>
-        <h2 class="text-2xl font-bold tracking-tight text-pienter-700 mt-0.5 flex items-baseline gap-2">
+        <h2 class="text-2xl font-bold tracking-tight text-pienter-600 mt-0.5 flex items-baseline gap-2">
           Diensten<span class="accent-dot"></span>
         </h2>
       </div>
@@ -11,7 +11,7 @@
     </div>
 
     <div v-if="projektVoorKlant.length === 0" class="card p-10 text-center">
-      <div class="text-3xl mb-3">📁</div>
+      <div class="empty-state-icon"><KIcon name="folder" :size="22" /></div>
       <p class="text-ink-3">Nog geen diensten gekoppeld aan deze klant.</p>
       <p class="text-xs text-ink-mute mt-2">Maak een nieuwe dienst aan en gebruik <strong class="text-ink">{{ klant.naam }}</strong> als klantnaam.</p>
     </div>
@@ -45,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 import { useProjectStore } from '../../stores/projectStore'

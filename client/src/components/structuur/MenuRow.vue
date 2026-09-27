@@ -23,8 +23,9 @@
       <button
         class="text-gray-300 opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"
         title="Uit menu halen"
+        aria-label="Uit menu halen"
         @click="emit('remove')"
-      >✕</button>
+      ><KIcon name="close" :size="14" /></button>
 
       <!-- Uitklappen -->
       <button
@@ -32,7 +33,7 @@
         :title="item.expanded ? 'Inklappen' : 'Uitklappen'"
         @click="emit('toggle')"
       >
-        <span class="inline-block transition-transform" :class="{ 'rotate-180': item.expanded }">▾</span>
+        <KIcon name="chevD" :size="15" class="transition-transform" :class="{ 'rotate-180': item.expanded }" />
       </button>
     </div>
 
@@ -49,7 +50,7 @@
       </div>
       <div class="text-xs text-gray-500">
         <div class="flex items-center gap-1">
-          <span>📄</span>
+          <KIcon name="file" :size="13" />
           <span class="font-medium text-gray-700">{{ page?.title || 'Onbekende pagina' }}</span>
         </div>
         <div v-if="page" class="mt-0.5 font-mono text-pienter-600">{{ page.fullUrl }}</div>
@@ -59,6 +60,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { computed } from 'vue'
 import type { SiteNode } from '@shared/types'
 import type { FlatMenuItem } from './menuTypes'

@@ -3,7 +3,7 @@
     <div class="flex items-end justify-between mb-6">
       <div>
         <p class="eyebrow">Sales</p>
-        <h1 class="text-3xl font-bold tracking-tight text-pienter-700 mt-1 flex items-baseline gap-2">
+        <h1 class="text-3xl font-bold tracking-tight text-pienter-600 mt-1 flex items-baseline gap-2">
           Vrije slides<span class="accent-dot"></span>
         </h1>
         <p class="text-ink-3 text-sm mt-2">Eigen presentaties bouwen, opslaan als preset en exporteren naar .pptx</p>
@@ -14,7 +14,7 @@
     <div v-if="store.loading" class="text-center py-16 text-ink-mute">Laden...</div>
 
     <div v-else-if="store.presentations.length === 0" class="empty-state">
-      <div class="text-4xl mb-4">🎞️</div>
+      <div class="empty-state-icon"><KIcon name="slides" :size="22" /></div>
       <h2 class="text-lg font-semibold text-ink-2">Nog geen presentaties</h2>
       <p>Maak een nieuwe presentatie aan om te beginnen.</p>
       <div class="mt-6 flex justify-center">
@@ -31,7 +31,7 @@
         <router-link :to="`/sales/slides/${p.id}`" class="flex-1 min-w-0">
           <div class="flex items-center gap-3">
             <div class="w-12 h-7 rounded-veld flex-shrink-0"
-                 style="background: linear-gradient(135deg, var(--primary-soft) 0%, var(--primary-soft-2) 100%);"></div>
+                 style="background: var(--primary-soft); border: 1px solid var(--primary-soft-2);"></div>
             <div class="min-w-0">
               <h3 class="font-semibold text-ink truncate">{{ p.name }}</h3>
               <p class="text-xs text-ink-3 mt-0.5">
@@ -48,6 +48,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../components/ui/KIcon.vue'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSlidesStore } from '../stores/slidesStore'

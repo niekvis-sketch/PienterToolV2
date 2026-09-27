@@ -2,7 +2,7 @@
   <div class="card p-5">
     <div class="flex items-center justify-between mb-4">
       <h3 class="font-semibold text-gray-800">Doelgroepen &amp; persona's</h3>
-      <button class="btn-secondary btn-sm" @click="startAdd">+ Toevoegen</button>
+      <button class="btn-secondary btn-sm" @click="startAdd"><KIcon name="plus" :size="14" />Toevoegen</button>
     </div>
 
     <div v-if="store.doelgroepen.length === 0 && !showForm" class="text-sm text-gray-500">
@@ -46,8 +46,8 @@
             <p v-if="dg.persona" class="text-xs text-gray-500 mt-0.5">{{ dg.persona }}</p>
           </div>
           <div class="flex gap-1 shrink-0">
-            <button class="text-gray-400 hover:text-pienter-600 text-xs px-1" @click="startEdit(dg.id)">✎</button>
-            <button class="text-gray-300 hover:text-red-500 text-xs px-1" @click="handleDelete(dg.id)">✕</button>
+            <button class="text-gray-400 hover:text-pienter-600 px-1 inline-flex" title="Bewerken" aria-label="Bewerken" @click="startEdit(dg.id)"><KIcon name="edit" :size="14" /></button>
+            <button class="text-gray-300 hover:text-red-500 text-xs px-1 inline-flex" title="Verwijderen" aria-label="Verwijderen" @click="handleDelete(dg.id)"><KIcon name="close" :size="14" /></button>
           </div>
         </div>
         <div v-if="dg.omschrijving" class="mt-2">
@@ -64,6 +64,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, reactive, computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 import type { KlantDoelgroep } from '@shared/types'

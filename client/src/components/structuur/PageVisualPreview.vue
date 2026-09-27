@@ -17,7 +17,7 @@
       <!-- Page content -->
       <div class="divide-y divide-gray-100">
         <div v-if="blocks.length === 0" class="p-8 text-center">
-          <div class="text-3xl mb-2">🧱</div>
+          <div class="empty-state-icon"><KIcon name="layers" :size="22" /></div>
           <p class="text-xs text-gray-400">Nog geen blokken toegevoegd</p>
         </div>
 
@@ -69,6 +69,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { computed } from 'vue'
 import type { PageBlock, ComponentBlock } from '@shared/types'
 

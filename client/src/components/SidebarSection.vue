@@ -1,34 +1,26 @@
 <template>
   <div>
     <button
-      class="w-full flex items-center justify-between px-3 h-9 rounded-veld text-[13px] font-semibold transition-colors uppercase tracking-wider"
-      :class="active
-        ? 'text-pienter-700'
-        : 'text-ink-3 hover:text-ink-2 hover:bg-cream-300'"
+      type="button"
+      class="section-toggle caps"
+      :class="{ 'is-active': active }"
+      :aria-expanded="open"
       @click="handleClick"
     >
-      <span class="flex items-center gap-2.5 text-[11.5px]">
-        <span class="text-base">{{ icon }}</span>
-        {{ label }}
-      </span>
-      <svg
-        class="w-3.5 h-3.5 text-ink-mute transition-transform"
-        :class="{ 'rotate-180': open }"
-        fill="none" stroke="currentColor" viewBox="0 0 24 24"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-      </svg>
+      {{ label }}
+      <KIcon name="chevD" :size="14" class="chev" :class="{ 'is-open': open }" />
     </button>
-    <div v-if="open" class="mt-1 ml-2 pl-2 border-l border-cream-400 space-y-0.5">
+    <div v-if="open" class="flex flex-col gap-0.5">
       <slot />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import KIcon from './ui/KIcon.vue'
+
 defineProps<{
   label: string
-  icon: string
   open: boolean
   active?: boolean
 }>()
@@ -39,3 +31,24 @@ function handleClick() {
   emit('toggle')
 }
 </script>
+
+<style scoped>
+.section-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 8px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--motion-tint);
+}
+.section-toggle:hover,
+.section-toggle.is-active { color: var(--ink-2); }
+.chev {
+  color: var(--ink-mute);
+  transition: transform var(--motion-base);
+}
+.chev.is-open { transform: rotate(180deg); }
+</style>

@@ -42,34 +42,34 @@
           <div class="absolute -top-1 -left-1 bg-gray-700 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">{{ i + 1 }}</div>
         </div>
         <button
-          class="w-full text-xs text-gray-500 py-2 border-2 border-dashed border-gray-300 rounded hover:border-pienter-400 hover:text-pienter-600"
+          class="w-full text-xs text-gray-500 py-2 border-2 border-dashed border-gray-300 rounded hover:border-pienter-400 hover:text-pienter-600 inline-flex items-center justify-center gap-1"
           @click="showLayoutPicker = true"
-        >+ Slide</button>
+        ><KIcon name="plus" :size="12" />Slide</button>
       </div>
     </aside>
 
     <!-- Midden: canvas + toolbar -->
     <main class="flex-1 flex flex-col overflow-hidden">
       <!-- Toolbar -->
-      <div class="bg-white border-b border-gray-200 px-4 py-2 flex items-center gap-2 shrink-0">
-        <router-link to="/sales/slides" class="btn-secondary btn-sm">← Terug</router-link>
+      <div class="bg-white border-b border-gray-200 px-4 py-2 flex flex-wrap items-center gap-2 shrink-0">
+        <router-link to="/sales/slides" class="btn-secondary btn-sm"><KIcon name="arrowL" :size="14" />Terug</router-link>
         <input
           v-model="presentation.name"
           class="text-sm font-semibold px-2 py-1 border border-transparent hover:border-gray-300 rounded focus:border-pienter-500 focus:outline-none"
           @blur="store.scheduleSave()"
         />
-        <span v-if="store.saving" class="text-xs text-pienter-500 animate-pulse ml-2">Opslaan...</span>
-        <span v-else class="text-xs text-gray-400 ml-2">Opgeslagen ✓</span>
+        <span v-if="store.saving" class="text-xs text-pienter-600 ml-2">Opslaan…</span>
+        <span v-else class="text-xs text-gray-400 ml-2 inline-flex items-center gap-1"><KIcon name="check" :size="13" />Opgeslagen</span>
 
         <div class="flex-1"></div>
 
-        <button class="btn-secondary btn-sm" :disabled="!currentSlide" @click="addText">+ Tekst</button>
-        <button class="btn-secondary btn-sm" :disabled="!currentSlide" @click="triggerImageUpload">+ Afbeelding</button>
+        <button class="btn-secondary btn-sm" :disabled="!currentSlide" @click="addText"><KIcon name="plus" :size="14" />Tekst</button>
+        <button class="btn-secondary btn-sm" :disabled="!currentSlide" @click="triggerImageUpload"><KIcon name="plus" :size="14" />Afbeelding</button>
         <input ref="fileInputRef" type="file" accept="image/*" class="hidden" @change="onImageSelected" />
-        <button class="btn-secondary btn-sm" @click="showLayoutPicker = true">+ Slide</button>
+        <button class="btn-secondary btn-sm" @click="showLayoutPicker = true"><KIcon name="plus" :size="14" />Slide</button>
         <button class="btn-secondary btn-sm" :disabled="!currentSlide" @click="saveAsPreset">Opslaan als preset</button>
         <button class="btn-secondary btn-sm" @click="showPresetLibrary = true">Preset bibliotheek</button>
-        <button class="btn-secondary btn-sm text-red-600" :disabled="!currentSlide" @click="deleteCurrentSlide">Verwijder slide</button>
+        <button class="btn-destructive btn-sm" :disabled="!currentSlide" @click="deleteCurrentSlide">Verwijder slide</button>
         <button class="btn-primary btn-sm" :disabled="exporting" @click="doExport">
           {{ exporting ? 'Exporteren...' : 'Exporteer .pptx' }}
         </button>
@@ -166,7 +166,8 @@
                   class="btn-secondary btn-sm flex-1"
                   :class="{ 'bg-pienter-100 text-pienter-700': selectedElement.align === a }"
                   @click="patchSelAlign(a)"
-                >{{ a === 'left' ? '⇤' : a === 'center' ? '⇔' : '⇥' }}</button>
+                :aria-label="a === 'left' ? 'Links uitlijnen' : a === 'center' ? 'Centreren' : 'Rechts uitlijnen'"
+                ><KIcon :name="a === 'left' ? 'alignL' : a === 'center' ? 'alignC' : 'alignR'" :size="15" /></button>
               </div>
             </div>
           </template>
@@ -211,6 +212,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../components/ui/KIcon.vue'
 import { ref, computed, onMounted, watch } from 'vue'
 import { useSlidesStore } from '../stores/slidesStore'
 import SlideCanvas from '../components/slides/SlideCanvas.vue'

@@ -7,16 +7,16 @@
         <p class="text-sm text-gray-500 mt-1">Bouw het menu visueel op. Kopieer de klantvragen naar ChatGPT en importeer de gegenereerde structuur inclusief pagina-indeling.</p>
       </div>
       <div class="flex gap-2">
-        <button class="btn-secondary btn-sm" @click="copyVragenToClipboard">📋 Kopieer klantvragen</button>
-        <button class="btn-secondary btn-sm" @click="toggleImport">📥 Importeren</button>
-        <button class="btn-secondary btn-sm" @click="fetchWarnings">⚠️ Controleer ({{ store.warnings.length }})</button>
-        <button class="btn-primary btn-sm" @click="addRootNode">+ Pagina toevoegen</button>
+        <button class="btn-secondary btn-sm" @click="copyVragenToClipboard"><KIcon name="copy" :size="14" />Kopieer klantvragen</button>
+        <button class="btn-secondary btn-sm" @click="toggleImport"><KIcon name="upload" :size="14" />Importeren</button>
+        <button class="btn-secondary btn-sm" @click="fetchWarnings"><KIcon name="alert" :size="14" />Controleer ({{ store.warnings.length }})</button>
+        <button class="btn-primary btn-sm" @click="addRootNode"><KIcon name="plus" :size="14" />Pagina toevoegen</button>
       </div>
     </div>
 
     <!-- Copy success notification -->
     <div v-if="copySuccess" class="bg-green-50 border border-green-200 rounded-lg p-3 flex items-center gap-2 text-sm text-green-700">
-      <span>✅</span>
+      <KIcon name="checkCircle" :size="16" />
       <span>{{ copySuccess }}</span>
     </div>
 
@@ -35,7 +35,7 @@
         <textarea v-model="importCsv" class="textarea font-mono text-xs" rows="8" placeholder="Pagina;Slug;Parent;Niveau&#10;Home;;&#10;Diensten;diensten;;0&#10;Airconditioning;airconditioning;Diensten;1" />
       </div>
       <div class="mt-3 flex items-center gap-2">
-        <input type="checkbox" id="replaceNodes" v-model="importReplace" class="rounded border-gray-300 text-pienter-600 focus:ring-pienter-500" />
+        <input type="checkbox" id="replaceNodes" v-model="importReplace" class="rounded border-gray-300" />
         <label for="replaceNodes" class="text-sm text-gray-700">Bestaande structuur verwijderen (vervangt alle huidige pagina's en blokken)</label>
       </div>
       <div class="flex gap-2 mt-3">
@@ -46,25 +46,25 @@
     </div>
 
     <!-- Warnings bar -->
-    <div v-if="store.warnings.length > 0" class="card p-4 border-l-4 border-amber-400 bg-amber-50">
+    <div v-if="store.warnings.length > 0" class="rounded-lg border border-amber-200 bg-amber-50 p-4">
       <div class="flex items-center justify-between mb-2">
-        <h4 class="text-sm font-semibold text-amber-800">⚠️ {{ store.warnings.length }} waarschuwingen</h4>
+        <h4 class="text-sm font-semibold text-amber-800 flex items-center gap-1.5"><KIcon name="alert" :size="16" />{{ store.warnings.length }} waarschuwingen</h4>
         <button class="text-xs text-amber-600 hover:underline" @click="showAllWarnings = !showAllWarnings">
           {{ showAllWarnings ? 'Inklappen' : 'Alles tonen' }}
         </button>
       </div>
       <div v-if="showAllWarnings" class="space-y-1">
         <div v-for="w in store.warnings" :key="w.nodeId + w.type" class="flex items-start gap-2 text-xs text-amber-700">
-          <span>{{ w.severity === 'error' ? '🔴' : w.severity === 'warning' ? '🟡' : 'ℹ️' }}</span>
+          <span class="mt-1 w-2 h-2 rounded-full shrink-0" :class="w.severity === 'error' ? 'bg-red-600' : w.severity === 'warning' ? 'bg-amber-400' : 'bg-blue-600'"></span>
           <span class="flex-1">{{ w.message }}</span>
         </div>
       </div>
     </div>
 
     <!-- Aanname-notice (uit concurrentie-analyse, nog niet bevestigd) -->
-    <div v-if="aannameNodes.length > 0" class="card p-4 border-l-4 border-amber-300 bg-amber-50/60">
+    <div v-if="aannameNodes.length > 0" class="rounded-lg border border-amber-200 bg-amber-50/60 p-4">
       <div class="flex items-start gap-2 text-sm text-amber-800">
-        <span>🏢</span>
+        <KIcon name="building" :size="16" class="mt-0.5" />
         <div>
           <strong>{{ aannameNodes.length }} pagina's op basis van aanname</strong> (uit concurrentie-analyse, nog niet bevestigd door de klant).
           <div class="text-xs text-amber-700 mt-0.5">{{ aannameNodes.map(n => n.title).join(', ') }}</div>
@@ -73,13 +73,13 @@
     </div>
 
     <!-- View toggle: Menu | Plattegrond -->
-    <div class="flex items-center gap-1 bg-gray-100 rounded-lg p-1 w-fit">
+    <div class="flex items-center gap-1 bg-gray-100 rounded-lg p-1 w-fit" role="tablist">
       <button
         v-for="v in fase2Views" :key="v.key"
-        class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors"
+        class="px-3 py-1.5 text-xs font-medium rounded-md transition-colors inline-flex items-center gap-1.5"
         :class="fase2View === v.key ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'"
         @click="fase2View = v.key"
-      >{{ v.icon }} {{ v.label }}</button>
+      ><KIcon :name="v.icon" :size="14" />{{ v.label }}</button>
     </div>
 
     <!-- Menu builder -->
@@ -94,6 +94,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, computed, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'
@@ -108,9 +109,9 @@ const projectStore = useProjectStore()
 
 const fase2View = ref<'menu' | 'plattegrond' | 'indeling'>('menu')
 const fase2Views = [
-  { key: 'menu' as const, icon: '🧩', label: 'Menu' },
-  { key: 'plattegrond' as const, icon: '🗺️', label: 'Plattegrond' },
-  { key: 'indeling' as const, icon: '📝', label: 'Pagina-indeling' },
+  { key: 'menu' as const, icon: 'list' as const, label: 'Menu' },
+  { key: 'plattegrond' as const, icon: 'sitemap' as const, label: 'Plattegrond' },
+  { key: 'indeling' as const, icon: 'layout' as const, label: 'Pagina-indeling' },
 ]
 
 const showImport = ref(false)
@@ -281,7 +282,7 @@ async function handleJsonImport() {
     }
     const result = await store.importNodes(props.projectId, data)
     const blockMsg = result.blocks && result.blocks.length > 0 ? ` en ${result.blocks.length} blokken` : ''
-    importMsg.value = `✅ ${result.nodes.length} pagina's${blockMsg} geïmporteerd!`
+    importMsg.value = `${result.nodes.length} pagina's${blockMsg} geïmporteerd!`
     importJson.value = ''
     showImport.value = false
     await fetchWarnings()
@@ -306,7 +307,7 @@ async function handleCsvImport() {
       return { title, slug: slug || title.toLowerCase().replace(/\s+/g, '-'), parentTitle: parentTitle || undefined, level: level ? parseInt(level) : undefined }
     })
     const nodes = await store.importFlatNodes(props.projectId, rows)
-    importMsg.value = `✅ ${nodes.length} pagina's geïmporteerd!`
+    importMsg.value = `${nodes.length} pagina's geïmporteerd!`
     importCsv.value = ''
     showImport.value = false
     await fetchWarnings()

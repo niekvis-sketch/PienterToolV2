@@ -7,20 +7,20 @@
         <p class="text-sm text-gray-500 mt-1">Overzicht van alle vragen uit de doelgroep-analyse. Kopieer ze naar ChatGPT, verrijk ze daar en importeer het resultaat terug.</p>
       </div>
       <div class="flex gap-2">
-        <button class="btn-secondary btn-sm" @click="copyAllToClipboard">📋 Kopieer alles</button>
-        <button class="btn-primary btn-sm" @click="showBulkImport = true">📥 Bulk importeren</button>
+        <button class="btn-secondary btn-sm" @click="copyAllToClipboard"><KIcon name="copy" :size="14" />Kopieer alles</button>
+        <button class="btn-primary btn-sm" @click="showBulkImport = true"><KIcon name="upload" :size="14" />Bulk importeren</button>
       </div>
     </div>
 
     <!-- Copy success notification -->
     <div v-if="copySuccess" class="bg-green-50 border border-green-200 rounded-lg p-3 flex items-center gap-2 text-sm text-green-700">
-      <span>✅</span>
+      <KIcon name="checkCircle" :size="16" />
       <span>{{ copySuccess }}</span>
     </div>
 
     <!-- No doelgroepen warning -->
     <div v-if="projectStore.doelgroepen.length === 0" class="empty-state card p-12">
-      <div class="text-4xl mb-4">🎯</div>
+      <div class="empty-state-icon"><KIcon name="target" :size="22" /></div>
       <h3 class="text-lg font-semibold text-gray-700">Nog geen doelgroepen</h3>
       <p>Ga eerst naar de <strong>Doelgroepen</strong>-tab om doelgroepen aan te maken en vragen per journey-fase vast te leggen.</p>
     </div>
@@ -104,7 +104,7 @@
 
     <!-- No questions at all -->
     <div v-if="allVragen.length === 0 && projectStore.doelgroepen.length > 0" class="empty-state card p-12">
-      <div class="text-4xl mb-4">📝</div>
+      <div class="empty-state-icon"><KIcon name="note" :size="22" /></div>
       <h3 class="text-lg font-semibold text-gray-700">Nog geen vragen vastgelegd</h3>
       <p>Ga naar de <strong>Doelgroepen</strong>-tab om per doelgroep vragen toe te voegen per journey-fase.</p>
     </div>
@@ -136,7 +136,7 @@
     <!-- Bulk import modal -->
     <div v-if="showBulkImport" class="fixed inset-0 bg-black/30 flex items-center justify-center z-50" @click.self="showBulkImport = false">
       <div class="bg-white rounded-xl shadow-xl w-full max-w-3xl p-6 max-h-[85vh] flex flex-col">
-        <h3 class="text-lg font-bold mb-2">📥 Bulk importeren</h3>
+        <h3 class="text-lg font-bold mb-2">Bulk importeren</h3>
         <p class="text-sm text-gray-600 mb-4">
           Plak hieronder je vragen in tab-gescheiden formaat (bijv. vanuit ChatGPT of Excel).<br>
           <strong>Formaat per regel:</strong> <code class="text-xs bg-gray-100 px-1.5 py-0.5 rounded">Doelgroep[TAB]Fase[TAB]Vraag[TAB]Antwoord[TAB]Webpagina[TAB]Opmerkingen</code><br>
@@ -150,11 +150,11 @@ Ondernemers	think	Wat levert deelname concreet op?	Waarom meedoen?	Home / Over d
 Sponsoren	do	Hoe kan een bedrijf sponsor worden?		Partners > Word partner"
         />
         <div v-if="bulkImportPreview.length > 0" class="mt-3 text-xs text-gray-600">
-          ✅ {{ bulkImportPreview.length }} vragen herkend
-          <span v-if="bulkImportErrors.length > 0" class="text-red-500 ml-2">⚠️ {{ bulkImportErrors.length }} regels overgeslagen (onbekende doelgroep/fase)</span>
+          <span class="inline-flex items-center gap-1 text-green-700"><KIcon name="checkCircle" :size="14" />{{ bulkImportPreview.length }} vragen herkend</span>
+          <span v-if="bulkImportErrors.length > 0" class="text-red-500 ml-2 inline-flex items-center gap-1"><KIcon name="alert" :size="14" />{{ bulkImportErrors.length }} regels overgeslagen (onbekende doelgroep/fase)</span>
         </div>
         <div class="mt-3 flex items-center gap-2">
-          <input type="checkbox" id="replaceExisting" v-model="bulkImportReplace" class="rounded border-gray-300 text-pienter-600 focus:ring-pienter-500" />
+          <input type="checkbox" id="replaceExisting" v-model="bulkImportReplace" class="rounded border-gray-300" />
           <label for="replaceExisting" class="text-sm text-gray-700">Oude vragen verwijderen (vervangt alle huidige vragen van de doelgroepen in deze import)</label>
         </div>
         <div class="flex gap-3 mt-4">
@@ -169,6 +169,7 @@ Sponsoren	do	Hoe kan een bedrijf sponsor worden?		Partners > Word partner"
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, computed, onMounted, defineComponent, h } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'

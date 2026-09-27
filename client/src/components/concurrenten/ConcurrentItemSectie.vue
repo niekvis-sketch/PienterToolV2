@@ -1,8 +1,8 @@
 <template>
   <div class="card p-4">
     <div class="flex items-center justify-between mb-3">
-      <h4 class="text-sm font-semibold text-gray-800">{{ icon }} {{ titel }} <span class="text-gray-400 font-normal">({{ items.length }})</span></h4>
-      <button class="text-xs text-pienter-600 hover:underline" @click="showBulk = !showBulk">📋 Plakken-import</button>
+      <h4 class="text-sm font-semibold text-gray-800 flex items-center gap-1.5"><KIcon :name="icon" :size="16" class="text-gray-500" />{{ titel }} <span class="text-gray-400 font-normal">({{ items.length }})</span></h4>
+      <button class="text-xs text-pienter-600 hover:underline inline-flex items-center gap-1" @click="showBulk = !showBulk"><KIcon name="clipboard" :size="13" />Plakken-import</button>
     </div>
 
     <!-- Bulk import -->
@@ -36,7 +36,7 @@
           class="input text-sm py-1 !w-40 shrink-0"
           @change="emitUpdate(item.id, { notitie: ($event.target as HTMLInputElement).value })"
         />
-        <button class="text-gray-300 hover:text-red-500 px-1 opacity-0 group-hover:opacity-100 transition-opacity" @click="$emit('delete', item.id)">✕</button>
+        <button class="text-gray-300 hover:text-red-500 px-1 inline-flex opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Verwijderen" @click="$emit('delete', item.id)"><KIcon name="close" :size="14" /></button>
       </div>
     </div>
 
@@ -50,7 +50,7 @@
         @keyup.enter="doAdd"
       />
       <input v-if="metUrl" v-model="newUrl" placeholder="url (optioneel)" class="input text-sm py-1 !w-40 shrink-0" @keyup.enter="doAdd" />
-      <button class="btn-secondary btn-sm shrink-0" :disabled="!newNaam.trim()" @click="doAdd">+ toevoegen</button>
+      <button class="btn-secondary btn-sm shrink-0" :disabled="!newNaam.trim()" @click="doAdd"><KIcon name="plus" :size="14" />Toevoegen</button>
     </div>
     <p v-if="inlineError" class="text-xs text-amber-600 mt-1">{{ inlineError }}</p>
 
@@ -69,19 +69,21 @@
           : 'border-pienter-200 text-pienter-700 hover:bg-pienter-50'"
         :disabled="isPresent(q)"
         @click="quickAdd(q)"
-      >+ {{ q }}</button>
+      ><KIcon name="plus" :size="12" />{{ q }}</button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
+import type { IconName } from '../ui/icons'
 import { ref, computed } from 'vue'
 
 interface ItemLike { id: string; naam: string; url?: string; notitie?: string }
 
 const props = defineProps<{
   titel: string
-  icon: string
+  icon: IconName
   metUrl?: boolean
   items: ItemLike[]
   labels: string[]

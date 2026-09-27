@@ -2,7 +2,7 @@
   <div class="card p-5">
     <div class="flex items-center justify-between mb-4">
       <h3 class="font-semibold text-gray-800">Aanvullende contactpersonen</h3>
-      <button class="btn-secondary btn-sm" @click="startAdd">+ Toevoegen</button>
+      <button class="btn-secondary btn-sm" @click="startAdd"><KIcon name="plus" :size="14" />Toevoegen</button>
     </div>
 
     <div v-if="store.contactpersonen.length === 0 && !showForm" class="text-sm text-gray-500">
@@ -57,7 +57,7 @@
         </div>
         <div class="flex gap-1 shrink-0">
           <button class="text-gray-400 hover:text-pienter-600 text-xs px-2" @click="startEdit(cp.id)">Bewerken</button>
-          <button class="text-gray-300 hover:text-red-500 text-xs px-2" @click="handleDelete(cp.id)">✕</button>
+          <button class="text-gray-300 hover:text-red-500 text-xs px-2 inline-flex" title="Verwijderen" aria-label="Verwijderen" @click="handleDelete(cp.id)"><KIcon name="close" :size="14" /></button>
         </div>
       </div>
     </div>
@@ -65,6 +65,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, reactive, computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 import type { KlantContactpersoon } from '@shared/types'

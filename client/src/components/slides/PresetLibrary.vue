@@ -3,7 +3,7 @@
     <div class="bg-white rounded-xl shadow-xl p-6 w-[720px] max-w-full max-h-[80vh] flex flex-col">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-lg font-semibold text-gray-900">Preset bibliotheek</h2>
-        <button class="text-gray-400 hover:text-gray-600 text-2xl leading-none" @click="$emit('close')">×</button>
+        <button class="btn-ghost btn-sm btn-icon" aria-label="Sluiten" @click="$emit('close')"><KIcon name="close" :size="16" /></button>
       </div>
 
       <div v-if="store.presets.length === 0" class="empty-state py-8">
@@ -32,10 +32,11 @@
             <div class="flex gap-1 shrink-0">
               <button class="btn-secondary btn-sm" @click="$emit('insert', p)">Invoegen</button>
               <button
-                class="text-xs text-red-600 hover:bg-red-50 px-2 py-1 rounded"
+                class="btn-ghost btn-sm btn-icon !text-red-600 hover:!bg-red-50"
                 @click="confirmDelete(p)"
                 title="Preset verwijderen"
-              >🗑</button>
+                aria-label="Preset verwijderen"
+              ><KIcon name="trash" :size="14" /></button>
             </div>
           </div>
         </div>
@@ -45,6 +46,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { onMounted } from 'vue'
 import { useSlidesStore } from '../../stores/slidesStore'
 import type { SlideElement, SlidePreset, SlideTextElement } from '@shared/types'

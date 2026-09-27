@@ -3,14 +3,16 @@
     <span title="Ontstaan uit de Concurrenten-tab, nog niet bevestigd door de klant">aanname · uit concurrentie-analyse</span>
     <button
       v-if="bevestigbaar"
-      class="text-amber-500 hover:text-amber-800 font-semibold"
+      class="text-amber-600 hover:text-amber-800 inline-flex"
       title="Bevestigd door klant — aanname-markering weghalen"
+      aria-label="Aanname bevestigen"
       @click.stop="$emit('bevestig')"
-    >✓</button>
+    ><KIcon name="check" :size="12" stroke-width="2.2" /></button>
   </span>
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 defineProps<{ bevestigbaar?: boolean }>()
 defineEmits<{ bevestig: [] }>()
 </script>

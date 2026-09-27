@@ -7,22 +7,22 @@
         <p class="text-sm text-gray-500 mt-1">Beheer de content status van alle pagina's in een spreadsheet overzicht.</p>
       </div>
       <div class="flex items-center gap-2">
-        <button @click="loadStructuur" class="text-sm px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Structuur inladen</button>
+        <button @click="loadStructuur" class="btn-secondary btn-sm"><KIcon name="refresh" :size="14" />Structuur inladen</button>
         <!-- Preset selector -->
         <select
           v-model="activePresetId"
-          class="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white"
+          class="select !h-8 !w-auto text-[13px]"
         >
           <option value="">Alle kolommen</option>
           <option v-for="p in store.presets" :key="p.id" :value="p.id">{{ p.name }}</option>
         </select>
-        <button @click="showPresetModal = true" class="text-sm px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50" title="Presets beheren">⚙️ Presets</button>
-        <button @click="exportCsv" class="text-sm px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">📤 Export CSV</button>
-        <label class="text-sm px-3 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 cursor-pointer">
-          📥 Import CSV
+        <button @click="showPresetModal = true" class="btn-secondary btn-sm" title="Presets beheren"><KIcon name="settings" :size="14" />Presets</button>
+        <button @click="exportCsv" class="btn-secondary btn-sm"><KIcon name="download" :size="14" />Export CSV</button>
+        <label class="btn-secondary btn-sm">
+          <KIcon name="upload" :size="14" />Import CSV
           <input type="file" accept=".csv" class="hidden" @change="handleCsvImport" />
         </label>
-        <button @click="addRow" class="text-sm px-4 py-2 bg-pienter-600 text-white rounded-lg hover:bg-pienter-700">+ Rij toevoegen</button>
+        <button @click="addRow" class="btn-primary btn-sm"><KIcon name="plus" :size="14" />Rij toevoegen</button>
       </div>
     </div>
 
@@ -169,16 +169,17 @@
             <td class="px-2 py-1">
               <button
                 @click="removeRow(row.id)"
-                class="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all"
+                class="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all inline-flex"
                 title="Verwijder rij"
-              >✕</button>
+                aria-label="Verwijder rij"
+              ><KIcon name="close" :size="14" /></button>
             </td>
           </tr>
 
           <!-- Lege state -->
           <tr v-if="store.rows.length === 0">
             <td :colspan="visibleColumns.length + 2" class="text-center py-12 text-gray-400">
-              Nog geen rijen. Klik op "+ Rij toevoegen" of importeer een CSV bestand.
+              Nog geen rijen. Klik op "Rij toevoegen" of importeer een CSV bestand.
             </td>
           </tr>
         </tbody>
@@ -190,7 +191,7 @@
       <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-lg font-bold text-gray-900">Presets beheren</h2>
-          <button @click="showPresetModal = false" class="text-gray-400 hover:text-gray-600">✕</button>
+          <button @click="showPresetModal = false" class="btn-ghost btn-sm btn-icon" aria-label="Sluiten"><KIcon name="close" :size="16" /></button>
         </div>
 
         <!-- Bestaande presets -->
@@ -273,6 +274,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, computed, onMounted, watch } from 'vue'
 import { useContentStructuurStore } from '../../stores/contentStructuurStore'
 import { useProjectStore } from '../../stores/projectStore'

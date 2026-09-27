@@ -1,0 +1,36 @@
+/* Kompas — Typography
+ * Poppins for everything UI; JetBrains Mono for data / numbers / codes.
+ * Tight tracking on large display, neutral on body, wide on small caps labels.
+ */
+
+:root {
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale (px) */
+  --t-display: 44px;
+  --t-h1:      32px;
+  --t-h2:      24px;
+  --t-h3:      18px;
+  --t-body:    14px;
+  --t-small:   12px;
+  --t-mono:    12.5px;
+
+  /* Weights */
+  --w-regular: 400;  /* @kind other */
+  --w-medium:  500;  /* @kind other */
+  --w-semi:    600;  /* @kind other */
+  --w-bold:    700;  /* @kind other */
+
+  /* Line heights */
+  --lh-tight:  1.15; /* @kind other */
+  --lh-snug:   1.3;  /* @kind other */
+  --lh-normal: 1.5;  /* @kind other */
+
+  /* Letter spacing */
+  --ls-tight:  -0.02em;
+  --ls-normal: 0em;
+  --ls-wide:   0.04em;
+}
+
+/* Type helper classes (.mono / .caps / .eyebrow) staan in src/style.css (@layer components). */

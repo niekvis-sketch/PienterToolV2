@@ -6,12 +6,12 @@
         <h2 class="text-xl font-bold text-gray-900 mb-1">Doelgroepen & Customer Journey</h2>
         <p class="text-sm text-gray-500">Breng per doelgroep de vragen in kaart die zij stellen in elke fase van hun journey</p>
       </div>
-      <button class="btn-primary btn-sm" @click="showNewDoelgroep = true">+ Doelgroep toevoegen</button>
+      <button class="btn-primary btn-sm" @click="showNewDoelgroep = true"><KIcon name="plus" :size="14" />Doelgroep toevoegen</button>
     </div>
 
     <!-- Geen doelgroepen -->
     <div v-if="store.doelgroepen.length === 0" class="empty-state card p-12">
-      <div class="text-4xl mb-3">🎯</div>
+      <div class="empty-state-icon"><KIcon name="target" :size="22" /></div>
       <h3 class="text-sm font-semibold text-gray-700">Nog geen doelgroepen</h3>
       <p class="text-xs">Voeg een doelgroep toe en breng de klantvragen per journey-fase in kaart.</p>
     </div>
@@ -22,10 +22,8 @@
         <button
           v-for="dg in store.doelgroepen"
           :key="dg.id"
-          class="px-4 py-2 rounded-lg text-sm font-medium transition-colors border"
-          :class="selectedDoelgroepId === dg.id
-            ? 'bg-pienter-600 text-white border-pienter-600'
-            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'"
+          class="btn-sm"
+          :class="selectedDoelgroepId === dg.id ? 'btn-primary' : 'btn-secondary'"
           @click="selectDoelgroep(dg.id)"
         >
           {{ dg.name }}
@@ -39,7 +37,7 @@
             <div v-if="!editingDoelgroep" class="flex items-center gap-3">
               <h3 class="text-lg font-semibold text-gray-900">{{ selectedDoelgroep.name }}</h3>
               <span v-if="selectedDoelgroep.description" class="text-sm text-gray-500">— {{ selectedDoelgroep.description }}</span>
-              <button class="text-gray-400 hover:text-pienter-600 text-xs" @click="startEditDoelgroep">✏️ Bewerken</button>
+              <button class="text-gray-400 hover:text-pienter-600 text-xs inline-flex items-center gap-1" @click="startEditDoelgroep"><KIcon name="edit" :size="13" />Bewerken</button>
             </div>
             <div v-else class="flex items-center gap-2 flex-1">
               <input
@@ -59,9 +57,9 @@
             </div>
           </div>
           <button
-            class="text-gray-400 hover:text-red-500 text-xs ml-4"
+            class="text-gray-400 hover:text-red-500 text-xs ml-4 inline-flex items-center gap-1"
             @click="confirmDeleteDoelgroep"
-          >🗑️ Verwijderen</button>
+          ><KIcon name="trash" :size="13" />Verwijderen</button>
         </div>
       </div>
 
@@ -209,6 +207,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, computed, nextTick, watch } from 'vue'
 import { useProjectStore } from '../../stores/projectStore'
 import type { Doelgroep, DoelgroepVraag, JourneyFase } from '@shared/types'

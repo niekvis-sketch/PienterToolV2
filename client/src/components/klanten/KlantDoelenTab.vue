@@ -3,8 +3,8 @@
     <div class="flex items-center justify-between">
       <h2 class="text-xl font-bold text-gray-900">Doelen</h2>
       <div class="flex gap-2">
-        <button class="btn-secondary btn-sm" @click="startAddDoel('lang')">+ Langetermijndoel</button>
-        <button class="btn-primary btn-sm" @click="startAddDoel('kort')">+ Kortetermijndoel</button>
+        <button class="btn-secondary btn-sm" @click="startAddDoel('lang')"><KIcon name="plus" :size="14" />Langetermijndoel</button>
+        <button class="btn-primary btn-sm" @click="startAddDoel('kort')"><KIcon name="plus" :size="14" />Kortetermijndoel</button>
       </div>
     </div>
 
@@ -50,7 +50,7 @@
 
     <!-- Lege staat -->
     <div v-if="store.doelen.length === 0 && !showDoelForm" class="card p-10 text-center">
-      <div class="text-3xl mb-3">🎯</div>
+      <div class="empty-state-icon"><KIcon name="target" :size="22" /></div>
       <p class="text-gray-500">Nog geen hoofddoelen vastgelegd.</p>
       <p class="text-xs text-gray-400 mt-2">Voeg een korte- of langetermijndoel toe en hang er per maand focuspunten onder, verdeeld over de teams.</p>
     </div>
@@ -75,7 +75,7 @@
           </div>
           <div class="flex gap-1 shrink-0">
             <button class="text-gray-400 hover:text-pienter-600 text-xs px-2" @click="startEditDoel(doel.id)">Bewerken</button>
-            <button class="text-gray-300 hover:text-red-500 text-xs px-2" @click="handleDeleteDoel(doel.id)">✕</button>
+            <button class="text-gray-300 hover:text-red-500 text-xs px-2 inline-flex" title="Verwijderen" aria-label="Verwijderen" @click="handleDeleteDoel(doel.id)"><KIcon name="close" :size="14" /></button>
           </div>
         </div>
 
@@ -83,7 +83,7 @@
         <div class="mt-4 border-t border-gray-100 pt-4">
           <div class="flex items-center justify-between mb-3">
             <h4 class="text-sm font-semibold text-gray-700">Maandelijkse focuspunten</h4>
-            <button class="text-xs text-pienter-600 hover:text-pienter-700" @click="startAddFocuspunt(doel.id)">+ Focuspunt</button>
+            <button class="text-xs text-pienter-600 hover:text-pienter-700 inline-flex items-center gap-1" @click="startAddFocuspunt(doel.id)"><KIcon name="plus" :size="12" />Focuspunt</button>
           </div>
 
           <div v-if="showFocusFormFor === doel.id" class="border border-pienter-200 rounded-lg p-3 mb-3 bg-white space-y-2">
@@ -145,7 +145,7 @@
                   >{{ teamLabel(fp.team) }}</span>
                   <span class="flex-1 min-w-0" :class="fp.voltooid ? 'line-through text-gray-400' : 'text-gray-800'">{{ fp.beschrijving }}</span>
                   <MedewerkerTag v-if="fp.assigneeId" :medewerker-id="fp.assigneeId" />
-                  <button class="text-gray-300 hover:text-red-500 text-xs px-1 shrink-0" @click="handleDeleteFocuspunt(fp.id)">✕</button>
+                  <button class="text-gray-300 hover:text-red-500 text-xs px-1 shrink-0 inline-flex" title="Verwijderen" aria-label="Verwijderen" @click="handleDeleteFocuspunt(fp.id)"><KIcon name="close" :size="14" /></button>
                 </div>
               </div>
             </div>
@@ -157,6 +157,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, reactive, computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 import type { KlantDoel, KlantDoelType, KlantDoelTeam, KlantDoelFocuspunt } from '@shared/types'

@@ -7,7 +7,7 @@
           <option v-for="c in CATEGORIEEN" :key="c.key" :value="c.key">{{ c.label }}</option>
         </select>
         <label class="btn-secondary btn-sm cursor-pointer">
-          + Bestanden uploaden
+          <KIcon name="upload" :size="14" />Bestanden uploaden
           <input type="file" multiple class="hidden" @change="onFilesSelected" />
         </label>
       </div>
@@ -56,7 +56,7 @@
             :alt="bestand.bestandsnaam"
             class="w-10 h-10 rounded object-cover shrink-0 bg-gray-100"
           />
-          <span v-else class="w-10 text-2xl text-center shrink-0">{{ fileIcon(bestand) }}</span>
+          <span v-else class="w-10 h-10 rounded-md bg-cream-300 text-ink-2 inline-flex items-center justify-center shrink-0"><KIcon :name="fileTypeIcon(bestand.bestandsnaam, bestand.mimeType)" :size="18" /></span>
           <div class="min-w-0 flex-1">
             <a
               :href="fileUrl(bestand.filePath)"
@@ -88,10 +88,11 @@
           <a
             :href="fileUrl(bestand.filePath)"
             :download="bestand.bestandsnaam"
-            class="text-gray-400 hover:text-pienter-600 text-xs px-2"
+            class="text-gray-400 hover:text-pienter-600 px-2 inline-flex"
             title="Downloaden"
-          >⬇</a>
-          <button class="text-gray-300 hover:text-red-500 text-xs px-2" @click="handleDelete(bestand.id)">✕</button>
+            aria-label="Downloaden"
+          ><KIcon name="download" :size="15" /></a>
+          <button class="text-gray-300 hover:text-red-500 text-xs px-2 inline-flex" title="Verwijderen" aria-label="Verwijderen" @click="handleDelete(bestand.id)"><KIcon name="close" :size="14" /></button>
         </div>
       </div>
     </div>
@@ -99,6 +100,8 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
+import { fileTypeIcon } from '../ui/iconMaps'
 import { ref, computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 import type { KlantBestand, KlantBestandCategorie } from '@shared/types'
@@ -207,21 +210,4 @@ function formatDate(d: string): string {
   return new Date(d).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
-// Op extensie én mimetype, want browsers geven Office-bestanden soms als octet-stream door
-function fileIcon(b: KlantBestand): string {
-  const ext = extensie(b.bestandsnaam)
-  const mime = b.mimeType
-  if (mime === 'application/pdf' || ext === 'pdf') return '📕'
-  if (['doc', 'docx', 'odt', 'rtf', 'pages'].includes(ext)) return '📘'
-  if (['xls', 'xlsx', 'ods', 'csv', 'numbers'].includes(ext)) return '📗'
-  if (['ppt', 'pptx', 'odp', 'key'].includes(ext)) return '📙'
-  if (mime.startsWith('video/')) return '🎬'
-  if (mime.startsWith('audio/')) return '🎵'
-  if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext) || mime.includes('zip')) return '🗜️'
-  if (['ttf', 'otf', 'woff', 'woff2'].includes(ext)) return '🔤'
-  if (['psd', 'ai', 'indd', 'fig', 'sketch', 'eps'].includes(ext)) return '🎨'
-  if (mime.startsWith('text/') || ['txt', 'md'].includes(ext)) return '📝'
-  if (['eml', 'msg'].includes(ext)) return '✉️'
-  return '📎'
-}
 </script>

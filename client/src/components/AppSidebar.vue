@@ -1,21 +1,17 @@
 <template>
-  <aside class="w-64 bg-white border-r border-cream-400 shrink-0 flex flex-col h-screen">
-    <!-- Header -->
-    <div class="h-12 px-5 border-b border-cream-400 flex items-center gap-2.5">
-      <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="6" fill="var(--primary)"/>
-        <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Space Grotesk, system-ui" font-weight="700" font-size="16">P</text>
-      </svg>
-      <span class="font-semibold text-ink tracking-tight">Pienter Dashboard</span>
-      <span class="accent-dot ml-auto"></span>
+  <aside class="sidebar w-64 shrink-0 flex flex-col h-screen">
+    <!-- Logo -->
+    <div class="h-[60px] px-5 flex items-center shrink-0">
+      <router-link to="/" class="inline-flex" aria-label="Kompas — naar klanten">
+        <img :src="kompasLogo" alt="Kompas" class="h-7 w-auto" />
+      </router-link>
     </div>
 
-    <!-- Sections -->
-    <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-1.5">
+    <!-- Secties -->
+    <nav class="flex-1 overflow-y-auto px-3.5 pt-3 pb-5 flex flex-col gap-5">
       <!-- Klanten -->
       <SidebarSection
         label="Klanten"
-        icon="👤"
         :open="klantenOpen"
         :active="route.path.startsWith('/klanten')"
         @toggle="klantenOpen = !klantenOpen"
@@ -24,19 +20,22 @@
           to="/klanten"
           class="nav-item"
           :class="{ 'is-active': route.path === '/klanten' }"
-        >Alle klanten</router-link>
+        >
+          <KIcon name="contacts" :size="17" />
+          Alle klanten
+        </router-link>
 
-        <!-- Active klant -->
-        <div v-if="activeKlant" class="mt-0.5">
+        <!-- Actieve klant -->
+        <template v-if="activeKlant">
           <router-link
             :to="`/klanten/${activeKlant.id}`"
             class="nav-item"
             :class="{ 'is-active': isKlantRoot }"
           >
-            <span class="text-base">📄</span>
+            <KIcon name="building" :size="17" />
             <span class="truncate">{{ activeKlant.naam }}</span>
           </router-link>
-          <div class="ml-3 pl-3 border-l border-cream-400 mt-0.5 space-y-0.5">
+          <div class="ml-5 pl-3 border-l border-cream-400 flex flex-col gap-0.5">
             <router-link
               v-for="item in klantSubItems"
               :key="item.segment"
@@ -45,13 +44,12 @@
               :class="{ 'is-active': activeSegment === item.segment }"
             >{{ item.label }}</router-link>
           </div>
-        </div>
+        </template>
       </SidebarSection>
 
       <!-- Medewerkers -->
       <SidebarSection
         label="Medewerkers"
-        icon="👥"
         :open="medewerkersOpen"
         :active="route.path.startsWith('/medewerkers')"
         @toggle="toggleMedewerkers"
@@ -60,13 +58,15 @@
           to="/medewerkers"
           class="nav-item"
           :class="{ 'is-active': route.path === '/medewerkers' }"
-        >Overzicht</router-link>
+        >
+          <KIcon name="user" :size="17" />
+          Overzicht
+        </router-link>
       </SidebarSection>
 
       <!-- Sales -->
       <SidebarSection
         label="Sales"
-        icon="💼"
         :open="salesOpen"
         :active="route.path.startsWith('/sales')"
         @toggle="toggleSales"
@@ -75,13 +75,16 @@
           to="/sales"
           class="nav-item"
           :class="{ 'is-active': route.path === '/sales' }"
-        >Overzicht</router-link>
+        >
+          <KIcon name="deals" :size="17" />
+          Overzicht
+        </router-link>
         <router-link
           to="/sales/slides"
           class="nav-item"
           :class="{ 'is-active': route.path.startsWith('/sales/slides') }"
         >
-          <span class="text-base">🎞️</span>
+          <KIcon name="slides" :size="17" />
           Vrije slides
         </router-link>
       </SidebarSection>
@@ -94,6 +97,8 @@ import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useKlantenStore } from '../stores/klantenStore'
 import SidebarSection from './SidebarSection.vue'
+import KIcon from './ui/KIcon.vue'
+import kompasLogo from '../assets/kompas/kompas-logo.svg'
 
 const route = useRoute()
 const klantenStore = useKlantenStore()
@@ -159,42 +164,8 @@ watch(() => route.path, (path) => {
 </script>
 
 <style scoped>
-.nav-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 34px;
-  padding: 0 12px;
-  border-radius: var(--r-2);
-  color: var(--ink-2);
-  font-weight: 500;
-  font-size: 13.5px;
-  cursor: pointer;
-  transition: background .12s, color .12s;
-}
-.nav-item:hover {
-  background: color-mix(in srgb, var(--primary) 5%, transparent);
-  color: var(--ink);
-}
-.nav-item.is-active {
-  background: var(--surface-2);
-  color: var(--primary);
-  box-shadow: var(--shadow-1, 0 1px 0 rgba(20,36,27,0.04));
-  font-weight: 600;
-}
-.nav-item.is-active::before {
-  content: '';
-  position: absolute;
-  left: -10px;
-  top: 6px;
-  bottom: 6px;
-  width: 3px;
-  background: var(--accent);
-  border-radius: 2px;
-}
-.nav-item-sm {
-  height: 30px;
-  font-size: 13px;
+.sidebar {
+  background: var(--bg-elev);
+  border-right: 1px solid var(--line);
 }
 </style>

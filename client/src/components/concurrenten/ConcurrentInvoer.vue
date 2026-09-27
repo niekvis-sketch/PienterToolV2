@@ -2,19 +2,19 @@
   <div>
     <!-- Lege staat -->
     <div v-if="store.concurrenten.length === 0" class="empty-state card p-12 text-center">
-      <div class="text-4xl mb-3">🏢</div>
+      <div class="empty-state-icon"><KIcon name="building" :size="22" /></div>
       <h3 class="text-sm font-semibold text-gray-700">Voeg je eerste concurrent toe</h3>
       <p class="text-xs text-gray-500 max-w-md mx-auto mb-4">
         Leg per concurrent vast welke pagina's en functionaliteit ze hebben. Weet Pienter de concurrenten nog niet?
         Zet dit als vraag uit bij de klant in Fase 1.
       </p>
-      <button class="btn-primary btn-sm" @click="showAdd = true">+ Concurrent toevoegen</button>
+      <button class="btn-primary btn-sm" @click="showAdd = true"><KIcon name="plus" :size="14" />Concurrent toevoegen</button>
     </div>
 
     <div v-else class="flex gap-5 items-start">
       <!-- Linker rail -->
       <aside class="w-60 shrink-0 space-y-2">
-        <button class="btn-primary btn-sm w-full mb-1" @click="showAdd = true">+ Concurrent toevoegen</button>
+        <button class="btn-primary btn-sm w-full mb-1" @click="showAdd = true"><KIcon name="plus" :size="14" />Concurrent toevoegen</button>
         <button
           v-for="c in store.concurrenten"
           :key="c.id"
@@ -25,7 +25,7 @@
           @click="store.geselecteerdeConcurrentId = c.id"
         >
           <img v-if="favicon(c.url)" :src="favicon(c.url)" alt="" class="w-4 h-4 rounded-sm shrink-0" @error="onFaviconError" />
-          <span v-else class="text-sm shrink-0">🏢</span>
+          <KIcon v-else name="building" :size="16" class="shrink-0 opacity-70" />
           <span class="text-sm font-medium truncate flex-1">{{ c.naam }}</span>
           <span class="text-[11px] opacity-70 shrink-0">{{ c.paginas.length }}p · {{ c.functies.length }}f</span>
         </button>
@@ -47,8 +47,8 @@
                 :href="sel.url"
                 target="_blank"
                 rel="noopener"
-                class="text-xs text-pienter-600 hover:underline break-all"
-              >{{ sel.url }} ↗</a>
+                class="text-xs text-pienter-600 hover:underline break-all inline-flex items-center gap-1"
+              >{{ sel.url }}<KIcon name="external" :size="12" /></a>
               <input
                 :value="sel.notitie"
                 placeholder="Notitie (optioneel)"
@@ -57,8 +57,8 @@
               />
             </div>
             <div class="flex items-center gap-2 shrink-0">
-              <button class="text-gray-400 hover:text-pienter-600 text-xs" @click="editConcurrent = sel">✏️</button>
-              <button class="text-gray-400 hover:text-red-500 text-xs" @click="confirmDelete = true">🗑️</button>
+              <button class="text-gray-400 hover:text-pienter-600 inline-flex" title="Bewerken" aria-label="Bewerken" @click="editConcurrent = sel"><KIcon name="edit" :size="16" /></button>
+              <button class="text-gray-400 hover:text-red-500 inline-flex" title="Verwijderen" aria-label="Verwijderen" @click="confirmDelete = true"><KIcon name="trash" :size="16" /></button>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@
         <!-- Pagina's -->
         <ConcurrentItemSectie
           titel="Pagina's"
-          icon="📄"
+          icon="file"
           met-url
           :items="sel.paginas"
           :labels="store.bestaandePaginaLabels"
@@ -82,7 +82,7 @@
         <!-- Functionaliteit -->
         <ConcurrentItemSectie
           titel="Functionaliteit"
-          icon="⚙️"
+          icon="settings"
           :items="sel.functies"
           :labels="store.bestaandeFunctieLabels"
           :quick-adds="quickFuncties"
@@ -96,7 +96,7 @@
 
         <!-- Toekomst-stub -->
         <div class="card p-3 bg-gray-50 border-dashed flex items-center justify-between">
-          <span class="text-xs text-gray-500">🔮 Binnenkort: pagina's en functies automatisch uit de URL halen.</span>
+          <span class="text-xs text-gray-500 inline-flex items-center gap-1.5"><KIcon name="sparkle" :size="14" />Binnenkort: pagina's en functies automatisch uit de URL halen.</span>
           <button class="btn-secondary btn-sm" disabled title="Nog niet beschikbaar — gebruik voor nu de plakken-import">Uit URL ophalen</button>
         </div>
       </section>
@@ -132,6 +132,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, computed } from 'vue'
 import { useConcurrentenStore } from '../../stores/concurrenten'
 import type { Concurrent } from '@shared/types'

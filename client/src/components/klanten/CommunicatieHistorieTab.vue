@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div class="flex items-center justify-between">
       <h2 class="text-xl font-bold text-gray-900">Communicatie en historie</h2>
-      <button class="btn-primary btn-sm" @click="showForm = true">+ Toevoegen</button>
+      <button class="btn-primary btn-sm" @click="showForm = true"><KIcon name="plus" :size="14" />Toevoegen</button>
     </div>
 
     <!-- Nieuw contactmoment formulier -->
@@ -45,7 +45,7 @@
 
     <!-- Lege staat -->
     <div v-if="store.communicatie.length === 0 && !showForm" class="card p-10 text-center">
-      <div class="text-3xl mb-3">💬</div>
+      <div class="empty-state-icon"><KIcon name="message" :size="22" /></div>
       <p class="text-gray-500">Nog geen contactmomenten vastgelegd.</p>
     </div>
 
@@ -58,7 +58,7 @@
       >
         <div class="flex items-start justify-between gap-3">
           <div class="flex items-start gap-3 flex-1">
-            <span class="text-xl mt-0.5">{{ typeIcon(item.type) }}</span>
+            <span class="w-8 h-8 rounded-full bg-cream-300 text-ink-2 inline-flex items-center justify-center shrink-0"><KIcon :name="communicatieIcon(item.type)" :size="16" /></span>
             <div class="flex-1">
               <div class="flex items-center gap-2 flex-wrap">
                 <span class="text-xs font-semibold uppercase tracking-wide px-2 py-0.5 rounded" :class="typeClass(item.type)">{{ typeLabel(item.type) }}</span>
@@ -69,7 +69,7 @@
               <p v-if="item.details" class="text-sm text-gray-500 mt-1 whitespace-pre-wrap">{{ item.details }}</p>
             </div>
           </div>
-          <button class="text-gray-300 hover:text-red-400 text-sm transition-colors shrink-0" title="Verwijderen" @click="handleDelete(item.id)">✕</button>
+          <button class="text-gray-300 hover:text-red-400 transition-colors shrink-0 inline-flex" title="Verwijderen" aria-label="Verwijderen" @click="handleDelete(item.id)"><KIcon name="close" :size="14" /></button>
         </div>
       </div>
     </div>
@@ -77,6 +77,8 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
+import { communicatieIcon } from '../ui/iconMaps'
 import { ref, reactive, computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 import type { KlantCommunicatieType } from '@shared/types'
@@ -119,10 +121,6 @@ async function handleDelete(id: string) {
 
 function formatDate(d: string): string {
   return new Date(d).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })
-}
-
-function typeIcon(t: KlantCommunicatieType): string {
-  return { email: '📧', telefoon: '📞', meeting: '🤝', notitie: '📝', offerte: '📄', contract: '✍️' }[t] ?? '💬'
 }
 
 function typeLabel(t: KlantCommunicatieType): string {

@@ -41,7 +41,8 @@
             Export ({{ exportPages.length }} pagina's)
           </span>
           <button class="btn-primary btn-sm" :disabled="!exportPages.length" @click="copyExport">
-            {{ copied ? '✓ Gekopieerd' : '📋 Kopieer' }}
+            <KIcon :name="copied ? 'check' : 'copy'" :size="14" />
+            {{ copied ? 'Gekopieerd' : 'Kopieer' }}
           </button>
         </div>
 
@@ -54,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
 import { ref, computed, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'

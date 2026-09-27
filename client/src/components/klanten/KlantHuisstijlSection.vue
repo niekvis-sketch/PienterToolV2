@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between mb-4">
       <h3 class="font-semibold text-gray-800">Huisstijlbestanden</h3>
       <label class="btn-secondary btn-sm cursor-pointer">
-        + Bestand uploaden
+        <KIcon name="upload" :size="14" />Bestand uploaden
         <input type="file" class="hidden" @change="onFileSelected" />
       </label>
     </div>
@@ -22,7 +22,7 @@
         class="border border-gray-200 rounded-lg p-3 flex items-center justify-between gap-3"
       >
         <div class="flex items-center gap-3 min-w-0 flex-1">
-          <span class="text-2xl shrink-0">{{ fileIcon(bestand.mimeType) }}</span>
+          <span class="w-10 h-10 rounded-md bg-cream-300 text-ink-2 inline-flex items-center justify-center shrink-0"><KIcon :name="fileTypeIcon(bestand.bestandsnaam, bestand.mimeType)" :size="18" /></span>
           <div class="min-w-0 flex-1">
             <a
               :href="fileUrl(bestand.filePath)"
@@ -46,7 +46,7 @@
         <div class="flex gap-1 shrink-0">
           <button v-if="editingId === bestand.id" class="text-pienter-600 text-xs px-2" @click="saveBeschrijving(bestand.id)">Opslaan</button>
           <button v-else class="text-gray-400 hover:text-pienter-600 text-xs px-2" @click="startEditDescription(bestand.id, bestand.beschrijving)">Beschrijving</button>
-          <button class="text-gray-300 hover:text-red-500 text-xs px-2" @click="handleDelete(bestand.id)">✕</button>
+          <button class="text-gray-300 hover:text-red-500 text-xs px-2 inline-flex" title="Verwijderen" aria-label="Verwijderen" @click="handleDelete(bestand.id)"><KIcon name="close" :size="14" /></button>
         </div>
       </div>
     </div>
@@ -54,6 +54,8 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
+import { fileTypeIcon } from '../ui/iconMaps'
 import { ref, computed } from 'vue'
 import { useKlantenStore } from '../../stores/klantenStore'
 
@@ -111,11 +113,4 @@ function formatDate(d: string): string {
   return new Date(d).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
-function fileIcon(mime: string): string {
-  if (mime.startsWith('image/')) return '🖼️'
-  if (mime === 'application/pdf') return '📄'
-  if (mime.includes('zip') || mime.includes('compressed')) return '🗜️'
-  if (mime.includes('font') || mime.includes('ttf') || mime.includes('otf') || mime.includes('woff')) return '🔤'
-  return '📎'
-}
 </script>

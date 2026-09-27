@@ -19,9 +19,9 @@
           :style="{ paddingLeft: node.level * 16 + 12 + 'px' }"
           @click="selectPage(node.id)"
         >
-          <span v-if="node.level > 0" class="text-gray-300 text-xs">└</span>
+          <span v-if="node.level > 0" class="w-2.5 h-2.5 -mt-1.5 shrink-0 border-l border-b border-gray-300 rounded-bl-sm" aria-hidden="true"></span>
           <span class="flex-1 truncate">{{ node.title }}</span>
-          <span v-if="node.aanname" class="text-[9px] text-amber-600" title="Aanname uit concurrentie-analyse">●</span>
+          <span v-if="node.aanname" class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" title="Aanname uit concurrentie-analyse"></span>
           <span class="text-[10px] text-gray-400">{{ blockCountForNode(node.id) }}b</span>
         </div>
       </div>
@@ -29,7 +29,7 @@
       <!-- Right: page detail -->
       <div class="flex-1 min-w-0">
         <div v-if="!selectedNode" class="empty-state card p-12">
-          <div class="text-4xl mb-4">👈</div>
+          <div class="empty-state-icon"><KIcon name="arrowL" :size="22" /></div>
           <h3 class="text-lg font-semibold text-gray-700">Selecteer een pagina</h3>
           <p>Klik links op een pagina om de blok-indeling te bewerken.</p>
         </div>
@@ -43,11 +43,12 @@
               <AannameBadge v-if="selectedNode.aanname" bevestigbaar @bevestig="bevestigNode(selectedNode.id)" />
               <div class="ml-auto">
                 <button
-                  class="btn-sm text-xs flex items-center gap-1.5 rounded-lg px-3 py-1.5 transition-colors"
-                  :class="showPreview ? 'bg-pienter-600 text-white hover:bg-pienter-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
+                  class="btn-sm"
+                  :class="showPreview ? 'btn-primary' : 'btn-secondary'"
                   @click="showPreview = !showPreview"
                 >
-                  👁️ {{ showPreview ? 'Verberg preview' : 'Visuele preview' }}
+                  <KIcon :name="showPreview ? 'eyeOff' : 'eye'" :size="15" />
+                  {{ showPreview ? 'Verberg preview' : 'Visuele preview' }}
                 </button>
               </div>
             </div>
@@ -59,10 +60,10 @@
             </div>
             <!-- Open vragen uit fase 1 -->
             <div v-if="relatedQuestions.length > 0" class="mt-3 bg-amber-50 border border-amber-200 rounded-lg p-3">
-              <h5 class="text-xs font-semibold text-amber-800 mb-1">📌 Relevante klantantwoorden / inzichten uit Fase 1</h5>
-              <div v-for="q in relatedQuestions" :key="q.id" class="text-xs text-amber-700 mb-1">
-                <span class="font-medium">{{ q.status === 'answered' ? '✅' : '❓' }}</span> {{ q.question }}
-                <span v-if="q.answer" class="text-green-700"> → {{ q.answer }}</span>
+              <h5 class="text-xs font-semibold text-amber-800 mb-1 flex items-center gap-1.5"><KIcon name="pin" :size="14" /> Relevante klantantwoorden / inzichten uit Fase 1</h5>
+              <div v-for="q in relatedQuestions" :key="q.id" class="text-xs text-amber-800 mb-1 flex items-start gap-1.5">
+                <KIcon :name="q.status === 'answered' ? 'checkCircle' : 'help'" :size="14" class="mt-px" :class="q.status === 'answered' ? 'text-green-600' : 'text-amber-600'" />
+                <span>{{ q.question }}<span v-if="q.answer" class="text-green-700"> — {{ q.answer }}</span></span>
               </div>
             </div>
           </div>
@@ -70,7 +71,7 @@
           <!-- Visual page preview -->
           <div v-if="showPreview" class="card p-5 mb-4">
             <div class="flex items-center gap-2 mb-4">
-              <h4 class="text-sm font-semibold text-gray-700">👁️ Visuele pagina preview</h4>
+              <h4 class="text-sm font-semibold text-gray-700 flex items-center gap-1.5"><KIcon name="eye" :size="16" /> Visuele pagina preview</h4>
               <span class="text-[10px] text-gray-400">Gebaseerd op blok-indeling en component afbeeldingen</span>
             </div>
             <PageVisualPreview
@@ -83,22 +84,22 @@
           <!-- Block list -->
           <div class="space-y-3 mb-4">
             <div v-if="store.pageBlocks.length === 0" class="card p-8 text-center">
-              <div class="text-3xl mb-3">🧱</div>
+              <div class="empty-state-icon"><KIcon name="layers" :size="22" /></div>
               <p class="text-sm text-gray-500 mb-3">Nog geen blokken. Voeg blokken toe om de pagina-indeling te bepalen.</p>
-              <button class="btn-primary btn-sm" @click="addBlock">+ Eerste blok toevoegen</button>
+              <button class="btn-primary btn-sm" @click="addBlock"><KIcon name="plus" :size="14" />Eerste blok toevoegen</button>
             </div>
 
             <div v-for="(block, idx) in sortedBlocks" :key="block.id" class="card overflow-hidden">
               <div class="flex items-center gap-3 px-4 py-3 bg-gray-50 border-b border-gray-100">
                 <!-- Drag handle indicator -->
-                <span class="text-gray-300 cursor-grab">⠿</span>
+                <KIcon name="grip" :size="16" class="text-gray-300 cursor-grab" />
                 <!-- Sort buttons -->
                 <div class="flex flex-col gap-0.5">
-                  <button class="text-gray-300 hover:text-gray-600 text-xs leading-none" :disabled="idx === 0" @click="moveBlockUp(block.id)">▲</button>
-                  <button class="text-gray-300 hover:text-gray-600 text-xs leading-none" :disabled="idx === sortedBlocks.length - 1" @click="moveBlockDown(block.id)">▼</button>
+                  <button class="text-gray-300 hover:text-gray-600 text-xs leading-none" :disabled="idx === 0" aria-label="Omhoog" @click="moveBlockUp(block.id)"><KIcon name="chevU" :size="13" /></button>
+                  <button class="text-gray-300 hover:text-gray-600 text-xs leading-none" :disabled="idx === sortedBlocks.length - 1" aria-label="Omlaag" @click="moveBlockDown(block.id)"><KIcon name="chevD" :size="13" /></button>
                 </div>
                 <!-- Block type icon -->
-                <span class="text-lg">{{ blockTypeIcon(block.type) }}</span>
+                <KIcon :name="blockTypeIcon(block.type)" :size="18" class="text-pienter-600" />
                 <!-- Editable name -->
                 <input v-if="editingBlockId === block.id" v-model="editBlockName" class="input text-sm font-semibold flex-1"
                   @blur="saveBlockName(block)" @keyup.enter="saveBlockName(block)" />
@@ -107,12 +108,13 @@
                 </span>
                 <!-- Type badge -->
                 <span class="text-[10px] bg-gray-200 text-gray-600 rounded-full px-2 py-0.5">{{ block.type }}</span>
-                <span v-if="block.isReusable" class="text-[10px] bg-purple-100 text-purple-700 rounded-full px-2 py-0.5">♻️ herbruikbaar</span>
+                <span v-if="block.isReusable" class="text-[10px] bg-purple-100 text-purple-700 rounded-full px-2 py-0.5">herbruikbaar</span>
                 <!-- Actions -->
-                <button class="text-gray-400 hover:text-pienter-600 text-xs" @click="toggleBlockDetail(block.id)">
-                  {{ expandedBlockId === block.id ? '▲ Inklappen' : '▼ Details' }}
+                <button class="text-gray-500 hover:text-pienter-600 text-xs inline-flex items-center gap-1" @click="toggleBlockDetail(block.id)">
+                  <KIcon :name="expandedBlockId === block.id ? 'chevU' : 'chevD'" :size="13" />
+                  {{ expandedBlockId === block.id ? 'Inklappen' : 'Details' }}
                 </button>
-                <button class="text-gray-300 hover:text-red-500 text-xs" @click="removeBlock(block.id)">🗑</button>
+                <button class="text-gray-300 hover:text-red-500 inline-flex" title="Blok verwijderen" aria-label="Blok verwijderen" @click="removeBlock(block.id)"><KIcon name="trash" :size="15" /></button>
               </div>
 
               <!-- Block details (expanded) -->
@@ -155,15 +157,15 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">📝 Notities content</label>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Notities content</label>
                     <textarea v-model="block.notesContent" class="textarea text-xs" rows="2" @blur="updateBlock(block)" />
                   </div>
                   <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">🔍 Notities SEO</label>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Notities SEO</label>
                     <textarea v-model="block.notesSeo" class="textarea text-xs" rows="2" @blur="updateBlock(block)" />
                   </div>
                   <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">🎨 Notities design</label>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Notities design</label>
                     <textarea v-model="block.notesDesign" class="textarea text-xs" rows="2" @blur="updateBlock(block)" />
                   </div>
                 </div>
@@ -175,7 +177,7 @@
                 </div>
                 <!-- Koppeling fase 1 vragen -->
                 <div v-if="store.clientQuestions.length > 0" class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <h5 class="text-xs font-semibold text-blue-800 mb-2">🔗 Koppel aan Fase 1 vragen</h5>
+                  <h5 class="text-xs font-semibold text-blue-800 mb-2 flex items-center gap-1.5"><KIcon name="link" :size="14" /> Koppel aan Fase 1 vragen</h5>
                   <div class="space-y-1 max-h-32 overflow-y-auto">
                     <label v-for="q in answeredAndInsightQuestions" :key="q.id" class="flex items-center gap-2 text-xs cursor-pointer">
                       <input type="checkbox" :checked="block.answersQuestionIds.includes(q.id)"
@@ -191,19 +193,19 @@
 
           <!-- Add block buttons -->
           <div class="flex flex-wrap gap-2 mb-6">
-            <button class="btn-primary btn-sm" @click="addBlock">+ Blok toevoegen</button>
+            <button class="btn-primary btn-sm" @click="addBlock"><KIcon name="plus" :size="14" />Blok toevoegen</button>
             <!-- Quick-add popular block types -->
             <button v-for="bt in quickBlockTypes" :key="bt.type" class="btn-secondary btn-sm text-xs" @click="addBlockOfType(bt.type, bt.name)">
-              {{ bt.icon }} {{ bt.name }}
+              <KIcon :name="bt.icon" :size="14" /> {{ bt.name }}
             </button>
           </div>
 
           <!-- Reusable blocks from other pages -->
           <div v-if="reusableBlocks.length > 0" class="card p-4 mb-4">
-            <h4 class="text-sm font-semibold text-gray-700 mb-2">♻️ Herbruikbare blokken (uit andere pagina's)</h4>
+            <h4 class="text-sm font-semibold text-gray-700 mb-2">Herbruikbare blokken (uit andere pagina's)</h4>
             <div class="flex flex-wrap gap-2">
               <button v-for="rb in reusableBlocks" :key="rb.id" class="btn-secondary btn-sm text-xs" @click="addReusableBlock(rb)">
-                {{ blockTypeIcon(rb.type) }} {{ rb.name }}
+                <KIcon :name="blockTypeIcon(rb.type)" :size="14" /> {{ rb.name }}
               </button>
             </div>
           </div>
@@ -214,6 +216,8 @@
 </template>
 
 <script setup lang="ts">
+import KIcon from '../ui/KIcon.vue'
+import { blockTypeIcon } from '../ui/iconMaps'
 import { ref, computed, watch, reactive, onMounted } from 'vue'
 import { useStructuurStore } from '../../stores/structuurStore'
 import { useProjectStore } from '../../stores/projectStore'
@@ -244,23 +248,25 @@ const editBlockName = ref('')
 
 const blockTypes: BlockType[] = ['hero', 'introductie', 'usp', 'dienst-uitleg', 'stappenplan', 'cases', 'reviews', 'faq', 'cta', 'contact', 'formulier', 'afbeelding-tekst', 'branche-overzicht', 'gerelateerde-paginas', 'video', 'prijzen', 'team', 'statistieken', 'custom']
 
-const quickBlockTypes = [
-  { type: 'hero' as BlockType, name: 'Hero', icon: '🖼️' },
-  { type: 'introductie' as BlockType, name: 'Introductie', icon: '📝' },
-  { type: 'usp' as BlockType, name: 'USP\'s', icon: '⭐' },
-  { type: 'cta' as BlockType, name: 'Call to Action', icon: '🎯' },
-  { type: 'faq' as BlockType, name: 'FAQ', icon: '❓' },
-  { type: 'reviews' as BlockType, name: 'Reviews', icon: '⭐' },
-  { type: 'contact' as BlockType, name: 'Contact', icon: '📞' },
-]
+const quickBlockTypes = (
+  [
+    { type: 'hero', name: 'Hero' },
+    { type: 'introductie', name: 'Introductie' },
+    { type: 'usp', name: 'USP\'s' },
+    { type: 'cta', name: 'Call to Action' },
+    { type: 'faq', name: 'FAQ' },
+    { type: 'reviews', name: 'Reviews' },
+    { type: 'contact', name: 'Contact' },
+  ] as { type: BlockType; name: string }[]
+).map(bt => ({ ...bt, icon: blockTypeIcon(bt.type) }))
 
 // Componenten uit de library, gegroepeerd per categorie voor de blok→component select.
 // Sub-componenten verschijnen ingesprongen als "Component / Sub".
 const componentsByCategory = computed(() => {
   const cats: { key: ComponentCategory; label: string }[] = [
-    { key: 'broodblok', label: '🍞 Broodblokken' },
-    { key: 'flexblok', label: '🔧 Flexibele Content' },
-    { key: 'posttype', label: '📋 Posttypes' },
+    { key: 'broodblok', label: 'Broodblokken' },
+    { key: 'flexblok', label: 'Flexibele Content' },
+    { key: 'posttype', label: 'Posttypes' },
   ]
   return cats
     .map(c => ({
@@ -405,14 +411,4 @@ function toggleQuestionLink(block: PageBlock, questionId: string) {
   updateBlock(block)
 }
 
-function blockTypeIcon(type: BlockType) {
-  const icons: Record<BlockType, string> = {
-    hero: '🖼️', introductie: '📝', usp: '⭐', 'dienst-uitleg': '🔧',
-    stappenplan: '📋', cases: '💼', reviews: '⭐', faq: '❓', cta: '🎯',
-    contact: '📞', formulier: '📄', 'afbeelding-tekst': '🖼️',
-    'branche-overzicht': '🏢', 'gerelateerde-paginas': '🔗', video: '🎬',
-    prijzen: '💰', team: '👥', statistieken: '📊', custom: '🧩'
-  }
-  return icons[type] || '🧩'
-}
 </script>

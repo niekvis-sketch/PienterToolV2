@@ -22,11 +22,11 @@ import ConcurrentenTab from '../concurrenten/ConcurrentenTab.vue'
 const activeTab = ref('doelgroepen')
 
 const tabs = [
-  { key: 'doelgroepen', label: 'Doelgroepen', icon: '🎯' },
-  { key: 'concurrenten', label: 'Concurrenten', icon: '🏢' },
-  { key: 'structuur', label: 'Structuur', icon: '🗂️' },
-  { key: 'contentStructuur', label: 'Content', icon: '📝' },
-  { key: 'componenten', label: 'Componenten', icon: '🧩' },
-  { key: 'instellingen', label: 'Instellingen', icon: '⚙️' },
+  { key: 'doelgroepen', label: 'Doelgroepen', icon: 'target' },
+  { key: 'concurrenten', label: 'Concurrenten', icon: 'building' },
+  { key: 'structuur', label: 'Structuur', icon: 'sitemap' },
+  { key: 'contentStructuur', label: 'Content', icon: 'note' },
+  { key: 'componenten', label: 'Componenten', icon: 'component' },
+  { key: 'instellingen', label: 'Instellingen', icon: 'settings' },
 ] as const
 </script>
